@@ -23,7 +23,7 @@ categories: wordpress blog javascript
 
   2. **Comment Reply Email Notification**
 
-      轻量级的专门用于评论邮件通知,安装启用后,每个评论下面会出现一个小的选择框,表示接受回复通知.可以自己修改插件换成中文.mnmnjjjjm,,,molkkkkkkkk;lpllpplplpppp./;;/.//................./.............当然这个插件只提供评论回复有效,并不会通知站长~
+      轻量级的专门用于评论邮件通知,安装启用后,每个评论下面会出现一个小的选择框,表示接受回复通知.可以自己修改插件换成中文.当然这个插件只提供评论回复有效,并不会通知站长~
 
   3. WP Mail SMTP
 
