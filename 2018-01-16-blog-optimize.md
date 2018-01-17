@@ -5,27 +5,27 @@ date: 2018-01-16
 categories: wordpress blog javascript
 ---
 
-#Wordpress相关优化更新
+# Wordpress相关优化更新
 1. WP的评论提示插件的更新优化,(由于之前方案较旧,全部更新)
 
-  Comment Reply Notifier插件被删除替代
+    Comment Reply Notifier插件被删除替代
 
-  WP SMTP插件被删除替代
+    WP SMTP插件被删除替代
 
-  Delete-Revision插件被删除替代
+    Delete-Revision插件被删除替代
 
-  还有几个N年没有更新的无效插件删除
+    还有几个N年没有更新的无效插件删除
 
 2. 其他的几个插件使用测试及介绍
-   1. Better Notifications for WordPress
+  1. Better Notifications for WordPress
 
       功能强大,有很多的类型管理的邮件通知设置,我基本上用不到,而且全英文,有一些学习成本,就放弃使用了,我也就不多做介绍了.
 
-   2. **Comment Reply Email Notification**
+  2. **Comment Reply Email Notification**
 
       轻量级的专门用于评论邮件通知,安装启用后,每个评论下面会出现一个小的选择框,表示接受回复通知.可以自己修改插件换成中文.mnmnjjjjm,,,molkkkkkkkk;lpllpplplpppp./;;/.//................./.............当然这个插件只提供评论回复有效,并不会通知站长~
 
-   3. WP Mail SMTP
+  3. WP Mail SMTP
 
       用来回复其他人在站点的评论,配置邮件服务器的插件
 
