@@ -11,5 +11,6 @@ This project is for whidy's notes,
 
 ### 2018年1月
 
-[2018-01-16-blog-optimize.md](https://github.com/whidy/daily/blob/master/posts/2018-01-16-blog-optimize.md)
+[2018-01-16-blog-optimize](https://github.com/whidy/daily/blob/master/posts/2018-01-16-blog-optimize.md)
 
+[2018-01-17-blog-sass-ftp-css3-animation-javascript](https://github.com/whidy/daily/blob/master/posts/2018-01-17-ftp-css-js.md)
