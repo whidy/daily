@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "xxxxxxxxxx"
+title: "提高网站可访问性的十个优化/Markdown语法研究/SSH/"
 date: 2018-01-18
-categories: 
+categories: website markdown ssh es6
 ---
 
 1. 一早, SB就跟我说那个panBaidu不能用了. 查了下果然呗百度封了. 顺便发现一个不错的[软件收藏与分享站](http://www.shaoit.com/)
@@ -29,4 +29,15 @@ categories:
     1. 最后推荐了几个不错的网站和专家, 对于页面可读性的提高的干货提供更为全面的学习和了解
 
 1. 针对markdown语法中, 区块元素的代码写法中, 无法增加多余空格的问题, 提问[how to make spaces or url inside a code span with markdown syntax](https://stackoverflow.com/questions/48313066/how-to-make-spaces-or-url-inside-a-code-span-with-markdown-syntax), 因为上一期有个关于[`(aﾠ==1 && a== 2 &&ﾠa==3)`](https://github.com/whidy/daily/blob/master/posts/2018-01-17-ftp-css-js.md)的文章. 需要这样的特殊写法. 目前只知道在markdown中使用html标签来处理, 例如`<code>&nbsp;a</code>`, 但这又是不规范的MD写法, 等待解决中.
-1. sss
+1. 粗读[多页为王：webpack多页应用架构专题系列](http://array_huang.coding.me/webpack-book/), 文中以webpack1.x来进行了一些介绍. 或许有些思路和技巧将来用得上.
+1. 有个80年程序员大佬在我博客留言推荐远程操作VPS的工具可以用[Bitvise SSH](https://www.bitvise.com/ssh-client), 于是下载下来体验下并修改了SSH端口号.
+    ```bash
+    vi /etc/ssh/sshd_config
+    ```
+    改掉Port 对应22为其他想要的, 然后重启服务
+    ```bash
+    service sshd restart
+    ```
+    关闭当前连接后修改连接配置为新端口重新连一次就好了.
+    另外Bitvise SSH果然方便, 自带FTP, 同步文件效率提升许多, 而且不用每次输入密码了. 屌炸天( •̀ ω •́ )y
+1. 阅读[ECMAScript 6 入门](http://es6.ruanyifeng.com/), 上次学到函数的拓展, 重新从此处学习.
