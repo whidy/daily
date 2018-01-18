@@ -1,4 +1,5 @@
 # Whidy Daily
+
 This project is for whidy's notes,
 
 自从2018年1月15日搭建了VPS上面的Jekyll后, 决定在上面进行记录每天的学习和工作, 不过昨天思考了一下, 如果把所有日志存放在vps上面, 万一哪天vps被我搞崩了, 或者研究学习Jekyll过程中搞毁了就惨了...
@@ -9,7 +10,7 @@ This project is for whidy's notes,
 
 以下是日志列表:
 
-### 2018年1月
+## 2018年1月
 
 [2018-01-16-blog-optimize](https://github.com/whidy/daily/blob/master/posts/2018-01-16-blog-optimize.md)
 
