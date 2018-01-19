@@ -15,3 +15,7 @@ This project is for whidy's notes,
 [2018-01-16-blog-optimize](https://github.com/whidy/daily/blob/master/posts/2018-01-16-blog-optimize.md)
 
 [2018-01-17-blog-sass-ftp-css3-animation-javascript](https://github.com/whidy/daily/blob/master/posts/2018-01-17-ftp-css-js.md)
+
+[2018-01-18-website-tweaks-markdown-ssh](https://github.com/whidy/daily/blob/master/posts/2018-01-18-website-tweaks-markdown-ssh.md)
+
+[2018-01-19-es6-babel-markdown](https://github.com/whidy/daily/blob/master/posts/2018-01-19-es6-babel-markdown.md)
