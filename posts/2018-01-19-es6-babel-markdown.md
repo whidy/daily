@@ -279,3 +279,5 @@ categories: markdown es6 ecmascript2015 babel vscode
     * yaml ('\*.yaml', '\*.yml')
 
 明天周末了, 希望不要忘了Daily~
+
+晚间补充, 看完[The Pacific](https://zh.wikipedia.org/wiki/%E5%A4%AA%E5%B9%B3%E6%B4%8B_(%E7%94%B5%E8%A7%86%E5%89%A7)), 看完颇有感触, 战争的残酷, 留下的精神上的创伤是无法想象的, 而当今的我们生活在这样一个世界里, 更是幸运. 最后向那些浴血奋战的捍卫祖国保卫人民的军人致敬. 另外早些年也看过HBO的兄弟连, 也是值得推荐的一部短剧.
