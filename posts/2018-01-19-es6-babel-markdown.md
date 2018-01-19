@@ -8,7 +8,6 @@ categories: markdown es6 ecmascript2015 babel vscode
 1. 需求开发讨论中
 1. 想起来有个离线API手册查询软件, 叫[Zeal](https://zealdocs.org/), 装上了. 然后发现实际上有写文档的体验并不好- -. 查一下jQuery, Sass之类还是可以的.
 1. Stackoverflow上面的问题[how to make spaces or url inside a code span with markdown syntax](https://stackoverflow.com/questions/48313066/how-to-make-spaces-or-url-inside-a-code-span-with-markdown-syntax)有了两个消息通知, 一个是居然有个人改了我的问题, 帮我修正语法错误, Stackoverflow上居然还有这种操作, 看了下改我问题的人的介绍, 看来是个完美主义者. 另外他回复提到了**零宽度空格**, 不过对我这个问题似乎没啥帮助.
-1. 阅读[ECMAScript 6 入门](http://es6.ruanyifeng.com/)
 1. 发现另一个专门用来格式化JavaScript/TypeScript/CSS的插件[**Prettier - Code formatter**](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), 至少在js格式化方面要比之前我用的[Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)好一些(Beautify插件提供的设置参数我尚未找到可能优化的地方). 例如这段代码, 原始代码如下
     ```javascript
     function foo({x,y=5}) {
@@ -36,7 +35,7 @@ categories: markdown es6 ecmascript2015 babel vscode
     "prettier.singleQuote": true,
     ```
     > 其实正是因为学习ES6上面的示例代码, 在Beautify处理后很不合理我才去探索其他插件的.
-1. 学习ES6过程中遇到一个奇怪的编译现象, 按照目前了解的情况, babel的配置文件.babelrc, 可以[官方简单配置](https://babeljs.io/docs/plugins/preset-env/#usage)如下:
+1. 阅读[ECMAScript 6 入门](http://es6.ruanyifeng.com/)过程中遇到一个奇怪的编译现象, 按照目前了解的情况, babel的配置文件.babelrc, 可以[官方简单配置](https://babeljs.io/docs/plugins/preset-env/#usage)如下:
     ```javascript
     //babelrc-1
     {
