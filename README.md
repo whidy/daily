@@ -19,3 +19,5 @@ This project is for whidy's notes,
 [2018-01-18-website-tweaks-markdown-ssh](https://github.com/whidy/daily/blob/master/posts/2018-01-18-website-tweaks-markdown-ssh.md)
 
 [2018-01-19-es6-babel-markdown](https://github.com/whidy/daily/blob/master/posts/2018-01-19-es6-babel-markdown.md)
+
+[2018-01-22-chrome-shadowroot-javascript-HxD](https://github.com/whidy/daily/blob/master/posts/2018-01-22-chrome-history-postcss.md.md)

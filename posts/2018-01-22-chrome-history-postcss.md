@@ -52,3 +52,5 @@ for (let i = 0; i < HISTORYITEMS.length; i++) {
 完成后, 再次启动Chrome, 如果没有发生什么异常, 我想这个奇葩想法的功能就实现了. 我成功的替换了280多条历史记录~
 
 ## PostCSS的ViewPort移动端适配插件简单架子
+
+内容相对简单, 其实就是介绍了一个插件, 可以直接clone下来测试, 并根据个人情况来配置[PostCSS学习指南终结篇](https://gitee.com/janking/Infinite-f2e/issues/IHIJ5), 之前也有研究过其他的插件, 还有css grid相关的学习, 不过过了几个月也没有实际用途就搁置了, 也算作废了.
