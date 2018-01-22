@@ -4,8 +4,8 @@ title: "ES6学习/Babel配置学习疑问/Markdown代码块高亮支持语法列
 date: 2018-01-19
 categories: markdown es6 ecmascript2015 babel vscode
 ---
+# 2018年1月19日 雾霾 一般
 
-1. 需求开发讨论中
 1. 想起来有个离线API手册查询软件, 叫[Zeal](https://zealdocs.org/), 装上了. 然后发现实际上有写文档的体验并不好- -. 查一下jQuery, Sass之类还是可以的.
 1. Stackoverflow上面的问题[how to make spaces or url inside a code span with markdown syntax](https://stackoverflow.com/questions/48313066/how-to-make-spaces-or-url-inside-a-code-span-with-markdown-syntax)有了两个消息通知, 一个是居然有个人改了我的问题, 帮我修正语法错误, Stackoverflow上居然还有这种操作, 看了下改我问题的人的介绍, 看来是个完美主义者. 另外他回复提到了**零宽度空格**, 不过对我这个问题似乎没啥帮助.
 1. 发现另一个专门用来格式化JavaScript/TypeScript/CSS的插件[**Prettier - Code formatter**](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), 至少在js格式化方面要比之前我用的[Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)好一些(Beautify插件提供的设置参数我尚未找到可能优化的地方). 例如这段代码, 原始代码如下
@@ -277,7 +277,3 @@ categories: markdown es6 ecmascript2015 babel vscode
     * xquery ('\*.xqy', '\*.xquery')
     * xslt ('\*.xsl', '\*.xslt')
     * yaml ('\*.yaml', '\*.yml')
-
-明天周末了, 希望不要忘了Daily~
-
-晚间补充, 看完[The Pacific](https://zh.wikipedia.org/wiki/%E5%A4%AA%E5%B9%B3%E6%B4%8B_(%E7%94%B5%E8%A7%86%E5%89%A7)), 看完颇有感触, 战争的残酷, 留下的精神上的创伤是无法想象的, 而当今的我们生活在这样一个世界里, 更是幸运. 最后向那些浴血奋战的捍卫祖国保卫人民的军人致敬. 另外早些年也看过HBO的兄弟连, 也是值得推荐的一部短剧.

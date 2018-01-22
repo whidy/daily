@@ -4,7 +4,9 @@ title: "博客插件优化及其他学习总结"
 date: 2018-01-16
 categories: wordpress blog javascript
 ---
-# Wordpress相关优化更新
+# 2018年1月16日 晴 一般
+
+## Wordpress相关优化更新
 
 1. WP的评论提示插件的更新优化,(由于之前方案较旧,全部更新)
 
@@ -120,5 +122,3 @@ categories: wordpress blog javascript
    ```
 
    却要故意调整顺序,写的那么复杂...
-
-1. 今天公司调整座位
