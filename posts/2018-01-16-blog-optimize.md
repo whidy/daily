@@ -4,7 +4,9 @@ title: "博客插件优化及其他学习总结"
 date: 2018-01-16
 categories: wordpress blog javascript
 ---
-# 2018年1月16日 晴 一般
+> 2018年1月16日 晴 一般
+
+# 博客插件优化 / VSCODE的FTP插件探索 / 不常见的JS写法 / SASS父级选择器写法研究
 
 ## Wordpress相关优化更新
 

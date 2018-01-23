@@ -4,7 +4,9 @@ title: "ES6学习/Babel配置学习疑问/Markdown代码块高亮支持语法列
 date: 2018-01-19
 categories: markdown es6 ecmascript2015 babel vscode
 ---
-# 2018年1月19日 雾霾 一般
+> 2018年1月19日 雾霾 一般
+
+# ES6学习 / Babel配置学习疑问 / Markdown代码块高亮支持语法列表
 
 1. 想起来有个离线API手册查询软件, 叫[Zeal](https://zealdocs.org/), 装上了. 然后发现实际上有写文档的体验并不好- -. 查一下jQuery, Sass之类还是可以的.
 1. Stackoverflow上面的问题[how to make spaces or url inside a code span with markdown syntax](https://stackoverflow.com/questions/48313066/how-to-make-spaces-or-url-inside-a-code-span-with-markdown-syntax)有了两个消息通知, 一个是居然有个人改了我的问题, 帮我修正语法错误, Stackoverflow上居然还有这种操作, 看了下改我问题的人的介绍, 看来是个完美主义者. 另外他回复提到了**零宽度空格**, 不过对我这个问题似乎没啥帮助.

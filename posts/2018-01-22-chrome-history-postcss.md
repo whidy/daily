@@ -4,9 +4,11 @@ title: "内网IP调整后引发谷歌浏览器历史记录的修改实现"
 date: 2018-01-22
 categories: chrome shadowroot javascript binary HxD command postcss
 ---
-# 2018年1月22日 晴 一般
+> 2018年1月22日 晴 一般
 
-## 内网IP调整引发的Chrome历史记录修改及ShadowRoot的学习
+# ShadowRoot的认识 / PostCSS移动端ViewPort脚手架
+
+## 内网IP调整引发的Chrome历史记录修改ShadowRoot的学习
 
 由于IP经常变动, 导致本地项目的那些存在地址栏的历史记录就都失效了, 突然脑洞大开, 有没有办法修改本地历史记录的方法?
 > 想法是: 假设我原IP是**192.168.1.51**, 新IP是**192.168.1.63**, 我历史记录有<http://192.168.1.51:8080/test.html>, 我通过某种办法强行修改Chrome历史记录将192.168.1.51替换成192.168.1.63, 这样, 下次在地址栏输入test, 他就能自动填充<http://192.168.1.63:8080/test.html>了.

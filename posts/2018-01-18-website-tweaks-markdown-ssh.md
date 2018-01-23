@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "提高网站可访问性的十个优化/Markdown语法研究/SSH/"
+title: "提高网站可访问性的十个优化/Markdown语法研究/SSH"
 date: 2018-01-18
 categories: website markdown ssh es6
 ---
-# 2018年1月18日 雾霾 一般
+> 2018年1月18日 雾霾 一般
+
+# 高网站可访问性的十个优化 / Markdown语法研究 / SSH / ES6
 
 1. 阅读[对网站的可访问性带来巨大影响的几个小优化](https://css-tricks.com/small-tweaks-can-make-huge-impact-websites-accessibility/), 原标题Small Tweaks That Can Make a Huge Impact on Your Website’s Accessibility
     1. 文中说明了语义化的重要性, 也推荐了一些[HTML5的学习网站](http://html5doctor.com/article-archive/)
