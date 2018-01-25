@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "啥也没干的一天"
-date: 2018-01-20
-categories: voidday
+title: "安装Gatsby和Strapi过程中的各种问题"
+date: 2018-01-24
+categories: gatsby strapi mongodb
 ---
 > 2018年1月24日 阴 一般
 
