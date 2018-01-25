@@ -617,7 +617,9 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
 
 > 相关参阅汇总
 >
-> * 本文操作参考[Building a static blog using Gatsby and Strapi](https://hackernoon.com/building-a-static-blog-using-gatsby-and-strapi-8b5acfc82ad8)或 <https://blog.strapi.io/building-a-static-website-using-gatsby-and-strapi/>(如果前面的那个无法访> 问)
+> * 本文操作参考[Building a static blog using Gatsby and Strapi](https://hackernoon.com/building-a-static-blog-using-gatsby-and-strapi-8b5acfc82ad8)或 <https://blog.strapi.io/building-a-static-website-using-gatsby-and-strapi/>(如果前面的那个无法访问)
 > * Gatsby官方[使用手册](https://www.gatsbyjs.org/docs/)和[开发教程](https://www.gatsbyjs.org/tutorial/)
 > * [Strapi文档](https://strapi.io/documentation/)
 > * [MongoDB 3.6官方手册](https://docs.mongodb.com/)和runoob上的[MongoDB 教程](http://www.runoob.com/mongodb/mongodb-tutorial.html)
+>
+> 最后打个小广告, 我有个GitHub项目, 用于记录我每天学习或者瞎折腾的技术, 范围不限, 有兴趣可以star我的[whidy daily](https://github.com/whidy/daily)
