@@ -25,3 +25,5 @@ This project is for whidy's notes,
 [2018-01-23-javascript-es6-babel](https://github.com/whidy/daily/blob/master/posts/2018-01-23-javascript-es6-babel.md)
 
 [2018-01-24-gatsby-strapi-mongodb](https://github.com/whidy/daily/blob/master/posts/2018-01-24-gatsby-strapi-mongodb.md)
+
+[2018-01-25-gatsby-strapi-mongodb](https://github.com/whidy/daily/blob/master/posts/2018-01-25-gatsby-strapi-mongodb.md)
