@@ -100,4 +100,7 @@ mongod --port 27017 --dbpath /data/db1
 * [Strapi文档](https://strapi.io/documentation/)
 * [MongoDB 3.6官方手册](https://docs.mongodb.com/)和runoob上的[MongoDB 教程](http://www.runoob.com/mongodb/mongodb-tutorial.html)
 
-> **由于本篇属日记性质, 因此内容稍显粗糙, 如果确实对这个感兴趣, 我整理了一份相对完整的文章, 请见daily项目articles目录的[用Gatsby和Strapi创建一个静态博客.md](https://github.com/whidy/daily/blob/master/articles/%E7%94%A8Gatsby%E5%92%8CStrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2.md)**
+## 总结日志"用Gatsby和Strapi创建一个静态博客"
+
+> **由于这两天的记录属日记性质, 因此内容稍显粗糙, 如果确实对这个感兴趣, 我整理了一份相对完整的文章, 请见daily项目articles目录的[用Gatsby和Strapi创建一个静态博客.md](https://github.com/whidy/daily/blob/master/articles/%E7%94%A8Gatsby%E5%92%8CStrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2.md)**
+
