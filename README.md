@@ -29,3 +29,9 @@ This project is for whidy's notes,
 [2018-01-25-gatsby-strapi-mongodb](https://github.com/whidy/daily/blob/master/posts/2018-01-25-gatsby-strapi-mongodb.md)
 
 [2018-01-26-es6-pwa](https://github.com/whidy/daily/blob/master/posts/2018-01-26-es6-pwa.md)
+
+[2018-01-28-styledcomponents](https://github.com/whidy/daily/blob/master/posts/2018-01-28-styledcomponents.md)
+
+[2018-01-29-es6-function](https://github.com/whidy/daily/blob/master/posts/2018-01-29-es6-function.md)
+
+[2018-01-30-es6-javascript-event](https://github.com/whidy/daily/blob/master/posts/2018-01-30-es6-javascript-event.md)
