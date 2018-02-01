@@ -35,3 +35,5 @@ This project is for whidy's notes,
 [2018-01-29-es6-function](https://github.com/whidy/daily/blob/master/posts/2018-01-29-es6-function.md)
 
 [2018-01-30-es6-javascript-event](https://github.com/whidy/daily/blob/master/posts/2018-01-30-es6-javascript-event.md)
+
+[2018-02-01-regexp](https://github.com/whidy/daily/blob/master/posts/2018-02-01-regexp.md)
