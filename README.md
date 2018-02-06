@@ -39,3 +39,5 @@ This project is for whidy's notes,
 [2018-02-01-regexp](https://github.com/whidy/daily/blob/master/posts/2018-02-01-regexp.md)
 
 [2018-02-02-postcss-plugins](https://github.com/whidy/daily/blob/master/posts/2018-02-02-postcss.md)
+
+[2018-02-05-replace-exec](https://github.com/whidy/daily/blob/master/posts/2018-02-05-replace-exec.md)
