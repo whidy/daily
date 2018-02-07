@@ -41,3 +41,7 @@ This project is for whidy's notes,
 [2018-02-02-postcss-plugins](https://github.com/whidy/daily/blob/master/posts/2018-02-02-postcss.md)
 
 [2018-02-05-replace-exec](https://github.com/whidy/daily/blob/master/posts/2018-02-05-replace-exec.md)
+
+[2018-02-06-es6-function](https://github.com/whidy/daily/blob/master/posts/2018-02-06-es6-function.md)
+
+[2018-02-07-prototype-constructor](https://github.com/whidy/daily/blob/master/posts/2018-02-07-prototype-constructor.md)
