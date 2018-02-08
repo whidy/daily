@@ -4,7 +4,7 @@ title: "call和apply"
 date: 2018-02-08
 categories: javascript call apply
 ---
-> 2018年2月7日 晴 一般
+> 2018年2月8日 晴 一般
 
 # 函数原型和继承学习总结
 
