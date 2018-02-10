@@ -45,3 +45,7 @@ This project is for whidy's notes,
 [2018-02-06-es6-function](https://github.com/whidy/daily/blob/master/posts/2018-02-06-es6-function.md)
 
 [2018-02-07-prototype-constructor](https://github.com/whidy/daily/blob/master/posts/2018-02-07-prototype-constructor.md)
+
+[2018-02-08-object-call-apply](https://github.com/whidy/daily/blob/master/posts/2018-02-08-object-call-apply.md)
+
+[2018-02-09-postcss-cssnano](https://github.com/whidy/daily/blob/master/posts/2018-02-09-postcss-cssnano.md)
