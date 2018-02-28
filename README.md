@@ -49,3 +49,11 @@ This project is for whidy's notes,
 [2018-02-08-object-call-apply](https://github.com/whidy/daily/blob/master/posts/2018-02-08-object-call-apply.md)
 
 [2018-02-09-postcss-cssnano](https://github.com/whidy/daily/blob/master/posts/2018-02-09-postcss-cssnano.md)
+
+[2018-02-12-untitled-welcome-dog-year-coming](https://github.com/whidy/daily/blob/master/posts/2018-02-12-untitled.md)
+
+[2018-02-23-cssnano-happy-dog-year](https://github.com/whidy/daily/blob/master/posts/2018-02-23-cssnano.md)
+
+[2018-02-24-cssnano](https://github.com/whidy/daily/blob/master/posts/2018-02-24-cssnano.md)
+
+[2018-02-28-javascript](https://github.com/whidy/daily/blob/master/posts/2018-02-28-javascript.md)
