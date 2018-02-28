@@ -13,5 +13,15 @@
 >
 > 那么, 也许将来还会有其他调整, 希望这个To Do List能坚持下去, 并带来有效的提高.
 
+## Mar.
+
+* [ ] 学习KOA相关基础 [2018-03-01] / [-]
+
+## Feb.
+
+* [ ] 分析`cssnano`的内置插件关闭功能, 详见[post-02-23](https://github.com/whidy/daily/blob/master/posts/2018-02-23-cssnano.md) [2018-02-24] / [-]
+
+## Jan.
+
 * [x] 完成To Do List的创建工作 [2018-01-28] / [2018-01-28] / [2018-01-28]
 * [ ] 完成[ECMAScript 6 入门](http://es6.ruanyifeng.com/)的学习和研究 [2018-01-30] / [-]

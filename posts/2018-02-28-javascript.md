@@ -109,3 +109,5 @@ _至此, 复习结束, 结论是, 不少关于原型的东西貌似又忘了😭
 
 > 很奇怪, 之前提交这个repo都是直接vscode点击下就好了, 怎么突然就要输入用户密码了. 查了半天才发现即便有ssh, 如果用的`https`协议, 始终都需要输入用户密码, 可是我好像没有修改过这些啊, 怎么回事呢. 参阅: [Git keeps prompting me for password
 ](https://stackoverflow.com/questions/7773181/git-keeps-prompting-me-for-password)
+
+> 修改了之前按月份来记录`To Do List`和`To Read List`的方式, 因为实际数量不大, 没有必要分多文件管理, 所以调整了.
