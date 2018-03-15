@@ -15,7 +15,10 @@
 
 ## Mar.
 
-* [ ] 学习KOA相关基础 [2018-03-01] / [-]
+* [ ] 学习[KOA](http://www.koacn.com/)相关基础, [例子](https://github.com/koajs/examples) [2018-03-01] / [-]
+* [ ] 学习[微信小程序](https://mp.weixin.qq.com/debug/wxadoc/dev/)的开发 [2018-03-05] / [-]
+  * [ ] 学习[WePY](https://github.com/Tencent/wepy)的使用
+* [ ] 学习[Mock](https://github.com/nuysoft/Mock)的使用
 
 ## Feb.
 

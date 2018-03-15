@@ -10,7 +10,7 @@ This project is for whidy's notes,
 
 以下是日志列表:
 
-## 2018年1月
+## 2018年
 
 [2018-01-16-blog-optimize](https://github.com/whidy/daily/blob/master/posts/2018-01-16-blog-optimize.md)
 

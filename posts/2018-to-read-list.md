@@ -17,7 +17,7 @@
 
 ## Mar.
 
-
+* [ ] [给 JavaScript 初心者的 ES2015 实战](https://gank.io/post/564151c1f1df1210001c9161) [2018-03-05]
 
 ## Feb.
 
@@ -38,6 +38,3 @@
 * [ ] Javascript(包含ES6)相关编码规范, 在基本学习完ES6后, 有必要了解的文档  [2018-01-30]
   * [ ] [JavaScript 规范（ES6）](http://bubkoo.com/2015/04/05/javascript-style-guide/)
   * [ ] [Airbnb JavaScript 编码规范](https://github.com/yuche/javascript)
-
-
- 
