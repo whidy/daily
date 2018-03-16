@@ -86,3 +86,22 @@ AddOutputFilterByType DEFLATE application/x-javascript
 
 * [Apache 性能配置优化](https://cloud.tencent.com/developer/article/1004879)
 * [apache服务器优化(重要)](https://www.kancloud.cn/curder/apache/91275)
+
+## 其他
+
+晚上突然发现博客不能正常访问了, 提示`Error Establishing a Database Connection`, 我擦, 怎么回事? 记得下班的时候还是好的?
+
+然后想到我的MariaDB的账户是`root`, 密码是`123654`. 还开放了`phpmyadmin`的外网访问权限, 虽然对IP做了域名转向貌似已经无法web管理数据库了, 难道是安全问题?
+
+于是SSH登陆进去, 试着连接数据库操作, 出现以下情况(一脸懵逼)
+
+![error](https://raw.githubusercontent.com/whidy/daily/master/sources/images/2018-03-16-1.png)
+
+然后试着重置一下密码, 也不知道是不是跟这个有关系, 改完`mysql`密码和`wp-config.php`配置后, 博客可以正常访问了.
+
+重置`MariaDB`的`root`密码参阅以下文章:
+
+* [How To Reset Your MySQL or MariaDB Root Password](https://www.digitalocean.com/community/tutorials/how-to-reset-your-mysql-or-mariadb-root-password)
+* [How to Install MariaDB on CentOS 7](https://linode.com/docs/databases/mariadb/how-to-install-mariadb-on-centos-7/)
+
+一不小心又折腾到了晚上十二点, 一直被一直吸满血的蚊子骚扰, 打死它就睡觉.
