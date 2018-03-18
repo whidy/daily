@@ -57,3 +57,9 @@ This project is for whidy's notes,
 [2018-02-24-cssnano](https://github.com/whidy/daily/blob/master/posts/2018-02-24-cssnano.md)
 
 [2018-02-28-javascript](https://github.com/whidy/daily/blob/master/posts/2018-02-28-javascript.md)
+
+[2018-03-16-apache-host](https://github.com/whidy/daily/blob/master/posts/2018-03-16-apache-host.md)
+
+[2018-03-17-php-upgrade-7.x](https://github.com/whidy/daily/blob/master/posts/2018-03-17-php-upgrade-7.x.md)
+
+[2018-03-18-jekyll-ruby-rails-linux-weapp](https://github.com/whidy/daily/blob/master/posts/2018-03-18-jekyll-ruby-rails-linux-weapp.md)
