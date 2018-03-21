@@ -63,3 +63,8 @@ This project is for whidy's notes,
 [2018-03-17-php-upgrade-7.x](https://github.com/whidy/daily/blob/master/posts/2018-03-17-php-upgrade-7.x.md)
 
 [2018-03-18-jekyll-ruby-rails-linux-weapp](https://github.com/whidy/daily/blob/master/posts/2018-03-18-jekyll-ruby-rails-linux-weapp.md)
+
+[2018-03-20-mariadb](https://github.com/whidy/daily/blob/master/posts/2018-03-20-mariadb.md)
+
+[2018-03-21-nginx](https://github.com/whidy/daily/blob/master/posts/2018-03-21-nginx.md)
+
