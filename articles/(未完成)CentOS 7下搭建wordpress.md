@@ -1,6 +1,5 @@
 # CentOS 7下搭建Wordpress博客方法
 
-
 ## 安装LAMP
 
 https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-centos-7
