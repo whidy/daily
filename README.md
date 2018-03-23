@@ -68,3 +68,5 @@ This project is for whidy's notes,
 
 [2018-03-21-nginx](https://github.com/whidy/daily/blob/master/posts/2018-03-21-nginx.md)
 
+[2018-03-22-nginx-phpfpm](https://github.com/whidy/daily/blob/master/posts/2018-03-22-nginx-phpfpm.md)
+
