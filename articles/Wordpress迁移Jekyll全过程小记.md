@@ -260,8 +260,8 @@ Configuration file: /home/whidy/blog/_config.yml
       Generating...
      ...此处省略字数 哈哈哈...
      Build Warning: Layout 'nav_menu_item' requested in _posts/2012-11-27-1132.html does not exist.
-  Liquid Exception: Liquid syntax error (line 40): Variable '{{$r['catid']}' was not properly terminated with regexp: /\}\}/ in /home/whidy/blog/_posts/2012-11-29-phpcms-page-solution.html
-jekyll 3.7.3 | Error:  Liquid syntax error (line 40): Variable '{{$r['catid']}' was not properly terminated with regexp: /\}\}/
+  Liquid Exception: Liquid syntax error (line 40): Variable '{{$r['catid']}}' was not properly terminated with regexp: /\}\}/ in /home/whidy/blog/_posts/2012-11-29-phpcms-page-solution.html
+jekyll 3.7.3 | Error:  Liquid syntax error (line 40): Variable '{{$r['catid']}}' was not properly terminated with regexp: /\}\}/
 ```
 
 查了下大概是说`Liquid`的正则规则, 面对`{{`这种玩意就挂了. 把它改成`{ {`, 参阅: [Liquid Exception: Variable '{{ {0}' was not properly terminated with regexp: /\}\}/ in #466](https://github.com/imathis/octopress/issues/466), 然后我就去`_posts`目录把这篇文章手动改了... 再`jekyll b`一下.
