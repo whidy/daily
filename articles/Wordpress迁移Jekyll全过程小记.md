@@ -298,7 +298,7 @@ Configuration file: /home/whidy/blog/_config.yml
 
 迁移完成后, 也有一些问题是需要解决的, 大致想到的如下
 
-* 现有的不正确内容的修正
+* 现有的不正确内容的修正(资源文件管理, 文章内图片的链接等)
 * 主题及相关功能开发
 * 评论系统的植入, 考虑使用disqus
 * seo方面, url规则匹配旧的wordpress(考虑Nginx定向或其他方案)
