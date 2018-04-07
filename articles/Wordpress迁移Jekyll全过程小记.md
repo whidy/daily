@@ -264,7 +264,7 @@ Configuration file: /home/whidy/blog/_config.yml
 jekyll 3.7.3 | Error:  Liquid syntax error (line 40): Variable '{{$r['catid']}}' was not properly terminated with regexp: /\}\}/
 ```
 
-查了下大概是说`Liquid`的正则规则, 面对`{{`这种玩意就挂了. 把它改成`{ {`, 参阅: [Liquid Exception: Variable '{{ {0}' was not properly terminated with regexp: /\}\}/ in #466](https://github.com/imathis/octopress/issues/466), 然后我就去`_posts`目录把这篇文章手动改了... 再`jekyll b`一下.
+查了下大概是说`Liquid`的正则规则, 面对<code>{{</code>这种玩意就挂了. 把它改成<code>{ {</code>, 参阅: [Liquid Exception: Variable '{{ {0}' was not properly terminated with regexp: /\}\}/ in #466](https://github.com/imathis/octopress/issues/466), 然后我就去`_posts`目录把这篇文章手动改了... 再`jekyll b`一下.
 
 ```bash
 [whidy@VM_0_3_centos blog]$ jekyll b
