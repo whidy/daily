@@ -83,10 +83,10 @@ server {
         try_files $uri $uri/ /index.php?$args;
 
         if ($http_host ~* "^(www.)?whidy.cn$"){
-            rewrite ^(.*)$ http://www.whidy.net/$1 permanent;
+            rewrite ^(.*)$ https://www.whidy.net/$1 permanent;
         }
         if ($http_host ~* "^whidy.net$"){
-            rewrite ^(.*)$ http://www.whidy.net/$1 permanent;
+            rewrite ^(.*)$ https://www.whidy.net/$1 permanent;
         }
     }
 

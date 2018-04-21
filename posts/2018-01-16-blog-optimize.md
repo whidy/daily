@@ -42,7 +42,7 @@ categories: wordpress blog javascript
 
 ## 其他
 
-1. 完成博客内容[怎样找到当前页面发布日期的几种方法](http://www.whidy.net/the-way-to-find-the-publish-date-of-any-web-content.html),并发布在[SegmentFault文章](https://segmentfault.com/a/1190000012858269)
+1. 完成博客内容[怎样找到当前页面发布日期的几种方法](https://www.whidy.net/the-way-to-find-the-publish-date-of-any-web-content.html),并发布在[SegmentFault文章](https://segmentfault.com/a/1190000012858269)
 
 1. 阅读[JS things I never knew existed](https://air.ghost.io/js-things-i-never-knew-existed/),并参阅MDN进行简单总结
 
