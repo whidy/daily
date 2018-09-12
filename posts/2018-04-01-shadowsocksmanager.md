@@ -4,6 +4,7 @@ title: "shadowsocks-manager搭建"
 date: 2018-04-01
 categories: shadowsocks-manager shadowsocks pm2
 ---
+
 > 2018年4月1日 晴 一般
 
 # shadowsocks-manager搭建
@@ -12,7 +13,7 @@ categories: shadowsocks-manager shadowsocks pm2
 
 以下内容主要参阅: [WebGUI](https://github.com/shadowsocks/shadowsocks-manager/wiki/WebGUI)
 
-## 安装`shadowsocks-libev`
+## 安装[`shadowsocks-libev`](https://github.com/shadowsocks/shadowsocks-libev)
 
 我的`centos7`之前用的网上的一键安装, 虽然那个捆绑式安装过`shadowsocks-libev`, 也能正常使用shadowsocks, 但是无法使用命令`ss-manager`, 于是只能重新搞. 大致流程如下:
 
@@ -53,8 +54,19 @@ categories: shadowsocks-manager shadowsocks pm2
 
 ## 安装`ssmgr`
 
-```bas
+```bash
 # npm i -g shadowsocks-manager
+```
+
+> 这里可能会出现一直刷错误，大概如下：
+
+```bash
+gyp WARN EACCES attempting to reinstall using temporary dev dir "/usr/lib/node_modules/shadowsocks-manager/node_modules/sqlite3/.node-gyp"-bash: printf: write error: Interrupted system call
+```
+如果出现该问题，尝试使用以下附带`--unsafe-perm`的命令<https://github.com/shadowsocks/shadowsocks-manager#from-npm>进行安装：
+
+```bash
+# npm i -g shadowsocks-manager --unsafe-perm
 ```
 
 ## 配置
@@ -183,7 +195,7 @@ There are screens on:
 
 我搞了一天. 先是注册了一个aol邮箱, 做smtp, 结果被封了, 还不知道原因, 查了好久才知道当spam垃圾邮箱发送器了.
 
-又看教程, 用`mailgun`, 也注册了一个, ~~坑爹的还要给用户加白名单, 一开始完全看不懂是个什么逻辑, 折腾一晚上, 才搞明白, 以为给配一个域名就行了. 结果还是不行. 气死了.~~
+又看教程, 用`mailgun`, 也注册了一个, 坑爹的还要给用户加白名单, 一开始完全看不懂是个什么逻辑, 折腾一晚上, 才搞明白, 以为给配一个域名就行了. 结果还是不行. 气死了.
 
 > 之前没找到, 后来问了下, 仔细找了找, 用户设置(Account - Settings - Details - Payment Method)这里可以免费绑定信用卡, 大概是每月限制发送`2100`条, 基本上OK啦
 
