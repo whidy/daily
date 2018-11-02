@@ -60,7 +60,7 @@ jQuery.ajax({
 // 原文網址：https://itw01.com/2Z6WE2L.html
 ```
 
-这里使用了JQuery的Ajax函数，并为参数设置为同步执行。那么将于到一种可怕的情况，这段代码在success回调前，后面的Javascript代码将不再执行。也就造成了可怕的阻塞(blocking)。
+这里使用了JQuery的Ajax函数，并为参数设置为同步执行。那么将遇到一种可怕的情况，这段代码在success回调前，后面的Javascript代码将不再执行。也就造成了可怕的阻塞(blocking)。
 
 ### 这段代码什么鬼，看着有点晕XD
 
