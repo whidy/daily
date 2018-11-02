@@ -142,7 +142,7 @@ JavaScript的并发模型基于"事件循环"(Event Loop)。这个模型与像C�
 
   不论是否懂得事件循环的初学者，看到这段代码应该也能猜出来答案是： `Hi Bye cb1`。毕竟cb1有一个5s的定时器。但是执行细节是怎样的呢。我们来看下面这张gif图。
 
-  ![一步步分析事件循环](https://raw.githubusercontent.com/whidy/daily/master/sources/images/javascrip-event-loop-1/event-loop-steps.png)
+  ![一步步分析事件循环](https://raw.githubusercontent.com/whidy/daily/master/sources/images/javascrip-event-loop-1/event-loop-steps.gif)
 
   图中已经很清楚的展示了整个Javascript代码是如何运作的。相信大家已经有较大的收获了。
 
