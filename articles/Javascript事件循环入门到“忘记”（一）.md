@@ -180,7 +180,7 @@ three()
 ### 文中参考的一些资料（★表示推荐等级）
 
 1. [深入理解js事件循环机制（浏览器篇）](http://lynnelv.github.io/js-event-loop-browser) ★★★★☆
-1. [深入理解事件迴圈和非同步流程控制](https://itw01.com/2Z6WE2L.html) ★★★★☆
+1. [深入理解事件迴圈和非同步流程控制](https://itw01.com/2Z6WE2L.html) ★★★★☆
 1. [Philip Roberts: What the heck is the event loop anyway? | JSConf EU](https://www.youtube.com/watch?v=8aGhZQkoFbQ) ★★★★★
     > 这是一段来自Youtube的演讲视频，视频中有用到一个工具"[loupe - 模拟执行顺序的工具](http://latentflip.com/loupe/)"，值得研究！ ★★★★★
 1. [Tasks, microtasks, queues and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/) ★★★★★
