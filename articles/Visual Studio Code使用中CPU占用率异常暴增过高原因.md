@@ -69,9 +69,12 @@ Workspace Stats:
 先来看看正常情况下和非正常情况的运行情况对比图：
 
 ![正常情况下的截图](https://raw.githubusercontent.com/whidy/daily/master/sources/images/2019-01-28-1.png)
+
 上图为正常情况下的截图
 
+
 ![异常情况下的截图](https://raw.githubusercontent.com/whidy/daily/master/sources/images/2019-01-28-2.png)
+
 上图为异常情况下的截图
 
 这个问题真的令我很苦恼，我这两张截图期间绝对没有做任何可能会产生高计算需求的工作，但是正常的操作怎么会出现这种情况呢。
