@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note  | shadowsocks-manager搭建</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="shadowsocks-manager搭建" />
+<meta property="og:description" content="2018年4月1日 晴 一般
+ shadowsocks-manager搭建  该文章仅作为日志记录一下, 因为工作原因, 或者个人原因吧, 会习惯使用谷歌去查找技术资料, 所以shadowsocks在工作生活中必不可少, 之前买了个国外的服务器, 一直用着不错, 也有几个比较好的朋友想要买我的这个梯子, 于是就搭建了一个官方的管理平台.
+ 以下内容主要参阅: WebGUI
+安装shadowsocks-libev 我的centos7之前用的网上的一键安装, 虽然那个捆绑式安装过shadowsocks-libev, 也能正常使用shadowsocks, 但是无法使用命令ss-manager, 于是只能重新搞. 大致流程如下:
+删除旧版(好吧,这里暴露了) # wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh # chmod &#43;x shadowsocks-libev.sh # ./shadowsocks-libev.sh uninstall  输入y
+正常安装 # yum install epel-release -y # yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y  此时需要用第三方源(centos7)
+# vi /etc/yum." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://daily.whidy.net/posts/2018-04-01-shadowsocksmanager/" />
+<meta property="article:published_time" content="2018-04-01T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-04-01T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="shadowsocks-manager搭建">
+<meta itemprop="description" content="2018年4月1日 晴 一般
+ shadowsocks-manager搭建  该文章仅作为日志记录一下, 因为工作原因, 或者个人原因吧, 会习惯使用谷歌去查找技术资料, 所以shadowsocks在工作生活中必不可少, 之前买了个国外的服务器, 一直用着不错, 也有几个比较好的朋友想要买我的这个梯子, 于是就搭建了一个官方的管理平台.
+ 以下内容主要参阅: WebGUI
+安装shadowsocks-libev 我的centos7之前用的网上的一键安装, 虽然那个捆绑式安装过shadowsocks-libev, 也能正常使用shadowsocks, 但是无法使用命令ss-manager, 于是只能重新搞. 大致流程如下:
+删除旧版(好吧,这里暴露了) # wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh # chmod &#43;x shadowsocks-libev.sh # ./shadowsocks-libev.sh uninstall  输入y
+正常安装 # yum install epel-release -y # yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y  此时需要用第三方源(centos7)
+# vi /etc/yum.">
+
+
+<meta itemprop="datePublished" content="2018-04-01T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-04-01T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="376">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="shadowsocks-manager搭建"/>
+<meta name="twitter:description" content="2018年4月1日 晴 一般
+ shadowsocks-manager搭建  该文章仅作为日志记录一下, 因为工作原因, 或者个人原因吧, 会习惯使用谷歌去查找技术资料, 所以shadowsocks在工作生活中必不可少, 之前买了个国外的服务器, 一直用着不错, 也有几个比较好的朋友想要买我的这个梯子, 于是就搭建了一个官方的管理平台.
+ 以下内容主要参阅: WebGUI
+安装shadowsocks-libev 我的centos7之前用的网上的一键安装, 虽然那个捆绑式安装过shadowsocks-libev, 也能正常使用shadowsocks, 但是无法使用命令ss-manager, 于是只能重新搞. 大致流程如下:
+删除旧版(好吧,这里暴露了) # wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh # chmod &#43;x shadowsocks-libev.sh # ./shadowsocks-libev.sh uninstall  输入y
+正常安装 # yum install epel-release -y # yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y  此时需要用第三方源(centos7)
+# vi /etc/yum."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">shadowsocks-manager搭建</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-04-01T00:00:00Z">April 1, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年4月1日 晴 一般</p>
+</blockquote>
+
+<h1 id="shadowsocks-manager搭建">shadowsocks-manager搭建</h1>
+
+<blockquote>
+<p>该文章仅作为日志记录一下, 因为工作原因, 或者个人原因吧, 会习惯使用谷歌去查找技术资料, 所以shadowsocks在工作生活中必不可少, 之前买了个国外的服务器, 一直用着不错, 也有几个比较好的朋友想要买我的这个梯子, 于是就搭建了一个官方的管理平台.</p>
+</blockquote>
+
+<p>以下内容主要参阅: <a href="https://github.com/shadowsocks/shadowsocks-manager/wiki/WebGUI">WebGUI</a></p>
+
+<h2 id="安装-shadowsocks-libev-https-github-com-shadowsocks-shadowsocks-libev">安装<a href="https://github.com/shadowsocks/shadowsocks-libev"><code>shadowsocks-libev</code></a></h2>
+
+<p>我的<code>centos7</code>之前用的网上的一键安装, 虽然那个捆绑式安装过<code>shadowsocks-libev</code>, 也能正常使用shadowsocks, 但是无法使用命令<code>ss-manager</code>, 于是只能重新搞. 大致流程如下:</p>
+
+<h3 id="删除旧版-好吧-这里暴露了">删除旧版(好吧,这里暴露了)</h3>
+
+<pre><code class="language-bash"># wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh
+# chmod +x shadowsocks-libev.sh
+# ./shadowsocks-libev.sh uninstall
+</code></pre>
+
+<p>输入<code>y</code></p>
+
+<h3 id="正常安装">正常安装</h3>
+
+<pre><code class="language-bash"># yum install epel-release -y
+# yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y
+</code></pre>
+
+<p>此时需要用第三方源(<a href="https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo">centos7</a>)</p>
+
+<pre><code class="language-bash"># vi /etc/yum.repos.d/librehat-shadowsocks-epel-7.repo
+</code></pre>
+
+<p>把刚才的源拷贝进去保存, 再执行</p>
+
+<pre><code class="language-bash"># su -c 'yum install shadowsocks-libev'
+</code></pre>
+
+<p>就完成了<code>shadowsocks-libev</code>安装</p>
+
+<h2 id="安装node-js-略">安装Node.js(略)</h2>
+
+<blockquote>
+<p>测试过<code>node.js 8.x</code>没有问题, 安装比较简单, 参考这个就行<a href="https://github.com/nodesource/distributions#enterprise-linux-based-distributions">https://github.com/nodesource/distributions#enterprise-linux-based-distributions</a></p>
+</blockquote>
+
+<h2 id="安装-ssmgr">安装<code>ssmgr</code></h2>
+
+<pre><code class="language-bash"># npm i -g shadowsocks-manager
+</code></pre>
+
+<blockquote>
+<p>这里可能会出现一直刷错误，大概如下：</p>
+</blockquote>
+
+<pre><code class="language-bash">gyp WARN EACCES attempting to reinstall using temporary dev dir &quot;/usr/lib/node_modules/shadowsocks-manager/node_modules/sqlite3/.node-gyp&quot;-bash: printf: write error: Interrupted system call
+</code></pre>
+
+<p>如果出现该问题，尝试使用以下附带<code>--unsafe-perm</code>的命令<a href="https://github.com/shadowsocks/shadowsocks-manager#from-npm">https://github.com/shadowsocks/shadowsocks-manager#from-npm</a>进行安装：</p>
+
+<pre><code class="language-bash"># npm i -g shadowsocks-manager --unsafe-perm
+</code></pre>
+
+<h2 id="配置">配置</h2>
+
+<p>我现在只有一台服务器, 所以就以一台服务器为例, 假设这台服务器自己做网站, 也做梯子, IP是<code>114.1.1.1</code>.</p>
+
+<p>你大概需要编写<code>2</code>个文件, 并同时执行<code>3</code>个命令(在没有使用<code>screen</code>, <code>pm2</code>等工具的情况下):</p>
+
+<ol>
+<li><code>~/.ssmgr/ss.yml</code> 作为服务器配置
+<br /></li>
+</ol>
+
+<pre><code class="language-yml">  type: s
+
+  shadowsocks:
+    address: 127.0.0.1:4000
+    # 这里的地址和端口需要跟上一步的 --manager-address 参数保持一致，连接上述 udp 端口
+  manager:
+    address: 114.1.1.1:4001
+    # 这个 address 参数会让程序监听一个 tcp 端口，用于接收 webgui 发送过来的控制命令
+    password: '123456'
+  db: 'ss.sqlite'
+</code></pre>
+
+<ol>
+<li><code>~/.ssmgr/webgui.yml</code></li>
+</ol>
+
+<pre><code class="language-yml">  type: m
+
+  manager:
+    address: 114.1.1.1:4001
+    password: '123456'
+    # 这部分的端口和密码需要跟上一步 manager 参数里的保持一致，以连接 type s 部分监听的 tcp 端口
+  plugins:
+    flowSaver:
+      use: true
+    user:
+      use: true
+    account:
+      use: true
+    macAccount:
+      use: true
+    group:
+      use: true
+    email:
+      use: true
+      type: 'smtp'
+      username: 'username'
+      password: 'password'
+      host: 'smtp.your-email.com'
+      # 这部分的邮箱和密码是用于发送注册验证邮件，重置密码邮件
+    webgui:
+      use: true
+      host: '114.1.1.1'
+      port: '8086'
+      site: 'http://114.1.1.1'
+      # cdn: 'http://xxx.com' # 静态资源cdn地址，可省略
+      # icon: 'icon.png' # 自定义首页图标，默认路径在 ~/.ssmgr 可省略
+      # skin: 'default' # 首页皮肤，可省略
+      # googleAnalytics: 'UA-xxxxxxxx-x' # Google Analytics ID，可省略
+      gcmSenderId: '456102641793'
+      gcmAPIKey: 'AAAAGzzdqrE:XXXXXXXXXXXXXX'
+    webgui_telegram: // telegram 机器人的配置，可省略
+      use: false
+      token: '191374681:AAw6oaVPR4nnY7T4CtW78QX-Xy2Q5WD3wmZ'
+    alipay:
+      # 如果不使用支付宝，这段可以去掉
+      use: false
+      appid: 2015012108272442
+      notifyUrl: 'http://yourwebsite.com/api/user/alipay/callback'
+      merchantPrivateKey: 'xxxxxxxxxxxx'
+      alipayPublicKey: 'xxxxxxxxxxx'
+      gatewayUrl: 'https://openapi.alipay.com/gateway.do'
+    paypal:
+      # 如果不使用paypal，这段可以去掉
+      use: false
+      mode: 'live' # sandbox or live
+      client_id: 'At9xcGd1t5L6OrICKNnp2g9'
+      client_secret: 'EP40s6pQAZmqp_G_nrU9kKY4XaZph'
+
+  db: 'webgui.sqlite'
+</code></pre>
+
+<p>三条命令:</p>
+
+<ol>
+<li><p>启动该服务器上的<code>shadowsocks</code></p>
+
+<pre><code class="language-bash"># ss-manager -m aes-256-cfb -u --manager-address 127.0.0.1:4000
+</code></pre></li>
+
+<li><p>启动该服务器的管理程序</p>
+
+<pre><code class="language-bash"># ssmgr -c ss.yml
+</code></pre></li>
+
+<li><p>启动WebGUI</p>
+
+<pre><code class="language-bash"># ssmgr -c webgui.yml
+</code></pre></li>
+</ol>
+
+<p>每个命令窗口没报错就OK了. 浏览器打开<code>http://114.1.1.1:8086</code>, 能访问到就ok~</p>
+
+<h2 id="其他">其他</h2>
+
+<h3 id="关于screen">关于screen</h3>
+
+<p>当然关于命令行, 建议用工具维护. 我这里还没学会怎么使用<code>pm2</code>, 就粗略的学习了一下<code>screen</code>, 参考<a href="https://www.cnblogs.com/mchina/archive/2013/01/30/2880680.html">linux screen 命令详解</a></p>
+
+<p>反正就是<code>screen -S s1</code>, 跑完<code>命令1</code>, 按<code>C-a c</code>再跑<code>命令2</code>, 再按<code>C-a c</code>再跑<code>命令3</code>, 最后<code>C-a d</code>回到原始界面, 输入<code>screen -ls</code>, 应该就看到3个<code>(Detached)</code>了, 类似下面</p>
+
+<pre><code class="language-bash">[root@server ~]# screen -ls
+There are screens on:
+        22272.test      (Detached)
+        18927.a (Detached)
+        18866.a (Detached)
+        18778.shadowsocks       (Detached)
+4 Sockets in /var/run/screen/S-root.
+</code></pre>
+
+<p>然后用<code>screen -r 22272</code>这样切换.</p>
+
+<h3 id="关于webgui邮箱配置">关于WebGUI邮箱配置</h3>
+
+<p>我搞了一天. 先是注册了一个aol邮箱, 做smtp, 结果被封了, 还不知道原因, 查了好久才知道当spam垃圾邮箱发送器了.</p>
+
+<p>又看教程, 用<code>mailgun</code>, 也注册了一个, 坑爹的还要给用户加白名单, 一开始完全看不懂是个什么逻辑, 折腾一晚上, 才搞明白, 以为给配一个域名就行了. 结果还是不行. 气死了.</p>
+
+<blockquote>
+<p>之前没找到, 后来问了下, 仔细找了找, 用户设置(Account - Settings - Details - Payment Method)这里可以免费绑定信用卡, 大概是每月限制发送<code>2100</code>条, 基本上OK啦</p>
+</blockquote>
+
+<p>又想着给之前虚拟主机送的邮箱来搞, 结果也没搞成, 总是失败, 没查出来, 看样子我要自己搭一个邮箱服务器了.</p>
+
+<p>这几天真是累啊. 又是赶项目学习VUE, 又是搞服务器. 好想休息几天.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

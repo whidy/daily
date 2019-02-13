@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note  | PostCSS不支持部分SASS研究</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="PostCSS不支持部分SASS研究" />
+<meta property="og:description" content="2018年2月24日 阴 较差
+ PostCSS不支持部分SASS研究 继续昨天#{$c}如何在PostCSS下得到支持 原环境下, precss插件直接编译报错, 此时&quot;precss&quot;: &quot;^2.0.0&quot;版本较低, 发现官方最新为3.1.0, 更新了, 并不会报错了, 但是编译结果是错误的. 我们回顾一下代码:
+postcss.config.js
+module.exports = { parser: &#39;postcss-scss&#39;, plugins: [ require(&#39;precss&#39;) ] };  css
+.component { $c: &amp;; padding: 2vw; &amp;__card { background-color: #fff; &amp;:hover #{$c}__name { color: #bada55; } } &amp;__name { color: #000; } &amp;__button { background-color: blue; color: #fff; } }  期望结果, 可以通过这个在线编译http://sass.js.org/测试:
+/* 此段为期望的正确结果 */ .component { padding: 2vw; } ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://daily.whidy.net/posts/2018-02-24-cssnano/" />
+<meta property="article:published_time" content="2018-02-24T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-02-24T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="PostCSS不支持部分SASS研究">
+<meta itemprop="description" content="2018年2月24日 阴 较差
+ PostCSS不支持部分SASS研究 继续昨天#{$c}如何在PostCSS下得到支持 原环境下, precss插件直接编译报错, 此时&quot;precss&quot;: &quot;^2.0.0&quot;版本较低, 发现官方最新为3.1.0, 更新了, 并不会报错了, 但是编译结果是错误的. 我们回顾一下代码:
+postcss.config.js
+module.exports = { parser: &#39;postcss-scss&#39;, plugins: [ require(&#39;precss&#39;) ] };  css
+.component { $c: &amp;; padding: 2vw; &amp;__card { background-color: #fff; &amp;:hover #{$c}__name { color: #bada55; } } &amp;__name { color: #000; } &amp;__button { background-color: blue; color: #fff; } }  期望结果, 可以通过这个在线编译http://sass.js.org/测试:
+/* 此段为期望的正确结果 */ .component { padding: 2vw; } .">
+
+
+<meta itemprop="datePublished" content="2018-02-24T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-02-24T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="229">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PostCSS不支持部分SASS研究"/>
+<meta name="twitter:description" content="2018年2月24日 阴 较差
+ PostCSS不支持部分SASS研究 继续昨天#{$c}如何在PostCSS下得到支持 原环境下, precss插件直接编译报错, 此时&quot;precss&quot;: &quot;^2.0.0&quot;版本较低, 发现官方最新为3.1.0, 更新了, 并不会报错了, 但是编译结果是错误的. 我们回顾一下代码:
+postcss.config.js
+module.exports = { parser: &#39;postcss-scss&#39;, plugins: [ require(&#39;precss&#39;) ] };  css
+.component { $c: &amp;; padding: 2vw; &amp;__card { background-color: #fff; &amp;:hover #{$c}__name { color: #bada55; } } &amp;__name { color: #000; } &amp;__button { background-color: blue; color: #fff; } }  期望结果, 可以通过这个在线编译http://sass.js.org/测试:
+/* 此段为期望的正确结果 */ .component { padding: 2vw; } ."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">PostCSS不支持部分SASS研究</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-02-24T00:00:00Z">February 24, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年2月24日 阴 较差</p>
+</blockquote>
+
+<h1 id="postcss不支持部分sass研究">PostCSS不支持部分SASS研究</h1>
+
+<h2 id="继续昨天-c-如何在postcss下得到支持">继续昨天<code>#{$c}</code>如何在PostCSS下得到支持</h2>
+
+<p>原环境下, <code>precss</code>插件直接编译报错, 此时<code>&quot;precss&quot;: &quot;^2.0.0&quot;</code>版本较低, 发现官方最新为<code>3.1.0</code>, 更新了, 并不会报错了, 但是编译结果是错误的. 我们回顾一下代码:</p>
+
+<p><code>postcss.config.js</code></p>
+
+<pre><code class="language-javascript">module.exports = {
+  parser: 'postcss-scss',
+  plugins: [
+    require('precss')
+  ]
+};
+</code></pre>
+
+<p><code>css</code></p>
+
+<pre><code class="language-scss">.component {
+  $c: &amp;;
+  padding: 2vw;
+  &amp;__card {
+    background-color: #fff;
+    &amp;:hover #{$c}__name {
+      color: #bada55;
+    }
+  }
+  &amp;__name {
+    color: #000;
+  }
+  &amp;__button {
+    background-color: blue;
+    color: #fff;
+  }
+}
+</code></pre>
+
+<p>期望结果, 可以通过这个在线编译<a href="http://sass.js.org/">http://sass.js.org/</a>测试:</p>
+
+<pre><code class="language-css">/* 此段为期望的正确结果 */
+.component {
+  padding: 2vw;
+}
+
+.component__card {
+  background-color: #fff;
+}
+
+.component__card:hover .component__name {
+  color: #bada55;
+}
+
+.component__name {
+  color: #000;
+}
+
+.component__button {
+  background-color: blue;
+  color: #fff;
+}
+</code></pre>
+
+<p>而实际<code>precss</code>编译结果</p>
+
+<pre><code class="language-css">.component {
+  padding: 2vw;
+}
+  .component__card {
+    background-color: #fff;
+  }
+  .component__card:hover .component__card__name {
+      color: #bada55;
+    }
+  .component__name {
+    color: #000;
+  }
+  .component__button {
+    background-color: blue;
+    color: #fff;
+  }
+</code></pre>
+
+<p>显然在带有伪类<code>:hover</code>的那一处是错误的. 几乎又花了一上午依旧没有找到解决方案, 只好去GitHub-<a href="https://github.com/jonathantneal/precss/issues/114">Cannot resolve #{$var} correctly</a>, StackOverflow-<a href="https://stackoverflow.com/questions/48959007/can-postcss-resolve-sass-like-syntax-interpolation-code-correctly">Can PostCSS resolve SASS-like syntax “#{$Interpolation}” code correctly
+</a>, SegmentFault-<a href="https://segmentfault.com/q/1010000013351848">PostCSS如何正确处理类似“#{$Interpolation}”这样的SASS语法</a>上面去提问试试了, 在得到答案前, 暂时不花时间研究了.</p>
+
+<h2 id="继续昨天如何关闭或配置-cssnano-的某些插件">继续昨天如何关闭或配置<code>cssnano</code>的某些插件</h2>
+
+<p>首先是关于(0, Function)(&hellip;arguments)的写法问题, 我总算找到了一个答案.做了一个简单的示例, 如下代码:</p>
+
+<pre><code class="language-javascript">var _b = {
+  a: function(x, y) {
+    console.log(this);
+    return x + y;
+  },
+  b: function(z) {
+    return z * z;
+  },
+  c: 'hello'
+};
+
+var a = (0, _b.a)(3, 6);
+var b = (_b.a)(3, 6);
+</code></pre>
+
+<p><code>a</code>和<code>b</code>输出值都是<code>9</code>,这个很简单.</p>
+
+<p>但是在<strong>非严格模式</strong>下, <code>a</code>的第一个括号内有个0, 这个0就让<code>_b.a</code>执行时, 其内部的<code>this</code>指向了全局, 而第二个则指向<code>_b</code>, 结果如下:</p>
+
+<pre><code class="language-bash">Window {...}
+{a: ƒ, b: ƒ, c: &quot;hello&quot;}
+undefined
+</code></pre>
+
+<p>而<strong>严格模式</strong>(<code>'use strict'</code>)下, 结果如下:</p>
+
+<pre><code class="language-bash">undefined
+{a: ƒ, b: ƒ, c: &quot;hello&quot;}
+&quot;use strict&quot;
+</code></pre>
+
+<p>变量<code>a</code>中的<code>this</code>则是<code>undefined</code>. 需要注意!</p>
+
+<p>参阅: <a href="https://stackoverflow.com/questions/32275135/why-does-babel-rewrite-imported-function-call-to-0-fn">StackOverflow - Why does babel rewrite imported function call to (0, fn)(…)?</a></p>
+
+<p>那么继续看cssnano插件关闭的问题. 苦苦打了无数个断点的来思考代码逻辑的我再折腾了几个小时后, 决定放弃. 目前的技术水平, 或许是徒劳.</p>
+
+<p>至此, 想要关闭<code>postcss-normalize-whitespace</code>插件来达到禁止压缩代码的目的就终止无法实现了.</p>
+
+<blockquote>
+<p>接着阅读之前的日志&hellip;目前进度 <strong>01-29</strong></p>
+</blockquote>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

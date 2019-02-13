@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript Replace Regexp on Daily note</title>
+    <link>https://daily.whidy.net/categories/javascript-replace-regexp/</link>
+    <description>Recent content in Javascript Replace Regexp on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 05 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/categories/javascript-replace-regexp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>replace和exec函数</title>
+      <link>https://daily.whidy.net/posts/2018-02-05-replace-exec/</link>
+      <pubDate>Mon, 05 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-05-replace-exec/</guid>
+      <description>2018年2月5日 晴 一般
+ replace和exec函数  不好意思我还在看正则部分, 才发现replace函数一点也不简单.
+ 语法 str.replace(regexp|substr, newSubStr|function)  使用字符串作为参数  变量名 | 代表的值 $$ | 插入一个 &amp;ldquo;$&amp;ldquo;。 $&amp;amp; | 插入匹配的子串。 $` | 插入当前匹配的子串左边的内容。 $&#39; | 插入当前匹配的子串右边的内容。 $n | 假如第一个参数是 RegExp对象，并且 n 是个小于100的非负整数，那么插入第 n 个括号匹配的字符串。  这个表格除了$n之前用过其他的全部没用过. 也一下没看懂, 写了几段demo, 算是明白了- -, 不过应用场景还不太了解.
+let str = &#39;123abcXYZ&#39;; console.log(str.replace(/ab/, &#39;-$$-&#39;)); //123-$-cXYZ console.log(str.replace(/ab/, &#39;-$&amp;amp;-&#39;)); //123-ab-cXYZ console.log(str.replace(/ab/, &#39;-$`-&#39;)); //123-123-cXYZ console.log(str.replace(/ab/, &#39;-$\&#39;-&#39;)); //123-cXYZ-cXYZ (注意单引号. 转义) console.log(str.replace(/a(b)/, &#39;-$1-&#39;)); //123-b-cXYZ  这样在对着上面的解读, 算是明白一点了- -.</description>
+    </item>
+    
+  </channel>
+</rss>

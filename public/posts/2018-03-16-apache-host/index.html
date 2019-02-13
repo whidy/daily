@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note  | 日志</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="日志" />
+<meta property="og:description" content="2018年3月16日 阴 一般
+ 博客转移/域名解析/其他配置 域名解析, 全部设置为A记录指向服务器IP, 然后还是用原来的301转向, (www.)whidy.cn和whidy.net全部跳转到www.whidy.net.
+Apache服务器优化 Rewrite模块 为了伪静态页面和301重定向, 这边文章讲得很清楚了Install and Configure mod_rewrite for Apache on CentOS 7
+开启Gzip压缩功能 方案一: 修改httpd.conf配置 如上文: 打开这个文件
+# nano /etc/httpd/conf.modules.d/00-base.conf  检查mod_deflate module是否正常开启(默认是开启的)
+LoadModule deflate_module modules/mod_deflate.so  然后修改httpd.conf
+# nano /etc/httpd/conf/httpd.conf  文件末尾增加
+AddOutputFilterByType DEFLATE text/plain AddOutputFilterByType DEFLATE text/html AddOutputFilterByType DEFLATE text/xml AddOutputFilterByType DEFLATE text/css AddOutputFilterByType DEFLATE application/xml AddOutputFilterByType DEFLATE application/xhtml&#43;xml AddOutputFilterByType DEFLATE application/rss&#43;xml AddOutputFilterByType DEFLATE application/javascript AddOutputFilterByType DEFLATE application/x-javascript  重启服务" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://daily.whidy.net/posts/2018-03-16-apache-host/" />
+<meta property="article:published_time" content="2018-03-16T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-03-16T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="日志">
+<meta itemprop="description" content="2018年3月16日 阴 一般
+ 博客转移/域名解析/其他配置 域名解析, 全部设置为A记录指向服务器IP, 然后还是用原来的301转向, (www.)whidy.cn和whidy.net全部跳转到www.whidy.net.
+Apache服务器优化 Rewrite模块 为了伪静态页面和301重定向, 这边文章讲得很清楚了Install and Configure mod_rewrite for Apache on CentOS 7
+开启Gzip压缩功能 方案一: 修改httpd.conf配置 如上文: 打开这个文件
+# nano /etc/httpd/conf.modules.d/00-base.conf  检查mod_deflate module是否正常开启(默认是开启的)
+LoadModule deflate_module modules/mod_deflate.so  然后修改httpd.conf
+# nano /etc/httpd/conf/httpd.conf  文件末尾增加
+AddOutputFilterByType DEFLATE text/plain AddOutputFilterByType DEFLATE text/html AddOutputFilterByType DEFLATE text/xml AddOutputFilterByType DEFLATE text/css AddOutputFilterByType DEFLATE application/xml AddOutputFilterByType DEFLATE application/xhtml&#43;xml AddOutputFilterByType DEFLATE application/rss&#43;xml AddOutputFilterByType DEFLATE application/javascript AddOutputFilterByType DEFLATE application/x-javascript  重启服务">
+
+
+<meta itemprop="datePublished" content="2018-03-16T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-03-16T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="171">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="日志"/>
+<meta name="twitter:description" content="2018年3月16日 阴 一般
+ 博客转移/域名解析/其他配置 域名解析, 全部设置为A记录指向服务器IP, 然后还是用原来的301转向, (www.)whidy.cn和whidy.net全部跳转到www.whidy.net.
+Apache服务器优化 Rewrite模块 为了伪静态页面和301重定向, 这边文章讲得很清楚了Install and Configure mod_rewrite for Apache on CentOS 7
+开启Gzip压缩功能 方案一: 修改httpd.conf配置 如上文: 打开这个文件
+# nano /etc/httpd/conf.modules.d/00-base.conf  检查mod_deflate module是否正常开启(默认是开启的)
+LoadModule deflate_module modules/mod_deflate.so  然后修改httpd.conf
+# nano /etc/httpd/conf/httpd.conf  文件末尾增加
+AddOutputFilterByType DEFLATE text/plain AddOutputFilterByType DEFLATE text/html AddOutputFilterByType DEFLATE text/xml AddOutputFilterByType DEFLATE text/css AddOutputFilterByType DEFLATE application/xml AddOutputFilterByType DEFLATE application/xhtml&#43;xml AddOutputFilterByType DEFLATE application/rss&#43;xml AddOutputFilterByType DEFLATE application/javascript AddOutputFilterByType DEFLATE application/x-javascript  重启服务"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">日志</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-03-16T00:00:00Z">March 16, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年3月16日 阴 一般</p>
+</blockquote>
+
+<h1 id="博客转移-域名解析-其他配置">博客转移/域名解析/其他配置</h1>
+
+<p>域名解析, 全部设置为A记录指向服务器IP, 然后还是用原来的301转向, <code>(www.)whidy.cn</code>和<code>whidy.net</code>全部跳转到<code>www.whidy.net</code>.</p>
+
+<h2 id="apache服务器优化">Apache服务器优化</h2>
+
+<h3 id="rewrite模块">Rewrite模块</h3>
+
+<p>为了<code>伪静态</code>页面和<code>301重定向</code>, 这边文章讲得很清楚了<a href="https://devops.profitbricks.com/tutorials/install-and-configure-mod_rewrite-for-apache-on-centos-7/">Install and Configure mod_rewrite for Apache on CentOS 7</a></p>
+
+<h3 id="开启gzip压缩功能">开启Gzip压缩功能</h3>
+
+<h4 id="方案一-修改httpd-conf配置">方案一: 修改httpd.conf配置</h4>
+
+<p>如上文: 打开这个文件</p>
+
+<pre><code class="language-bash"># nano /etc/httpd/conf.modules.d/00-base.conf
+</code></pre>
+
+<p>检查<code>mod_deflate module</code>是否正常开启(默认是开启的)</p>
+
+<pre><code>LoadModule deflate_module modules/mod_deflate.so
+</code></pre>
+
+<p>然后修改<code>httpd.conf</code></p>
+
+<pre><code class="language-bash"># nano /etc/httpd/conf/httpd.conf
+</code></pre>
+
+<p>文件末尾增加</p>
+
+<pre><code>AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+</code></pre>
+
+<p>重启服务</p>
+
+<pre><code class="language-bash"># service httpd restart
+</code></pre>
+
+<h4 id="方案二-修改网站-htaccess文件">方案二: 修改网站.htaccess文件</h4>
+
+<p>你也可以在Apache虚拟主机上通过配置<code>.htaccess</code>来开启<code>gzip compression</code>, 修改<code>.htaccess</code>增加以下代码:</p>
+
+<pre><code class="language-xml">&lt;Directory /var/www/html/&gt;
+   &lt;IfModule mod_mime.c&gt;
+	AddType application/x-javascript .js
+	AddType text/css .css
+   &lt;/IfModule&gt;
+   &lt;IfModule mod_deflate.c&gt;
+	AddOutputFilterByType DEFLATE text/css application/x-javascript text/x-component text/html text/plain text/xml application/javascript
+	&lt;IfModule mod_setenvif.c&gt;
+		BrowserMatch ^Mozilla/4 gzip-only-text/html
+		BrowserMatch ^Mozilla/4.0[678] no-gzip
+		BrowserMatch bMSIE !no-gzip !gzip-only-text/html
+	&lt;/IfModule&gt;
+    &lt;/IfModule&gt;
+    Header append Vary User-Agent env=!dont-vary
+&lt;/Directory&gt;
+</code></pre>
+
+<p>参阅: <a href="https://knackforge.com/blog/karalmax/how-enable-gzip-compression-apache">HOW TO ENABLE GZIP COMPRESSION IN APACHE</a></p>
+
+<h3 id="其他服务器优化文章">其他服务器优化文章</h3>
+
+<ul>
+<li><a href="https://cloud.tencent.com/developer/article/1004879">Apache 性能配置优化</a></li>
+<li><a href="https://www.kancloud.cn/curder/apache/91275">apache服务器优化(重要)</a></li>
+</ul>
+
+<h2 id="其他">其他</h2>
+
+<p>晚上突然发现博客不能正常访问了, 提示<code>Error Establishing a Database Connection</code>, 我擦, 怎么回事? 记得下班的时候还是好的?</p>
+
+<p>然后想到我的MariaDB的账户是<code>root</code>, 密码是<code>123654</code>. 还开放了<code>phpmyadmin</code>的外网访问权限, 虽然对IP做了域名转向貌似已经无法web管理数据库了, 难道是安全问题?</p>
+
+<p>于是SSH登陆进去, 试着连接数据库操作, 出现以下情况(一脸懵逼)</p>
+
+<p><img src="https://raw.githubusercontent.com/whidy/daily/master/sources/images/2018-03-16-1.png" alt="error" /></p>
+
+<p>然后试着重置一下密码, 也不知道是不是跟这个有关系, 改完<code>mysql</code>密码和<code>wp-config.php</code>配置后, 博客可以正常访问了.</p>
+
+<p>重置<code>MariaDB</code>的<code>root</code>密码参阅以下文章:</p>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-reset-your-mysql-or-mariadb-root-password">How To Reset Your MySQL or MariaDB Root Password</a></li>
+<li><a href="https://linode.com/docs/databases/mariadb/how-to-install-mariadb-on-centos-7/">How to Install MariaDB on CentOS 7</a></li>
+</ul>
+
+<p>一不小心又折腾到了晚上十二点, 一直被一直吸满血的蚊子骚扰, 打死它就睡觉.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

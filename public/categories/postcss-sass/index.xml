@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Postcss Sass on Daily note</title>
+    <link>https://daily.whidy.net/categories/postcss-sass/</link>
+    <description>Recent content in Postcss Sass on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 24 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/categories/postcss-sass/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PostCSS不支持部分SASS研究</title>
+      <link>https://daily.whidy.net/posts/2018-02-24-cssnano/</link>
+      <pubDate>Sat, 24 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-24-cssnano/</guid>
+      <description>2018年2月24日 阴 较差
+ PostCSS不支持部分SASS研究 继续昨天#{$c}如何在PostCSS下得到支持 原环境下, precss插件直接编译报错, 此时&amp;quot;precss&amp;quot;: &amp;quot;^2.0.0&amp;quot;版本较低, 发现官方最新为3.1.0, 更新了, 并不会报错了, 但是编译结果是错误的. 我们回顾一下代码:
+postcss.config.js
+module.exports = { parser: &#39;postcss-scss&#39;, plugins: [ require(&#39;precss&#39;) ] };  css
+.component { $c: &amp;amp;; padding: 2vw; &amp;amp;__card { background-color: #fff; &amp;amp;:hover #{$c}__name { color: #bada55; } } &amp;amp;__name { color: #000; } &amp;amp;__button { background-color: blue; color: #fff; } }  期望结果, 可以通过这个在线编译http://sass.js.org/测试:
+/* 此段为期望的正确结果 */ .component { padding: 2vw; } .</description>
+    </item>
+    
+  </channel>
+</rss>

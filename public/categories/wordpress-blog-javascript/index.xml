@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wordpress Blog Javascript on Daily note</title>
+    <link>https://daily.whidy.net/categories/wordpress-blog-javascript/</link>
+    <description>Recent content in Wordpress Blog Javascript on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/categories/wordpress-blog-javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>博客插件优化及其他学习总结</title>
+      <link>https://daily.whidy.net/posts/2018-01-16-blog-optimize/</link>
+      <pubDate>Tue, 16 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-16-blog-optimize/</guid>
+      <description>2018年1月16日 晴 一般
+ 博客插件优化 / VSCODE的FTP插件探索 / 不常见的JS写法 / SASS父级选择器写法研究 Wordpress相关优化更新  WP的评论提示插件的更新优化,(由于之前方案较旧,全部更新)
+Comment Reply Notifier插件被删除替代
+WP SMTP插件被删除替代
+Delete-Revision插件被删除替代
+还有几个N年没有更新的无效插件删除
+ 其他的几个插件使用测试及介绍
+ Better Notifications for WordPress  功能强大,有很多的类型管理的邮件通知设置,我基本上用不到,而且全英文,有一些学习成本,就放弃使用了,我也就不多做介绍了.
+ Comment Reply Email Notification  轻量级的专门用于评论邮件通知,安装启用后,每个评论下面会出现一个小的选择框,表示接受回复通知.可以自己修改插件换成中文.当然这个插件只提供评论回复有效,并不会通知站长~
+ WP Mail SMTP  用来回复其他人在站点的评论,配置邮件服务器的插件
+  Visual Studio Code的ftp插件探索,结论  ftp-sync勉强能用,但是菜单为啥不全,感觉是一个BUG吧.希望后期能够优化. SFTP/FTP sync总是回莫名其妙的卡住,而且相同文件好像也会再次覆盖,不会跳过.文件比较多的时候不建议使用. ftp-kr跟Simple FTP/SFTP一样没啥暖用,还不如就用ftp软件操作 Simple FTP/SFTP没啥暖用,还不如就用ftp软件操作  其他  完成博客内容怎样找到当前页面发布日期的几种方法,并发布在SegmentFault文章
+ 阅读JS things I never knew existed,并参阅MDN进行简单总结
+ 标签语句(标记语句)</description>
+    </item>
+    
+  </channel>
+</rss>
