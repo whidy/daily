@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+      <link href="https://daily.whidy.net/posts/index.xml" rel="alternate" type="application/rss+xml" title="Daily note" />
+      <link href="https://daily.whidy.net/posts/index.xml" rel="feed" type="application/rss+xml" title="Daily note" />
+    
+
+    <meta property="og:title" content="Posts" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://daily.whidy.net/posts/" />
+
+<meta property="og:updated_time" content="2018-02-06T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="Posts">
+<meta itemprop="description" content="">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Posts"/>
+<meta name="twitter:description" content=""/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Posts
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="pa3 pa4-ns nested-copy-line-height nested-img">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
+    <section class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-02-06-es6-function/" class="link black dim">
+        ECMAScript6入门
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年2月6日 晴 一般
+ ECMAScript6入门 今天肚子不舒服状态不佳, 粗略的把第6.数值的扩展看完了. 感觉就是Math相关方法太多了, 我肯定记不住了.大概留点印象吧.
+函数的扩展 然后接着看7.函数的扩展
+参数默认值的位置  只有函数的尾参数可以省略 javascript function f(x, y = 5, z) { return [x, y, z]; } f() // [undefined, 5, undefined] f(1) // [1, 5, undefined] f(1, ,2) // 报错 f(1, undefined, 2) // [1, 5, 2]  如果传入undefined，将触发该参数等于默认值，null则没有这个效果。 函数也是有length属性的, 但是有个特点, 它依次计算至有参数默认值为止, 加入第一个就有参数, 那长度以然是0. javascript (function (a) {}).length // 1 (function (a = 5) {}).length // 0 (function (a, b, c = 5) {}).
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-02-05-replace-exec/" class="link black dim">
+        replace和exec函数
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年2月5日 晴 一般
+ replace和exec函数  不好意思我还在看正则部分, 才发现replace函数一点也不简单.
+ 语法 str.replace(regexp|substr, newSubStr|function)  使用字符串作为参数  变量名 | 代表的值 $$ | 插入一个 &ldquo;$&ldquo;。 $&amp; | 插入匹配的子串。 $` | 插入当前匹配的子串左边的内容。 $' | 插入当前匹配的子串右边的内容。 $n | 假如第一个参数是 RegExp对象，并且 n 是个小于100的非负整数，那么插入第 n 个括号匹配的字符串。  这个表格除了$n之前用过其他的全部没用过. 也一下没看懂, 写了几段demo, 算是明白了- -, 不过应用场景还不太了解.
+let str = '123abcXYZ'; console.log(str.replace(/ab/, '-$$-')); //123-$-cXYZ console.log(str.replace(/ab/, '-$&amp;-')); //123-ab-cXYZ console.log(str.replace(/ab/, '-$`-')); //123-123-cXYZ console.log(str.replace(/ab/, '-$\'-')); //123-cXYZ-cXYZ (注意单引号. 转义) console.log(str.replace(/a(b)/, '-$1-')); //123-b-cXYZ  这样在对着上面的解读, 算是明白一点了- -.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-02-02-postcss/" class="link black dim">
+        PostCSS中让CSS文件支持SCSS语法/postcss-cssnext和precss的区别和选择
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年2月2日 晴 一般
+ PostCSS相关研究  昨天下班的时候看到一篇PostCSS — beyond the Autoprefixer跟PostCSS的文章, 提取了我的兴趣, 没来得及看, 粗读了一下, 让我想起之前有个疑惑的问题, PostCSS的众多插件, 很多功能有相似之处, 到底要怎么应用在项目中呢?
+另外, 昨天下班后在SegmentFault上面看到一个提问: vscode使用postcss，如何才能不对css的嵌套等语法报错, 正巧以前也遇到过思考过这个问题. 今天顺便就再次折腾了一下~
+ 项目中使用PostCSS且让CSS文件支持SCSS语法的方案 这个问题我早上试了下, 比较容易, 所以先做一点总结.
+思考 - 如何让CSS文件真的像SCSS一样呢  最早相对系统的学习PostCSS是接近半年前了, 就不太明白PostCSS官方的插件推荐Syntaxes列表里postcss-scss和postcss-sass这些做什么的, 不是有csspre之类的插件可以直接处理吗, 如今假设理解没错的话, 这些插件就是让你的css支持它的语法, 如果有人还不是很清楚SCSS和Sass的区别可以阅读Intro to SCSS for Sass Users
+ 我们通过安装插件postcss-scss使css支持SCSS语法, 当然这个插件能力有限, 官方说明如下:
+ This module does not compile SCSS. It simply parses mixins as custom at-rules &amp; variables as properties, so that PostCSS plugins can then transform SCSS source code alongside CSS.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-02-01-regexp/" class="link black dim">
+        复习正则表达式
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年2月1日 晴 无聊
+ 复习正则表达式  昨天感觉不在状态, 边看正则边打酱油, 所以没有什么好写的, 今天总结一下.
+正好ES6也有正则方面的内容, 看看有什么新特性, 顺便又把精通正则表达式拿出来粗看了前面几章节, 于是给自己出了几道题.
+ 题一: 找出符合规则的时间 匹配符合标准格式的时间. 这是内容部分:
+now is 09:4 am test now isx9:4 am test now isx2:54 am test now isA09:04 amwtest now is_12:30 pm adsadadasda now is 21:59 amdsadasdwq now is 22:75 am_dsad21 now is 41:60 pm dsadsad now is 26:23 am dwadwq now is 2a:23 am dwadwq  期望结果(虽然24小时制后面存在[ap]m感觉还是不太合理.)
+09:4 am 9:4 am 2:54 am 09:04 am 12:30 pm 21:59 am  看起来应该不是很复杂.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-01-30-es6-javascript-event/" class="link black dim">
+        ECMAScript6入门/JS事件
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年1月30日 小雨 无聊
+ ECMAScript6入门 / JS事件 模板字符串(Template literals)中的标签模板  模板字符串非常棒的功能, 减少了HTML拼接的繁琐, 其中标签模板, 这个东西初看起来很奇怪, 多结合实例会好理解一些.
+以下结合MDN和ECMAScript6入门做个笔记
+标签函数的第一个参数包含一个字符串值的数组。其余的参数与表达式相关。
+ 来看看这个例子:
+let a = 5; let b = 10; tag`Hello ${a + b} world ${a * b}`; // 等同于 tag(['Hello ', ' world ', ''], 15, 50);  个人理解: 简单的说, `Hello ${a + b} world ${a * b}` 会被表达式(例如: ${a + b})分割一个包含多个字符串的数组(即['Hello ', ' world ', '']), 需要注意的是${a * b}后面还有个''(其实似乎也可以认为有n个表达式, 就有n+1个字符串长度的数组), 而表达式部分会按顺序作为参数传入自定义的tag方法.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-01-29-es6-function/" class="link black dim">
+        ECMAScript6入门/函数
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年1月29日 阴有小雨 一般
+ ECMAScript6入门 / 函数 ECMAScript6入门 我再次阅读字符串的扩展这部分, 老实说, 这一节关于charCodeAt, charAt, codePointAt, fromCodePoint, at, normalize这些东西感到枯燥的很, 我还不能理解这些内容在实际应用上的广泛性.
+函数(Function)  关于函数得知识点, 我才发现我欠缺的多得多. 以下是我对函数了解较少或者需要注意的几个点得总结.
+ 作用域和函数堆栈 递归 例如，思考一下如下的函数定义：
+var foo = function bar() { // statements go here };  在这个函数体内，以下的语句是等价的：
+ bar() arguments.callee() foo()  获取树结构中所有的节点时，使用递归实现要容易得多：
+function walkTree(node) { if (node == null) // return; // do something with node for (var i = 0; i &lt; node.childNodes.length; i++) { walkTree(node.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-01-28-styledcomponents/" class="link black dim">
+        styledcomponents/todolist/toreadlist
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年1月28日 阴 忧伤
+ styled-components了解 / 创建To Read List和To Do List 周末两天并没有沉下心来搞点技术, 倒是玩游戏玩到头昏= =,
+Styled-components了解  前阵子奕东说, styled-components很好用, 然后今天正好看到@Real_CSS_Tricks提到3.0发布, 然后我就稍微看了下, 似乎主要结合react的开发, 将CSS样式和一点ES6来开发界面. 由于还不会用react, 先star上, 或许不久就会用上~
+ 创建To Read List和To Do List 随便看了一些东西, 想到创建这个To Read List, 每月为一期.
+同样的, 也创建了一个To Do List. 详情见文档.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-01-26-es6-pwa/" class="link black dim">
+        ECMAScript6入门/PWA了解
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年1月26日 阴 一般
+ ECMAScript6入门 / PWA了解 ECMAScript 6 入门  复习前几天学习的基础, 并继续学习(话说早就说再看函数了, 结果又绕回前面几章节了😂)
+ 变量提升 这个不是第一次说了, 但是之前看的没那么仔细, 今天小结几个容易忘记和忽略的地方.
+函数体内引入外部变量时, 即便函数体内重复声明外部变量的代码看起来没有执行, 但依旧会被提升. 如下示例, 容易以为false内的代码块不执行, 则输出日期的错误.
+var tmp = new Date(); function f() { console.log(tmp); if (false) { var tmp = 'hello world'; } } f(); // undefined  另外一个类似的:
+var is_android = true; if (is_android) { function foo() { console.log('I am Android'); } } else { function foo() { console.
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-01-25-gatsby-strapi-mongodb/" class="link black dim">
+        安装Gatsby和Strapi过程中的各种问题
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年1月24日 阴 一般
+ 安装Gatsby和Strapi VPS上安装Gatsby和Strapi中遇到的各种问题解决方案和相关记录  接着昨天的, 继续解决昨天没有处理好的问题, 下班的时候问了个开发同事, 我说为啥连接总是超时, 但是有时候好像又能连上, 他说查一下具体的日志会比较好, 等下就试试.
+ 解决mongo创建服务器的WARNING提示  大多数情况下我是不愿意理睬WARNING信息的, 只要不是ERROR就好, 但是这次我有点不爽, 折腾了一会发现有的很难处理, 我错了, 我想我还是不死磕了吧😱
+ soft rlimits too low WARNING: soft rlimits too low. rlimits set to 1024 processes, 64000 files. Number of processes should be at least 32000 : 0.5 times number of files.  参考:
+ MongDB 启动警告 WARNING: soft rlimits too low How to set ulimits for mongod?
+    </div>
+  </div>
+</div>
+</div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-01-24-gatsby-strapi-mongodb/" class="link black dim">
+        安装Gatsby和Strapi过程中的各种问题
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年1月24日 阴 一般
+ 安装Gatsby和Strapi VPS上安装Gatsby和Strapi中遇到的各种问题解决方案和相关记录  参考Building a static blog using Gatsby and Strapi
+ 安装Gatsby  事情总是不是那么顺利.
+ 根据Gatsby文档Get started, 执行到如下命令时:
+# gatsby new gatsby-site  报错, 需要git. 然而我的服务器没装, 那就装一个吧. 参考Download for Linux and Unix执行:
+# yum install git  再次执行后依旧报错(当前git版本1.7.1)
+error Command failed: git clone git://github.com/gatsbyjs/gatsby-starter-default.git gatsby-site --single-branch  推测是版本问题. 只好手动安装了. 于是又找到这个安装 Git
+# yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel # wget https://www.kernel.org/pub/software/scm/git/git-2.16.1.tar.gz # tar -zxf git-2.
+    </div>
+  </div>
+</div>
+</div>
+      
+    </section>
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/posts/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+    <a href="/posts/page/2/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/posts/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/posts/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/posts/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/posts/page/4/">4</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/posts/page/4/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/posts/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+</article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

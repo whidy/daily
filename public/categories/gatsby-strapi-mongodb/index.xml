@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gatsby Strapi Mongodb on Daily note</title>
+    <link>https://daily.whidy.net/categories/gatsby-strapi-mongodb/</link>
+    <description>Recent content in Gatsby Strapi Mongodb on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 25 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/categories/gatsby-strapi-mongodb/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>安装Gatsby和Strapi过程中的各种问题</title>
+      <link>https://daily.whidy.net/posts/2018-01-25-gatsby-strapi-mongodb/</link>
+      <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-25-gatsby-strapi-mongodb/</guid>
+      <description>2018年1月24日 阴 一般
+ 安装Gatsby和Strapi VPS上安装Gatsby和Strapi中遇到的各种问题解决方案和相关记录  接着昨天的, 继续解决昨天没有处理好的问题, 下班的时候问了个开发同事, 我说为啥连接总是超时, 但是有时候好像又能连上, 他说查一下具体的日志会比较好, 等下就试试.
+ 解决mongo创建服务器的WARNING提示  大多数情况下我是不愿意理睬WARNING信息的, 只要不是ERROR就好, 但是这次我有点不爽, 折腾了一会发现有的很难处理, 我错了, 我想我还是不死磕了吧😱
+ soft rlimits too low WARNING: soft rlimits too low. rlimits set to 1024 processes, 64000 files. Number of processes should be at least 32000 : 0.5 times number of files.  参考:
+ MongDB 启动警告 WARNING: soft rlimits too low How to set ulimits for mongod?</description>
+    </item>
+    
+    <item>
+      <title>安装Gatsby和Strapi过程中的各种问题</title>
+      <link>https://daily.whidy.net/posts/2018-01-24-gatsby-strapi-mongodb/</link>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-24-gatsby-strapi-mongodb/</guid>
+      <description>2018年1月24日 阴 一般
+ 安装Gatsby和Strapi VPS上安装Gatsby和Strapi中遇到的各种问题解决方案和相关记录  参考Building a static blog using Gatsby and Strapi
+ 安装Gatsby  事情总是不是那么顺利.
+ 根据Gatsby文档Get started, 执行到如下命令时:
+# gatsby new gatsby-site  报错, 需要git. 然而我的服务器没装, 那就装一个吧. 参考Download for Linux and Unix执行:
+# yum install git  再次执行后依旧报错(当前git版本1.7.1)
+error Command failed: git clone git://github.com/gatsbyjs/gatsby-starter-default.git gatsby-site --single-branch  推测是版本问题. 只好手动安装了. 于是又找到这个安装 Git
+# yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel # wget https://www.kernel.org/pub/software/scm/git/git-2.16.1.tar.gz # tar -zxf git-2.</description>
+    </item>
+    
+  </channel>
+</rss>

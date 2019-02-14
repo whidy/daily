@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="" />
+<meta property="og:description" content="VSCode下让CSS文件完美支持SCSS或SASS语法方法  习惯Webpack &#43; PostCSS后, 通常PostCSS都是直接对CSS文件进行处理, 但是大部分习惯SCSS/SASS/LESS的朋友也许不适应了. 我专门研究了一下, 在Visual Studio Code编辑器下如果配置相关代码和设置达到CSS文件完美编写SCSS的办法, 其他语法类型原理相似, 这里以SCSS为例.
+ 开始配置 Visual Studio Code编辑器设置的配置 首先, 配置编辑器的设置, 按快捷键&rdquo;CTRL &#43; ,&ldquo;打开用户设置, 添加如下配置片段:
+&quot;files.associations&quot;: { &quot;*.css&quot;: &quot;scss&quot; }  我这里做了全局的用户设置, 因为我个人大部分情况下是写SCSS, 当然如果你仅对该项目配置, 也可以将上面这段放进工作区设置(是放在默认花括号内哦, 千万不要弄错了~).
+这样, VSCode编辑器就会把所有CSS文件当成SCSS格式来解析了, 也就不会出现可怕的红色波浪线了.
+PostCSS的配置 接下来, 对PostCSS进行相关配置. 我们这里需要安装最重要的两个PostCSS插件postcss-scss和precss. 执行命令:
+npm i -D postcss-scss precss  安装好后, 修改项目的postcss.config.js配置如下(我另外有用到autoprefixer和cssnano, 当然你可以根据个人情况选择, 重要部分是parser: &lsquo;postcss-scss&rsquo;和require(&lsquo;precss&rsquo;)):
+module.exports = { parser: &#39;postcss-scss&#39;, plugins: [ require(&#39;precss&#39;), require(&#39;autoprefixer&#39;), require(&#39;cssnano&#39;) ] }  这样问题就解决了. 试着编译一下以下测试代码:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://daily.whidy.net/articles/vscode%E4%B8%8B%E8%AE%A9css%E6%96%87%E4%BB%B6%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81scss%E6%88%96sass%E6%96%B9%E6%B3%95/" />
+
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="VSCode下让CSS文件完美支持SCSS或SASS语法方法  习惯Webpack &#43; PostCSS后, 通常PostCSS都是直接对CSS文件进行处理, 但是大部分习惯SCSS/SASS/LESS的朋友也许不适应了. 我专门研究了一下, 在Visual Studio Code编辑器下如果配置相关代码和设置达到CSS文件完美编写SCSS的办法, 其他语法类型原理相似, 这里以SCSS为例.
+ 开始配置 Visual Studio Code编辑器设置的配置 首先, 配置编辑器的设置, 按快捷键&rdquo;CTRL &#43; ,&ldquo;打开用户设置, 添加如下配置片段:
+&quot;files.associations&quot;: { &quot;*.css&quot;: &quot;scss&quot; }  我这里做了全局的用户设置, 因为我个人大部分情况下是写SCSS, 当然如果你仅对该项目配置, 也可以将上面这段放进工作区设置(是放在默认花括号内哦, 千万不要弄错了~).
+这样, VSCode编辑器就会把所有CSS文件当成SCSS格式来解析了, 也就不会出现可怕的红色波浪线了.
+PostCSS的配置 接下来, 对PostCSS进行相关配置. 我们这里需要安装最重要的两个PostCSS插件postcss-scss和precss. 执行命令:
+npm i -D postcss-scss precss  安装好后, 修改项目的postcss.config.js配置如下(我另外有用到autoprefixer和cssnano, 当然你可以根据个人情况选择, 重要部分是parser: &lsquo;postcss-scss&rsquo;和require(&lsquo;precss&rsquo;)):
+module.exports = { parser: &#39;postcss-scss&#39;, plugins: [ require(&#39;precss&#39;), require(&#39;autoprefixer&#39;), require(&#39;cssnano&#39;) ] }  这样问题就解决了. 试着编译一下以下测试代码:">
+
+
+
+<meta itemprop="wordCount" content="162">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="VSCode下让CSS文件完美支持SCSS或SASS语法方法  习惯Webpack &#43; PostCSS后, 通常PostCSS都是直接对CSS文件进行处理, 但是大部分习惯SCSS/SASS/LESS的朋友也许不适应了. 我专门研究了一下, 在Visual Studio Code编辑器下如果配置相关代码和设置达到CSS文件完美编写SCSS的办法, 其他语法类型原理相似, 这里以SCSS为例.
+ 开始配置 Visual Studio Code编辑器设置的配置 首先, 配置编辑器的设置, 按快捷键&rdquo;CTRL &#43; ,&ldquo;打开用户设置, 添加如下配置片段:
+&quot;files.associations&quot;: { &quot;*.css&quot;: &quot;scss&quot; }  我这里做了全局的用户设置, 因为我个人大部分情况下是写SCSS, 当然如果你仅对该项目配置, 也可以将上面这段放进工作区设置(是放在默认花括号内哦, 千万不要弄错了~).
+这样, VSCode编辑器就会把所有CSS文件当成SCSS格式来解析了, 也就不会出现可怕的红色波浪线了.
+PostCSS的配置 接下来, 对PostCSS进行相关配置. 我们这里需要安装最重要的两个PostCSS插件postcss-scss和precss. 执行命令:
+npm i -D postcss-scss precss  安装好后, 修改项目的postcss.config.js配置如下(我另外有用到autoprefixer和cssnano, 当然你可以根据个人情况选择, 重要部分是parser: &lsquo;postcss-scss&rsquo;和require(&lsquo;precss&rsquo;)):
+module.exports = { parser: &#39;postcss-scss&#39;, plugins: [ require(&#39;precss&#39;), require(&#39;autoprefixer&#39;), require(&#39;cssnano&#39;) ] }  这样问题就解决了. 试着编译一下以下测试代码:"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        ARTICLES
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h1 id="vscode下让css文件完美支持scss或sass语法方法">VSCode下让CSS文件完美支持SCSS或SASS语法方法</h1>
+
+<blockquote>
+<p>习惯Webpack + PostCSS后, 通常<code>PostCSS</code>都是直接对<code>CSS</code>文件进行处理, 但是大部分习惯SCSS/SASS/LESS的朋友也许不适应了. 我专门研究了一下, 在<code>Visual Studio Code</code>编辑器下如果配置相关代码和设置达到CSS文件完美编写SCSS的办法, 其他语法类型原理相似, 这里以<code>SCSS</code>为例.</p>
+</blockquote>
+
+<h2 id="开始配置">开始配置</h2>
+
+<h3 id="visual-studio-code编辑器设置的配置">Visual Studio Code编辑器设置的配置</h3>
+
+<p>首先, 配置编辑器的设置, 按快捷键&rdquo;<code>CTRL + ,</code>&ldquo;打开用户设置, 添加如下配置片段:</p>
+
+<pre><code class="language-javascript">&quot;files.associations&quot;: {
+  &quot;*.css&quot;: &quot;scss&quot;
+}
+</code></pre>
+
+<p>我这里做了<code>全局的用户设置</code>, 因为我个人大部分情况下是写SCSS, 当然如果你仅对该项目配置, 也可以将上面这段放进<code>工作区设置</code>(是放在默认<strong>花括号内</strong>哦, 千万不要弄错了~).</p>
+
+<p>这样, VSCode编辑器就会把所有CSS文件当成SCSS格式来解析了, 也就不会出现可怕的红色波浪线了.</p>
+
+<h3 id="postcss的配置">PostCSS的配置</h3>
+
+<p>接下来, 对PostCSS进行相关配置. 我们这里需要安装最重要的两个PostCSS插件<code>postcss-scss</code>和<code>precss</code>. 执行命令:</p>
+
+<pre><code class="language-bash">npm i -D postcss-scss precss
+</code></pre>
+
+<p>安装好后, 修改项目的<code>postcss.config.js</code>配置如下(我另外有用到<code>autoprefixer</code>和<code>cssnano</code>, 当然你可以根据个人情况选择, 重要部分是<strong>parser: &lsquo;postcss-scss&rsquo;和require(&lsquo;precss&rsquo;)</strong>):</p>
+
+<pre><code class="language-javascript">module.exports = {
+  parser: 'postcss-scss',
+  plugins: [
+    require('precss'),
+    require('autoprefixer'),
+    require('cssnano')
+  ]
+}
+</code></pre>
+
+<p>这样问题就解决了. 试着编译一下以下测试代码:</p>
+
+<pre><code class="language-scss">/* css文件用scss语法测试 */
+$blue: #056ef0;
+.test {
+  display: flex; // 这是scss注释
+  color: $blue;
+  .box {
+    flex: 1;
+  }
+}
+</code></pre>
+
+<p>编译后:</p>
+
+<pre><code class="language-css">.test{display:-webkit-box;display:-ms-flexbox;display:flex;color:#056ef0}.test .box{-webkit-box-flex:1;-ms-flex:1;flex:1}
+</code></pre>
+
+<blockquote>
+<p>Tips: 我用了cssnano, 因此注释被自动去除, 如果需要保留, 需参阅cssnano文档进行相关配置.</p>
+</blockquote>
+
+<h2 id="结语">结语</h2>
+
+<p>至此, 我们的编辑器和项目都对CSS文件下编写SCSS有了很好的兼容. 至于其他用<code>SASS</code>和<code>LESS</code>的朋友可以举一反三, 安装对应的插件和修改VSCode设置. 整个操作过程应该花不了十分钟, 以后就能愉快的在CSS文件上面写SCSS啦~ 关于本次测试的代码可以访问<a href="https://github.com/whidy/postcss-study/tree/precss-%26-scss-synax"><code>postcss study</code></a>查看.</p>
+
+<p>如果文中有误, 或者还有什么疑问欢迎留言~</p>
+
+<h2 id="题外">题外</h2>
+
+<ul>
+<li><p>如果有人还不是很清楚SCSS和Sass的区别可以阅读<a href="http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html">Intro to SCSS for Sass Users</a></p></li>
+
+<li><p><code>postcss-scss</code>插件到底做了什么? 据我观察, <code>行注释</code>会被转换成标准的CSS<code>块注释</code>, 而其他的作用还尚未理解, 下面是官方描述:
+&gt; <strong>This module does not compile SCSS.</strong> It simply parses mixins as custom at-rules &amp; variables as properties, so that PostCSS plugins can then transform SCSS source code alongside CSS.</p></li>
+
+<li><p>关于Webpack + PostCSS环境如何搭建的, 需要哪些依赖包, 大家可以直接看我的前文提到过的<a href="https://github.com/whidy/postcss-study/tree/precss-%26-scss-synax">DEMO项目</a></p></li>
+
+<li><p>关于PostCSS我也才用不到一年, 感觉确实很方便, 几乎可以替代SCSS了, 比如, 以前做项目需要引入第三方插件CSS, 而自己用的是SCSS, 那么Webpack解析就需要两个规则匹配. PostCSS的插件也是非常的丰富, 经过几年的发展, 很多插件为开发工作带来很好的便利. 例如移动端适配的<code>px</code>转<code>rem</code>单位的插件<code>postcss-pxtorem</code>, 我这里也有个完整的<a href="https://github.com/whidy/mobileweb">DEMO</a>, 提供给大家参考~</p></li>
+</ul>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

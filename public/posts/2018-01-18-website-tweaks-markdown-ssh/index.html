@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note  | 提高网站可访问性的十个优化/Markdown语法研究/SSH</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="提高网站可访问性的十个优化/Markdown语法研究/SSH" />
+<meta property="og:description" content="2018年1月18日 雾霾 一般
+ 高网站可访问性的十个优化 / Markdown语法研究 / SSH / ES6  阅读对网站的可访问性带来巨大影响的几个小优化, 原标题Small Tweaks That Can Make a Huge Impact on Your Website’s Accessibility
+ 文中说明了语义化的重要性, 也推荐了一些HTML5的学习网站 页面只用一个main标签, 并给他一个ID 请尽量使用原生定义的功能标签, 比如按钮就用button, 虽然要重置样式, 比直接使用div或者a看起来麻烦, 但是它可以有更多的原生功能, 例如自带键盘监听事件. 例如你或许可以通过tab键, 焦点在这个按钮上, 并敲打enter的时候, 就能触发事件了, 这个是其他元素做不到的哦~ 当然我个人觉得这个仁者见仁智者见智了 页面中强烈推荐只有一个h1标签, 其他的h*标签请合理的使用对应的级别 这条就跟设计有关了, 请采用合理的色彩对比度 用一些特殊的标签辅助一些会使用特殊功能(屏幕阅读器aria-hidden=&ldquo;true&rdquo;, 那么屏幕阅读器就会忽略这个标签, 后面再增加一个几乎不可见却又没有隐藏的.visually-hidden`元素, 并写入提示信息, 屏幕阅读器就会读出这段内容, 然后他们就能听到这个提示语了, 于是两者都很happy了. 不过就目前我的经验和观察来看, 国内很少会有网站注意到网页辅助功能的运用 这点也是跟设计有关, 主要是说谨慎字体选择, 字体大小等排版, 还有需要高亮突出显示的一些关键元素 增加一些键盘事件绑定, 对某些键盘侠来说更加高效快捷, 并且看起来很酷, 另外有个小tips, 关于如何改变使用键盘当前焦距的元素额外样式, 使其看起来更美观醒目, 比如 css .your-element { background: red; } ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://daily.whidy.net/posts/2018-01-18-website-tweaks-markdown-ssh/" />
+<meta property="article:published_time" content="2018-01-18T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-01-18T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="提高网站可访问性的十个优化/Markdown语法研究/SSH">
+<meta itemprop="description" content="2018年1月18日 雾霾 一般
+ 高网站可访问性的十个优化 / Markdown语法研究 / SSH / ES6  阅读对网站的可访问性带来巨大影响的几个小优化, 原标题Small Tweaks That Can Make a Huge Impact on Your Website’s Accessibility
+ 文中说明了语义化的重要性, 也推荐了一些HTML5的学习网站 页面只用一个main标签, 并给他一个ID 请尽量使用原生定义的功能标签, 比如按钮就用button, 虽然要重置样式, 比直接使用div或者a看起来麻烦, 但是它可以有更多的原生功能, 例如自带键盘监听事件. 例如你或许可以通过tab键, 焦点在这个按钮上, 并敲打enter的时候, 就能触发事件了, 这个是其他元素做不到的哦~ 当然我个人觉得这个仁者见仁智者见智了 页面中强烈推荐只有一个h1标签, 其他的h*标签请合理的使用对应的级别 这条就跟设计有关了, 请采用合理的色彩对比度 用一些特殊的标签辅助一些会使用特殊功能(屏幕阅读器aria-hidden=&ldquo;true&rdquo;, 那么屏幕阅读器就会忽略这个标签, 后面再增加一个几乎不可见却又没有隐藏的.visually-hidden`元素, 并写入提示信息, 屏幕阅读器就会读出这段内容, 然后他们就能听到这个提示语了, 于是两者都很happy了. 不过就目前我的经验和观察来看, 国内很少会有网站注意到网页辅助功能的运用 这点也是跟设计有关, 主要是说谨慎字体选择, 字体大小等排版, 还有需要高亮突出显示的一些关键元素 增加一些键盘事件绑定, 对某些键盘侠来说更加高效快捷, 并且看起来很酷, 另外有个小tips, 关于如何改变使用键盘当前焦距的元素额外样式, 使其看起来更美观醒目, 比如 css .your-element { background: red; } .">
+
+
+<meta itemprop="datePublished" content="2018-01-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-01-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="161">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="提高网站可访问性的十个优化/Markdown语法研究/SSH"/>
+<meta name="twitter:description" content="2018年1月18日 雾霾 一般
+ 高网站可访问性的十个优化 / Markdown语法研究 / SSH / ES6  阅读对网站的可访问性带来巨大影响的几个小优化, 原标题Small Tweaks That Can Make a Huge Impact on Your Website’s Accessibility
+ 文中说明了语义化的重要性, 也推荐了一些HTML5的学习网站 页面只用一个main标签, 并给他一个ID 请尽量使用原生定义的功能标签, 比如按钮就用button, 虽然要重置样式, 比直接使用div或者a看起来麻烦, 但是它可以有更多的原生功能, 例如自带键盘监听事件. 例如你或许可以通过tab键, 焦点在这个按钮上, 并敲打enter的时候, 就能触发事件了, 这个是其他元素做不到的哦~ 当然我个人觉得这个仁者见仁智者见智了 页面中强烈推荐只有一个h1标签, 其他的h*标签请合理的使用对应的级别 这条就跟设计有关了, 请采用合理的色彩对比度 用一些特殊的标签辅助一些会使用特殊功能(屏幕阅读器aria-hidden=&ldquo;true&rdquo;, 那么屏幕阅读器就会忽略这个标签, 后面再增加一个几乎不可见却又没有隐藏的.visually-hidden`元素, 并写入提示信息, 屏幕阅读器就会读出这段内容, 然后他们就能听到这个提示语了, 于是两者都很happy了. 不过就目前我的经验和观察来看, 国内很少会有网站注意到网页辅助功能的运用 这点也是跟设计有关, 主要是说谨慎字体选择, 字体大小等排版, 还有需要高亮突出显示的一些关键元素 增加一些键盘事件绑定, 对某些键盘侠来说更加高效快捷, 并且看起来很酷, 另外有个小tips, 关于如何改变使用键盘当前焦距的元素额外样式, 使其看起来更美观醒目, 比如 css .your-element { background: red; } ."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">提高网站可访问性的十个优化/Markdown语法研究/SSH</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-01-18T00:00:00Z">January 18, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年1月18日 雾霾 一般</p>
+</blockquote>
+
+<h1 id="高网站可访问性的十个优化-markdown语法研究-ssh-es6">高网站可访问性的十个优化 / Markdown语法研究 / SSH / ES6</h1>
+
+<ol>
+<li><p>阅读<a href="https://css-tricks.com/small-tweaks-can-make-huge-impact-websites-accessibility/">对网站的可访问性带来巨大影响的几个小优化</a>, 原标题Small Tweaks That Can Make a Huge Impact on Your Website’s Accessibility</p>
+
+<ol>
+<li>文中说明了语义化的重要性, 也推荐了一些<a href="http://html5doctor.com/article-archive/">HTML5的学习网站</a></li>
+<li>页面只用一个<code>main</code>标签, 并给他一个ID</li>
+<li>请尽量使用原生定义的功能标签, 比如按钮就用<code>button</code>, 虽然要重置样式, 比直接使用<code>div</code>或者<code>a</code>看起来麻烦, 但是它可以有更多的原生功能, 例如自带键盘监听事件. 例如你或许可以通过<code>tab</code>键, 焦点在这个按钮上, 并敲打<code>enter</code>的时候, 就能触发事件了, 这个是其他元素做不到的哦~ 当然我个人觉得这个仁者见仁智者见智了</li>
+<li>页面中强烈推荐只有一个<code>h1</code>标签, 其他的<code>h*</code>标签请合理的使用对应的级别</li>
+<li>这条就跟设计有关了, 请采用合理的色彩对比度</li>
+<li>用一些特殊的标签辅助一些会使用特殊功能(屏幕阅读器<a href="https://developer.mozilla.org/zh-CN/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute">aria-hidden</a>=&ldquo;true&rdquo;<code>, 那么屏幕阅读器就会忽略这个标签, 后面再增加一个几乎不可见却又没有隐藏的</code>.visually-hidden`元素, 并写入提示信息, 屏幕阅读器就会读出这段内容, 然后他们就能听到这个提示语了, 于是两者都很happy了. 不过就目前我的经验和观察来看, 国内很少会有网站注意到网页辅助功能的运用</li>
+<li>这点也是跟设计有关, 主要是说谨慎字体选择, 字体大小等排版, 还有需要高亮突出显示的一些关键元素</li>
+<li>增加一些键盘事件绑定, 对某些键盘侠来说更加高效快捷, 并且看起来很酷, 另外有个小tips, 关于如何改变使用键盘当前焦距的元素额外样式, 使其看起来更美观醒目, 比如
+<code>css
+.your-element {
+    background: red;
+}
+.your-element:focus {
+    outline: none; /* Reset the default */
+    box-shadow: 0 0 0 3px black; /* A very obvious state change */
+}
+</code>
+老实说, 我觉得都不好看哈哈哈哈.</li>
+<li>对于不同状态的功能标签, 例如按钮, 请不要仅使用轻度的色彩调整来告知用户, 他已经成功操作过了, 最好还要加一条提示, 这样对某些弱视用户来说, 这个开发人员简直是程序员界一股清泉</li>
+<li>最后推荐了几个不错的网站和专家, 对于页面可读性的提高的干货提供更为全面的学习和了解</li>
+</ol></li>
+
+<li><p>针对markdown语法中, 区块元素的代码写法中, 无法增加多余空格的问题, 提问<a href="https://stackoverflow.com/questions/48313066/how-to-make-spaces-or-url-inside-a-code-span-with-markdown-syntax">how to make spaces or url inside a code span with markdown syntax</a>, 因为上一期有个关于<a href="https://github.com/whidy/daily/blob/master/posts/2018-01-17-ftp-css-js.md"><code>(aﾠ==1 &amp;&amp; a== 2 &amp;&amp;ﾠa==3)</code></a>的文章. 需要这样的特殊写法. 目前只知道在markdown中使用html标签来处理, 例如<code>&lt;code&gt;&amp;nbsp;a&lt;/code&gt;</code>, 但这又是不规范的MD写法, 等待解决中.</p></li>
+
+<li><p>粗读<a href="http://array_huang.coding.me/webpack-book/">多页为王：webpack多页应用架构专题系列</a>, 文中以webpack1.x来进行了一些介绍. 或许有些思路和技巧将来用得上.</p></li>
+
+<li><p>有个80年程序员大佬在我博客留言推荐远程操作VPS的工具可以用<a href="https://www.bitvise.com/ssh-client">Bitvise SSH</a>, 于是下载下来体验下并修改了SSH端口号.</p>
+
+<pre><code class="language-bash">vi /etc/ssh/sshd_config
+</code></pre>
+
+<p>改掉Port 对应22为其他想要的, 然后重启服务</p>
+
+<pre><code class="language-bash">service sshd restart
+</code></pre>
+
+<p>关闭当前连接后修改连接配置为新端口重新连一次就好了.
+另外Bitvise SSH果然方便, 自带FTP, 同步文件效率提升许多, 而且不用每次输入密码了. 屌炸天( •̀ ω •́ )y</p></li>
+
+<li><p>阅读<a href="http://es6.ruanyifeng.com/">ECMAScript 6 入门</a>, 上次学到函数的拓展, 重新从此处学习.</p>
+
+<ol>
+<li><a href="https://babeljs.io/repl/">在线编译测试工具</a></li>
+<li>测试ES6代码环境搭建<a href="https://github.com/whidy/es6-study">es6-study</a></li>
+</ol></li>
+</ol>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

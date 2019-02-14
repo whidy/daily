@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note  | ECMAScript6入门/JS事件</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ECMAScript6入门/JS事件" />
+<meta property="og:description" content="2018年1月30日 小雨 无聊
+ ECMAScript6入门 / JS事件 模板字符串(Template literals)中的标签模板  模板字符串非常棒的功能, 减少了HTML拼接的繁琐, 其中标签模板, 这个东西初看起来很奇怪, 多结合实例会好理解一些.
+以下结合MDN和ECMAScript6入门做个笔记
+标签函数的第一个参数包含一个字符串值的数组。其余的参数与表达式相关。
+ 来看看这个例子:
+let a = 5; let b = 10; tag`Hello ${a &#43; b} world ${a * b}`; // 等同于 tag([&#39;Hello &#39;, &#39; world &#39;, &#39;&#39;], 15, 50);  个人理解: 简单的说, `Hello ${a &#43; b} world ${a * b}` 会被表达式(例如: ${a &#43; b})分割一个包含多个字符串的数组(即[&#39;Hello &#39;, &#39; world &#39;, &#39;&#39;]), 需要注意的是${a * b}后面还有个&#39;&#39;(其实似乎也可以认为有n个表达式, 就有n&#43;1个字符串长度的数组), 而表达式部分会按顺序作为参数传入自定义的tag方法." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://daily.whidy.net/posts/2018-01-30-es6-javascript-event/" />
+<meta property="article:published_time" content="2018-01-30T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-01-30T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="ECMAScript6入门/JS事件">
+<meta itemprop="description" content="2018年1月30日 小雨 无聊
+ ECMAScript6入门 / JS事件 模板字符串(Template literals)中的标签模板  模板字符串非常棒的功能, 减少了HTML拼接的繁琐, 其中标签模板, 这个东西初看起来很奇怪, 多结合实例会好理解一些.
+以下结合MDN和ECMAScript6入门做个笔记
+标签函数的第一个参数包含一个字符串值的数组。其余的参数与表达式相关。
+ 来看看这个例子:
+let a = 5; let b = 10; tag`Hello ${a &#43; b} world ${a * b}`; // 等同于 tag([&#39;Hello &#39;, &#39; world &#39;, &#39;&#39;], 15, 50);  个人理解: 简单的说, `Hello ${a &#43; b} world ${a * b}` 会被表达式(例如: ${a &#43; b})分割一个包含多个字符串的数组(即[&#39;Hello &#39;, &#39; world &#39;, &#39;&#39;]), 需要注意的是${a * b}后面还有个&#39;&#39;(其实似乎也可以认为有n个表达式, 就有n&#43;1个字符串长度的数组), 而表达式部分会按顺序作为参数传入自定义的tag方法.">
+
+
+<meta itemprop="datePublished" content="2018-01-30T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-01-30T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="239">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ECMAScript6入门/JS事件"/>
+<meta name="twitter:description" content="2018年1月30日 小雨 无聊
+ ECMAScript6入门 / JS事件 模板字符串(Template literals)中的标签模板  模板字符串非常棒的功能, 减少了HTML拼接的繁琐, 其中标签模板, 这个东西初看起来很奇怪, 多结合实例会好理解一些.
+以下结合MDN和ECMAScript6入门做个笔记
+标签函数的第一个参数包含一个字符串值的数组。其余的参数与表达式相关。
+ 来看看这个例子:
+let a = 5; let b = 10; tag`Hello ${a &#43; b} world ${a * b}`; // 等同于 tag([&#39;Hello &#39;, &#39; world &#39;, &#39;&#39;], 15, 50);  个人理解: 简单的说, `Hello ${a &#43; b} world ${a * b}` 会被表达式(例如: ${a &#43; b})分割一个包含多个字符串的数组(即[&#39;Hello &#39;, &#39; world &#39;, &#39;&#39;]), 需要注意的是${a * b}后面还有个&#39;&#39;(其实似乎也可以认为有n个表达式, 就有n&#43;1个字符串长度的数组), 而表达式部分会按顺序作为参数传入自定义的tag方法."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ECMAScript6入门/JS事件</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-01-30T00:00:00Z">January 30, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年1月30日 小雨 无聊</p>
+</blockquote>
+
+<h1 id="ecmascript6入门-js事件">ECMAScript6入门 / JS事件</h1>
+
+<h2 id="模板字符串-template-literals-中的标签模板">模板字符串(Template literals)中的标签模板</h2>
+
+<blockquote>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/template_strings">模板字符串</a>非常棒的功能, 减少了HTML拼接的繁琐, 其中<a href="http://es6.ruanyifeng.com/?search=%E8%A7%A3%E6%9E%84&amp;x=10&amp;y=8#docs/string#%E6%A0%87%E7%AD%BE%E6%A8%A1%E6%9D%BF">标签模板</a>, 这个东西初看起来很奇怪, 多结合实例会好理解一些.</p>
+
+<p>以下结合MDN和ECMAScript6入门做个笔记</p>
+
+<p>标签函数的第一个参数包含<strong>一个字符串值的数组</strong>。其余的参数与表达式相关。</p>
+</blockquote>
+
+<p>来看看这个例子:</p>
+
+<pre><code class="language-javascript">let a = 5;
+let b = 10;
+
+tag`Hello ${a + b} world ${a * b}`;
+// 等同于
+tag(['Hello ', ' world ', ''], 15, 50);
+</code></pre>
+
+<p>个人理解: 简单的说, `Hello ${a + b} world ${a * b}` 会被表达式(例如: <code>${a + b}</code>)分割一个包含多个字符串的数组(即<code>['Hello ', ' world ', '']</code>), 需要注意的是<code>${a * b}</code>后面还有个<code>''</code>(其实似乎也可以认为有<code>n</code>个表达式, 就有<code>n+1</code>个字符串长度的数组), 而表达式部分会按顺序作为参数传入自定义的<code>tag</code>方法. 以下实例证明:</p>
+
+<pre><code class="language-javascript">let a = 5;
+let b = 10;
+
+function tag(s, v1, v2) {
+  console.log(s[0]);
+  console.log(s[1]);
+  console.log(s[2]);
+  console.log(v1);
+  console.log(v2);
+
+  return 'OK';
+}
+
+tag`Hello ${a + b} world ${a * b}`;
+// &quot;Hello &quot;
+// &quot; world &quot;
+// &quot;&quot;
+// 15
+// 50
+// &quot;OK&quot;
+</code></pre>
+
+<blockquote>
+<p>MDN上面还有一些相对复杂的示例, 建议也去了解下, 自己做个总结后, 理解和印象深刻了许多</p>
+</blockquote>
+
+<h2 id="javascript事件">javascript事件</h2>
+
+<p>参阅<a href="https://www.quirksmode.org/js/events_order.html">Event order</a>,<a href="https://stackoverflow.com/questions/6348494/addeventlistener-vs-onclick">StackOverflow: addEventListener vs onclick</a>以及<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener">MDN: EventTarget.addEventListener()</a>做了一些简单的总结.</p>
+
+<p>老实说, 看一天es6真的很累. 索性去看了些别的. 正巧看到关于事件相关的知识点, <code>addEventListener</code>和<code>onclick</code>这类事件绑定的区别是什么呢?</p>
+
+<p><code>addEventListener</code>是一个相对好的为元素添加事件的方法, 并且可以重复绑定, 有很多可选参数可以控制事件以<code>捕获</code>(capture)还是<code>冒泡</code>(bubble)来处理.</p>
+
+<p>如果是<code>true</code>则是捕获, <code>false</code>则是冒泡, 捕获是从外部向内部传递, 冒泡反之.</p>
+
+<p><code>onclick</code>则是默认冒泡的, 另外由于事件触发不断向父级传递, 因此可能会触发父级的其他事件, 因此需要阻止冒泡. 也就需要用到<code>e.stopPropagation()</code>, 尤其在拖拽事件上面的处理, 这个就显得尤为重要!</p>
+
+<p>另外<code>addEventListener</code>的参数相当的多, MDN上面介绍了一些它的特点, 比如<strong>处理过程中 this 的值的问题</strong>,</p>
+
+<p>有一段代码不太常见的, 是<code>bind</code>相关的例子：</p>
+
+<pre><code class="language-javascript">var Something = function(element) {
+  // |this| is a newly created object
+  this.name = 'Something Good';
+  this.onclick1 = function(event) {
+    console.log(this.name); // undefined, as |this| is the element
+  };
+  this.onclick2 = function(event) {
+    console.log(this.name); // 'Something Good', as |this| is bound to newly created object
+  };
+  element.addEventListener('click', this.onclick1, false);
+  element.addEventListener('click', this.onclick2.bind(this), false); // Trick
+}
+var s = new Something(document.body);
+</code></pre>
+
+<p>还有一个<a href="https://developers.google.com/web/updates/2016/06/passive-event-listeners"><code>使用 passive 改善的滚屏性能</code></a>是值得注意的:</p>
+
+<pre><code class="language-javascript">var elem = document.getElementById('elem'); 
+elem.addEventListener('touchmove', function listener() { /* do something */ }, { passive: true });
+</code></pre>
+
+<p>而onclick可能会由于重复事件被覆盖的危险.</p>
+
+<h2 id="其他">其他</h2>
+
+<p>一早上想起昨天在SegmentFault看到一篇译文<a href="https://segmentfault.com/a/1190000013036227">编程技巧：尝试不用 If 语句编程</a>, 也读了一下原文, 感觉思路还是挺不错的. 其中示例二中运用了<code>return</code>中的<code>or</code>操作符技巧. 对应变量的属性中的对象, 返回不同的值, 很棒!</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

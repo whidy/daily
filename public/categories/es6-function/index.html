@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+      <link href="https://daily.whidy.net/categories/es6-function/index.xml" rel="alternate" type="application/rss+xml" title="Daily note" />
+      <link href="https://daily.whidy.net/categories/es6-function/index.xml" rel="feed" type="application/rss+xml" title="Daily note" />
+    
+
+    <meta property="og:title" content="Es6 Function" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://daily.whidy.net/categories/es6-function/" />
+
+<meta property="og:updated_time" content="2018-02-06T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="Es6 Function">
+<meta itemprop="description" content="">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Es6 Function"/>
+<meta name="twitter:description" content=""/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Es6 Function
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="cf pa3 pa4-m pa4-l">
+    <div class="measure-wide-l center f4 lh-copy nested-copy-line-height nested-links nested-img mid-gray">
+      <p>Below you will find pages that utilize the taxonomy term “Es6 Function”</p>
+    </div>
+  </article>
+  <div class="mw8 center">    
+    <section class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100  mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-02-06-es6-function/" class="link black dim">
+        ECMAScript6入门
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年2月6日 晴 一般
+ ECMAScript6入门 今天肚子不舒服状态不佳, 粗略的把第6.数值的扩展看完了. 感觉就是Math相关方法太多了, 我肯定记不住了.大概留点印象吧.
+函数的扩展 然后接着看7.函数的扩展
+参数默认值的位置  只有函数的尾参数可以省略 javascript function f(x, y = 5, z) { return [x, y, z]; } f() // [undefined, 5, undefined] f(1) // [1, 5, undefined] f(1, ,2) // 报错 f(1, undefined, 2) // [1, 5, 2]  如果传入undefined，将触发该参数等于默认值，null则没有这个效果。 函数也是有length属性的, 但是有个特点, 它依次计算至有参数默认值为止, 加入第一个就有参数, 那长度以然是0. javascript (function (a) {}).length // 1 (function (a = 5) {}).length // 0 (function (a, b, c = 5) {}).
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100  mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2018-01-29-es6-function/" class="link black dim">
+        ECMAScript6入门/函数
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      2018年1月29日 阴有小雨 一般
+ ECMAScript6入门 / 函数 ECMAScript6入门 我再次阅读字符串的扩展这部分, 老实说, 这一节关于charCodeAt, charAt, codePointAt, fromCodePoint, at, normalize这些东西感到枯燥的很, 我还不能理解这些内容在实际应用上的广泛性.
+函数(Function)  关于函数得知识点, 我才发现我欠缺的多得多. 以下是我对函数了解较少或者需要注意的几个点得总结.
+ 作用域和函数堆栈 递归 例如，思考一下如下的函数定义：
+var foo = function bar() { // statements go here };  在这个函数体内，以下的语句是等价的：
+ bar() arguments.callee() foo()  获取树结构中所有的节点时，使用递归实现要容易得多：
+function walkTree(node) { if (node == null) // return; // do something with node for (var i = 0; i &lt; node.childNodes.length; i++) { walkTree(node.
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+    </section>
+  </div>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
