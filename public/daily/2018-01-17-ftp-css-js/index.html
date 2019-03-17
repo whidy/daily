@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily  | CSS动画技巧/JS面试题/速查手册/日常学习</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="CSS动画技巧/JS面试题/速查手册/日常学习" />
+<meta property="og:description" content="2018年1月17日 晴 一般
+ css动画 / JS面试题研究 / 速查手册  完成博客内容Visual Studio Code几款FTP插件使用总结,并发布在SegmentFault文章
+ 自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&rdquo;quick panel&rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) No, 除非修改sftp配置&quot;confirm_xxx&quot;()例如&rdquo;confirm_overwrite_newer&ldquo;为true, 就会静默yes, 继续执行.
+ 阅读Making CSS Animations Feel More Natural,我觉得应该翻译成,如何让CSS动画看起来更生动 该文通过7个示例, 一点点将一个方块上下跳动的动画进行优化, 让它看起来更加生动. 有几个关键点, @keyframes的分解是否到位, 每个步骤通过transform的scale对其形状进行适当的改变animation-timing-function的选择: linear → ease → cubic-bezier(如果你擅长使用贝赛尔曲线). 对比每个改进, 就会发现这些小小的改动作用非常的大了!
+ 阅读Stop Using CSS Selectors for Non-CSS. 文中提到, 不建议使用类名作为事件代理, 不如加一个data-进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&rsquo;js-&lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.
+ 看到StackOverflow上提出的一个面试题Can (a ==1 &amp;&amp; a== 2 &amp;&amp; a==3) ever evaluate to true?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/daily/2018-01-17-ftp-css-js/" />
+<meta property="article:published_time" content="2018-01-17T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-01-17T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+
+<meta itemprop="name" content="CSS动画技巧/JS面试题/速查手册/日常学习">
+<meta itemprop="description" content="2018年1月17日 晴 一般
+ css动画 / JS面试题研究 / 速查手册  完成博客内容Visual Studio Code几款FTP插件使用总结,并发布在SegmentFault文章
+ 自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&rdquo;quick panel&rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) No, 除非修改sftp配置&quot;confirm_xxx&quot;()例如&rdquo;confirm_overwrite_newer&ldquo;为true, 就会静默yes, 继续执行.
+ 阅读Making CSS Animations Feel More Natural,我觉得应该翻译成,如何让CSS动画看起来更生动 该文通过7个示例, 一点点将一个方块上下跳动的动画进行优化, 让它看起来更加生动. 有几个关键点, @keyframes的分解是否到位, 每个步骤通过transform的scale对其形状进行适当的改变animation-timing-function的选择: linear → ease → cubic-bezier(如果你擅长使用贝赛尔曲线). 对比每个改进, 就会发现这些小小的改动作用非常的大了!
+ 阅读Stop Using CSS Selectors for Non-CSS. 文中提到, 不建议使用类名作为事件代理, 不如加一个data-进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&rsquo;js-&lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.
+ 看到StackOverflow上提出的一个面试题Can (a ==1 &amp;&amp; a== 2 &amp;&amp; a==3) ever evaluate to true?">
+
+
+<meta itemprop="datePublished" content="2018-01-17T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-01-17T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="173">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CSS动画技巧/JS面试题/速查手册/日常学习"/>
+<meta name="twitter:description" content="2018年1月17日 晴 一般
+ css动画 / JS面试题研究 / 速查手册  完成博客内容Visual Studio Code几款FTP插件使用总结,并发布在SegmentFault文章
+ 自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&rdquo;quick panel&rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) No, 除非修改sftp配置&quot;confirm_xxx&quot;()例如&rdquo;confirm_overwrite_newer&ldquo;为true, 就会静默yes, 继续执行.
+ 阅读Making CSS Animations Feel More Natural,我觉得应该翻译成,如何让CSS动画看起来更生动 该文通过7个示例, 一点点将一个方块上下跳动的动画进行优化, 让它看起来更加生动. 有几个关键点, @keyframes的分解是否到位, 每个步骤通过transform的scale对其形状进行适当的改变animation-timing-function的选择: linear → ease → cubic-bezier(如果你擅长使用贝赛尔曲线). 对比每个改进, 就会发现这些小小的改动作用非常的大了!
+ 阅读Stop Using CSS Selectors for Non-CSS. 文中提到, 不建议使用类名作为事件代理, 不如加一个data-进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&rsquo;js-&lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.
+ 看到StackOverflow上提出的一个面试题Can (a ==1 &amp;&amp; a== 2 &amp;&amp; a==3) ever evaluate to true?"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
+              Daily
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DAILIES
+      </p>
+      <h1 class="f1 athelas mb1">CSS动画技巧/JS面试题/速查手册/日常学习</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-01-17T00:00:00Z">January 17, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年1月17日 晴 一般</p>
+</blockquote>
+
+<h1 id="css动画-js面试题研究-速查手册">css动画 / JS面试题研究 / 速查手册</h1>
+
+<ol>
+<li><p>完成博客内容<a href="https://www.whidy.net/vscode-ftp-extensions-use-summary.html">Visual Studio Code几款FTP插件使用总结</a>,并发布在<a href="https://segmentfault.com/a/1190000012875114">SegmentFault文章</a></p></li>
+
+<li><p>自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&rdquo;quick panel&rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) <strong>No</strong>, 除非修改sftp配置<code>&quot;confirm_xxx&quot;</code>()例如&rdquo;<strong>confirm_overwrite_newer</strong>&ldquo;为true, 就会静默yes, 继续执行.</p></li>
+
+<li><p>阅读<a href="https://css-tricks.com/making-css-animations-feel-natural/">Making CSS Animations Feel More Natural</a>,我觉得应该翻译成,如何让CSS动画看起来更生动
+该文通过7个示例, 一点点将一个方块上下跳动的动画进行优化, 让它看起来更加生动. 有几个关键点, @keyframes的分解是否到位, 每个步骤通过<code>transform</code>的<code>scale</code>对其形状进行适当的改变<code>animation-timing-function</code>的选择: linear → ease → cubic-bezier(如果你擅长使用贝赛尔曲线). 对比每个改进, 就会发现这些小小的改动作用非常的大了!</p></li>
+
+<li><p>阅读<a href="https://css-tricks.com/stop-using-css-selectors-non-css/">Stop Using CSS Selectors for Non-CSS</a>. 文中提到, 不建议使用类名作为事件代理, 不如加一个<code>data-</code>进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&rsquo;js-&lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.</p></li>
+
+<li><p>看到StackOverflow上提出的一个面试题<a href="https://stackoverflow.com/questions/48270127/can-a-1-a-2-a-3-ever-evaluate-to-true">Can (a ==1 &amp;&amp; a== 2 &amp;&amp; a==3) ever evaluate to true?</a>.翻译过来就是如何让(a 等于1 和 a等于 2 和 a等于3)恒为true? 虽然感觉题目很脑残&hellip; 但是可能还是很有意思, 回答<a href="https://stackoverflow.com/a/48270314/3089701">赞成第一的答案</a>是把a当成对象, 返回一个number, 利用弱语言特性, 就每次都相等了. 其他答案也是各有千秋, 尤其是<a href="https://stackoverflow.com/a/48274520/3089701">Jeff</a>的答案. 其实仔细看才是题主的真正的标准答案. 代码如下:</p>
+
+<pre><code class="language-javascript">var aﾠ = 1;
+var a = 2;
+var ﾠa = 3;
+if(aﾠ==1 &amp;&amp; a== 2 &amp;&amp;ﾠa==3) {
+  console.log(&quot;Why hello there!&quot;)
+}
+</code></pre>
+
+<p>请注意, 一般人肯定会觉得这个菜鸡, 写代码不工整. 然后强迫症式重新排版, 发现好像怪怪的. 本来就怪怪的, 第一行实际上是给<code>a&nbsp;</code>进行赋值, 第二行是<code>a</code>, 第三行是<code>&nbsp;a</code>, 所以将<code>(aﾠ==1 &amp;&amp; a== 2 &amp;&amp;ﾠa==3)</code>可以看成<code>((aﾠ) == 1 &amp;&amp; (a) == 2 &amp;&amp; (ﾠa) == 3)</code>, 但是如果改掉子括号内的变量名,比如将第一个子括号<code>a&nbsp;</code>改成<code>a</code>那就出不来啦~
+难怪我拷贝他的代码到编辑器, 再用&rdquo;格式化代码&rdquo;的命令后, 看代码还是感觉乱糟糟呢. 所以以后写代码一定要规范, 尤其是声明变量的时候~</p></li>
+
+<li><p>探索到一个不错的速查手册合集<a href="https://medium.freecodecamp.org/modern-frontend-hacking-cheatsheets-df9c2566c72a">The best front-end hacking cheatsheets — all in one place.</a>.包含以下手册</p>
+
+<ol>
+<li><a href="https://devhints.io/es6">Javascript ES2015 特性(Javascript ES2015 features)</a>(该站还有其他手册,例如<a href="https://devhints.io/react">React</a>, <a href="https://devhints.io/sass">SCSS</a>, <a href="https://devhints.io/stylus">Stylus</a>)</li>
+<li><a href="http://overapi.com/javascript">Javascript手册</a></li>
+<li><a href="https://www.debuggex.com/cheatsheet/regex/javascript">Javascript正则表达式(Javascript Regular expression)</a></li>
+<li><a href="https://github.com/linkmesrl/react-journey-2016/blob/master/resources/egghead-redux-cheat-sheet-3-2-1.pdf">Redux手册</a></li>
+<li><a href="https://vuejs-tips.github.io/cheatsheet/">Vuejs手册</a>和<a href="https://vuejs-tips.github.io/vuex-cheatsheet/">Vuex手册</a></li>
+<li><a href="https://angular.io/guide/cheatsheet">Angular 4手册</a></li>
+<li><a href="https://yoksel.github.io/flex-cheatsheet/">Flexbox手册</a></li>
+<li><a href="https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png">GraphQL手册</a></li>
+</ol></li>
+
+<li><p>原来Jekyll支持很多个博客站点的导入, 今天才发现. 比如<a href="https://import.jekyllrb.com/docs/wordpress/">wordpress导入到Jekyll</a>, 只要一个插件配置好使用就行了, 参考官方<a href="http://import.jekyllrb.com/docs/home/">博客迁移</a></p></li>
+</ol>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/daily/2018-01-16-blog-optimize/">博客插件优化及其他学习总结</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-to-read-list/"></a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-to-do-list/"></a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily  | ECMAScript6入门/PWA了解</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ECMAScript6入门/PWA了解" />
+<meta property="og:description" content="2018年1月26日 阴 一般
+ ECMAScript6入门 / PWA了解 ECMAScript 6 入门  复习前几天学习的基础, 并继续学习(话说早就说再看函数了, 结果又绕回前面几章节了😂)
+ 变量提升 这个不是第一次说了, 但是之前看的没那么仔细, 今天小结几个容易忘记和忽略的地方.
+函数体内引入外部变量时, 即便函数体内重复声明外部变量的代码看起来没有执行, 但依旧会被提升. 如下示例, 容易以为false内的代码块不执行, 则输出日期的错误.
+var tmp = new Date(); function f() { console.log(tmp); if (false) { var tmp = &#39;hello world&#39;; } } f(); // undefined  另外一个类似的:
+var is_android = true; if (is_android) { function foo() { console.log(&#39;I am Android&#39;); } } else { function foo() { console." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/daily/2018-01-26-es6-pwa/" />
+<meta property="article:published_time" content="2018-01-26T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-01-26T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+
+<meta itemprop="name" content="ECMAScript6入门/PWA了解">
+<meta itemprop="description" content="2018年1月26日 阴 一般
+ ECMAScript6入门 / PWA了解 ECMAScript 6 入门  复习前几天学习的基础, 并继续学习(话说早就说再看函数了, 结果又绕回前面几章节了😂)
+ 变量提升 这个不是第一次说了, 但是之前看的没那么仔细, 今天小结几个容易忘记和忽略的地方.
+函数体内引入外部变量时, 即便函数体内重复声明外部变量的代码看起来没有执行, 但依旧会被提升. 如下示例, 容易以为false内的代码块不执行, 则输出日期的错误.
+var tmp = new Date(); function f() { console.log(tmp); if (false) { var tmp = &#39;hello world&#39;; } } f(); // undefined  另外一个类似的:
+var is_android = true; if (is_android) { function foo() { console.log(&#39;I am Android&#39;); } } else { function foo() { console.">
+
+
+<meta itemprop="datePublished" content="2018-01-26T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-01-26T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="365">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ECMAScript6入门/PWA了解"/>
+<meta name="twitter:description" content="2018年1月26日 阴 一般
+ ECMAScript6入门 / PWA了解 ECMAScript 6 入门  复习前几天学习的基础, 并继续学习(话说早就说再看函数了, 结果又绕回前面几章节了😂)
+ 变量提升 这个不是第一次说了, 但是之前看的没那么仔细, 今天小结几个容易忘记和忽略的地方.
+函数体内引入外部变量时, 即便函数体内重复声明外部变量的代码看起来没有执行, 但依旧会被提升. 如下示例, 容易以为false内的代码块不执行, 则输出日期的错误.
+var tmp = new Date(); function f() { console.log(tmp); if (false) { var tmp = &#39;hello world&#39;; } } f(); // undefined  另外一个类似的:
+var is_android = true; if (is_android) { function foo() { console.log(&#39;I am Android&#39;); } } else { function foo() { console."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
+              Daily
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DAILIES
+      </p>
+      <h1 class="f1 athelas mb1">ECMAScript6入门/PWA了解</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-01-26T00:00:00Z">January 26, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年1月26日 阴 一般</p>
+</blockquote>
+
+<h1 id="ecmascript6入门-pwa了解">ECMAScript6入门 / PWA了解</h1>
+
+<h2 id="ecmascript-6-入门">ECMAScript 6 入门</h2>
+
+<blockquote>
+<p>复习前几天学习的基础, 并继续学习(话说早就说再看函数了, 结果又绕回前面几章节了😂)</p>
+</blockquote>
+
+<h3 id="变量提升">变量提升</h3>
+
+<p>这个不是第一次说了, 但是之前看的没那么仔细, 今天小结几个容易忘记和忽略的地方.</p>
+
+<p>函数体内引入外部变量时, 即便函数体内<strong>重复声明外部变量</strong>的代码看起来没有执行, 但依旧会被提升. 如下示例, 容易以为<code>false</code>内的代码块不执行, 则输出日期的错误.</p>
+
+<pre><code class="language-javascript">var tmp = new Date();
+
+function f() {
+  console.log(tmp);
+  if (false) {
+    var tmp = 'hello world';
+  }
+}
+
+f(); // undefined
+</code></pre>
+
+<p>另外一个类似的:</p>
+
+<pre><code class="language-javascript">var is_android = true;
+if (is_android) {
+  function foo() {
+    console.log('I am Android');
+  }
+} else {
+  function foo() {
+    console.log('I am NOT Android');
+  }
+}
+foo(); // ES5: 'I am NOT Android'
+</code></pre>
+
+<p><strong>最好不要在代码块中声明函数变量</strong>, 上面的代码被解释为:</p>
+
+<pre><code class="language-javascript">function foo() {
+  alert('I am Android');
+}
+function foo() {
+  alert('I am NOT Android');
+}
+var is_android;
+
+is_android = true;
+if (is_android) {
+
+} else {
+
+}
+foo();
+</code></pre>
+
+<p>除此之外还有很多特殊的情况, 这里不多做说明了, 可以参阅:</p>
+
+<ul>
+<li><a href="https://wordpress.youran.me/javascript-scoping-and-hoisting/">Javascript作用域及变量提升</a></li>
+<li><a href="https://stackoverflow.com/questions/23125529/need-to-understand-javascript-function-hoisting-example">StackOverflow: Need to understand Javascript function hoisting example</a></li>
+</ul>
+
+<p>所以说, 用<code>let</code>就可以尽可能避免这些问题, 慢慢抛弃<code>var</code>吧~</p>
+
+<blockquote>
+<p><strong>题外话</strong>
+刚才那段<code>is_android</code>的代码, 在<code>node</code>环境下和<code>babel</code>编译下又有所区别, node下的结果始终是输出<code>I am Android</code>, 而babel下则提示错误, foo未声明的变量.</p>
+
+<p>个人分析: 代码块中声明变量的操作在es6中是危险的, es5则会发生变量提升?</p>
+
+<p>事实上, ES6在立即执行函数中声明函数, 也是有变量提升的, 如下示例:</p>
+
+<pre><code class="language-javascript">&gt; // 浏览器的 ES6 环境
+&gt; function f() { console.log('I am outside!'); }
+&gt; (function () {
+&gt;   if (false) {
+&gt;     // 重复声明一次函数f
+&gt;     function f() { console.log('I am inside!'); }
+&gt;   }
+&gt; 
+&gt;   f();
+&gt; }());
+&gt; // Uncaught TypeError: f is not a function
+&gt; ```
+&gt; 被解释为:
+&gt; ```javascript
+&gt; // 浏览器的 ES6 环境
+&gt; function f() { console.log('I am outside!'); }
+&gt; (function () {
+&gt;   var f = undefined;
+&gt;   if (false) {
+&gt;     function f() { console.log('I am inside!'); }
+&gt;   }
+&gt; 
+&gt;   f();
+&gt; }());
+&gt; // Uncaught TypeError: f is not a function
+&gt; ```
+&gt; 参阅: [ECMAScript 6 入门 - 块级作用域与函数声明](http://es6.ruanyifeng.com/?search=%E8%A7%A3%E6%9E%84&amp;x=10&amp;y=8#docs/let#%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E)
+&gt;
+&gt; 另一个结论大概就是, 的确要养成函数表达式式编码习惯.
+
+### 解构赋值
+
+其实理解起来很容易, 但是很容易忘记. 就随便写几个例子吧:
+
+```javascript
+function f() {
+  console.log('aaa');
+}
+
+let [x = f()] = [1];
+</code></pre>
+</blockquote>
+
+<p>等同于</p>
+
+<pre><code class="language-javascript">let x;
+if ([1][0] === undefined) {
+  x = f();
+} else {
+  x = [1][0];
+}
+</code></pre>
+
+<blockquote>
+<p>注意，ES6 内部使用严格相等运算符（===），判断一个位置是否有值。所以，只有当一个数组成员严格等于undefined，默认值才会生效。</p>
+</blockquote>
+
+<pre><code class="language-javascript">let x;
+if ([1][0] === undefined) {
+  x = f();
+} else {
+  x = [1][0];
+}
+</code></pre>
+
+<pre><code class="language-javascript">let {foo: {bar}} = {baz: 'baz'};
+</code></pre>
+
+<p>这段会报错, 从原文中的解释, 简单来说, <code>foo</code>是<code>undefined</code>, 那么它的子对象获取就会报错.</p>
+
+<blockquote>
+<p>由此, 我推测一个可能正确的结论, 解构赋值, 从等号右边对应左边来看, 没有对应到左边的, 那就是<code>undefined</code>, 对应上去后再进一步对应, 上面数组的例子, 证明了<code>1</code>属于正确的值, 必然会覆盖<code>f()</code>, 而对象需要保持结构一致, 否则也会报错.</p>
+</blockquote>
+
+<h2 id="了解pwa-progressive-web-apps">了解PWA(Progressive Web Apps)</h2>
+
+<blockquote>
+<p>2016年谷歌提出PWA, 但实际上更早就有相关的案例了?</p>
+</blockquote>
+
+<ul>
+<li><a href="https://www.zhihu.com/question/46690207">知乎: 如何看待 Progressive Web Apps 的发展前景？</a></li>
+<li><a href="http://geek.csdn.net/news/detail/135595">CSND: 下一代 Web 应用模型 - Progressive Web App</a></li>
+</ul>
+
+<p>对于未尝试过Hybrid开发的我, 是否可以跳过直接关注PWA开发, 当然这里面还有一个要点需要去了解<strong>Service Worker</strong>.</p>
+
+<h2 id="vue项目的vw移动端适配">Vue项目的vw移动端适配</h2>
+
+<p>下午正好有个同事发了一篇<a href="https://www.w3cplus.com/mobile/vw-layout-in-vue.html">如何在Vue项目中使用vw实现移动端适配</a>, 虽然不怎么会用Vue, 不过粗略看了下, 关于适配方案和之前我写的<a href="https://github.com/whidy/mobileweb/tree/postcss-px-to-viewport-test">DEMO</a>有相似之处, 不过他的文章中提到了了一段:</p>
+
+<blockquote>
+<p>最终的解决方案，就是使用viewport的polyfill：<a href="https://github.com/rodneyrehm/viewport-units-buggyfill">Viewport Units Buggyfill</a>。</p>
+</blockquote>
+
+<p>有空来研究下~</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/daily/2018-01-25-gatsby-strapi-mongodb/">安装Gatsby和Strapi过程中的各种问题</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-24-gatsby-strapi-mongodb/">安装Gatsby和Strapi过程中的各种问题</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-23-javascript-es6-babel/">null和undefined复习/ES6作用域和babel的探索</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-22-chrome-history-postcss/">内网IP调整后引发谷歌浏览器历史记录的修改实现</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-19-es6-babel-markdown/">ES6学习/Babel配置学习疑问/Markdown代码块高亮支持语法列表</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-18-website-tweaks-markdown-ssh/">提高网站可访问性的十个优化/Markdown语法研究/SSH</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-17-ftp-css-js/">CSS动画技巧/JS面试题/速查手册/日常学习</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-16-blog-optimize/">博客插件优化及其他学习总结</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-to-read-list/"></a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-to-do-list/"></a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily  | call和apply</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="call和apply" />
+<meta property="og:description" content="2018年2月8日 晴 一般
+ 函数原型和继承学习总结  昨晚回去又看了一下JavaScript权威指南第六章, 其中提到, 1, &quot;test&quot;, true, 这类不是对象, 或者也可以当作临时对象, 书中举例var s = &quot;test&quot;, 此时可以给s一个属性, 比如s.a = 1, 但是你访问不到该属性s.a是undefined. 因为这三种是原始类型什么的- -.
+另外还有个包装对象, 好像目前看不出来有啥用. 先不看了吧- -
+今天接着看昨天没看完的内容和补充昨天的内容.
+ 昨日内容补充 Object.prototype.constructor  早上读昨天没看完的文章Basic Inheritance with JavaScript Constructors
+ 一般的通过new构造函数实现继承就不说了. 这里用call来实现(用面向对象表达)所谓的&rdquo;一个通过SuperHero类创建的marvel实例, 继承SuperHuman的方法&rdquo;的过程. 下面是合并后的代码:
+function SuperHuman(name, superPower) { this.name = name; this.superPower = superPower; } SuperHuman.prototype.usePower = function() { console.log(this.superPower &#43; &#39;!&#39;); }; var banshee = new SuperHuman(&#39;Silver Banshee&#39;, &#39;sonic wail&#39;); function SuperHero(name, superPower) { // Reuse SuperHuman initialization SuperHuman." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/daily/2018-02-08-object-call-apply/" />
+<meta property="article:published_time" content="2018-02-08T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-02-08T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+
+<meta itemprop="name" content="call和apply">
+<meta itemprop="description" content="2018年2月8日 晴 一般
+ 函数原型和继承学习总结  昨晚回去又看了一下JavaScript权威指南第六章, 其中提到, 1, &quot;test&quot;, true, 这类不是对象, 或者也可以当作临时对象, 书中举例var s = &quot;test&quot;, 此时可以给s一个属性, 比如s.a = 1, 但是你访问不到该属性s.a是undefined. 因为这三种是原始类型什么的- -.
+另外还有个包装对象, 好像目前看不出来有啥用. 先不看了吧- -
+今天接着看昨天没看完的内容和补充昨天的内容.
+ 昨日内容补充 Object.prototype.constructor  早上读昨天没看完的文章Basic Inheritance with JavaScript Constructors
+ 一般的通过new构造函数实现继承就不说了. 这里用call来实现(用面向对象表达)所谓的&rdquo;一个通过SuperHero类创建的marvel实例, 继承SuperHuman的方法&rdquo;的过程. 下面是合并后的代码:
+function SuperHuman(name, superPower) { this.name = name; this.superPower = superPower; } SuperHuman.prototype.usePower = function() { console.log(this.superPower &#43; &#39;!&#39;); }; var banshee = new SuperHuman(&#39;Silver Banshee&#39;, &#39;sonic wail&#39;); function SuperHero(name, superPower) { // Reuse SuperHuman initialization SuperHuman.">
+
+
+<meta itemprop="datePublished" content="2018-02-08T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-02-08T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="189">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="call和apply"/>
+<meta name="twitter:description" content="2018年2月8日 晴 一般
+ 函数原型和继承学习总结  昨晚回去又看了一下JavaScript权威指南第六章, 其中提到, 1, &quot;test&quot;, true, 这类不是对象, 或者也可以当作临时对象, 书中举例var s = &quot;test&quot;, 此时可以给s一个属性, 比如s.a = 1, 但是你访问不到该属性s.a是undefined. 因为这三种是原始类型什么的- -.
+另外还有个包装对象, 好像目前看不出来有啥用. 先不看了吧- -
+今天接着看昨天没看完的内容和补充昨天的内容.
+ 昨日内容补充 Object.prototype.constructor  早上读昨天没看完的文章Basic Inheritance with JavaScript Constructors
+ 一般的通过new构造函数实现继承就不说了. 这里用call来实现(用面向对象表达)所谓的&rdquo;一个通过SuperHero类创建的marvel实例, 继承SuperHuman的方法&rdquo;的过程. 下面是合并后的代码:
+function SuperHuman(name, superPower) { this.name = name; this.superPower = superPower; } SuperHuman.prototype.usePower = function() { console.log(this.superPower &#43; &#39;!&#39;); }; var banshee = new SuperHuman(&#39;Silver Banshee&#39;, &#39;sonic wail&#39;); function SuperHero(name, superPower) { // Reuse SuperHuman initialization SuperHuman."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
+              Daily
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DAILIES
+      </p>
+      <h1 class="f1 athelas mb1">call和apply</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-02-08T00:00:00Z">February 8, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年2月8日 晴 一般</p>
+</blockquote>
+
+<h1 id="函数原型和继承学习总结">函数原型和继承学习总结</h1>
+
+<blockquote>
+<p>昨晚回去又看了一下JavaScript权威指南第六章, 其中提到, <code>1</code>, <code>&quot;test&quot;</code>, <code>true</code>, 这类不是对象, 或者也可以当作临时对象, 书中举例<code>var s = &quot;test&quot;</code>, 此时可以给<code>s</code>一个属性, 比如<code>s.a = 1</code>, 但是你访问不到该属性<code>s.a</code>是<code>undefined</code>. 因为这三种是原始类型什么的- -.</p>
+
+<p>另外还有个包装对象, 好像目前看不出来有啥用. 先不看了吧- -</p>
+
+<p>今天接着看昨天没看完的内容和补充昨天的内容.</p>
+</blockquote>
+
+<h2 id="昨日内容补充">昨日内容补充</h2>
+
+<h3 id="object-prototype-constructor">Object.prototype.constructor</h3>
+
+<blockquote>
+<p>早上读昨天没看完的文章<a href="http://adripofjavascript.com/blog/drips/basic-inheritance-with-javascript-constructors.html">Basic Inheritance with JavaScript Constructors</a></p>
+</blockquote>
+
+<p>一般的通过<code>new</code>构造函数实现继承就不说了. 这里用<code>call</code>来实现(用面向对象表达)所谓的&rdquo;一个通过<code>SuperHero</code>类创建的<code>marvel</code>实例, 继承<code>SuperHuman</code>的方法&rdquo;的过程. 下面是合并后的代码:</p>
+
+<pre><code class="language-javascript">function SuperHuman(name, superPower) {
+  this.name = name;
+  this.superPower = superPower;
+}
+
+SuperHuman.prototype.usePower = function() {
+  console.log(this.superPower + '!');
+};
+
+var banshee = new SuperHuman('Silver Banshee', 'sonic wail');
+
+function SuperHero(name, superPower) {
+  // Reuse SuperHuman initialization
+  SuperHuman.call(this, name, superPower);
+  this.allegiance = 'Good';
+}
+
+SuperHero.prototype = new SuperHuman();
+
+SuperHero.prototype.saveTheDay = function() {
+  console.log(this.name + ' saved the day!');
+};
+
+var marvel = new SuperHero('Captain Marvel', 'magic');
+
+marvel.saveTheDay(); // Outputs: &quot;Captain Marvel saved the day!&quot;
+marvel.usePower(); // Outputs: &quot;magic!&quot;
+</code></pre>
+
+<blockquote>
+<p>不过我感觉这个例子没有怎么很好的讲出<code>constructor</code>. 就当复习吧. 然后还没仔细看<code>call</code>和<code>apply</code>, 一天又快要结束了&hellip;</p>
+</blockquote>
+
+<h2 id="function-prototype-call">Function.prototype.call()</h2>
+
+<p>看了下, 使用call方法调用匿名函数的例子不错.</p>
+
+<pre><code class="language-javascript">var animals = [
+  { species: 'Lion', name: 'King' },
+  { species: 'Whale', name: 'Fail' }
+];
+
+for (var i = 0; i &lt; animals.length; i++) {
+  (function(i) {
+    this.print = function() {
+      console.log('#' + i + ' ' + this.species + ': ' + this.name);
+    };
+    this.print();
+  }).call(animals[i], i);
+}
+</code></pre>
+
+<h2 id="function-prototype-apply">Function.prototype.apply()</h2>
+
+<p>使用apply来链接构造器</p>
+
+<pre><code class="language-javascript">Function.prototype.construct = function(aArgs) {
+  var oNew = Object.create(this.prototype);
+  this.apply(oNew, aArgs);
+  return oNew;
+};
+</code></pre>
+
+<blockquote>
+<p>话说为啥感觉<code>apply</code>的几个例子有点不太好理解, 绕得很&hellip;</p>
+</blockquote>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/daily/2018-02-07-prototype-constructor/">函数原型和继承学习总结</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-02-06-es6-function/">ECMAScript6入门</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-02-05-replace-exec/">replace和exec函数</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-02-02-postcss/">PostCSS中让CSS文件支持SCSS语法/postcss-cssnext和precss的区别和选择</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-02-01-regexp/">复习正则表达式</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-30-es6-javascript-event/">ECMAScript6入门/JS事件</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-29-es6-function/">ECMAScript6入门/函数</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-28-styledcomponents/">styledcomponents/todolist/toreadlist</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-26-es6-pwa/">ECMAScript6入门/PWA了解</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-25-gatsby-strapi-mongodb/">安装Gatsby和Strapi过程中的各种问题</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-24-gatsby-strapi-mongodb/">安装Gatsby和Strapi过程中的各种问题</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-23-javascript-es6-babel/">null和undefined复习/ES6作用域和babel的探索</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-22-chrome-history-postcss/">内网IP调整后引发谷歌浏览器历史记录的修改实现</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-19-es6-babel-markdown/">ES6学习/Babel配置学习疑问/Markdown代码块高亮支持语法列表</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/daily/2018-01-18-website-tweaks-markdown-ssh/">提高网站可访问性的十个优化/Markdown语法研究/SSH</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

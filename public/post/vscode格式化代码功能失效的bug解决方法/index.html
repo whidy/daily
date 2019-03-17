@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily  | VSCode格式化代码功能失效的bug解决方法</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="VSCode格式化代码功能失效的bug解决方法" />
+<meta property="og:description" content="VSCode格式化代码功能失效的bug解决方法  前不久我装上了黑苹果，那么为了快速转移开发环境，我使用了VSCode(Visual Studio Code下面简称VSCode)的插件Settings Sync来同步个人设置和其他常用插件，如果不熟悉Settings Sync的可以参考之前我写的一篇文章《Visual Studio Code 设置同步到github的插件介绍及使用方法(Settings Sync)》来使用。
+ 现象 当然本文并不是介绍同步，而是要说同步后的编码过程中出现的异常。在Mac下安装好VSCode，用Settings Sync同步成功后，接着git clone正在开发的项目到本地，开发过程中，却发现一个非常奇怪的问题：所有的格式化代码的功能都失效了。Mac下使用快捷键“Alt&#43;Shift&#43;F”（我用的windows键盘），却提示，“当前没有安装“xxx”文件的文档格式化程序。”！我的Vue，SCSS代码都无法正常格式化！这个非常令人不爽，难道Mac下的VSCode会有格式化代码功能的缺失？和Windows版本的VSCode功能不一致？我觉得不太可能。于是重启回到Windows 10，重新拉了项目测试，毫无问题。无论是Windows还是Mac，都是最新版的Visual Studio Code。
+分析 无奈之下去google了一下格式化代码的问题，发现很多人都遇到过，有的人说重装VSCode，但是我才新装的，所以排除了，但是重装这个词让我想起一个东西，就是这些格式化代码工具，例如Vetur，Prettier，他们正常运行的时候都是会在编辑器中产生一个服务或者提示，而失效状态下是看不到的。于是我尝试把Vetur插件停用，重新加载再启用，然而还是无效！
+想来想去，插件也安装了，编辑器也是新装的，为何插件没起到作用，突然记起之前Windows下的输出面板中是有Vue Language Server的，而现在却没有，是不是要重新安装插件呢，或者说通过Settings Sync自动化同步插件安装的功能还存在一些其他的问题呢？
+解决方案 带着疑问我尝试着将Vetur和Prettier卸载，然后再重新安装，启动VSCode，打开项目，切换到一个Vue页面，终于看到了Vetur的服务，比如下面这张图中表现了正常的格式化功能的效果（截图为我解决问题后的图片）
+图中看到这里有个Vue Language Server，才是真正表示Vetur插件正常，右下角还有个Prettier，说明一切正常，再试了一下使用快捷键“Alt&#43;Shift&#43;F”，也终于可以正常格式化代码了！问题完美解决。
+结论 有时候自动化工具安装的插件可能会存在一些问题，虽然不排除我这个问题发生的偶然性。
+另一方面，重装软件有时候能解决问题，不过需要针对问题分析，从最小的改变逐渐排除故障。如果我把VSCode重装，再用Settings Sync同步一次，也许的确可以解决问题，但是也有可能依旧存在问题，而从插件重装下手才是比较省时省力的。
+那么，如果开发中依赖插件的部分功能失效了，你也可以尝试重装插件，或许问题就能快速解决了～" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/vscode%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" />
+<meta property="article:published_time" content="2018-02-13T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-02-13T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+
+<meta itemprop="name" content="VSCode格式化代码功能失效的bug解决方法">
+<meta itemprop="description" content="VSCode格式化代码功能失效的bug解决方法  前不久我装上了黑苹果，那么为了快速转移开发环境，我使用了VSCode(Visual Studio Code下面简称VSCode)的插件Settings Sync来同步个人设置和其他常用插件，如果不熟悉Settings Sync的可以参考之前我写的一篇文章《Visual Studio Code 设置同步到github的插件介绍及使用方法(Settings Sync)》来使用。
+ 现象 当然本文并不是介绍同步，而是要说同步后的编码过程中出现的异常。在Mac下安装好VSCode，用Settings Sync同步成功后，接着git clone正在开发的项目到本地，开发过程中，却发现一个非常奇怪的问题：所有的格式化代码的功能都失效了。Mac下使用快捷键“Alt&#43;Shift&#43;F”（我用的windows键盘），却提示，“当前没有安装“xxx”文件的文档格式化程序。”！我的Vue，SCSS代码都无法正常格式化！这个非常令人不爽，难道Mac下的VSCode会有格式化代码功能的缺失？和Windows版本的VSCode功能不一致？我觉得不太可能。于是重启回到Windows 10，重新拉了项目测试，毫无问题。无论是Windows还是Mac，都是最新版的Visual Studio Code。
+分析 无奈之下去google了一下格式化代码的问题，发现很多人都遇到过，有的人说重装VSCode，但是我才新装的，所以排除了，但是重装这个词让我想起一个东西，就是这些格式化代码工具，例如Vetur，Prettier，他们正常运行的时候都是会在编辑器中产生一个服务或者提示，而失效状态下是看不到的。于是我尝试把Vetur插件停用，重新加载再启用，然而还是无效！
+想来想去，插件也安装了，编辑器也是新装的，为何插件没起到作用，突然记起之前Windows下的输出面板中是有Vue Language Server的，而现在却没有，是不是要重新安装插件呢，或者说通过Settings Sync自动化同步插件安装的功能还存在一些其他的问题呢？
+解决方案 带着疑问我尝试着将Vetur和Prettier卸载，然后再重新安装，启动VSCode，打开项目，切换到一个Vue页面，终于看到了Vetur的服务，比如下面这张图中表现了正常的格式化功能的效果（截图为我解决问题后的图片）
+图中看到这里有个Vue Language Server，才是真正表示Vetur插件正常，右下角还有个Prettier，说明一切正常，再试了一下使用快捷键“Alt&#43;Shift&#43;F”，也终于可以正常格式化代码了！问题完美解决。
+结论 有时候自动化工具安装的插件可能会存在一些问题，虽然不排除我这个问题发生的偶然性。
+另一方面，重装软件有时候能解决问题，不过需要针对问题分析，从最小的改变逐渐排除故障。如果我把VSCode重装，再用Settings Sync同步一次，也许的确可以解决问题，但是也有可能依旧存在问题，而从插件重装下手才是比较省时省力的。
+那么，如果开发中依赖插件的部分功能失效了，你也可以尝试重装插件，或许问题就能快速解决了～">
+
+
+<meta itemprop="datePublished" content="2018-02-13T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-02-13T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="33">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VSCode格式化代码功能失效的bug解决方法"/>
+<meta name="twitter:description" content="VSCode格式化代码功能失效的bug解决方法  前不久我装上了黑苹果，那么为了快速转移开发环境，我使用了VSCode(Visual Studio Code下面简称VSCode)的插件Settings Sync来同步个人设置和其他常用插件，如果不熟悉Settings Sync的可以参考之前我写的一篇文章《Visual Studio Code 设置同步到github的插件介绍及使用方法(Settings Sync)》来使用。
+ 现象 当然本文并不是介绍同步，而是要说同步后的编码过程中出现的异常。在Mac下安装好VSCode，用Settings Sync同步成功后，接着git clone正在开发的项目到本地，开发过程中，却发现一个非常奇怪的问题：所有的格式化代码的功能都失效了。Mac下使用快捷键“Alt&#43;Shift&#43;F”（我用的windows键盘），却提示，“当前没有安装“xxx”文件的文档格式化程序。”！我的Vue，SCSS代码都无法正常格式化！这个非常令人不爽，难道Mac下的VSCode会有格式化代码功能的缺失？和Windows版本的VSCode功能不一致？我觉得不太可能。于是重启回到Windows 10，重新拉了项目测试，毫无问题。无论是Windows还是Mac，都是最新版的Visual Studio Code。
+分析 无奈之下去google了一下格式化代码的问题，发现很多人都遇到过，有的人说重装VSCode，但是我才新装的，所以排除了，但是重装这个词让我想起一个东西，就是这些格式化代码工具，例如Vetur，Prettier，他们正常运行的时候都是会在编辑器中产生一个服务或者提示，而失效状态下是看不到的。于是我尝试把Vetur插件停用，重新加载再启用，然而还是无效！
+想来想去，插件也安装了，编辑器也是新装的，为何插件没起到作用，突然记起之前Windows下的输出面板中是有Vue Language Server的，而现在却没有，是不是要重新安装插件呢，或者说通过Settings Sync自动化同步插件安装的功能还存在一些其他的问题呢？
+解决方案 带着疑问我尝试着将Vetur和Prettier卸载，然后再重新安装，启动VSCode，打开项目，切换到一个Vue页面，终于看到了Vetur的服务，比如下面这张图中表现了正常的格式化功能的效果（截图为我解决问题后的图片）
+图中看到这里有个Vue Language Server，才是真正表示Vetur插件正常，右下角还有个Prettier，说明一切正常，再试了一下使用快捷键“Alt&#43;Shift&#43;F”，也终于可以正常格式化代码了！问题完美解决。
+结论 有时候自动化工具安装的插件可能会存在一些问题，虽然不排除我这个问题发生的偶然性。
+另一方面，重装软件有时候能解决问题，不过需要针对问题分析，从最小的改变逐渐排除故障。如果我把VSCode重装，再用Settings Sync同步一次，也许的确可以解决问题，但是也有可能依旧存在问题，而从插件重装下手才是比较省时省力的。
+那么，如果开发中依赖插件的部分功能失效了，你也可以尝试重装插件，或许问题就能快速解决了～"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
+              Daily
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">VSCode格式化代码功能失效的bug解决方法</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-02-13T00:00:00Z">February 13, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h1 id="vscode格式化代码功能失效的bug解决方法">VSCode格式化代码功能失效的bug解决方法</h1>
+
+<blockquote>
+<p>前不久我装上了<a href="http://www.whidy.net/w350etq-k590s-install-hackintosh-macos-high-sierra-summary.html">黑苹果</a>，那么为了快速转移开发环境，我使用了VSCode(Visual Studio Code下面简称VSCode)的插件<code>Settings Sync</code>来同步个人设置和其他常用插件，如果不熟悉<code>Settings Sync</code>的可以参考之前我写的一篇文章<a href="http://www.whidy.net/visual-studio-code-settings-sync-introduction.html">《Visual Studio Code 设置同步到github的插件介绍及使用方法(Settings Sync)》</a>来使用。</p>
+</blockquote>
+
+<h2 id="现象">现象</h2>
+
+<p>当然本文并不是介绍同步，而是要说同步后的编码过程中出现的异常。在Mac下安装好VSCode，用<code>Settings Sync</code>同步成功后，接着git clone正在开发的项目到本地，开发过程中，却发现一个非常奇怪的问题：<strong>所有的格式化代码的功能都失效了</strong>。Mac下使用快捷键“Alt+Shift+F”（我用的windows键盘），却提示，“<code>当前没有安装“xxx”文件的文档格式化程序。</code>”！我的Vue，SCSS代码都无法正常格式化！这个非常令人不爽，难道Mac下的VSCode会有格式化代码功能的缺失？和Windows版本的VSCode功能不一致？我觉得不太可能。于是重启回到Windows 10，重新拉了项目测试，毫无问题。无论是Windows还是Mac，都是最新版的Visual Studio Code。</p>
+
+<h2 id="分析">分析</h2>
+
+<p>无奈之下去google了一下格式化代码的问题，发现很多人都遇到过，有的人说重装VSCode，但是我才新装的，所以排除了，但是重装这个词让我想起一个东西，就是这些格式化代码工具，例如<code>Vetur</code>，<code>Prettier</code>，他们正常运行的时候都是会在编辑器中产生一个服务或者提示，而失效状态下是看不到的。于是我尝试把Vetur插件停用，重新加载再启用，然而还是无效！</p>
+
+<p>想来想去，插件也安装了，编辑器也是新装的，为何插件没起到作用，突然记起之前Windows下的输出面板中是有<code>Vue Language Server</code>的，而现在却没有，是不是要重新安装插件呢，或者说通过Settings Sync自动化同步插件安装的功能还存在一些其他的问题呢？</p>
+
+<h3 id="解决方案">解决方案</h3>
+
+<p>带着疑问我尝试着将Vetur和Prettier卸载，然后再重新安装，启动VSCode，打开项目，切换到一个Vue页面，终于看到了Vetur的服务，比如下面这张图中表现了正常的格式化功能的效果（截图为我解决问题后的图片）</p>
+
+<p><img src="/images/2018-06-21-1.png" alt="正常的格式化插件效果" /></p>
+
+<p>图中看到这里有个Vue Language Server，才是真正表示Vetur插件正常，右下角还有个Prettier，说明一切正常，再试了一下使用快捷键“Alt+Shift+F”，也终于可以正常格式化代码了！问题完美解决。</p>
+
+<h2 id="结论">结论</h2>
+
+<p>有时候自动化工具安装的插件可能会存在一些问题，虽然不排除我这个问题发生的偶然性。</p>
+
+<p>另一方面，重装软件有时候能解决问题，不过需要针对问题分析，从最小的改变逐渐排除故障。如果我把VSCode重装，再用Settings Sync同步一次，也许的确可以解决问题，但是也有可能依旧存在问题，而从插件重装下手才是比较省时省力的。</p>
+
+<p>那么，如果开发中依赖插件的部分功能失效了，你也可以尝试重装插件，或许问题就能快速解决了～</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/post/%E6%89%BE%E4%B8%AA%E6%9C%8B%E5%8F%8B%E8%81%8A%E7%9D%80%E8%81%8A%E7%9D%80%E5%B0%B1%E7%BB%93%E5%A9%9A%E4%BA%86/">找个朋友聊着聊着就结婚了</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8Ejavascript%E8%A7%84%E8%8C%83%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86/">（未完成）关于Javascript规范在项目中应用管理</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%BA%8C/">Javascript事件循环入门到“忘记”（二）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/w350etqk590s%E9%BB%91%E8%8B%B9%E6%9E%9C10.13/">Clevo W350ETQ(神舟K590S)安装黑苹果10.13总结</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/visual-studio-code%E5%87%A0%E6%AC%BEftp%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">Visual Studio Code几款FTP插件使用总结</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E7%94%A8gatsby%E5%92%8Cstrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">用Gatsby和Strapi创建一个静态博客(翻译和自己探索过程中的经验总结)</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/">Visual Studio Code使用中CPU占用率异常暴增过高原因</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/wordpress%E8%BF%81%E7%A7%BBjekyll%E5%85%A8%E8%BF%87%E7%A8%8B%E5%B0%8F%E8%AE%B0/">Wordpress博客转换成Jekyll尝试</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8E%E8%A1%A8%E5%8D%95/">（未完成）关于表单</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/vue%E4%B8%8B%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8%E6%97%A0%E9%99%90%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AEdemo/">Vue下滚动到页面底部无限加载数据Demo</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/elementui%E7%9A%84table%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84renderheader%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/">ElementUI的Table组件中的renderHeader方法研究</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90nuxt%E4%B8%8B%E7%9A%84eslint%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">（未完成）Nuxt下的ESLint最佳实践</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%B8%80/">Javascript事件循环入门到“忘记”（一）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/">使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/vue%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/">Vue学习开发总结</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

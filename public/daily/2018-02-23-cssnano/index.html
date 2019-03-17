@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily  | Wang Year of the Dog</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Wang Year of the Dog" />
+<meta property="og:description" content="2018年2月23日 阴 还行
+ 狗年旺旺 开工大吉, 给各位朋友拜年. 新年技术步步高升, 事业蒸蒸日上. (说得好像有人看似的😂)
+ 一早, 领了几个红包后, 带着深深的睡意, 坚持着决定把之前写的那些技术日志粗略复习一遍. 然而, 瞌睡虫挣扎中的我&hellip;
+ 01-16 提到的#{$c}在PostCSS下无法编译 然后, 我开始测试postcss-study的DEMO中, 为什么这个SASS标准语法在此无法被支持, 如果precss不支持, 那还需要额外的什么插件呢, 测试的同时, 我又期望cssnano插件不要压缩css代码, 即不希望postcss-normalize-whitespace被执行, 尝试用Which Optimization Removes Spaces between Selectors and Brackets?写法, 多次测试都没有用. 那么目前我们需要解决的问题就有两个了.
+#{$c}如何在PostCSS下得到支持 看了好多插件测试, 没整出来&hellip;明天继续.
+如何关闭或配置cssnano的某些插件 这个问题对我目前的水平来说是一个巨大的挑战, 我本以为官方的Optimisations这里面的所有插件都可以像官方示例的这段代码来改:
+module.exports = { plugins: [ require(&#39;cssnano&#39;)({ preset: [ &#39;default&#39;, { discardComments: { removeAll: true } } ] }) ] };   如上代码, 我在插件列表中找到postcss-discard-comments, 我以为只需要删掉前缀postcss-, 并把后面部分改成驼峰写法, 然后配置成true或false, 就可以达到禁用某些插件的目的." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/daily/2018-02-23-cssnano/" />
+<meta property="article:published_time" content="2018-02-23T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-02-23T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+
+<meta itemprop="name" content="Wang Year of the Dog">
+<meta itemprop="description" content="2018年2月23日 阴 还行
+ 狗年旺旺 开工大吉, 给各位朋友拜年. 新年技术步步高升, 事业蒸蒸日上. (说得好像有人看似的😂)
+ 一早, 领了几个红包后, 带着深深的睡意, 坚持着决定把之前写的那些技术日志粗略复习一遍. 然而, 瞌睡虫挣扎中的我&hellip;
+ 01-16 提到的#{$c}在PostCSS下无法编译 然后, 我开始测试postcss-study的DEMO中, 为什么这个SASS标准语法在此无法被支持, 如果precss不支持, 那还需要额外的什么插件呢, 测试的同时, 我又期望cssnano插件不要压缩css代码, 即不希望postcss-normalize-whitespace被执行, 尝试用Which Optimization Removes Spaces between Selectors and Brackets?写法, 多次测试都没有用. 那么目前我们需要解决的问题就有两个了.
+#{$c}如何在PostCSS下得到支持 看了好多插件测试, 没整出来&hellip;明天继续.
+如何关闭或配置cssnano的某些插件 这个问题对我目前的水平来说是一个巨大的挑战, 我本以为官方的Optimisations这里面的所有插件都可以像官方示例的这段代码来改:
+module.exports = { plugins: [ require(&#39;cssnano&#39;)({ preset: [ &#39;default&#39;, { discardComments: { removeAll: true } } ] }) ] };   如上代码, 我在插件列表中找到postcss-discard-comments, 我以为只需要删掉前缀postcss-, 并把后面部分改成驼峰写法, 然后配置成true或false, 就可以达到禁用某些插件的目的.">
+
+
+<meta itemprop="datePublished" content="2018-02-23T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-02-23T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="191">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Wang Year of the Dog"/>
+<meta name="twitter:description" content="2018年2月23日 阴 还行
+ 狗年旺旺 开工大吉, 给各位朋友拜年. 新年技术步步高升, 事业蒸蒸日上. (说得好像有人看似的😂)
+ 一早, 领了几个红包后, 带着深深的睡意, 坚持着决定把之前写的那些技术日志粗略复习一遍. 然而, 瞌睡虫挣扎中的我&hellip;
+ 01-16 提到的#{$c}在PostCSS下无法编译 然后, 我开始测试postcss-study的DEMO中, 为什么这个SASS标准语法在此无法被支持, 如果precss不支持, 那还需要额外的什么插件呢, 测试的同时, 我又期望cssnano插件不要压缩css代码, 即不希望postcss-normalize-whitespace被执行, 尝试用Which Optimization Removes Spaces between Selectors and Brackets?写法, 多次测试都没有用. 那么目前我们需要解决的问题就有两个了.
+#{$c}如何在PostCSS下得到支持 看了好多插件测试, 没整出来&hellip;明天继续.
+如何关闭或配置cssnano的某些插件 这个问题对我目前的水平来说是一个巨大的挑战, 我本以为官方的Optimisations这里面的所有插件都可以像官方示例的这段代码来改:
+module.exports = { plugins: [ require(&#39;cssnano&#39;)({ preset: [ &#39;default&#39;, { discardComments: { removeAll: true } } ] }) ] };   如上代码, 我在插件列表中找到postcss-discard-comments, 我以为只需要删掉前缀postcss-, 并把后面部分改成驼峰写法, 然后配置成true或false, 就可以达到禁用某些插件的目的."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
+              Daily
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DAILIES
+      </p>
+      <h1 class="f1 athelas mb1">Wang Year of the Dog</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-02-23T00:00:00Z">February 23, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年2月23日 阴 还行</p>
+</blockquote>
+
+<h1 id="狗年旺旺">狗年旺旺</h1>
+
+<p><strong>开工大吉, 给各位朋友拜年. 新年技术步步高升, 事业蒸蒸日上.</strong> (说得好像有人看似的😂)</p>
+
+<blockquote>
+<p>一早, 领了几个红包后, 带着深深的睡意, 坚持着决定把之前写的那些技术日志粗略复习一遍. 然而, 瞌睡虫挣扎中的我&hellip;</p>
+</blockquote>
+
+<h2 id="01-16-提到的-c-在postcss下无法编译">01-16 提到的<code>#{$c}</code>在PostCSS下无法编译</h2>
+
+<p>然后, 我开始测试<a href="https://github.com/whidy/postcss-study/tree/precss-%26-scss-synax"><code>postcss-study</code></a>的DEMO中, 为什么这个<code>SASS</code>标准语法在此无法被支持, 如果<code>precss</code>不支持, 那还需要额外的什么插件呢, 测试的同时, 我又期望<code>cssnano</code>插件不要压缩css代码, 即不希望<a href="http://cssnano.co/optimisations/normalizewhitespace/"><code>postcss-normalize-whitespace</code></a>被执行, 尝试用<a href="https://github.com/ben-eb/cssnano/issues/410">Which Optimization Removes Spaces between Selectors and Brackets?</a>写法, 多次测试都没有用. 那么目前我们需要解决的问题就有两个了.</p>
+
+<h3 id="c-如何在postcss下得到支持"><code>#{$c}</code>如何在PostCSS下得到支持</h3>
+
+<p>看了好多插件测试, 没整出来&hellip;明天继续.</p>
+
+<h3 id="如何关闭或配置-cssnano-的某些插件">如何关闭或配置<code>cssnano</code>的某些插件</h3>
+
+<p>这个问题对我目前的水平来说是一个巨大的挑战, 我本以为官方的<a href="http://cssnano.co/guides/optimisations/">Optimisations</a>这里面的所有插件都可以像官方示例的这段代码来改:</p>
+
+<pre><code class="language-javascript">module.exports = {
+  plugins: [
+    require('cssnano')({
+      preset: [
+        'default',
+        {
+          discardComments: {
+            removeAll: true
+          }
+        }
+      ]
+    })
+  ]
+};
+</code></pre>
+
+<blockquote>
+<p>如上代码, 我在插件列表中找到<code>postcss-discard-comments</code>, 我以为只需要删掉前缀<code>postcss-</code>, 并把后面部分改成驼峰写法, 然后配置成<code>true</code>或<code>false</code>, 就可以达到禁用某些插件的目的. 前文的一篇issue中有提到错误示范.</p>
+</blockquote>
+
+<p>当然我以为的想法也不完全错误. 例如下面这段css可以被解析为</p>
+
+<pre><code class="language-scss">/* css文件用scss语法测试 */
+$blue: #056ef0;
+.test {
+  display: flex; // 这是scss注释
+  color: $blue;
+  .box {
+    flex: 1;
+  }
+}
+
+.testEmpty {}
+</code></pre>
+
+<p>编译后:</p>
+
+<pre><code class="language-css">.test{display:-webkit-box;display:-ms-flexbox;display:flex;color:#056ef0}.test .box{-webkit-box-flex:1;-ms-flex:1;flex:1}
+</code></pre>
+
+<p>显然, 与<a href="http://cssnano.co/optimisations/discardempty/">官方示例discardEmpty</a>相同. 那么我不希望他自动压缩代码该怎么办呢. 错误示范当然不行, Google搜不出来解决方案, 只能硬着头皮看源码了. 这里打开你的对应的<code>node_modules</code>内的插件<code>.\node_modules\cssnano\dist\index.js</code>, 我的本地示范如下:</p>
+
+<p><code>D:\webProjects\postcss-study\node_modules\cssnano\dist\index.js</code></p>
+
+<p>仔细分析他的源码, 可以看到一些有用的信息, 其中他的对插件配置的解析部分, 见<code>Line: 282</code>:</p>
+
+<pre><code class="language-javascript">Object.keys(processors).forEach(function (plugin) {
+  var shortName = plugin.replace('postcss', '');
+  shortName = shortName.slice(0, 1).toLowerCase() + shortName.slice(1);
+
+  var opts = (0, _defined2.default)(options[shortName], options[plugin], options[(0, _decamelize2.default)(plugin, '-')]);
+
+  if (opts === false) {
+    opts = { disable: true };
+  }
+
+  opts = (0, _objectAssign2.default)({}, defaultOptions[plugin], safe ? safeOptions[plugin] : null, opts);
+
+  if (!opts.disable) {
+    proc.use(processors[plugin](opts));
+  }
+});
+</code></pre>
+
+<p>起初我的理解是: <code>processors</code>对象就是预处理的集合, 如图<strong>红色框内</strong>的, 可见他对可能存在的用户配置及它内置的插件都进行了遍历比较, 但是, 仔细观察发现, 这里没有<code>postcss-normalize-whitespace</code>, 并且多了个<code>core</code>(绿色框内). 并没有<code>postcss-normalize-whitespace</code>, 自然无法匹配到并正确达到预期效果. 而<code>postcss-discard-empty</code>是有的, 因此上面提到的例子有效.</p>
+
+<p><img src="https://github.com/whidy/daily/raw/master/sources/images/2018-02-23-1.png" alt="cssnano内置插件" /></p>
+
+<p>不过当我深入去看的时候, 发现, <code>opts</code>并不是那么简单, 尤其是<code>()()</code>写法我还不熟悉, 实际上在这里<code>opts</code>一般都返回的是空Object而已, 那么接下来我们再进一步研究一下细节执行流程.</p>
+
+<p>&hellip;接下来的内容对目前来说是个挑战, 今天暂时写这么多, 明天争取把这个问题解决~</p>
+
+<blockquote>
+<p>Tips: 我这里的编译环境可能不同, 会存在细微的区别, 版本请参考<code>package.json</code>.</p>
+
+<p>再次阅读的时候才发现, 之前写的东西缺乏流畅性, 纯粹当时自己写给自己看的, 过一段时间, 再看就会存在一些阅读困难, 以后需要进一步提高写作总结等能力.</p>
+</blockquote>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/post/wordpress%E8%BF%81%E7%A7%BBjekyll%E5%85%A8%E8%BF%87%E7%A8%8B%E5%B0%8F%E8%AE%B0/">Wordpress博客转换成Jekyll尝试</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/ip%E5%8F%98%E5%8A%A8%E5%BC%95%E5%8F%91%E7%9A%84chrome%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95%E4%BF%AE%E6%94%B9%E5%8F%8Ashadowroot%E4%BA%86%E8%A7%A3/">内网IP调整引发的Chrome历史记录修改及ShadowRoot的学习</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%8C%B9%E9%85%8D%E5%88%86%E6%9E%90%E6%80%9D%E8%B7%AF/">正则表达式中`[反斜杠b]`和`反斜杠b`和`反斜杠B`的区别及匹配分析思路</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8E%E8%A1%A8%E5%8D%95/">（未完成）关于表单</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%B8%80/">Javascript事件循环入门到“忘记”（一）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/w350etqk590s%E9%BB%91%E8%8B%B9%E6%9E%9C10.13/">Clevo W350ETQ(神舟K590S)安装黑苹果10.13总结</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/vue%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/">Vue学习开发总结</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%89%BE%E4%B8%AA%E6%9C%8B%E5%8F%8B%E8%81%8A%E7%9D%80%E8%81%8A%E7%9D%80%E5%B0%B1%E7%BB%93%E5%A9%9A%E4%BA%86/">找个朋友聊着聊着就结婚了</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%BA%8C/">Javascript事件循环入门到“忘记”（二）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/">Visual Studio Code使用中CPU占用率异常暴增过高原因</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/elementui%E7%9A%84table%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84renderheader%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/">ElementUI的Table组件中的renderHeader方法研究</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90nuxt%E4%B8%8B%E7%9A%84eslint%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">（未完成）Nuxt下的ESLint最佳实践</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8Ejavascript%E8%A7%84%E8%8C%83%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86/">（未完成）关于Javascript规范在项目中应用管理</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E7%94%A8gatsby%E5%92%8Cstrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">用Gatsby和Strapi创建一个静态博客(翻译和自己探索过程中的经验总结)</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/vscode%E4%B8%8B%E8%AE%A9css%E6%96%87%E4%BB%B6%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81scss%E6%88%96sass%E6%96%B9%E6%B3%95/">VSCode下让CSS文件完美支持SCSS或SASS语法方法</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

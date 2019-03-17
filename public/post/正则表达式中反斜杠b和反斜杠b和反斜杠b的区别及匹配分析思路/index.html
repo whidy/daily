@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily  | 正则表达式中`[反斜杠b]`和`反斜杠b`和`反斜杠B`的区别及匹配分析思路</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="正则表达式中`[反斜杠b]`和`反斜杠b`和`反斜杠B`的区别及匹配分析思路" />
+<meta property="og:description" content="复习正则表达式  最近研究ES6, 正好ES6也有正则方面的内容, 看看有什么新特性, 顺便又把精通正则表达式拿出来粗看了前面几章节, 于是给自己出了几道题. 还做了一点总结.
+ [\b]和\b和\B  一般作为初学者看到这么多这些鬼都会头大了. 下面我将详细讲解一下.
+ [\b] - 退格符 另外其实我一直都搞不清楚[\b]匹配一个退格(U&#43;0008)是什么鬼. 似乎没有人告诉我这个退格符长什么样. 我也不知道那些各种转载各种规则的人他们自己知不知道是啥&hellip; (难道就我不知道- -)
+找了半天, 总算在MSDN: 正则表达式语言 - 快速参考找到了示例. 难道就是匹配\b用的吗😂, 当然很明显的区别是, 它属于字符转义
+\b - 一个词的边界  MSDN: 匹配必须出现在 \w（字母数字）和 \W（非字母数字）字符之间的边界上。
+ 这个就很好理解了, 会写先行断言的我当然是知道了, 他不占用任何位置, 边界一般都是单词或数字两边, 更为具体的通过MDN的正则表达式文档\b介绍内的注意有指引, 查到ecma文档的15.10.2.6 Assertion中IsWordChar处, 不过由于个人能力有限, 对其理解如下:
+通过这段代码(正则表达式案例分析 （一） - (3) 单词边界):
+&quot;I&#39;d prefer p2p O_O&quot;.replace(/\b/g,function(){ console.log(arguments) });  输出结果:
+{ &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 0, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 1, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 2, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 3, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 4, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 10, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 11, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 14, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 15, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 18, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; }  我们看到被断掉(用|表示)的位置分别是:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%8C%B9%E9%85%8D%E5%88%86%E6%9E%90%E6%80%9D%E8%B7%AF/" />
+<meta property="article:published_time" content="2018-02-13T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-02-13T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+
+<meta itemprop="name" content="正则表达式中`[反斜杠b]`和`反斜杠b`和`反斜杠B`的区别及匹配分析思路">
+<meta itemprop="description" content="复习正则表达式  最近研究ES6, 正好ES6也有正则方面的内容, 看看有什么新特性, 顺便又把精通正则表达式拿出来粗看了前面几章节, 于是给自己出了几道题. 还做了一点总结.
+ [\b]和\b和\B  一般作为初学者看到这么多这些鬼都会头大了. 下面我将详细讲解一下.
+ [\b] - 退格符 另外其实我一直都搞不清楚[\b]匹配一个退格(U&#43;0008)是什么鬼. 似乎没有人告诉我这个退格符长什么样. 我也不知道那些各种转载各种规则的人他们自己知不知道是啥&hellip; (难道就我不知道- -)
+找了半天, 总算在MSDN: 正则表达式语言 - 快速参考找到了示例. 难道就是匹配\b用的吗😂, 当然很明显的区别是, 它属于字符转义
+\b - 一个词的边界  MSDN: 匹配必须出现在 \w（字母数字）和 \W（非字母数字）字符之间的边界上。
+ 这个就很好理解了, 会写先行断言的我当然是知道了, 他不占用任何位置, 边界一般都是单词或数字两边, 更为具体的通过MDN的正则表达式文档\b介绍内的注意有指引, 查到ecma文档的15.10.2.6 Assertion中IsWordChar处, 不过由于个人能力有限, 对其理解如下:
+通过这段代码(正则表达式案例分析 （一） - (3) 单词边界):
+&quot;I&#39;d prefer p2p O_O&quot;.replace(/\b/g,function(){ console.log(arguments) });  输出结果:
+{ &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 0, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 1, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 2, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 3, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 4, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 10, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 11, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 14, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 15, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 18, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; }  我们看到被断掉(用|表示)的位置分别是:">
+
+
+<meta itemprop="datePublished" content="2018-02-13T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-02-13T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="347">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="正则表达式中`[反斜杠b]`和`反斜杠b`和`反斜杠B`的区别及匹配分析思路"/>
+<meta name="twitter:description" content="复习正则表达式  最近研究ES6, 正好ES6也有正则方面的内容, 看看有什么新特性, 顺便又把精通正则表达式拿出来粗看了前面几章节, 于是给自己出了几道题. 还做了一点总结.
+ [\b]和\b和\B  一般作为初学者看到这么多这些鬼都会头大了. 下面我将详细讲解一下.
+ [\b] - 退格符 另外其实我一直都搞不清楚[\b]匹配一个退格(U&#43;0008)是什么鬼. 似乎没有人告诉我这个退格符长什么样. 我也不知道那些各种转载各种规则的人他们自己知不知道是啥&hellip; (难道就我不知道- -)
+找了半天, 总算在MSDN: 正则表达式语言 - 快速参考找到了示例. 难道就是匹配\b用的吗😂, 当然很明显的区别是, 它属于字符转义
+\b - 一个词的边界  MSDN: 匹配必须出现在 \w（字母数字）和 \W（非字母数字）字符之间的边界上。
+ 这个就很好理解了, 会写先行断言的我当然是知道了, 他不占用任何位置, 边界一般都是单词或数字两边, 更为具体的通过MDN的正则表达式文档\b介绍内的注意有指引, 查到ecma文档的15.10.2.6 Assertion中IsWordChar处, 不过由于个人能力有限, 对其理解如下:
+通过这段代码(正则表达式案例分析 （一） - (3) 单词边界):
+&quot;I&#39;d prefer p2p O_O&quot;.replace(/\b/g,function(){ console.log(arguments) });  输出结果:
+{ &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 0, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 1, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 2, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 3, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 4, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 10, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 11, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 14, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 15, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 18, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; }  我们看到被断掉(用|表示)的位置分别是:"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
+              Daily
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">正则表达式中`[反斜杠b]`和`反斜杠b`和`反斜杠B`的区别及匹配分析思路</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-02-13T00:00:00Z">February 13, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h1 id="复习正则表达式">复习正则表达式</h1>
+
+<blockquote>
+<p>最近研究ES6, 正好ES6也有正则方面的内容, 看看有什么新特性, 顺便又把<code>精通正则表达式</code>拿出来粗看了前面几章节, 于是给自己出了几道题. 还做了一点总结.</p>
+</blockquote>
+
+<h2 id="b-和-b-和-b"><code>[\b]</code>和<code>\b</code>和<code>\B</code></h2>
+
+<blockquote>
+<p>一般作为初学者看到这么多这些鬼都会头大了. 下面我将详细讲解一下.</p>
+</blockquote>
+
+<h3 id="b-退格符"><code>[\b]</code> - 退格符</h3>
+
+<p>另外其实我一直都搞不清楚<code>[\b]</code>匹配一个<code>退格(U+0008)</code>是什么鬼. 似乎没有人告诉我这个退格符长什么样. 我也不知道那些各种转载各种规则的人他们自己知不知道是啥&hellip; (难道就我不知道- -)</p>
+
+<p>找了半天, 总算在<a href="https://msdn.microsoft.com/zh-cn/library/az24scfc%28v=vs.110%29.aspx#Anchor_0">MSDN: 正则表达式语言 - 快速参考</a>找到了示例. 难道就是匹配<code>\b</code>用的吗😂, 当然很明显的区别是, 它属于<code>字符转义</code></p>
+
+<h3 id="b-一个词的边界"><code>\b</code> - 一个词的边界</h3>
+
+<blockquote>
+<p>MSDN: <strong>匹配必须出现在 \w（字母数字）和 \W（非字母数字）字符之间的边界上。</strong></p>
+</blockquote>
+
+<p>这个就很好理解了, 会写先行断言的我当然是知道了, 他不占用任何位置, 边界一般都是单词或数字两边, 更为具体的通过<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions">MDN的正则表达式</a>文档<code>\b</code>介绍内的<strong>注意</strong>有指引, 查到ecma文档的15.10.2.6 <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.10.2.6">Assertion</a>中<code>IsWordChar</code>处, 不过由于个人能力有限, 对其理解如下:</p>
+
+<p>通过这段代码(<a href="https://gitee.com/janking/Infinite-f2e/issues/IDWPH">正则表达式案例分析 （一） - (3) 单词边界</a>):</p>
+
+<pre><code class="language-javascript">&quot;I'd prefer p2p O_O&quot;.replace(/\b/g,function(){
+  console.log(arguments)
+});
+</code></pre>
+
+<p>输出结果:</p>
+
+<pre><code class="language-javascript">{ '0': '', '1': 0, '2': 'I\'d prefer p2p O_O' }
+{ '0': '', '1': 1, '2': 'I\'d prefer p2p O_O' }
+{ '0': '', '1': 2, '2': 'I\'d prefer p2p O_O' }
+{ '0': '', '1': 3, '2': 'I\'d prefer p2p O_O' }
+{ '0': '', '1': 4, '2': 'I\'d prefer p2p O_O' }
+{ '0': '', '1': 10, '2': 'I\'d prefer p2p O_O' }
+{ '0': '', '1': 11, '2': 'I\'d prefer p2p O_O' }
+{ '0': '', '1': 14, '2': 'I\'d prefer p2p O_O' }
+{ '0': '', '1': 15, '2': 'I\'d prefer p2p O_O' }
+{ '0': '', '1': 18, '2': 'I\'d prefer p2p O_O' }
+</code></pre>
+
+<p>我们看到被断掉(用<code>|</code>表示)的位置分别是:</p>
+
+<p><img src="/images/b.png" alt="图示定位符\b" /></p>
+
+<p>也就是说连续的<code>单词</code>和<code>数字</code>和<code>_</code>组合(上文提到的ecma部分的表格也对应了这个)都是一个单位, 他的两侧就是截断. 除此之外的任何符号都会截断他们.</p>
+
+<p>另外, 在MSDN文档中, 它被归为<code>定位点</code>.</p>
+
+<h3 id="b-一个非单词边界"><code>\B</code> - 一个非单词边界</h3>
+
+<p>前面说了这么多, <code>\B</code>的理解就很轻松了, 一个非单词边界. 就不多说了, 看看MSDN的例子就清楚了.</p>
+
+<p>模式: <code>\Bend\w*\b</code></p>
+
+<p>原字符串: <code>end sends endure lender</code></p>
+
+<p>匹配结果: <code>ends</code>和<code>ender</code></p>
+
+<h2 id="关于正则个人的经验">关于正则个人的经验</h2>
+
+<blockquote>
+<p>其实搞正则匹配, 我个人的从精通正则表达式书中阅读后的感受就是, 匹配一定要一个个看, 慢慢的看, 比如上面这个例子, 我看看模式先是<code>\B</code>, 然后再找原字符串, 依次步骤分析:</p>
+
+<ol>
+<li>第一个<code>e</code>左边(位置)是边界不符合, <strong>失败</strong>看下一个字符</li>
+<li>第二个<code>n</code>左边(位置)符合<code>\B</code>, 匹配成功, 再看模式<code>\B</code>后面的<code>e</code></li>
+<li>模式<code>\B</code>(位置)后面的<code>e</code>不匹配<code>n</code>, <strong>失败</strong>再看下一个字符<code>d</code></li>
+<li>第三个<code>d</code>左边(位置)符合<code>\B</code>, 匹配成功, 再看模式<code>\B</code>后面的<code>e</code></li>
+<li>模式<code>\B</code>(位置)后面的<code>e</code>不匹配第三个字母<code>d</code>, <strong>失败</strong>再看下一个字符<code> </code>(这里是个空格啦😂)</li>
+<li>&hellip;(此处省略, 一直到<code>send</code>单词)</li>
+<li>(前面都不符合,当遇到了<code>send</code>), 经过一步步后移, 模式<code>\B</code>(位置)走到了<code>s</code>右侧, <strong>成功</strong>! 此刻, 兴奋的将模式移到第二个<code>e</code></li>
+<li>好巧, 模式中的<code>e</code>匹配到<code>s</code>后面的字符<code>e</code>, 再回到模式下一位<code>n</code></li>
+<li>世界太小了, 又一次成功了, 紧接着是<code>d</code>, 看起来一一对应上了</li>
+<li>&hellip;(截至目前, <code>\Bend</code>部分已经和<code>sends</code>中的<code>end</code>配上了, 可是还没完呢)</li>
+<li>模式<code>d</code>后面是<code>\w*</code>, 我们回到原字符串部分<code>send</code>后面是<code>s</code>所以也<strong>成功</strong>了</li>
+<li>再看模式部分<code>\w*</code>下一位<code>\b</code>, 碰到上面讲的单词边界了( •̀ ω •́ )y, 我们看看原字符串部分<code>sends</code>这里的确被截断了, 因此原字符串开始新一轮匹配</li>
+<li>&hellip;(反复如上步骤)</li>
+</ol>
+
+<p>最后就得出了匹配结果的两组字符串了. 不知道我这样讲大家能不能理解, 或者说这种思路大家有没有疑问和反对之处, 如果有希望大家留言😁</p>
+</blockquote>
+
+<h2 id="两道正则题目">两道正则题目</h2>
+
+<blockquote>
+<p>自己折磨自己</p>
+</blockquote>
+
+<h3 id="题一-找出符合规则的时间">题一: 找出符合规则的时间</h3>
+
+<p>匹配符合标准格式的时间. 这是内容部分:</p>
+
+<pre><code class="language-text">now is 09:4 am test
+now isx9:4 am test
+now isx2:54 am test
+now isA09:04 amwtest
+now is_12:30 pm adsadadasda
+now is 21:59 amdsadasdwq
+now is 22:75 am_dsad21
+now is 41:60 pm   dsadsad 
+now is 26:23 am   dwadwq
+now is 2a:23 am   dwadwq
+</code></pre>
+
+<p>期望结果(虽然24小时制后面存在[ap]m感觉还是不太合理.)</p>
+
+<pre><code class="language-text">09:4 am
+9:4 am
+2:54 am
+09:04 am
+12:30 pm
+21:59 am
+</code></pre>
+
+<p>看起来应该不是很复杂. 结果我写了一天没写出来. 因为我不知道怎么剔除<code>26</code>. 似乎无论怎么写, 在<code>2</code>和<code>6</code>之间正向断言始终都会匹配到<code>6</code>. ES5却是不支持后行断言(negative lookbehind)的, 据说ES6支持<a href="http://es6.ruanyifeng.com/?search=%E8%A7%A3%E6%9E%84&amp;x=10&amp;y=8#docs/regex#%E5%90%8E%E8%A1%8C%E6%96%AD%E8%A8%80">后行断言</a>了, 才得以解决这个问题, 然而不通过后行断言来处理这个问题, 我始终没有写出来, 难道真的是<strong>实现不了</strong>?</p>
+
+<p>这是一个未能完美解决的其中一种写法.</p>
+
+<pre><code class="language-javascript">/([01]\d|(?=2(?![4-9]))2\d?|(?!2)\d):(0?(?=\d)[0-9]|[1-5][0-9])(\s*[a|p]m)/gim
+</code></pre>
+
+<p>这是通过后行断言的写法:</p>
+
+<pre><code class="language-javascript">/([01]\d:|(?=2(?![4-9]))2\d?:|(?&lt;!2)\d:)(0?(?=\d)[0-9]|[1-5][0-9])(\s*[a|p]m)/gim
+</code></pre>
+
+<h3 id="题二-找出文件后缀名">题二: 找出文件后缀名</h3>
+
+<p>再来看另一个, 获取文件后缀名的正则写法问题:</p>
+
+<p>可能有以下文件, 需要准确获取每个文件的文件类型, 例如:</p>
+
+<pre><code class="language-text">a.jpg
+hello world.png
+c.c.mp3
+_do_(it)._unknow
+</code></pre>
+
+<p>期望:</p>
+
+<pre><code class="language-text">.jpg
+.png
+.mp3
+._unknow
+</code></pre>
+
+<p>这个其实还算按比较简单的了. 不过在我复习正则之前硬是想不起来咋写, 稍微过了一遍再写就容易多了. 正则写法<code>\..(?!\.).*</code>.</p>
+
+<p>改题目来源于前几天同事发的一个javascript自验网站: <a href="https://scriptoj.com/">ScriptOJ</a>首页的题目.</p>
+
+<blockquote>
+<p>关于题目部分, 不知道大家也有没有更好的写法, 也欢迎大家探讨纠正哦🎉</p>
+</blockquote>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/post/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/">使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/vscode%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">VSCode格式化代码功能失效的bug解决方法</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/vue%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/">Vue学习开发总结</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E7%94%A8gatsby%E5%92%8Cstrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">用Gatsby和Strapi创建一个静态博客(翻译和自己探索过程中的经验总结)</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%BA%8C/">Javascript事件循环入门到“忘记”（二）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/visual-studio-code%E5%87%A0%E6%AC%BEftp%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">Visual Studio Code几款FTP插件使用总结</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/wordpress%E8%BF%81%E7%A7%BBjekyll%E5%85%A8%E8%BF%87%E7%A8%8B%E5%B0%8F%E8%AE%B0/">Wordpress博客转换成Jekyll尝试</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/elementui%E7%9A%84table%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84renderheader%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/">ElementUI的Table组件中的renderHeader方法研究</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/vscode%E4%B8%8B%E8%AE%A9css%E6%96%87%E4%BB%B6%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81scss%E6%88%96sass%E6%96%B9%E6%B3%95/">VSCode下让CSS文件完美支持SCSS或SASS语法方法</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8Ejavascript%E8%A7%84%E8%8C%83%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86/">（未完成）关于Javascript规范在项目中应用管理</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%B8%80/">Javascript事件循环入门到“忘记”（一）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8E%E8%A1%A8%E5%8D%95/">（未完成）关于表单</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/vue%E4%B8%8B%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8%E6%97%A0%E9%99%90%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AEdemo/">Vue下滚动到页面底部无限加载数据Demo</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/">Visual Studio Code使用中CPU占用率异常暴增过高原因</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/%E6%89%BE%E4%B8%AA%E6%9C%8B%E5%8F%8B%E8%81%8A%E7%9D%80%E8%81%8A%E7%9D%80%E5%B0%B1%E7%BB%93%E5%A9%9A%E4%BA%86/">找个朋友聊着聊着就结婚了</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

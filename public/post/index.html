@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+      <link href="/post/index.xml" rel="alternate" type="application/rss+xml" title="Whidy Daily" />
+      <link href="/post/index.xml" rel="feed" type="application/rss+xml" title="Whidy Daily" />
+    
+
+    <meta property="og:title" content="Posts" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/post/" />
+
+<meta property="og:updated_time" content="2019-03-15T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+
+<meta itemprop="name" content="Posts">
+<meta itemprop="description" content="">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Posts"/>
+<meta name="twitter:description" content=""/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
+              Daily
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Posts
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+
+  <article class="pa3 pa4-ns nested-copy-line-height nested-img">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray">
+      
+    </section>
+    <aside class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        March 15, 2019
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/%E5%A6%82%E4%BD%95%E7%BB%99egg.js%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%90%AF80%E7%AB%AF%E5%8F%A3%E8%AE%BF%E9%97%AE/" class="link black dim">
+        如何给Egg.js项目开启80端口访问
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      如何给Egg.js项目开启80端口访问 为什么要 因某些特殊情况，项目cdn做了防盗链，然后本地开发也收到了限制，在cdn设置了一些本地ip的白名单，居然对端口支持不好，结果有时候可以访问cdn资源，有时候又不行，无奈，和运维、后端商量讲开发地址暂时改成80端口，以便正常开发~
+ Egg.js的项目改端口很简单啦。但是也有一些要注意的，本文面向MacOS，当然Linux系统应该同样适用。
+ 如何做 这里有几个方案，供君参考：
+修改package.json 跑哪个命令就在这个命令后面加--port=80，例如：
+&quot;start&quot;: &quot;egg-scripts start --daemon --title=egg-server-51la-web-egg --workers=2 --port=80&quot;, ...  dev同理。
+配置config.local.js 如果没有这个文件自己创建一个，当然这个对应的是开发模式下使用。
+部分配置如下：
+'use strict'; module.exports = app =&gt; { const exports = {}; exports.cluster = { listen: { port: 80, hostname: '127.0.0.1', }, }; return exports; };  Nginx大法 比较麻烦，不过看了下官方文档，应该也是可以很好的支持的。有兴趣请阅读该节：
+ 部署  Warning 如果你不看这部分，很遗憾，你肯定跑不起来。你可能会遇到下面这些异常情况：
+ERROR 3810 nodejs.AppWorkerDiedError: [master] app_worker#1:3813 died (code: 0, signal: null, suicide: false, state: dead), current workers: []  原因是Node.
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/w350etqk590s%E9%BB%91%E8%8B%B9%E6%9E%9C10.13/" class="link black dim">
+        Clevo W350ETQ(神舟K590S)安装黑苹果10.13总结
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Clevo W350ETQ(神舟K590S)安装黑苹果10.13总结  作为一名爱瞎折腾的前端来说, 学会使用MacOSX, 或许是有必要的, 于是想着去买一台MBP, 可是无奈电脑太多, 不想再添置, 于是把我的神级Clevo W350ETQ(也是神舟后来出的K590S)忍痛的挂在了闲鱼上, 自己一直保养很好, 后来怒加4G条子和SSD, 所以卖的比一般的二手贵, 无人识相, 遂继续自用.
+ 我的电脑配置及相关评测曾经也在博客(相关索引)中提到. 在当年来说是非常强悍的一款游戏本, 至今依然能算一台中端性能笔记本, 只是便携性太差, 一直以来都作为办公台式机使用, 我这台配置如下:
+处理器名称: Mobile QuadCore Intel Core i7-3612QM, 3000 MHz (30 x 100) 主板名称: Clevo W35_37ET 主板芯片组: Intel Panther Point HM77, Intel Ivy Bridge 系统内存: 8084 MB (4 GB * 2 DDR3-1600) 显示适配器: Intel(R) HD Graphics 4000 NVIDIA GeForce GTX 660M 显示器: LG Philips LP156WF1-TLC1 [15.6&quot; LCD] 音频适配器: Realtek ALC269 @ Intel Panther Point PCH - High Definition Audio Controller [C-1] IDE 控制器: Intel(R) 7 Series Chipset Family SATA AHCI Controller IDE 控制器: Realtek PCIE CardReader 硬盘驱动器: OCZ-VERTEX4 硬盘驱动器: ST9500423AS 光盘驱动器: TSSTcorp CDDVDW SN-208AB 键盘: PS/2 标准键盘 鼠标: ELAN Input Device 网络适配器: Realtek PCIe GBE Family Controller 网络适配器: Realtek RTL8723AE Wireless LAN 802.
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/elementui%E7%9A%84table%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84renderheader%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/" class="link black dim">
+        ElementUI的Table组件中的renderHeader方法研究
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      ElementUI的Table组件中的renderHeader方法研究 项目使用ElementUI，挺好用的，页面中有些地方的帮助提示通过使用组件Tooltip和el-icon-question来展示，代码如下：
+&lt;div class=&quot;title&quot;&gt;本月累计收益 &lt;el-tooltip class=&quot;item&quot; content=&quot;截止至昨日本月累计收益&quot; placement=&quot;top&quot;&gt; &lt;span class=&quot;el-icon-question&quot;&gt;&lt;/span&gt; &lt;/el-tooltip&gt; &lt;/div&gt;  截图如下：
+另外也可以看看jsfiddle的demo
+全站很多地方都有都需要这样的帮助提示，其中有些需要在表格的表头上添加，似乎有点难度。效果如下：
+因为ElementUI上面的文档对这块自定义表头没有什么参考的文档，是否能够实现心里没底，去仔细翻了文档，发现有个renderHeader的函数可以实现，一直以为Vue还算比较熟悉的我有点点懵，这是个啥？？？
+renderHeader（函数渲染） 在我不太多的Vue项目开发实践中，很少用到，因此并不熟悉，先看看官方解释：
+ Vue 推荐在绝大多数情况下使用 template 来创建你的 HTML。然而在一些场景中，你真的需要 JavaScript 的完全编程的能力，这就是 render 函数，它比 template 更接近编译器。
+ ElementUI中的renderHeader就是对列标题Label区域渲染使用的Function，通过他实现自定义表头label功能！
+万变不离其宗，这个ElementUI的解释一看就像是这段官方示例：
+// 官方示例部分 render: function (createElement) { return createElement('h1', this.blogTitle) }  而回头再看看ElementUI的示例：Function(h, { column, $index })。耐心琢磨，结合createElement看看便粗略写出来了一个勉强能用的：
+renderHeader(h, { column, $index }) { return h( 'el-tooltip', { props: { content: (function() { let label = column.label switch (label) { case '访问数': return '网站页面上独立访问应用的人数（UV）' break case '提交数': return '网站页面上访客在应用上完成提交的数量' break case '成交数': return '网站页面上最终成功在应用上完成提交的数量' break } })(), placement: 'top' }, domProps: { innerHTML: column.
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%B8%80/" class="link black dim">
+        Javascript事件循环入门到“忘记”（一）
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Javascript事件循环入门到“忘记”（一）  本文主要介绍Javascript事件循环在浏览器上的一些特性和应用介绍。
+ Javascript小知识 JavaScript的并发模型基于&rdquo;事件循环&rdquo;(Event Loop)。这个模型与像C或者Java这种其它语言中的模型截然不同。它永不阻塞，处理I/O通常通过事件和回调来执行，所以当一个应用正等待IndexedDB查询返回或者一个XHR请求返回时，它仍然可以处理其它事情，如用户输入。【参：并发模型与事件循环】
+需要了解的几点：  单线程编程语言(Single Threaded)
+只有一个主线程(one thread)，并且只有一个调用栈(Call Stack)，因此同一时间只能执行同一件事情。【参：Philip Roberts: What the heck is the event loop anyway? | JSConf EU (4:15)】
+ 执行上下文(Execution Context)
+Javascript代码执行时，会进入一个执行上下文。它可以理解为当前代码的运行环境（包括三种：全局环境、函数环境、Eval环境）。【参：Javascript核心技术开发解密 Page-11】
+ 纠正一点分享会可能存在的错误，它和作用域(Scope)不同！作用域是针对变量的一个可访问区域，而执行上下文是属于函数的指向的对象。（Scope pertains to the visibility of variables, and context refers to the object to which a function belongs.）【参：Why Should We Care About Scope and Context ?】
+ 栈（stack）
+函数调用形成了一个栈帧。JavaScript中叫做调用栈(Call Stack)；先进后出，后进先出(LIFO)。
+ 堆（heap）
+对象被分配在一个堆中，即用以表示一个大部分非结构化的内存区域。
+ 队列（queue）
+一个JavaScript运行时包含了一个待处理的消息队列。每一个消息都有一个为了处理这个消息相关联的函数。
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%BA%8C/" class="link black dim">
+        Javascript事件循环入门到“忘记”（二）
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Javascript事件循环入门到“忘记”（二）  本文主要介绍Javascript事件循环在Node.js上的一些特性和应用介绍。
+ 回顾上一期内容 上一期主要针对浏览器上的事件循环进行了简单介绍，也展示了几个开发中可能有帮助的调试及错误分析方法。文章在此：Javascript事件循环入门到“忘记”（一）
+我们还是需要反复尝试记住栈、队列、任务、非阻塞等几个概念。请自行思考片刻，我们进入Node.js的事件循环介绍。
+Node.js特点  2009年发布、作者是Ryan Dahl 历史悠久，再不学就淘汰了（对于Deno表示鸭梨很大。。。） 单线程、基于Chrome的V8的Javascript运行环境 具备高并发，高性能的特点 事件驱动（ libuv ）、异步（libuv、非阻塞I/O模型） 底层C++编写的超快解释器、API几乎全部支持异步回调 非常适合服务器编程。。。Blablabla。。。   当然也是有缺点的，要不然作者也不会搞deno了。缺点：不稳定性、容易挂掉、无法充分发会多核CPU性能等等。
+ 示例思考 我们来看两个小Demo，思考一下结果是什么？
+Demo - 1 setTimeout(() =&gt; { console.log('timer1') Promise.resolve().then(() =&gt; { console.log('promise1') }) }, 0) setTimeout(() =&gt; { console.log('timer2') Promise.resolve().then(function() { console.log('promise2') }) }, 0)  &hellip;此处表示思考了很久而产生的分割线&hellip;
+那么结果大家都有了吧，看看实际情况：
+ 情况一、在浏览器执行的结果：
+timer1 promise1 timer2 promise2  情况二、在Node.js环境执行的结果：
+timer1 timer2 promise1 promise2   你是不是看到了区别，以为这就完了吗？作为原文中为提到的补充资料，请注意Node.js环境中也有可能存在情况一的结果（极少情况下，概率约15%发生）！
+至于Node.js环境出现两种不同的结果，我暂时还没有比较完美的答复，期待有大佬指点（据说和机器性能有关，也就是Demo - 2展示的情况一样）
+    </div>
+  </div>
+
+        </div>
+      
+    </aside>
+    
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/post/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item disabled">
+    <a href="" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/post/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/post/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/post/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/post/page/4/">4</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/post/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/post/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

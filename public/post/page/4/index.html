@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+      <link href="/post/index.xml" rel="alternate" type="application/rss+xml" title="Whidy Daily" />
+      <link href="/post/index.xml" rel="feed" type="application/rss+xml" title="Whidy Daily" />
+    
+
+    <meta property="og:title" content="Posts" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/post/" />
+
+<meta property="og:updated_time" content="2018-02-13T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+
+<meta itemprop="name" content="Posts">
+<meta itemprop="description" content="">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Posts"/>
+<meta name="twitter:description" content=""/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
+              Daily
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Posts
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+
+  <article class="pa3 pa4-ns nested-copy-line-height nested-img">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray">
+      
+    </section>
+    <aside class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%8C%B9%E9%85%8D%E5%88%86%E6%9E%90%E6%80%9D%E8%B7%AF/" class="link black dim">
+        正则表达式中`[反斜杠b]`和`反斜杠b`和`反斜杠B`的区别及匹配分析思路
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      复习正则表达式  最近研究ES6, 正好ES6也有正则方面的内容, 看看有什么新特性, 顺便又把精通正则表达式拿出来粗看了前面几章节, 于是给自己出了几道题. 还做了一点总结.
+ [\b]和\b和\B  一般作为初学者看到这么多这些鬼都会头大了. 下面我将详细讲解一下.
+ [\b] - 退格符 另外其实我一直都搞不清楚[\b]匹配一个退格(U+0008)是什么鬼. 似乎没有人告诉我这个退格符长什么样. 我也不知道那些各种转载各种规则的人他们自己知不知道是啥&hellip; (难道就我不知道- -)
+找了半天, 总算在MSDN: 正则表达式语言 - 快速参考找到了示例. 难道就是匹配\b用的吗😂, 当然很明显的区别是, 它属于字符转义
+\b - 一个词的边界  MSDN: 匹配必须出现在 \w（字母数字）和 \W（非字母数字）字符之间的边界上。
+ 这个就很好理解了, 会写先行断言的我当然是知道了, 他不占用任何位置, 边界一般都是单词或数字两边, 更为具体的通过MDN的正则表达式文档\b介绍内的注意有指引, 查到ecma文档的15.10.2.6 Assertion中IsWordChar处, 不过由于个人能力有限, 对其理解如下:
+通过这段代码(正则表达式案例分析 （一） - (3) 单词边界):
+&quot;I'd prefer p2p O_O&quot;.replace(/\b/g,function(){ console.log(arguments) });  输出结果:
+{ '0': '', '1': 0, '2': 'I\'d prefer p2p O_O' } { '0': '', '1': 1, '2': 'I\'d prefer p2p O_O' } { '0': '', '1': 2, '2': 'I\'d prefer p2p O_O' } { '0': '', '1': 3, '2': 'I\'d prefer p2p O_O' } { '0': '', '1': 4, '2': 'I\'d prefer p2p O_O' } { '0': '', '1': 10, '2': 'I\'d prefer p2p O_O' } { '0': '', '1': 11, '2': 'I\'d prefer p2p O_O' } { '0': '', '1': 14, '2': 'I\'d prefer p2p O_O' } { '0': '', '1': 15, '2': 'I\'d prefer p2p O_O' } { '0': '', '1': 18, '2': 'I\'d prefer p2p O_O' }  我们看到被断掉(用|表示)的位置分别是:
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/%E7%94%A8gatsby%E5%92%8Cstrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="link black dim">
+        用Gatsby和Strapi创建一个静态博客(翻译和自己探索过程中的经验总结)
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      用Gatsby和Strapi创建一个静态博客(翻译和自己探索过程中的经验总结)  原文参阅: Building a static blog using Gatsby and Strapi或https://blog.strapi.io/building-a-static-website-using-gatsby-and-strapi/. 本篇主要是对其精华内容进行翻译, 以及实操过程中遇到的问题解决和探索. 一些具体的操作步骤和细节, 我将忽略, 结合原文一起阅读效果更佳!
+注: 本文操作环境是Linux VPS, CentOS 6 64bit
+ 介绍 这是一个包含很多静态内容页面的站点, 从技术上来说就如同一系列HTML文件, 展示给访问者. 与动态网站不同的是, 他不需要后端开发或者数据库支撑. 发布静态站点之所以容易, 是因为文件只需要上传到服务器或者存储器. 没有额外的渲染页面的请求, 也没有数据库被黑的风险, 所以它既安全也快速.
+为了快速建站, 其实很多开源的静态页面生成框架可用, 比如前阵子我搞的Jekyll, Hugo, 好似国人偏爱的Hexo等等, 他们的工作原理相似, 内容都是通过静态文件(比如Markdown)或者带有内容的API, 通过获取这些内容, 注入到开发者做好的模板, 最后生成一大堆HTML文件.
+Progressive Web Apps (PWA)实际上是网页应用, 几乎基于Javascript, 并且可靠, 快速, 有吸引力的. 这几年比较火的Angular, Vue, React都是类似的前端框架.
+ 静态站点遇见了PWA就产生了Gatsby
+ 将这两点组合起来的最佳选择看起来就是Gatsby了, 但是同样需要一个内容接口, 这就是我将要展示的, 通过Strapi创建一个内容API提供给Gatsby, 然后打包发布出一个静态站点.
+Gatsby是什么 这个并不是型男熟知的杰士派, 虽然我也用过这个发泥, 好像不是很好用. Gatsby是基于React的快速静态网站框架, 有了它, 你就可以感觉飘飘然的开发React网站了.
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90nuxt%E4%B8%8B%E7%9A%84eslint%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="link black dim">
+        （未完成）Nuxt下的ESLint最佳实践
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      https://nuxtjs.org/guide/development-tools/
+https://medium.com/@agm1984/how-to-set-up-es-lint-for-airbnb-vue-js-and-vs-code-a5ef5ac671e8
+https://cn.vuejs.org/v2/style-guide/index.html
+.eslintrc.js module.exports = { root: true, env: { browser: true, node: true }, parserOptions: { parser: &lsquo;babel-eslint&rsquo; }, extends: [ &ldquo;eslint:recommended&rdquo;, &lsquo;plugin:vue/recommended&rsquo;, &ldquo;plugin:prettier/recommended&rdquo; ], // required to lint *.vue files plugins: [ &lsquo;vue&rsquo; ], // add your custom rules here rules: { &ldquo;semi&rdquo;: [2, &ldquo;never&rdquo;], &lsquo;vue/html-indent&rsquo;: &ldquo;off&rdquo;, &ldquo;vue/max-attributes-per-line&rdquo;: &ldquo;off&rdquo;, &ldquo;prettier/prettier&rdquo;: [&ldquo;error&rdquo;, { &ldquo;semi&rdquo;: false, &ldquo;singleQuote&rdquo;: true }] } }
+.prettierrc { &ldquo;semi&rdquo;: false, &ldquo;singleQuote&rdquo;: true }
+安装Vetur settings.
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8Ejavascript%E8%A7%84%E8%8C%83%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86/" class="link black dim">
+        （未完成）关于Javascript规范在项目中应用管理
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      关于Javascript规范在项目中应用管理 大家在用各种脚手架的时候，一定对JavaScript规范选择并不陌生，不熟悉JavaScript规范的一般会选常见的Standard或者Airbnb，但是他们究竟有什么区别，如何选择和应用呢，这篇文章将给你一个满意的答案。
+JavaScript Standard Style https://github.com/standard/standard/blob/master/docs/README-zhcn.md
+https://github.com/standard/standard/blob/master/docs/README-zhcn.md#visual-studio-code
+Airbnb JavaScript Style https://github.com/airbnb/javascript
+https://medium.com/@agm1984/how-to-set-up-es-lint-for-airbnb-vue-js-and-vs-code-a5ef5ac671e8
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8E%E8%A1%A8%E5%8D%95/" class="link black dim">
+        （未完成）关于表单
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      &lt;!-- before --&gt; &lt;form bindsubmit=&quot;login&quot;&gt; &lt;view class=&quot;form-login&quot;&gt; &lt;view class=&quot;form-login-group&quot;&gt; &lt;input id=&quot;loginName&quot; type=&quot;text&quot; placeholder=&quot;用户名/邮箱&quot; name=&quot;name&quot; value=&quot;{{name}}&quot; bindinput=&quot;inputStatus&quot; bindblur=&quot;inputBlur&quot; bindfocus=&quot;inputFocus&quot;&gt;&lt;/input&gt; &lt;icon hidden=&quot;{{showNameIcon == ''}}&quot; type=&quot;clear&quot; size=&quot;16&quot; color=&quot;#ccc&quot; class=&quot;btn-clear-input&quot; bindtap=&quot;clearInput&quot; data-type=&quot;name&quot; /&gt; &lt;/view&gt; &lt;view class=&quot;form-login-group&quot;&gt; &lt;input id=&quot;loginPass&quot; type=&quot;password&quot; placeholder=&quot;密码&quot; name=&quot;pass&quot; value=&quot;{{pass}}&quot; bindinput=&quot;inputStatus&quot; bindblur=&quot;inputBlur&quot; bindfocus=&quot;inputFocus&quot;&gt;&lt;/input&gt; &lt;icon hidden=&quot;{{showPassIcon == ''}}&quot; type=&quot;clear&quot; size=&quot;16&quot; color=&quot;#ccc&quot; class=&quot;btn-clear-input&quot; bindtap=&quot;clearInput&quot; data-type=&quot;pass&quot; /&gt; &lt;/view&gt; &lt;button class=&quot;btn-login&quot; formType=&quot;submit&quot; size=&quot;default&quot;&gt;登录&lt;/button&gt; &lt;view class=&quot;info&quot;&gt;注册账号请暂时到电脑版进行操作&lt;/view&gt; &lt;/view&gt; &lt;/form&gt; &lt;!-- after --&gt; &lt;form bindsubmit=&quot;login&quot;&gt; &lt;view class=&quot;form-login&quot;&gt; &lt;view class=&quot;form-login-group&quot;&gt; &lt;input id=&quot;loginName&quot; class=&quot;&quot; type=&quot;text&quot; placeholder=&quot;用户名/邮箱&quot; placeholder-class=&quot;input-placeholder&quot; name=&quot;name&quot; value=&quot;{{name}}&quot; bindinput=&quot;inputStatus&quot; bindblur=&quot;inputBlur&quot; bindfocus=&quot;inputFocus&quot;&gt;&lt;/input&gt; &lt;icon hidden=&quot;{{currentFocus !
+    </div>
+  </div>
+
+        </div>
+      
+    </aside>
+    
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/post/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+    <a href="/post/page/3/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/post/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/post/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/post/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/post/page/4/">4</a></li>
+    
+    
+    <li class="page-item disabled">
+    <a href="" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/post/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+      <link href="/post/index.xml" rel="alternate" type="application/rss+xml" title="Whidy Daily" />
+      <link href="/post/index.xml" rel="feed" type="application/rss+xml" title="Whidy Daily" />
+    
+
+    <meta property="og:title" content="Posts" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/post/" />
+
+<meta property="og:updated_time" content="2018-02-13T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+
+<meta itemprop="name" content="Posts">
+<meta itemprop="description" content="">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Posts"/>
+<meta name="twitter:description" content=""/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
+              Daily
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Posts
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+
+  <article class="pa3 pa4-ns nested-copy-line-height nested-img">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray">
+      
+    </section>
+    <aside class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/vscode%E4%B8%8B%E8%AE%A9css%E6%96%87%E4%BB%B6%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81scss%E6%88%96sass%E6%96%B9%E6%B3%95/" class="link black dim">
+        VSCode下让CSS文件完美支持SCSS或SASS语法方法
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      VSCode下让CSS文件完美支持SCSS或SASS语法方法  习惯Webpack + PostCSS后, 通常PostCSS都是直接对CSS文件进行处理, 但是大部分习惯SCSS/SASS/LESS的朋友也许不适应了. 我专门研究了一下, 在Visual Studio Code编辑器下如果配置相关代码和设置达到CSS文件完美编写SCSS的办法, 其他语法类型原理相似, 这里以SCSS为例.
+ 开始配置 Visual Studio Code编辑器设置的配置 首先, 配置编辑器的设置, 按快捷键&rdquo;CTRL + ,&ldquo;打开用户设置, 添加如下配置片段:
+&quot;files.associations&quot;: { &quot;*.css&quot;: &quot;scss&quot; }  我这里做了全局的用户设置, 因为我个人大部分情况下是写SCSS, 当然如果你仅对该项目配置, 也可以将上面这段放进工作区设置(是放在默认花括号内哦, 千万不要弄错了~).
+这样, VSCode编辑器就会把所有CSS文件当成SCSS格式来解析了, 也就不会出现可怕的红色波浪线了.
+PostCSS的配置 接下来, 对PostCSS进行相关配置. 我们这里需要安装最重要的两个PostCSS插件postcss-scss和precss. 执行命令:
+npm i -D postcss-scss precss  安装好后, 修改项目的postcss.config.js配置如下(我另外有用到autoprefixer和cssnano, 当然你可以根据个人情况选择, 重要部分是parser: &lsquo;postcss-scss&rsquo;和require(&lsquo;precss&rsquo;)):
+module.exports = { parser: 'postcss-scss', plugins: [ require('precss'), require('autoprefixer'), require('cssnano') ] }  这样问题就解决了. 试着编译一下以下测试代码:
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/vscode%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="link black dim">
+        VSCode格式化代码功能失效的bug解决方法
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      VSCode格式化代码功能失效的bug解决方法  前不久我装上了黑苹果，那么为了快速转移开发环境，我使用了VSCode(Visual Studio Code下面简称VSCode)的插件Settings Sync来同步个人设置和其他常用插件，如果不熟悉Settings Sync的可以参考之前我写的一篇文章《Visual Studio Code 设置同步到github的插件介绍及使用方法(Settings Sync)》来使用。
+ 现象 当然本文并不是介绍同步，而是要说同步后的编码过程中出现的异常。在Mac下安装好VSCode，用Settings Sync同步成功后，接着git clone正在开发的项目到本地，开发过程中，却发现一个非常奇怪的问题：所有的格式化代码的功能都失效了。Mac下使用快捷键“Alt+Shift+F”（我用的windows键盘），却提示，“当前没有安装“xxx”文件的文档格式化程序。”！我的Vue，SCSS代码都无法正常格式化！这个非常令人不爽，难道Mac下的VSCode会有格式化代码功能的缺失？和Windows版本的VSCode功能不一致？我觉得不太可能。于是重启回到Windows 10，重新拉了项目测试，毫无问题。无论是Windows还是Mac，都是最新版的Visual Studio Code。
+分析 无奈之下去google了一下格式化代码的问题，发现很多人都遇到过，有的人说重装VSCode，但是我才新装的，所以排除了，但是重装这个词让我想起一个东西，就是这些格式化代码工具，例如Vetur，Prettier，他们正常运行的时候都是会在编辑器中产生一个服务或者提示，而失效状态下是看不到的。于是我尝试把Vetur插件停用，重新加载再启用，然而还是无效！
+想来想去，插件也安装了，编辑器也是新装的，为何插件没起到作用，突然记起之前Windows下的输出面板中是有Vue Language Server的，而现在却没有，是不是要重新安装插件呢，或者说通过Settings Sync自动化同步插件安装的功能还存在一些其他的问题呢？
+解决方案 带着疑问我尝试着将Vetur和Prettier卸载，然后再重新安装，启动VSCode，打开项目，切换到一个Vue页面，终于看到了Vetur的服务，比如下面这张图中表现了正常的格式化功能的效果（截图为我解决问题后的图片）
+图中看到这里有个Vue Language Server，才是真正表示Vetur插件正常，右下角还有个Prettier，说明一切正常，再试了一下使用快捷键“Alt+Shift+F”，也终于可以正常格式化代码了！问题完美解决。
+结论 有时候自动化工具安装的插件可能会存在一些问题，虽然不排除我这个问题发生的偶然性。
+另一方面，重装软件有时候能解决问题，不过需要针对问题分析，从最小的改变逐渐排除故障。如果我把VSCode重装，再用Settings Sync同步一次，也许的确可以解决问题，但是也有可能依旧存在问题，而从插件重装下手才是比较省时省力的。
+那么，如果开发中依赖插件的部分功能失效了，你也可以尝试重装插件，或许问题就能快速解决了～
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/" class="link black dim">
+        Visual Studio Code使用中CPU占用率异常暴增过高原因
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      今天要说的是一个困扰我好几个月的问题，Visual Studio Code（下文简称VSCode）在使用中突然增高，风扇开始狂转，温度骤增，影响心情的故障原因。
+其实，无论是Windows还是OSX，很多人可能或多或少都遇到过VSCode突然就不好使了，我就遇到过好多次疑难杂症，折腾很久才弄出来，比如下面三点：
+ tab键突然就不好使了，卡顿很久或者压根无法缩进，并且sidebar的git那块功能彻底失效！ 写Markdown文档的时候，tab键的缩进只能向右，不能收回。。。这真是奇葩。 使用中莫名其妙的风扇就响了起来，看看进程和温度，CPU满载执行，完全不知道怎么回事，这也是本次要专门提到的问题。  系统使用环境及VSCode状态检测 我使用的是黑苹果，当然这个与CPU占用率增高并无关系，通过code --status查看一些基本信息如下：
+P750TM:~ whidy$ code --status Version: Code 1.30.2 (61122f88f0bf01e2ac16bdb9e1bc4571755f5bd8, 2019-01-07T22:48:31.260Z) OS Version: Darwin x64 17.7.0 CPUs: Intel(R) Core(TM) i5-8600K CPU @ 3.60GHz (6 x 3600) Memory (System): 16.00GB (5.22GB free) Load (avg): 2, 2, 2 VM: 0% Screen Reader: no Process Argv: --inspect-extensions=9993 GPU Status: 2d_canvas: enabled checker_imaging: disabled_off flash_3d: enabled flash_stage3d: enabled flash_stage3d_baseline: enabled gpu_compositing: enabled multiple_raster_threads: enabled_on native_gpu_memory_buffers: enabled rasterization: unavailable_software video_decode: enabled video_encode: enabled webgl: enabled webgl2: enabled CPU %	Mem MB	PID	Process 0	98	1775	code main 0	49	1776	gpu-process 0	229	1777	window (settings.
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/visual-studio-code%E5%87%A0%E6%AC%BEftp%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/" class="link black dim">
+        Visual Studio Code几款FTP插件使用总结
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Visual Studio Code几款FTP插件使用总结 平时要维护类似wordpress这样的网站，然后虚拟主机又不支持远程仓的版本管理。总而言之，只能通过下载到本地修改后再通过FTP上传的情况，每次修改后都要开启FTP进行代码提交，相当繁琐。因此就诞生了一些编辑器的FTP插件，其实以前用sublime text的时候还有款插件叫SFTP不错（如果配置好了连接不上可以参考SFTP连接超时），可惜VSCODE上面没有，截至目前（2018年1月17日）可以用的FTP插件如下图：
+为了找出最合适的插件，我全部都一个个试过了(关于如何使用参考插件说明， 十分简单就不多说了)。然后有以下感想：
+ ftp-sync是测试中的唯一一个感觉还可以的，但是菜单为啥不全，感觉是一个BUG吧。希望后期能够优化。  SFTP/FTP sync总是回莫名其妙的卡住(左下角提示transfer就不动了)，而且相同文件好像也会再次覆盖，不会跳过.文件比较多的时候出问题，不建议使用。 ftp-kr跟Simple FTP/SFTP一样没啥暖用，还不如就用ftp软件操作 Simple FTP/SFTP没啥暖用，还不如就用ftp软件操作  写到最后感觉很惨，没有一个真正好用的，而且连ftp传输状态信息也没有。有时候比较惨的误操作了需要中断传输，貌似只能强制关闭编辑器&hellip;
+然后我还是用sublime text 的SFTP来维护需要涉及到FTP文件同步的项目了。当然如果你不怎么用sublime text的话，个人建议使用ftp-sync，毕竟目前来看，它在VSCode上表现还是不错的，有潜力，也期待作者进一步优化~
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        February 13, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/post/vue%E4%B8%8B%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8%E6%97%A0%E9%99%90%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AEdemo/" class="link black dim">
+        Vue下滚动到页面底部无限加载数据Demo
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Vue下滚动到页面底部无限加载数据Demo  看到一篇Implementing an Infinite Scroll with Vue.js, 觉得挺实用的就看了下, 顺便简单翻译了一下给需要的人参考.
+从这个项目中可以加深对Vue的生命周期的理解, 何时开始axios请求, 如何结合Vue使用原生js来写scroll事件等等, 我这里主要是对原文的重点提取和补充
+ 本文技术要点  Vue生命周期 axios简单用法 moment.js格式化日期 图片懒加载 结合原生js来写scroll事件 请求节流  创建项目 首先创建一个简单的vue项目
+# vue init webpack-simple infinite-scroll-vuejs  然后安装项目所需要用的一些插件
+# npm install axios moment  初始化用户数据 项目搭建完后, 跑起来看看
+# npm run dev  打开http://localhost:8080无误后, 我们开始修改代码, 先看看获取用户数据这块,
+&lt;script&gt; import axios from 'axios' import moment from 'moment' export default { name: 'app', // 创建一个存放用户数据的数组 data() { return { persons: [] } }, methods: { // axios请求接口获取数据 getInitialUsers() { for (var i = 0; i &lt; 5; i++) { axios.
+    </div>
+  </div>
+
+        </div>
+      
+    </aside>
+    
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/post/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+    <a href="/post/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/post/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/post/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/post/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/post/page/4/">4</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/post/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/post/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
