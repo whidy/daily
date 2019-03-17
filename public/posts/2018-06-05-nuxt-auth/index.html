@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note  | Nuxt在SPA模式下的鉴权处理(1)</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Nuxt在SPA模式下的鉴权处理(1)" />
+<meta property="og:description" content="2018年6月5日 阴雨 一般
+最近项目使用了Nuxt, 不过由于考虑到项目需要快速上线, 放弃了SSR, 直接采用单页面SPA模式进行开发, 也是本人第一次使用Nuxt来进行项目开发, 以下是我开发中对于鉴权这块的研究和总结, 因为官方给了一个鉴权示例是基于Server端的, 所以我就又写了一篇Client端的鉴权总结~
+文章分为很多篇, 会逐步完善更新, 请耐心等待&hellip;
+ 预备知识  Vue和Vuex Document.cookie HTTP 的基本性质 Window.localStorage和Window.sessionStorage  介绍 Nuxt.js 是一个基于 Vue.js 的通用应用框架。那么既然是基于Vue的, 它自然也就用到的Vuex, 那么会遇到一个问题, 它本是状态管理模式, 不过有时候我们会作为数据共享的一种解决方案, 但是它会在页面刷新时丢失.
+因此在Vue项目开发中, 我们每次刷新获取数据可能只有两种方式:
+ 每次刷新都会向服务器发送请求, 拿到数据后, 对页面重新更新视图 每次操作都会存在本客户端的Cookie或者Storage中  很显然一般情况下, 第一种方法会给服务器资源造成浪费, 除非需要获取的数据是频繁变化的, 那么我们一般会使用第二种. 下面就主要针对第二个方案进行总结.
+需求分析 我们都知道HTTP是无状态的, 那么为了让用户每次访问页面的时候会话能够保持, 则需要用cookie或者storage来记录. 我们后台的session有效期为半小时.
+在这半小时内, 用户处于登录状态, 本地也保存了有效凭证的情况下, 则该用户的有效资源请求可以被执行, 而无需服务器每次进行验证~
+需求方希望本地存储的凭证会在会话关闭后清除, 因此我们首先排除localStorage, 考虑使用Cookie和sessionStorage! 又因为本人比较懒, Cookie操作比较麻烦, 所以决定使用sessionStorage.(虽然最后还使用了插件&hellip;)
+基础实例  用sessionStorage存储Vuex全局data的方式展示
+创建一个Nuxt应用  我们基于Nuxt的Starter的Cli来构建一个简单的Nuxt应用, 命令如下" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://daily.whidy.net/posts/2018-06-05-nuxt-auth/" />
+<meta property="article:published_time" content="2018-06-05T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-06-05T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="Nuxt在SPA模式下的鉴权处理(1)">
+<meta itemprop="description" content="2018年6月5日 阴雨 一般
+最近项目使用了Nuxt, 不过由于考虑到项目需要快速上线, 放弃了SSR, 直接采用单页面SPA模式进行开发, 也是本人第一次使用Nuxt来进行项目开发, 以下是我开发中对于鉴权这块的研究和总结, 因为官方给了一个鉴权示例是基于Server端的, 所以我就又写了一篇Client端的鉴权总结~
+文章分为很多篇, 会逐步完善更新, 请耐心等待&hellip;
+ 预备知识  Vue和Vuex Document.cookie HTTP 的基本性质 Window.localStorage和Window.sessionStorage  介绍 Nuxt.js 是一个基于 Vue.js 的通用应用框架。那么既然是基于Vue的, 它自然也就用到的Vuex, 那么会遇到一个问题, 它本是状态管理模式, 不过有时候我们会作为数据共享的一种解决方案, 但是它会在页面刷新时丢失.
+因此在Vue项目开发中, 我们每次刷新获取数据可能只有两种方式:
+ 每次刷新都会向服务器发送请求, 拿到数据后, 对页面重新更新视图 每次操作都会存在本客户端的Cookie或者Storage中  很显然一般情况下, 第一种方法会给服务器资源造成浪费, 除非需要获取的数据是频繁变化的, 那么我们一般会使用第二种. 下面就主要针对第二个方案进行总结.
+需求分析 我们都知道HTTP是无状态的, 那么为了让用户每次访问页面的时候会话能够保持, 则需要用cookie或者storage来记录. 我们后台的session有效期为半小时.
+在这半小时内, 用户处于登录状态, 本地也保存了有效凭证的情况下, 则该用户的有效资源请求可以被执行, 而无需服务器每次进行验证~
+需求方希望本地存储的凭证会在会话关闭后清除, 因此我们首先排除localStorage, 考虑使用Cookie和sessionStorage! 又因为本人比较懒, Cookie操作比较麻烦, 所以决定使用sessionStorage.(虽然最后还使用了插件&hellip;)
+基础实例  用sessionStorage存储Vuex全局data的方式展示
+创建一个Nuxt应用  我们基于Nuxt的Starter的Cli来构建一个简单的Nuxt应用, 命令如下">
+
+
+<meta itemprop="datePublished" content="2018-06-05T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-06-05T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="270">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nuxt在SPA模式下的鉴权处理(1)"/>
+<meta name="twitter:description" content="2018年6月5日 阴雨 一般
+最近项目使用了Nuxt, 不过由于考虑到项目需要快速上线, 放弃了SSR, 直接采用单页面SPA模式进行开发, 也是本人第一次使用Nuxt来进行项目开发, 以下是我开发中对于鉴权这块的研究和总结, 因为官方给了一个鉴权示例是基于Server端的, 所以我就又写了一篇Client端的鉴权总结~
+文章分为很多篇, 会逐步完善更新, 请耐心等待&hellip;
+ 预备知识  Vue和Vuex Document.cookie HTTP 的基本性质 Window.localStorage和Window.sessionStorage  介绍 Nuxt.js 是一个基于 Vue.js 的通用应用框架。那么既然是基于Vue的, 它自然也就用到的Vuex, 那么会遇到一个问题, 它本是状态管理模式, 不过有时候我们会作为数据共享的一种解决方案, 但是它会在页面刷新时丢失.
+因此在Vue项目开发中, 我们每次刷新获取数据可能只有两种方式:
+ 每次刷新都会向服务器发送请求, 拿到数据后, 对页面重新更新视图 每次操作都会存在本客户端的Cookie或者Storage中  很显然一般情况下, 第一种方法会给服务器资源造成浪费, 除非需要获取的数据是频繁变化的, 那么我们一般会使用第二种. 下面就主要针对第二个方案进行总结.
+需求分析 我们都知道HTTP是无状态的, 那么为了让用户每次访问页面的时候会话能够保持, 则需要用cookie或者storage来记录. 我们后台的session有效期为半小时.
+在这半小时内, 用户处于登录状态, 本地也保存了有效凭证的情况下, 则该用户的有效资源请求可以被执行, 而无需服务器每次进行验证~
+需求方希望本地存储的凭证会在会话关闭后清除, 因此我们首先排除localStorage, 考虑使用Cookie和sessionStorage! 又因为本人比较懒, Cookie操作比较麻烦, 所以决定使用sessionStorage.(虽然最后还使用了插件&hellip;)
+基础实例  用sessionStorage存储Vuex全局data的方式展示
+创建一个Nuxt应用  我们基于Nuxt的Starter的Cli来构建一个简单的Nuxt应用, 命令如下"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Nuxt在SPA模式下的鉴权处理(1)</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-06-05T00:00:00Z">June 5, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年6月5日 阴雨 一般</p>
+
+<p>最近项目使用了Nuxt, 不过由于考虑到项目需要快速上线, 放弃了SSR, 直接采用单页面SPA模式进行开发, 也是本人第一次使用Nuxt来进行项目开发, 以下是我开发中对于<strong>鉴权这块的研究和总结</strong>, 因为官方给了一个<a href="https://zh.nuxtjs.org/examples/auth-routes/">鉴权示例</a>是基于Server端的, 所以我就又写了一篇Client端的鉴权总结~</p>
+
+<p>文章分为很多篇, 会逐步完善更新, 请耐心等待&hellip;</p>
+</blockquote>
+
+<h2 id="预备知识">预备知识</h2>
+
+<ul>
+<li><a href="https://cn.vuejs.org/v2/guide/">Vue</a>和<a href="https://vuex.vuejs.org/zh/">Vuex</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/cookie">Document.cookie</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview#HTTP_%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8">HTTP 的基本性质</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage">Window.localStorage</a>和<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/sessionStorage">Window.sessionStorage</a></li>
+</ul>
+
+<h2 id="介绍">介绍</h2>
+
+<p><strong>Nuxt.js 是一个基于 Vue.js 的通用应用框架。</strong>那么既然是基于Vue的, 它自然也就用到的<strong>Vuex</strong>, 那么会遇到一个问题, 它本是<strong>状态管理模式</strong>, 不过有时候我们会作为数据共享的一种解决方案, 但是它会在页面刷新时丢失.</p>
+
+<p>因此在Vue项目开发中, 我们每次刷新获取数据可能只有两种方式:</p>
+
+<ol>
+<li>每次刷新都会向服务器发送请求, 拿到数据后, 对页面重新更新视图</li>
+<li>每次操作都会存在本客户端的Cookie或者Storage中</li>
+</ol>
+
+<p>很显然一般情况下, 第一种方法会给服务器资源造成浪费, 除非需要获取的数据是频繁变化的, 那么我们一般会使用第二种. 下面就主要针对第二个方案进行总结.</p>
+
+<h2 id="需求分析">需求分析</h2>
+
+<p>我们都知道HTTP是无状态的, 那么为了让用户每次访问页面的时候会话能够保持, 则需要用cookie或者storage来记录. 我们后台的session有效期为半小时.</p>
+
+<p>在这半小时内, 用户处于登录状态, 本地也保存了有效凭证的情况下, 则该用户的有效资源请求可以被执行, 而无需服务器每次进行验证~</p>
+
+<p>需求方希望本地存储的凭证会在会话关闭后清除, 因此我们首先排除<code>localStorage</code>, 考虑使用<code>Cookie</code>和<code>sessionStorage</code>! 又因为本人比较懒, Cookie操作比较麻烦, 所以决定使用<code>sessionStorage</code>.(虽然最后还使用了插件&hellip;)</p>
+
+<h2 id="基础实例">基础实例</h2>
+
+<blockquote>
+<p>用sessionStorage存储Vuex全局data的方式展示</p>
+
+<h3 id="创建一个nuxt应用">创建一个Nuxt应用</h3>
+</blockquote>
+
+<p>我们基于Nuxt的Starter的Cli来构建一个简单的Nuxt应用, 命令如下</p>
+
+<pre><code class="language-sh">vue init nuxt-community/starter-template nuxt-spa-demo
+cd nuxt-spa-demo
+npm i
+</code></pre>
+
+<h3 id="修改模式为spa模式">修改模式为SPA模式</h3>
+
+<p>修改修改<code>nuxt.config.js</code>, 添加<code>mode: 'spa',</code>, 大致如下:</p>
+
+<pre><code class="language-javascript">module.exports = {
+  mode: 'spa',
+  head: {
+    ...
+  }
+  ...
+}
+</code></pre>
+
+<h3 id="创建vuex基本内容">创建Vuex基本内容</h3>
+
+<p>然后<code>store</code>目录创建一个<code>index.js</code>, 代码如下</p>
+
+<pre><code class="language-javascript">export const state = () =&gt; ({
+  counter: window.sessionStorage.getItem('counter') || 0
+})
+
+export const mutations = {
+  increment: state =&gt; {
+    state.counter++
+    window.sessionStorage.setItem('counter', state.counter)
+  },
+  decrement: state =&gt; {
+    state.counter--
+    window.sessionStorage.setItem('counter', state.counter)
+  }
+}
+</code></pre>
+
+<p>那么在Vuex的Mutatations中, 每次也会同时对sessionStorage进行操作.</p>
+
+<p>另外在页面加载时, 先检查sessionStorage中是否存在<code>counter</code>这样一个变量, 如果没有则设置默认值<code>0</code></p>
+
+<h3 id="创建一个可操作vuex的界面">创建一个可操作Vuex的界面</h3>
+
+<p>接着修改默认主页<code>page/index.vue</code>, 代码大致如下</p>
+
+<pre><code class="language-html">&lt;template&gt;
+  &lt;section class=&quot;container&quot;&gt;
+    &lt;div class=&quot;demo-wrap&quot;&gt;
+      &lt;app-logo/&gt;
+      &lt;h1 class=&quot;title&quot;&gt;
+        nuxt-spa-demo
+      &lt;/h1&gt;
+      &lt;h2 class=&quot;subtitle&quot;&gt;
+        Nuxt with sessionStorage or cookie
+      &lt;/h2&gt;
+      &lt;div class=&quot;content&quot;&gt;
+        &lt;p&gt;{{ counter }}&lt;/p&gt;
+        &lt;p&gt;
+          &lt;button @click=&quot;increment&quot;&gt;+&lt;/button&gt;
+          &lt;button @click=&quot;decrement&quot;&gt;-&lt;/button&gt;
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/template&gt;
+&lt;template&gt;
+  &lt;section class=&quot;container&quot;&gt;
+    &lt;div class=&quot;demo-wrap&quot;&gt;
+      &lt;app-logo/&gt;
+      &lt;h1 class=&quot;title&quot;&gt;
+        nuxt-spa-demo
+      &lt;/h1&gt;
+      &lt;h2 class=&quot;subtitle&quot;&gt;
+        Nuxt with sessionStorage or cookie
+      &lt;/h2&gt;
+      &lt;div class=&quot;content&quot;&gt;
+        &lt;p&gt;{{ counter }}&lt;/p&gt;
+        &lt;p&gt;
+          &lt;button @click=&quot;increment&quot;&gt;+&lt;/button&gt;
+          &lt;button @click=&quot;decrement&quot;&gt;-&lt;/button&gt;
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import AppLogo from '~/components/AppLogo.vue'
+import { mapState, mapMutations } from 'vuex'
+export default {
+  components: {
+    AppLogo
+  },
+  computed: {
+    ...mapState(['counter'])
+  },
+  methods: {
+    ...mapMutations(['increment', 'decrement'])
+  }
+}
+&lt;/script&gt;
+&lt;style lang=&quot;scss&quot; scoped&gt;
+...
+&lt;/style&gt;
+</code></pre>
+
+<h3 id="运行应用并测试">运行应用并测试</h3>
+
+<p>修改基本完成后, 大致的效果可见该分支<a href="https://github.com/whidy/nuxt-spa-demo/tree/nuxt-auth-a">nuxt-auth-a</a>, 然后运行应用</p>
+
+<pre><code class="language-sh">npm run dev
+</code></pre>
+
+<p>打开<code>http://localhost:3000</code>, 点击 <code>+</code>或<code>-</code>, 数字变化后, 刷新页面, 可以观察到, 它并不会回到<code>0</code>, 那么一个简单的实例就完成了.</p>
+
+<blockquote>
+<p>需要注意的是
+* sessionStorage的数据并不会在多个相同网站地址的窗口共享, 也就是说每次连接都是新的
+* sessionStorage存储的数据, 关闭当前标签, 重新开启, 数据会清空, 但是如果你并不是新的请求, 例如执行了<strong>撤销上一次关闭的标签(<code>Ctrl+Shift+T</code>)</strong>这样的操作, 他之前的数据依旧保留</p>
+</blockquote>
+
+<h2 id="总结">总结</h2>
+
+<p>其实一个最简单的基于sessionStorage的存储数据的例子, 代码并不多, 但是一旦用于复杂的项目应用中, 也许这种处理方式并不好, 比如说需求变更带来的调整等等, 借助插件是一个不错的选择. 本次介绍的内容比较简单, 后面会逐步完善Nuxt鉴权的过程的思考.</p>
+
+<blockquote>
+<p>本人也是边在学习边实践总结, 文中如有错误还请多多指正.</p>
+</blockquote>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

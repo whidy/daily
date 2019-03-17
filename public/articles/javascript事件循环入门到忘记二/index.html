@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="" />
+<meta property="og:description" content="Javascript事件循环入门到“忘记”（二）  本文主要介绍Javascript事件循环在Node.js上的一些特性和应用介绍。
+ 回顾上一期内容 上一期主要针对浏览器上的事件循环进行了简单介绍，也展示了几个开发中可能有帮助的调试及错误分析方法。文章在此：Javascript事件循环入门到“忘记”（一）
+我们还是需要反复尝试记住栈、队列、任务、非阻塞等几个概念。请自行思考片刻，我们进入Node.js的事件循环介绍。
+Node.js特点  2009年发布、作者是Ryan Dahl 历史悠久，再不学就淘汰了（对于Deno表示鸭梨很大。。。） 单线程、基于Chrome的V8的Javascript运行环境 具备高并发，高性能的特点 事件驱动（ libuv ）、异步（libuv、非阻塞I/O模型） 底层C&#43;&#43;编写的超快解释器、API几乎全部支持异步回调 非常适合服务器编程。。。Blablabla。。。   当然也是有缺点的，要不然作者也不会搞deno了。缺点：不稳定性、容易挂掉、无法充分发会多核CPU性能等等。
+ 示例思考 我们来看两个小Demo，思考一下结果是什么？
+Demo - 1 setTimeout(() =&gt; { console.log(&#39;timer1&#39;) Promise.resolve().then(() =&gt; { console.log(&#39;promise1&#39;) }) }, 0) setTimeout(() =&gt; { console.log(&#39;timer2&#39;) Promise.resolve().then(function() { console.log(&#39;promise2&#39;) }) }, 0)  &hellip;此处表示思考了很久而产生的分割线&hellip;
+那么结果大家都有了吧，看看实际情况：
+ 情况一、在浏览器执行的结果：
+timer1 promise1 timer2 promise2  情况二、在Node.js环境执行的结果：
+timer1 timer2 promise1 promise2   你是不是看到了区别，以为这就完了吗？作为原文中为提到的补充资料，请注意Node.js环境中也有可能存在情况一的结果（极少情况下，概率约15%发生）！
+至于Node.js环境出现两种不同的结果，我暂时还没有比较完美的答复，期待有大佬指点（据说和机器性能有关，也就是Demo - 2展示的情况一样）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://daily.whidy.net/articles/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%BA%8C/" />
+
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="Javascript事件循环入门到“忘记”（二）  本文主要介绍Javascript事件循环在Node.js上的一些特性和应用介绍。
+ 回顾上一期内容 上一期主要针对浏览器上的事件循环进行了简单介绍，也展示了几个开发中可能有帮助的调试及错误分析方法。文章在此：Javascript事件循环入门到“忘记”（一）
+我们还是需要反复尝试记住栈、队列、任务、非阻塞等几个概念。请自行思考片刻，我们进入Node.js的事件循环介绍。
+Node.js特点  2009年发布、作者是Ryan Dahl 历史悠久，再不学就淘汰了（对于Deno表示鸭梨很大。。。） 单线程、基于Chrome的V8的Javascript运行环境 具备高并发，高性能的特点 事件驱动（ libuv ）、异步（libuv、非阻塞I/O模型） 底层C&#43;&#43;编写的超快解释器、API几乎全部支持异步回调 非常适合服务器编程。。。Blablabla。。。   当然也是有缺点的，要不然作者也不会搞deno了。缺点：不稳定性、容易挂掉、无法充分发会多核CPU性能等等。
+ 示例思考 我们来看两个小Demo，思考一下结果是什么？
+Demo - 1 setTimeout(() =&gt; { console.log(&#39;timer1&#39;) Promise.resolve().then(() =&gt; { console.log(&#39;promise1&#39;) }) }, 0) setTimeout(() =&gt; { console.log(&#39;timer2&#39;) Promise.resolve().then(function() { console.log(&#39;promise2&#39;) }) }, 0)  &hellip;此处表示思考了很久而产生的分割线&hellip;
+那么结果大家都有了吧，看看实际情况：
+ 情况一、在浏览器执行的结果：
+timer1 promise1 timer2 promise2  情况二、在Node.js环境执行的结果：
+timer1 timer2 promise1 promise2   你是不是看到了区别，以为这就完了吗？作为原文中为提到的补充资料，请注意Node.js环境中也有可能存在情况一的结果（极少情况下，概率约15%发生）！
+至于Node.js环境出现两种不同的结果，我暂时还没有比较完美的答复，期待有大佬指点（据说和机器性能有关，也就是Demo - 2展示的情况一样）">
+
+
+
+<meta itemprop="wordCount" content="449">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Javascript事件循环入门到“忘记”（二）  本文主要介绍Javascript事件循环在Node.js上的一些特性和应用介绍。
+ 回顾上一期内容 上一期主要针对浏览器上的事件循环进行了简单介绍，也展示了几个开发中可能有帮助的调试及错误分析方法。文章在此：Javascript事件循环入门到“忘记”（一）
+我们还是需要反复尝试记住栈、队列、任务、非阻塞等几个概念。请自行思考片刻，我们进入Node.js的事件循环介绍。
+Node.js特点  2009年发布、作者是Ryan Dahl 历史悠久，再不学就淘汰了（对于Deno表示鸭梨很大。。。） 单线程、基于Chrome的V8的Javascript运行环境 具备高并发，高性能的特点 事件驱动（ libuv ）、异步（libuv、非阻塞I/O模型） 底层C&#43;&#43;编写的超快解释器、API几乎全部支持异步回调 非常适合服务器编程。。。Blablabla。。。   当然也是有缺点的，要不然作者也不会搞deno了。缺点：不稳定性、容易挂掉、无法充分发会多核CPU性能等等。
+ 示例思考 我们来看两个小Demo，思考一下结果是什么？
+Demo - 1 setTimeout(() =&gt; { console.log(&#39;timer1&#39;) Promise.resolve().then(() =&gt; { console.log(&#39;promise1&#39;) }) }, 0) setTimeout(() =&gt; { console.log(&#39;timer2&#39;) Promise.resolve().then(function() { console.log(&#39;promise2&#39;) }) }, 0)  &hellip;此处表示思考了很久而产生的分割线&hellip;
+那么结果大家都有了吧，看看实际情况：
+ 情况一、在浏览器执行的结果：
+timer1 promise1 timer2 promise2  情况二、在Node.js环境执行的结果：
+timer1 timer2 promise1 promise2   你是不是看到了区别，以为这就完了吗？作为原文中为提到的补充资料，请注意Node.js环境中也有可能存在情况一的结果（极少情况下，概率约15%发生）！
+至于Node.js环境出现两种不同的结果，我暂时还没有比较完美的答复，期待有大佬指点（据说和机器性能有关，也就是Demo - 2展示的情况一样）"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        ARTICLES
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h1 id="javascript事件循环入门到-忘记-二">Javascript事件循环入门到“忘记”（二）</h1>
+
+<blockquote>
+<p>本文主要介绍Javascript事件循环在<strong>Node.js</strong>上的一些特性和应用介绍。</p>
+</blockquote>
+
+<h2 id="回顾上一期内容">回顾上一期内容</h2>
+
+<p>上一期主要针对浏览器上的事件循环进行了简单介绍，也展示了几个开发中可能有帮助的调试及错误分析方法。文章在此：<a href="https://github.com/whidy/daily/blob/master/articles/Javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E2%80%9C%E5%BF%98%E8%AE%B0%E2%80%9D%EF%BC%88%E4%B8%80%EF%BC%89.md">Javascript事件循环入门到“忘记”（一）</a></p>
+
+<p>我们还是需要反复尝试记住<code>栈</code>、<code>队列</code>、<code>任务</code>、<code>非阻塞</code>等几个概念。请自行思考片刻，我们进入Node.js的事件循环介绍。</p>
+
+<h2 id="node-js特点">Node.js特点</h2>
+
+<ul>
+<li>2009年发布、作者是<code>Ryan Dahl</code>
+历史悠久，再不学就淘汰了（对于Deno表示鸭梨很大。。。）</li>
+<li>单线程、基于Chrome的V8的Javascript运行环境
+具备高并发，高性能的特点</li>
+<li>事件驱动（ libuv ）、异步（libuv、非阻塞I/O模型）
+底层C++编写的超快解释器、API几乎全部支持异步回调</li>
+<li>非常适合服务器编程。。。Blablabla。。。</li>
+</ul>
+
+<blockquote>
+<p>当然也是有缺点的，要不然作者也不会搞deno了。缺点：不稳定性、容易挂掉、无法充分发会多核CPU性能等等。</p>
+</blockquote>
+
+<h2 id="示例思考">示例思考</h2>
+
+<p>我们来看两个小Demo，思考一下结果是什么？</p>
+
+<h3 id="demo-1">Demo - 1</h3>
+
+<pre><code class="language-javascript">setTimeout(() =&gt; {
+  console.log('timer1')
+  Promise.resolve().then(() =&gt; {
+    console.log('promise1')
+  })
+}, 0)
+setTimeout(() =&gt; {
+  console.log('timer2')
+  Promise.resolve().then(function() {
+    console.log('promise2')
+  })
+}, 0)
+</code></pre>
+
+<p>&hellip;此处表示思考了很久而产生的分割线&hellip;</p>
+
+<p>那么结果大家都有了吧，看看实际情况：</p>
+
+<ul>
+<li><p>情况一、在浏览器执行的结果：</p>
+
+<pre><code>timer1
+promise1
+timer2
+promise2
+</code></pre></li>
+
+<li><p>情况二、在Node.js环境执行的结果：</p>
+
+<pre><code>timer1
+timer2
+promise1
+promise2
+</code></pre></li>
+</ul>
+
+<p>你是不是看到了区别，以为这就完了吗？作为原文中为提到的补充资料，请注意<strong>Node.js</strong>环境中也有可能存在<code>情况一</code>的结果（极少情况下，概率约15%发生）！</p>
+
+<p>至于Node.js环境出现两种不同的结果，我暂时还没有比较完美的答复，期待有大佬指点（据说和机器性能有关，也就是Demo - 2展示的情况一样）</p>
+
+<h3 id="demo-2">Demo - 2</h3>
+
+<pre><code class="language-javascript">setTimeout(() =&gt; {
+  console.log('timeout')
+}, 0)
+
+setImmediate(() =&gt; {
+  console.log('immediate')
+})
+</code></pre>
+
+<p>当然浏览器是不支持setImmediate()，因此会报错。我们主要看Node.js执行结果：</p>
+
+<ul>
+<li><p>情况一、大部分执行结果：</p>
+
+<pre><code>timeout
+immediate
+</code></pre></li>
+</ul>
+
+<p>然而，不注意的话，很容易误以为，这就是标准答案了。其实也有少数情况下会出现第二种情况。</p>
+
+<ul>
+<li><p>情况二、小概率出现的结果：</p>
+
+<pre><code>immediate
+timeout
+</code></pre></li>
+</ul>
+
+<p>示例原文对此现象的解释为：</p>
+
+<blockquote>
+<p>Node并不能保证timer在预设时间到了就会立即执行，因为Node对timer的过期检查不一定靠谱，<strong>它会受机器上其它运行程序影响</strong>，或者<strong>那个时间点主线程不空闲</strong>。比如下面的代码，setTimeout()和 setImmediate()的执行顺序是不确定的。</p>
+</blockquote>
+
+<p>我对这个解释实际是表示不太清晰的，也查过其他资料，比如<a href="https://github.com/creeperyang/blog/issues/26">Node.js的event loop及timer/setImmediate/nextTick</a>文中也有一段关于此现象的解释：</p>
+
+<ol>
+<li>如果两者都在主模块（main module）调用，那么执行先后取决于进程性能，即随机。</li>
+<li>如果两者都不在主模块调用（即在一个 IO circle 中调用），那么setImmediate的回调永远先执行。</li>
+</ol>
+
+<p>另外该文对<code>libuv</code>也进行了较为深入的分析。</p>
+
+<h2 id="node-js事件循环的6个阶段">Node.js事件循环的6个阶段</h2>
+
+<p>Node.js的事件循环相对浏览器要复杂的多，这也是他高性能方案的解决需要。他主要是这6个阶段：</p>
+
+<pre><code>   ┌───────────────────────────┐
+┌─&gt;│           timers          │
+│  └─────────────┬─────────────┘
+│  ┌─────────────┴─────────────┐
+│  │     pending callbacks     │
+│  └─────────────┬─────────────┘
+│  ┌─────────────┴─────────────┐
+│  │       idle, prepare       │
+│  └─────────────┬─────────────┘      ┌───────────────┐
+│  ┌─────────────┴─────────────┐      │   incoming:   │
+│  │           poll            │&lt;─────┤  connections, │
+│  └─────────────┬─────────────┘      │   data, etc.  │
+│  ┌─────────────┴─────────────┐      └───────────────┘
+│  │           check           │
+│  └─────────────┬─────────────┘
+│  ┌─────────────┴─────────────┐
+└──┤      close callbacks      │
+   └───────────────────────────┘
+</code></pre>
+
+<p>关于这六个阶段的详细解释，文末的参阅文章都有提到，需要的话可以阅读其他人的文章。我这里不详细说明，我只对下面3个阶段，讲讲我自己的理解：</p>
+
+<h3 id="timers">timers</h3>
+
+<p>Node.js事件循环中的第一个阶段，它用于执行<code>setTimeout()</code>和<code>setInterval()</code>的回调任务，只有这两个，<strong>千万不要把<code>setImmediate()</code>也当成timers阶段执行了</strong>。</p>
+
+<h3 id="pending-callbacks">pending callbacks</h3>
+
+<p>这个阶段就是将I/O时间记录下来放在下一次事件循环中的操作。</p>
+
+<h3 id="poll">poll</h3>
+
+<p>这个阶段理解起来是相当复杂的。官方大致解释如：获取<strong>新</strong>的I/O时间，执行他们的回调，几乎所有输入输出事件（比如fs操作）的回调都会在该阶段执行，但是关闭事件（<code>close callbacks</code>，比如关闭网络服务等，你可以去Node.js API中查到大量的close事件）的回调、前面提到的timers回调，和setImmediate()是不会再次阶段执行！</p>
+
+<p>这里有一张图，来自作者：<strong>凌晨夏沫</strong>的<a href="https://juejin.im/post/5a8e44ea5188257a8929bf9b">谈谈Node中的常见概念</a></p>
+
+<p><img src="/images/javascrip-event-loop-2/poll.png" alt="poll阶段流程图" /></p>
+
+<p>默看一分钟，我理解为当前执行上下文中：</p>
+
+<ul>
+<li>第一轮循环：在poll阶段，如果有timer还未执行完，poll阶段完成了已有的I/O回调后，进入第二轮循环。</li>
+<li>第一轮循环：进入timers阶段执行完成了先有，再进</li>
+</ul>
+
+<h3 id="demo-3">Demo - 3</h3>
+
+<pre><code class="language-javascript">const fs = require('fs');
+fs.readFile('file.js', () =&gt; {
+  setTimeout(() =&gt; {
+    console.log('5. timeout');
+  }, 0);
+  setImmediate(() =&gt; {
+    console.log('4. immediate');
+  });
+  console.log('2. i/o callback');
+});
+setTimeout(() =&gt; {
+  console.log('1. outside timeout');
+}, 0);
+setImmediate(() =&gt; {
+  console.log('3. outside immediate');
+});
+</code></pre>
+
+<p>我们分析一下这个Demo - 3，最外面的执行上下文，有<code>fs.readFile</code>、<code>setTimeout()</code>、<code>setImmediate()</code>。</p>
+
+<p>在Stack内：</p>
+
+<ol>
+<li>fs.readFile()入栈，发现有I/O任务，将它丢到一边的<code>pending callbacks</code>阶段中，然后出栈；</li>
+<li>setTimeout()入栈，并把回调丢到timers阶段中；</li>
+<li>setImmediate()入栈，并把回调丢到check阶段中；</li>
+</ol>
+
+<p>此时队列的情况如下：</p>
+
+<p>Timers里面有一个回调待执行：</p>
+
+<pre><code class="language-javascript">() =&gt; {
+  console.log('1. outside timeout');
+}
+</code></pre>
+
+<p>Pending callbacks里面有一个回调待执行：</p>
+
+<pre><code class="language-javascript">() =&gt; {
+  setTimeout(() =&gt; {
+    console.log('5. timeout');
+  }, 0);
+  setImmediate(() =&gt; {
+    console.log('4. immediate');
+  });
+  console.log('2. i/o callback');
+}
+</code></pre>
+
+<p>Check里面有一个回调待执行：</p>
+
+<pre><code class="language-javascript">() =&gt; {
+  console.log('3. outside immediate');
+}
+</code></pre>
+
+<p>当然stack内没东西了。开始执行队列中的任务！如前面Demo - 2所说，该层有不确定性的结果，假设大部分状态下一切正常，按照事件循环顺序，先执行Timers的任务，于是输出</p>
+
+<pre><code>1. outside timeout
+</code></pre>
+
+<p>然后进入到Pending callbacks阶段，Stack内有了新的内容了！！！遇到了fs内的回调！</p>
+
+<ol>
+<li>setTimeout()的回调被丢到Timers</li>
+<li>setImmediate()的回调被丢到了Check</li>
+<li>而<code>console.log('2. i/o callback');</code>被直接执行！</li>
+</ol>
+
+<p>于是输出了：</p>
+
+<pre><code>2. i/o callback
+</code></pre>
+
+<p>接着到了Poll阶段发现还有个setImmediate()未被执行，接着进入到Check阶段，这里输出了：</p>
+
+<pre><code>3. outside immediate
+</code></pre>
+
+<p>这一轮结束，那么现在的任务队列情况又是怎样的呢？</p>
+
+<p>Timers里面有一个回调待执行：</p>
+
+<pre><code class="language-javascript">() =&gt; {
+  console.log('5. timeout');
+}
+</code></pre>
+
+<p>Check里面有一个回调待执行：</p>
+
+<pre><code class="language-javascript">() =&gt; {
+  console.log('4. immediate');
+}
+</code></pre>
+
+<p>到现在还有两个任务没有执行。在新的一轮循环中，是不是要开始先执行这个<code>console.log('5. timeout');</code>了呢？我觉得可能不对。</p>
+
+<p>为什么不对，下面我会介绍。到目前来看，执行结果就是这样了</p>
+
+<pre><code>1. outside timeout
+2. i/o callback
+3. outside immediate
+4. immediate
+5. timeout
+</code></pre>
+
+<p>不过和Demo - 2有同样的毛病，在最外层的执行上下文内，setTimeout()执行顺序有很大的不确定性，所以也会存在以下结果：</p>
+
+<pre><code>2. i/o callback
+3. outside immediate
+4. immediate
+1. outside timeout
+5. timeout
+</code></pre>
+
+<h2 id="我的总结">我的总结</h2>
+
+<p>关于前面几个Demo都有很大相似处，其实Node.js官方也专门提到这个例子，如果有兴趣可以阅读一下<a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout">setImmediate() vs setTimeout()</a>。</p>
+
+<blockquote>
+<p>The order in which the timers are executed will vary depending on the context in which they are called. If both are called from within the main module, then timing will be bound by the performance of the process (which can be impacted by other applications running on the machine).</p>
+</blockquote>
+
+<p>我们先读三遍，然后我对以下两点进行我得分析：</p>
+
+<ol>
+<li>the <code>context</code> in which they are called</li>
+<li>If both are called from within the <code>main module</code>, then timing will be bound by the <code>performance</code> of the process</li>
+</ol>
+
+<p>第一条出现的<strong>context</strong>是否眼熟，还记得我第一篇讲到的<a href="https://github.com/whidy/daily/blob/master/articles/Javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E2%80%9C%E5%BF%98%E8%AE%B0%E2%80%9D%EF%BC%88%E4%B8%80%EF%BC%89.md#%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E5%87%A0%E7%82%B9"><strong>执行上下文(Execution Context)</strong></a>吗？timers阶段内的时间是否立刻被执行也取决于上下文环境。</p>
+
+<p>第二条的<strong>main module</strong>很重要，他是解释Demo - 2最后的setTimeout()和setImmediate()顺序不确定性的重要因素，他们从属一个主模块（栈中的main()？）因此顺序取决于CPU性能！</p>
+
+<p>然而为什么Demo - 3中没有出现这样的情况？原因是他们同属于一个I/O cycle，在这个中，setImmediate()永远优先setTimeout()。所以结果并不是单纯的Timers优先执行，Check后执行。</p>
+
+<p>希望我讲了这么多大家能够耐心的读，如果有疑问或者质疑需要补充的，也希望大家能踊跃发言。</p>
+
+<h3 id="关于process-nexttick">关于process.nextTick</h3>
+
+<p>其实这个东西也有必要说说，我打算下次再来详细分析一下。嘿嘿嘿。</p>
+
+<h2 id="其他">其他</h2>
+
+<blockquote>
+<p>文中使用的是Node.js版本为<code>v8.11.3</code></p>
+</blockquote>
+
+<ul>
+<li>参考（★表示推荐等级）</li>
+</ul>
+
+<ol>
+<li><a href="https://juejin.im/post/5a8e44ea5188257a8929bf9b">谈谈Node中的常见概念</a> ★★★★★</li>
+<li><a href="https://github.com/creeperyang/blog/issues/26#issuecomment-294166700">Node.js的event loop及timer/setImmediate/nextTick</a> ★★★★☆</li>
+<li><a href="http://lynnelv.github.io/js-event-loop-nodejs">深入理解js事件循环机制（Node.js篇）</a> ★★★★☆</li>
+<li><a href="https://juejin.im/post/5a63470bf265da3e2c383068">浅析nodejs事件循环机制</a> ★★★☆☆</li>
+<li><a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html">JavaScript 运行机制详解：再谈Event Loop</a></li>
+</ol>
+
+<p>node.js官方文档：</p>
+
+<ol>
+<li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">The Node.js Event Loop, Timers, and process.nextTick()</a> ★★★★★</li>
+<li><a href="https://nodejs.org/docs/latest/api/process.html#process_process_nexttick_callback_args">API: process.nextTick</a></li>
+<li><a href="https://nodejs.org/docs/latest/api/timers.html#timers_scheduling_timers">API: Scheduling Timers</a></li>
+</ol>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

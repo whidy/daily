@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="" />
+<meta property="og:description" content="ElementUI的Table组件中的renderHeader方法研究 项目使用ElementUI，挺好用的，页面中有些地方的帮助提示通过使用组件Tooltip和el-icon-question来展示，代码如下：
+&lt;div class=&quot;title&quot;&gt;本月累计收益 &lt;el-tooltip class=&quot;item&quot; content=&quot;截止至昨日本月累计收益&quot; placement=&quot;top&quot;&gt; &lt;span class=&quot;el-icon-question&quot;&gt;&lt;/span&gt; &lt;/el-tooltip&gt; &lt;/div&gt;  截图如下：
+另外也可以看看jsfiddle的demo
+全站很多地方都有都需要这样的帮助提示，其中有些需要在表格的表头上添加，似乎有点难度。效果如下：
+因为ElementUI上面的文档对这块自定义表头没有什么参考的文档，是否能够实现心里没底，去仔细翻了文档，发现有个renderHeader的函数可以实现，一直以为Vue还算比较熟悉的我有点点懵，这是个啥？？？
+renderHeader（函数渲染） 在我不太多的Vue项目开发实践中，很少用到，因此并不熟悉，先看看官方解释：
+ Vue 推荐在绝大多数情况下使用 template 来创建你的 HTML。然而在一些场景中，你真的需要 JavaScript 的完全编程的能力，这就是 render 函数，它比 template 更接近编译器。
+ ElementUI中的renderHeader就是对列标题Label区域渲染使用的Function，通过他实现自定义表头label功能！
+万变不离其宗，这个ElementUI的解释一看就像是这段官方示例：
+// 官方示例部分 render: function (createElement) { return createElement(&#39;h1&#39;, this.blogTitle) }  而回头再看看ElementUI的示例：Function(h, { column, $index })。耐心琢磨，结合createElement看看便粗略写出来了一个勉强能用的：
+renderHeader(h, { column, $index }) { return h( &#39;el-tooltip&#39;, { props: { content: (function() { let label = column.label switch (label) { case &#39;访问数&#39;: return &#39;网站页面上独立访问应用的人数（UV）&#39; break case &#39;提交数&#39;: return &#39;网站页面上访客在应用上完成提交的数量&#39; break case &#39;成交数&#39;: return &#39;网站页面上最终成功在应用上完成提交的数量&#39; break } })(), placement: &#39;top&#39; }, domProps: { innerHTML: column." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://daily.whidy.net/articles/elementui%E7%9A%84table%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84renderheader%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/" />
+
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="ElementUI的Table组件中的renderHeader方法研究 项目使用ElementUI，挺好用的，页面中有些地方的帮助提示通过使用组件Tooltip和el-icon-question来展示，代码如下：
+&lt;div class=&quot;title&quot;&gt;本月累计收益 &lt;el-tooltip class=&quot;item&quot; content=&quot;截止至昨日本月累计收益&quot; placement=&quot;top&quot;&gt; &lt;span class=&quot;el-icon-question&quot;&gt;&lt;/span&gt; &lt;/el-tooltip&gt; &lt;/div&gt;  截图如下：
+另外也可以看看jsfiddle的demo
+全站很多地方都有都需要这样的帮助提示，其中有些需要在表格的表头上添加，似乎有点难度。效果如下：
+因为ElementUI上面的文档对这块自定义表头没有什么参考的文档，是否能够实现心里没底，去仔细翻了文档，发现有个renderHeader的函数可以实现，一直以为Vue还算比较熟悉的我有点点懵，这是个啥？？？
+renderHeader（函数渲染） 在我不太多的Vue项目开发实践中，很少用到，因此并不熟悉，先看看官方解释：
+ Vue 推荐在绝大多数情况下使用 template 来创建你的 HTML。然而在一些场景中，你真的需要 JavaScript 的完全编程的能力，这就是 render 函数，它比 template 更接近编译器。
+ ElementUI中的renderHeader就是对列标题Label区域渲染使用的Function，通过他实现自定义表头label功能！
+万变不离其宗，这个ElementUI的解释一看就像是这段官方示例：
+// 官方示例部分 render: function (createElement) { return createElement(&#39;h1&#39;, this.blogTitle) }  而回头再看看ElementUI的示例：Function(h, { column, $index })。耐心琢磨，结合createElement看看便粗略写出来了一个勉强能用的：
+renderHeader(h, { column, $index }) { return h( &#39;el-tooltip&#39;, { props: { content: (function() { let label = column.label switch (label) { case &#39;访问数&#39;: return &#39;网站页面上独立访问应用的人数（UV）&#39; break case &#39;提交数&#39;: return &#39;网站页面上访客在应用上完成提交的数量&#39; break case &#39;成交数&#39;: return &#39;网站页面上最终成功在应用上完成提交的数量&#39; break } })(), placement: &#39;top&#39; }, domProps: { innerHTML: column.">
+
+
+
+<meta itemprop="wordCount" content="208">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="ElementUI的Table组件中的renderHeader方法研究 项目使用ElementUI，挺好用的，页面中有些地方的帮助提示通过使用组件Tooltip和el-icon-question来展示，代码如下：
+&lt;div class=&quot;title&quot;&gt;本月累计收益 &lt;el-tooltip class=&quot;item&quot; content=&quot;截止至昨日本月累计收益&quot; placement=&quot;top&quot;&gt; &lt;span class=&quot;el-icon-question&quot;&gt;&lt;/span&gt; &lt;/el-tooltip&gt; &lt;/div&gt;  截图如下：
+另外也可以看看jsfiddle的demo
+全站很多地方都有都需要这样的帮助提示，其中有些需要在表格的表头上添加，似乎有点难度。效果如下：
+因为ElementUI上面的文档对这块自定义表头没有什么参考的文档，是否能够实现心里没底，去仔细翻了文档，发现有个renderHeader的函数可以实现，一直以为Vue还算比较熟悉的我有点点懵，这是个啥？？？
+renderHeader（函数渲染） 在我不太多的Vue项目开发实践中，很少用到，因此并不熟悉，先看看官方解释：
+ Vue 推荐在绝大多数情况下使用 template 来创建你的 HTML。然而在一些场景中，你真的需要 JavaScript 的完全编程的能力，这就是 render 函数，它比 template 更接近编译器。
+ ElementUI中的renderHeader就是对列标题Label区域渲染使用的Function，通过他实现自定义表头label功能！
+万变不离其宗，这个ElementUI的解释一看就像是这段官方示例：
+// 官方示例部分 render: function (createElement) { return createElement(&#39;h1&#39;, this.blogTitle) }  而回头再看看ElementUI的示例：Function(h, { column, $index })。耐心琢磨，结合createElement看看便粗略写出来了一个勉强能用的：
+renderHeader(h, { column, $index }) { return h( &#39;el-tooltip&#39;, { props: { content: (function() { let label = column.label switch (label) { case &#39;访问数&#39;: return &#39;网站页面上独立访问应用的人数（UV）&#39; break case &#39;提交数&#39;: return &#39;网站页面上访客在应用上完成提交的数量&#39; break case &#39;成交数&#39;: return &#39;网站页面上最终成功在应用上完成提交的数量&#39; break } })(), placement: &#39;top&#39; }, domProps: { innerHTML: column."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        ARTICLES
+      </p>
+      <h1 class="f1 athelas mb1"></h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h1 id="elementui的table组件中的renderheader方法研究">ElementUI的Table组件中的renderHeader方法研究</h1>
+
+<p>项目使用ElementUI，挺好用的，页面中有些地方的<strong>帮助提示</strong>通过使用组件<code>Tooltip</code>和<code>el-icon-question</code>来展示，代码如下：</p>
+
+<pre><code class="language-vue">&lt;div class=&quot;title&quot;&gt;本月累计收益
+  &lt;el-tooltip class=&quot;item&quot; content=&quot;截止至昨日本月累计收益&quot; placement=&quot;top&quot;&gt;
+    &lt;span class=&quot;el-icon-question&quot;&gt;&lt;/span&gt;
+  &lt;/el-tooltip&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>截图如下：</p>
+
+<p><img src="/images/2018-08-31-1.png" alt="帮助提示效果" /></p>
+
+<p><em>另外也可以看看jsfiddle的<a href="https://jsfiddle.net/kingterrors/s4pxtzva/">demo</a></em></p>
+
+<p>全站很多地方都有都需要这样的帮助提示，其中有些需要在<strong>表格的表头</strong>上添加，似乎有点难度。效果如下：</p>
+
+<p><img src="/images/2018-08-31-2.png" alt="带有帮助提示的表头效果" /></p>
+
+<p>因为ElementUI上面的文档对这块自定义表头没有什么参考的文档，是否能够实现心里没底，去仔细翻了文档，发现有个<code>renderHeader</code>的函数可以实现，一直以为Vue还算比较熟悉的我有点点懵，这是个啥？？？</p>
+
+<h2 id="renderheader-函数渲染">renderHeader（函数渲染）</h2>
+
+<p>在我不太多的Vue项目开发实践中，很少用到，因此并不熟悉，先看看<a href="https://cn.vuejs.org/v2/guide/render-function.html">官方解释</a>：</p>
+
+<blockquote>
+<p>Vue 推荐在绝大多数情况下使用 template 来创建你的 HTML。然而在一些场景中，你真的需要 JavaScript 的完全编程的能力，这就是 render 函数，它比 template 更接近编译器。</p>
+</blockquote>
+
+<p>ElementUI中的<code>renderHeader</code>就是<strong>对列标题Label区域渲染使用的Function</strong>，通过他实现自定义表头label功能！</p>
+
+<p>万变不离其宗，这个ElementUI的解释一看就像是这段官方示例：</p>
+
+<pre><code class="language-javascript">// 官方示例部分
+render: function (createElement) {
+  return createElement('h1', this.blogTitle)
+}
+</code></pre>
+
+<p>而回头再看看ElementUI的示例：<code>Function(h, { column, $index })</code>。耐心琢磨，结合<a href="https://cn.vuejs.org/v2/guide/render-function.html#createElement-%E5%8F%82%E6%95%B0"><code>createElement</code></a>看看便粗略写出来了一个勉强能用的：</p>
+
+<pre><code class="language-javascript">renderHeader(h, { column, $index }) {
+  return h(
+    'el-tooltip',
+    {
+      props: {
+        content: (function() {
+          let label = column.label
+          switch (label) {
+            case '访问数':
+              return '网站页面上独立访问应用的人数（UV）'
+              break
+            case '提交数':
+              return '网站页面上访客在应用上完成提交的数量'
+              break
+            case '成交数':
+              return '网站页面上最终成功在应用上完成提交的数量'
+              break
+          }
+        })(),
+        placement: 'top'
+      },
+      domProps: {
+        innerHTML: column.label + '&lt;span class=&quot;el-icon-question&quot;&gt;&lt;/span&gt;'
+      }
+    },
+    [h('span')]
+  )
+},
+// ...
+</code></pre>
+
+<p>但是很奇怪的是，最后面我要加上这个<code>[h('span')]</code>才行（<a href="https://jsfiddle.net/kingterrors/x3ouw27k/11/">demo</a>）。</p>
+
+<p>这种写法我还是参考<a href="https://blog.csdn.net/u010214074/article/details/79474725">element table 自定义表头</a>，但是假设我写成<code>[h('span', 'test')]</code>是无法展现出test的效果的（<a href="https://jsfiddle.net/kingterrors/x3ouw27k/16/">demo</a>）。根据vue文档中解释的第三个参数，这里最为一个数组，为何<code>span</code>成了<code>el-tooltip</code>的HTML标签，我还是不解。</p>
+
+<p>之所以奇怪是因为假设我将引入的组件换成<code>el-button</code>，见如下代码：</p>
+
+<pre><code class="language-javascript">renderHeader(h, { column, $index }) {
+  return h(
+    'el-button',
+    {
+      props: {
+        content: (function() {
+          let label = column.label
+        })()
+      },
+      domProps: {
+        innerHTML: column.label + '&lt;span class=&quot;el-icon-question&quot;&gt;&lt;/span&gt;'
+      }
+    }
+  )
+},
+// ...
+</code></pre>
+
+<p>则不需要尾部那个<code>[h('span')]</code>。却能呈现出button结合icon的正确效果（<a href="https://jsfiddle.net/kingterrors/x3ouw27k/17/">demo</a>）。难道是因为这个组件自带HTML标签？胡乱猜疑是解决不了问题的。几番尝试，还是没能达到预期交互效果。不过进度问题，暂时只能使用这个勉强版本。</p>
+
+<blockquote>
+<p>为何称之为勉强版，因为从上面的<a href="https://jsfiddle.net/kingterrors/x3ouw27k/11/">demo</a>也看出来了。这个提示交互和我文章之前写的交互是有区别的，正确交互是：<strong>光标移入问号的图标上才会展示提示框</strong>，虽然目前勉强版影响不大，却一直在心中如一个疙瘩。于是过了一周，决定抽空把这个问题处理好，就有了新的写法。</p>
+</blockquote>
+
+<p>勉强版虽然没有大碍，但是心中略有不爽。几日后专门抽点时间多次阅读各种实例，仔细阅读文档，反复尝试各种写法。终于写出了一个相对良好的版本，直接先上代码：</p>
+
+<pre><code class="language-javascript">renderHeader(h, { column, $index }) {
+  return [
+    column.label,
+    h(
+      'el-tooltip',
+      {
+        props: {
+          content: (function() {
+            let label = column.label
+            switch (label) {
+              case '访问数':
+                return '网站页面上独立访问应用的人数（UV）'
+                break
+              case '提交数':
+                return '网站页面上访客在应用上完成提交的数量'
+                break
+              case '成交数':
+                return '网站页面上最终成功在应用上完成提交的数量'
+                break
+            }
+          })(),
+          placement: 'top'
+        }
+      },
+      [
+        h('span', {
+          class: {
+            'el-icon-question': true
+          }
+        })
+      ]
+    )
+  ]
+}
+</code></pre>
+
+<p>这个写法很特别，return的是一个数组，这个写法我又是哪里看到的呢？来自<a href="https://segmentfault.com/q/1010000012587913/a-1020000012588616">elementUI的table组件的表头自定义：想把单位换行，有什么解决方法吗？</a>的采纳回复中。乍一看有点乱七八糟，不过仔细想想，之前的提示在整个表头都触发了，现在这个数组大概起到了拼接作用，也就是将不需要出发的textNode部分提了出来。再看数组第二个值，这便是一个完整的示例了。最终效果可见<a href="https://jsfiddle.net/kingterrors/dc9ans3f/">demo</a>。</p>
+
+<p>其实心中还是有个疑问，为什么这里<code>h(param1, param2, param3)</code>的第三个参数用数组，数组中的第一个又是一个<code>h()</code>，并且这个对应的就是组件<code>el-tooltip</code>的HTML标签，没有它就无法正常渲染该组件。</p>
+
+<p>写到这里，其实问题已经解决了，虽然符合需求的完美版本已经上线，但是感觉个人对Vue或者说是Javascript更深层面的理解能力还不够，也就对各种现象没办法做出很好的解释。也希望能更加努力的学习和进步，更深的理解前端这门艺术：）</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Daily note  | 安装Gatsby和Strapi过程中的各种问题</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="安装Gatsby和Strapi过程中的各种问题" />
+<meta property="og:description" content="2018年1月24日 阴 一般
+ 安装Gatsby和Strapi VPS上安装Gatsby和Strapi中遇到的各种问题解决方案和相关记录  接着昨天的, 继续解决昨天没有处理好的问题, 下班的时候问了个开发同事, 我说为啥连接总是超时, 但是有时候好像又能连上, 他说查一下具体的日志会比较好, 等下就试试.
+ 解决mongo创建服务器的WARNING提示  大多数情况下我是不愿意理睬WARNING信息的, 只要不是ERROR就好, 但是这次我有点不爽, 折腾了一会发现有的很难处理, 我错了, 我想我还是不死磕了吧😱
+ soft rlimits too low WARNING: soft rlimits too low. rlimits set to 1024 processes, 64000 files. Number of processes should be at least 32000 : 0.5 times number of files.  参考:
+ MongDB 启动警告 WARNING: soft rlimits too low How to set ulimits for mongod?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://daily.whidy.net/posts/2018-01-25-gatsby-strapi-mongodb/" />
+<meta property="article:published_time" content="2018-01-25T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-01-25T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="安装Gatsby和Strapi过程中的各种问题">
+<meta itemprop="description" content="2018年1月24日 阴 一般
+ 安装Gatsby和Strapi VPS上安装Gatsby和Strapi中遇到的各种问题解决方案和相关记录  接着昨天的, 继续解决昨天没有处理好的问题, 下班的时候问了个开发同事, 我说为啥连接总是超时, 但是有时候好像又能连上, 他说查一下具体的日志会比较好, 等下就试试.
+ 解决mongo创建服务器的WARNING提示  大多数情况下我是不愿意理睬WARNING信息的, 只要不是ERROR就好, 但是这次我有点不爽, 折腾了一会发现有的很难处理, 我错了, 我想我还是不死磕了吧😱
+ soft rlimits too low WARNING: soft rlimits too low. rlimits set to 1024 processes, 64000 files. Number of processes should be at least 32000 : 0.5 times number of files.  参考:
+ MongDB 启动警告 WARNING: soft rlimits too low How to set ulimits for mongod?">
+
+
+<meta itemprop="datePublished" content="2018-01-25T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-01-25T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="311">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="安装Gatsby和Strapi过程中的各种问题"/>
+<meta name="twitter:description" content="2018年1月24日 阴 一般
+ 安装Gatsby和Strapi VPS上安装Gatsby和Strapi中遇到的各种问题解决方案和相关记录  接着昨天的, 继续解决昨天没有处理好的问题, 下班的时候问了个开发同事, 我说为啥连接总是超时, 但是有时候好像又能连上, 他说查一下具体的日志会比较好, 等下就试试.
+ 解决mongo创建服务器的WARNING提示  大多数情况下我是不愿意理睬WARNING信息的, 只要不是ERROR就好, 但是这次我有点不爽, 折腾了一会发现有的很难处理, 我错了, 我想我还是不死磕了吧😱
+ soft rlimits too low WARNING: soft rlimits too low. rlimits set to 1024 processes, 64000 files. Number of processes should be at least 32000 : 0.5 times number of files.  参考:
+ MongDB 启动警告 WARNING: soft rlimits too low How to set ulimits for mongod?"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://daily.whidy.net" class="f3 fw2 hover-white no-underline white-90 dib">
+      Daily note
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">安装Gatsby和Strapi过程中的各种问题</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-01-25T00:00:00Z">January 25, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年1月24日 阴 一般</p>
+</blockquote>
+
+<h1 id="安装gatsby和strapi">安装Gatsby和Strapi</h1>
+
+<h2 id="vps上安装gatsby和strapi中遇到的各种问题解决方案和相关记录">VPS上安装Gatsby和Strapi中遇到的各种问题解决方案和相关记录</h2>
+
+<blockquote>
+<p>接着昨天的, 继续解决昨天没有处理好的问题, 下班的时候问了个开发同事, 我说为啥连接总是超时, 但是有时候好像又能连上, 他说查一下具体的日志会比较好, 等下就试试.</p>
+</blockquote>
+
+<h3 id="解决mongo创建服务器的warning提示">解决mongo创建服务器的WARNING提示</h3>
+
+<blockquote>
+<p>大多数情况下我是不愿意理睬WARNING信息的, 只要不是ERROR就好, 但是这次我有点不爽, 折腾了一会发现有的很难处理, 我错了, 我想我还是不死磕了吧😱</p>
+</blockquote>
+
+<h4 id="soft-rlimits-too-low">soft rlimits too low</h4>
+
+<pre><code class="language-bash">WARNING: soft rlimits too low. rlimits set to 1024 processes, 64000 files. Number of processes should be at least 32000 : 0.5 times number of files.
+</code></pre>
+
+<p>参考:</p>
+
+<ul>
+<li><a href="http://blog.csdn.net/kk185800961/article/details/45613267">MongDB 启动警告 WARNING: soft rlimits too low</a></li>
+<li><a href="https://serverfault.com/questions/591812/how-to-set-ulimits-for-mongod">How to set ulimits for mongod?</a></li>
+</ul>
+
+<h4 id="others">Others</h4>
+
+<p>有一些问题受硬件限制?等等可以忽略的, 不值得花时间去处理的就一带而过了</p>
+
+<pre><code class="language-bash">WARNING: You are running in OpenVZ which can cause issues on versions of RHEL older than RHEL6.
+</code></pre>
+
+<p>参考: <a href="https://groups.google.com/forum/#!msg/mongodb-user/61NFaGlyxcs/YGkIGv5RDgAJ">WARNING: You are running in OpenVZ which can cause issues on versions of RHEL older than RHEL6.</a></p>
+
+<h4 id="小插曲">小插曲</h4>
+
+<blockquote>
+<p>在无法完美解决这几个WARNING之后, 早上来带着疑问想着一个关于Access Control的问题, 很多人甚至官方文档<a href="https://docs.mongodb.com/master/tutorial/enable-authentication/#start-mongodb-without-access-control">Start MongoDB without access control.</a>也提到:</p>
+</blockquote>
+
+<pre><code class="language-bash">mongod --port 27017 --dbpath /data/db1
+</code></pre>
+
+<p>可是我一直报错, 要么说不存在, 搞半天才明白, <strong>要手动创建</strong>, 创建好了, 又说服务被占用, <code>service mongod stop</code>停了服务, 连上去了, <code>show dbs</code>发现跟之前的又不一样, 没有找到我之前看到的<code>strapi</code>库, 才恍然大悟, 原来其实我创建了一个跟之前无关的库&hellip;</p>
+
+<p>事实上, 启动mongod服务的时候, 它连接了一个默认配置库, 这个库的路径时早就创建好的, 通过查看<code>/etc/mongod.conf</code>这个文件就知道了. 因此删了那个没用的db目录. 接着操作.</p>
+
+<p>另外, 今早<code>strapi start</code>很顺利. 我也没办法再研究昨天究竟是为什么总是连不上了.</p>
+
+<h3 id="在-gatsby-strapi-tutorial-目录在创建一个新的gatsby">在<code>gatsby-strapi-tutorial</code>目录在创建一个新的Gatsby</h3>
+
+<blockquote>
+<p>每次创建速度很慢, 执行<code>gatsby new blog</code>完成的时候提示<code>added 1398 packages in 137.652s</code>, 大概就是2分钟多, 可能是安装依赖包费时吧</p>
+
+<p>而执行<code>gatsby develop</code>的时间更长, 完成时提示如下:</p>
+
+<pre><code class="language-bash">info bootstrap finished - 334.876 s
+
+DONE  Compiled successfully in 90373ms 21:15:06
+
+
+You can now view gatsby-starter-default in the browser.
+
+http://localhost:8000/
+
+View GraphiQL, an in-browser IDE, to explore your site's data and schema
+
+http://localhost:8000/___graphql
+
+Note that the development build is not optimized.
+To create a production build, use gatsby build
+</code></pre>
+
+<p>大概用了6分钟左右, 糟糕的是并不能通过远程<strong>IP</strong>来访问! 查看了目录下的配置文件和官方文档, 也没查到. 绝望之时, 突然在大量资料中看到webpack也有这样的问题, 想起来之前webpack的server默认配置也是无法通过ip访问, 但是webpack的<code>devServer</code>配置<code>host: &quot;0.0.0.0&quot;</code>即可, 试了下:</p>
+
+<pre><code class="language-bash"># gatsby develop --host 0.0.0.0
+</code></pre>
+
+<p>又经过4分钟左右漫长等待, 这次成功了! 不过我尝试搜索Gatsby究竟用的什么服务器启动, 为何不能像webpack那样加一段配置呢, 却没有找到. 后来凑巧找到了一篇webpack下的issue, <a href="https://github.com/webpack/webpack-dev-server/issues/147">Server can&rsquo;t be accessed via IP</a>, 有人提到过这条命令.</p>
+</blockquote>
+
+<h3 id="安装strapi插件-install-the-strapi-source-plugin-和创建页面模板">安装Strapi插件(Install the Strapi source plugin)和创建页面模板</h3>
+
+<blockquote>
+<p>Gatsby understands this pretty well. So its creators decided to build a specific and independent layer: the data layer. This entire system is strongly powered by GraphQL.</p>
+</blockquote>
+
+<p>安装好<code>gatsby-source-strapi</code>插件后, 接下来完全就是copy代码, 配置首页, 创建文章模板等工作, 也是相当简单的过程, 这个基本上就把整个搭建页面的逻辑说了一遍, 虽然完全是复制粘贴的操作, 完成后如作者所展示的效果一致, 这里就不多复述了. 在开发环境中, 可以边修改文件边看效果.</p>
+
+<h3 id="总结">总结</h3>
+
+<p>这次通过Gatsby和Strapi搭建一个简单的博客站点, 还是挺不容易的, 几乎花了一天半的时间. 不过个人感觉还是值得的! 其中有很多地方是可以更加深入的学习和了解的, 这也算初步接触了react, mongodb, graphQL等相关知识实操, 同时也可以在后期完善更多的功能, 了解并学习一些ES6, 模板的写法技巧等等. 也希望通过此次研究以后能更进一步熟悉其他框架, 数据库, 后端等思想~</p>
+
+<p>再次列出相关文档</p>
+
+<ul>
+<li>本文操作参考<a href="https://hackernoon.com/building-a-static-blog-using-gatsby-and-strapi-8b5acfc82ad8">Building a static blog using Gatsby and Strapi</a>或<a href="https://blog.strapi.io/building-a-static-website-using-gatsby-and-strapi/">https://blog.strapi.io/building-a-static-website-using-gatsby-and-strapi/</a>(如果前面的那个无法访问)</li>
+<li>Gatsby官方<a href="https://www.gatsbyjs.org/docs/">使用手册</a>和<a href="https://www.gatsbyjs.org/tutorial/">开发教程</a></li>
+<li><a href="https://strapi.io/documentation/">Strapi文档</a></li>
+<li><a href="https://docs.mongodb.com/">MongoDB 3.6官方手册</a>和runoob上的<a href="http://www.runoob.com/mongodb/mongodb-tutorial.html">MongoDB 教程</a></li>
+</ul>
+
+<h2 id="总结日志-用gatsby和strapi创建一个静态博客">总结日志&rdquo;用Gatsby和Strapi创建一个静态博客&rdquo;</h2>
+
+<blockquote>
+<p><strong>由于这两天的记录属日记性质, 因此内容稍显粗糙, 如果确实对这个感兴趣, 我整理了一份相对完整的文章, 请见daily项目articles目录的<a href="https://github.com/whidy/daily/blob/master/articles/%E7%94%A8Gatsby%E5%92%8CStrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2.md">用Gatsby和Strapi创建一个静态博客.md</a></strong></p>
+</blockquote>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://daily.whidy.net" >
+    &copy; 2019 Daily note
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
