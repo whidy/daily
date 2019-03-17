@@ -1,5 +1,5 @@
 baseURL = "https://daily.whidy.net"
 languageCode = "en-us"
 title = "Daily note"
-theme = "ananke"
+theme = "hyde"
 description = "Here is Whidy's github note, you will find somethings here."
