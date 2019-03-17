@@ -10,6 +10,6 @@ daily work of Whidy, 你一定会在这里发现惊喜的~
 
 ## 发布
 
-
+git submodule add -b master git@github.com:whidy/whidy.github.io.git public
 
 ./deploy.sh "Your optional commit message"
