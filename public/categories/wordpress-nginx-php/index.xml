@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wordpress Nginx Php on Daily note</title>
+    <link>https://daily.whidy.net/categories/wordpress-nginx-php/</link>
+    <description>Recent content in Wordpress Nginx Php on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 22 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/categories/wordpress-nginx-php/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nginx的站点配置/PHP-FPM配置</title>
+      <link>https://daily.whidy.net/posts/2018-03-22-nginx-phpfpm/</link>
+      <pubDate>Thu, 22 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-22-nginx-phpfpm/</guid>
+      <description>2018年3月22日 晴 一般
+ Nginx的站点配置/PHP-FPM配置 22号是艰难的一天. 各种爆炸!
+Nginx的站点配置  昨晚, 回去看了一下百度统计, 一下子就炸了. 在我还不了解Nginx配置的情况下, 我只是让首页正常访问了&amp;hellip; 其他页面全挂. 于是开始了大量英文资料的阅读.
+ 以下内容围绕nginx.conf配置文件展开, 也不知道是不是版本区别, 总跟网上的文章有些不一样, 我也陷入迷茫.
+我要解决的问题:
+ 博客所有页面(包括文章伪静态)访问正常; 其他域名(whidy.net, whidy.cn, www.whidy.cn)均需要301转向到www.whidy.net, 避免分权 针对wordpress的相关优化(可选)  那么, 基于Nginx对服务器的管理的研究, 我发现其主要针对不同的站点进行Server Block配置, 而Server Block如何管理, 我查了大量资料, 比如这里有一篇文章摘要
+ To begin, we will need to set up the directory that our server blocks will be stored in, as well as the directory that tells Nginx that a server block is ready to serve to visitors.</description>
+    </item>
+    
+  </channel>
+</rss>

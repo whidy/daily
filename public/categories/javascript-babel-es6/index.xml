@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript Babel Es6 on Daily note</title>
+    <link>https://daily.whidy.net/categories/javascript-babel-es6/</link>
+    <description>Recent content in Javascript Babel Es6 on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 23 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/categories/javascript-babel-es6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>null和undefined复习/ES6作用域和babel的探索</title>
+      <link>https://daily.whidy.net/posts/2018-01-23-javascript-es6-babel/</link>
+      <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-23-javascript-es6-babel/</guid>
+      <description>2018年1月23日 雾霾 一般
+ null和undefined复习 / ES6作用域和babel的探索 再谈null和undefined 什么是null  null具有两大特点
+  null是空的或者不存在的值 null需要被赋值  例如下面给a赋值为null
+let a = null; console.log(a); // null  什么是undefined  undefined一般表示一个已声明的变量, 但是没有定义类型
+ 仅声明一个变量b
+let b; console.log(b); // undefined  或者直接给c赋值为undefined
+let c = undefined; console.log(c); // undefined  或者读取一个不存在某个属性的对象
+var d = {}; console.log(d.fake); // undefined  null和undefined相似之处 首先都知道JavaScript中有6种原始数据类型, null和undefined在其中:
+ Boolean Null Undefined Number String Symbol  正好也有6个falsy值, null和undefined也在里面:</description>
+    </item>
+    
+  </channel>
+</rss>

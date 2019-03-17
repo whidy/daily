@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nuxt Localstorage Sessionstorage Cookie on Daily note</title>
+    <link>https://daily.whidy.net/categories/nuxt-localstorage-sessionstorage-cookie/</link>
+    <description>Recent content in Nuxt Localstorage Sessionstorage Cookie on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 05 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/categories/nuxt-localstorage-sessionstorage-cookie/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nuxt在SPA模式下的鉴权处理(1)</title>
+      <link>https://daily.whidy.net/posts/2018-06-05-nuxt-auth/</link>
+      <pubDate>Tue, 05 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-06-05-nuxt-auth/</guid>
+      <description>2018年6月5日 阴雨 一般
+最近项目使用了Nuxt, 不过由于考虑到项目需要快速上线, 放弃了SSR, 直接采用单页面SPA模式进行开发, 也是本人第一次使用Nuxt来进行项目开发, 以下是我开发中对于鉴权这块的研究和总结, 因为官方给了一个鉴权示例是基于Server端的, 所以我就又写了一篇Client端的鉴权总结~
+文章分为很多篇, 会逐步完善更新, 请耐心等待&amp;hellip;
+ 预备知识  Vue和Vuex Document.cookie HTTP 的基本性质 Window.localStorage和Window.sessionStorage  介绍 Nuxt.js 是一个基于 Vue.js 的通用应用框架。那么既然是基于Vue的, 它自然也就用到的Vuex, 那么会遇到一个问题, 它本是状态管理模式, 不过有时候我们会作为数据共享的一种解决方案, 但是它会在页面刷新时丢失.
+因此在Vue项目开发中, 我们每次刷新获取数据可能只有两种方式:
+ 每次刷新都会向服务器发送请求, 拿到数据后, 对页面重新更新视图 每次操作都会存在本客户端的Cookie或者Storage中  很显然一般情况下, 第一种方法会给服务器资源造成浪费, 除非需要获取的数据是频繁变化的, 那么我们一般会使用第二种. 下面就主要针对第二个方案进行总结.
+需求分析 我们都知道HTTP是无状态的, 那么为了让用户每次访问页面的时候会话能够保持, 则需要用cookie或者storage来记录. 我们后台的session有效期为半小时.
+在这半小时内, 用户处于登录状态, 本地也保存了有效凭证的情况下, 则该用户的有效资源请求可以被执行, 而无需服务器每次进行验证~
+需求方希望本地存储的凭证会在会话关闭后清除, 因此我们首先排除localStorage, 考虑使用Cookie和sessionStorage! 又因为本人比较懒, Cookie操作比较麻烦, 所以决定使用sessionStorage.(虽然最后还使用了插件&amp;hellip;)
+基础实例  用sessionStorage存储Vuex全局data的方式展示
+创建一个Nuxt应用  我们基于Nuxt的Starter的Cli来构建一个简单的Nuxt应用, 命令如下</description>
+    </item>
+    
+  </channel>
+</rss>
