@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ECMAScript6入门/函数 &middot; Daily note</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daily note" />
+
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://daily.whidy.net"><h1>Daily note</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://daily.whidy.net">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>ECMAScript6入门/函数</h1>
+  <time datetime=2018-01-29T00:00:00Z class="post-date">Mon, Jan 29, 2018</time>
+  
+
+<blockquote>
+<p>2018年1月29日 阴有小雨 一般</p>
+</blockquote>
+
+<h1 id="ecmascript6入门-函数">ECMAScript6入门 / 函数</h1>
+
+<h2 id="ecmascript6入门">ECMAScript6入门</h2>
+
+<p>我再次阅读<strong>字符串的扩展</strong>这部分, 老实说, 这一节关于<code>charCodeAt</code>, <code>charAt</code>, <code>codePointAt</code>, <code>fromCodePoint</code>, <code>at</code>, <code>normalize</code>这些东西感到枯燥的很, 我还不能理解这些内容在实际应用上的广泛性.</p>
+
+<h2 id="函数-function">函数(Function)</h2>
+
+<blockquote>
+<p>关于函数得知识点, 我才发现我欠缺的多得多. 以下是我对函数了解较少或者需要注意的几个点得总结.</p>
+</blockquote>
+
+<h3 id="作用域和函数堆栈">作用域和函数堆栈</h3>
+
+<h4 id="递归">递归</h4>
+
+<p>例如，思考一下如下的函数定义：</p>
+
+<pre><code class="language-javascript">var foo = function bar() {
+  // statements go here
+};
+</code></pre>
+
+<p>在这个函数体内，以下的语句是等价的：</p>
+
+<ul>
+<li>bar()</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments/callee">arguments.callee()</a></li>
+<li>foo()</li>
+</ul>
+
+<p>获取树结构中所有的节点时，使用递归实现要容易得多：</p>
+
+<pre><code class="language-javascript">function walkTree(node) {
+  if (node == null)
+    //
+    return;
+  // do something with node
+  for (var i = 0; i &lt; node.childNodes.length; i++) {
+    walkTree(node.childNodes[i]);
+  }
+}
+</code></pre>
+
+<h4 id="命名冲突">命名冲突</h4>
+
+<p>当同一个闭包作用域下两个参数或者变量同名时，就会产生命名冲突。更近的作用域有更高的优先权，所以最近的优先级最高，最远的优先级最低。这就是作用域链。链的第一个元素就是最里面的作用域，最后一个元素便是最外层的作用域。</p>
+
+<p>看以下的例子：</p>
+
+<pre><code class="language-javascript">function outside() {
+  var x = 5;
+  function inside(x) {
+    return x * 2;
+  }
+  return inside;
+}
+outside()(10); // returns 20 instead of 10
+</code></pre>
+
+<p>命名冲突发生在<code>return x</code>上，<code>inside</code>的参数<code>x</code>和<code>outside</code>变量<code>x</code>发生了冲突。这里的作用链域是{<code>inside</code>, <code>outside</code>, 全局对象}。因此<code>inside</code>的<code>x</code>具有最高优先权，返回了20（<code>inside</code>的<code>x</code>）而不是10（<code>outside</code>的<code>x</code>）。</p>
+
+<p>参阅: <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Functions">MDN: 函数</a></p>
+
+<hr />
+
+<p>26日提到了一个<code>is_android</code>的函数示例, 与变量提升有关, 正巧又看到了相关的说明:</p>
+
+<h4 id="非严格模式下的-block-level-functions">非严格模式下的 Block-level functions</h4>
+
+<p><strong>一句话：不要用。</strong></p>
+
+<p>在非严格模式下，块中的函数声明表现奇怪。例如：</p>
+
+<pre><code class="language-javascript">if (shouldDefineZero) {
+  function zero() {
+    // DANGER: 兼容性风险
+    console.log('This is zero.');
+  }
+}
+</code></pre>
+
+<p>ECMAScript 6中，如果<code>shouldDefineZero是false，则永远不会定义zero,因为这个块从不执行。然而，这是标准的新的一部分。这是历史遗留问题，无论这个块是否执行，一些浏览器会定义zero。</code></p>
+
+<p>在<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode">严格模式</a>下，所有支持ECMAScript 6的浏览器以相同的方式处理：只有在shouldDefineZero为true的情况下定义zero，并且作用域只是这个块内。</p>
+
+<p>参阅: <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions#%E9%9D%9E%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84Block-level_functions">MDN: 函数</a></p>
+
+<hr />
+
+<h4 id="function-构造器生成的函数-在全局作用域中被创建">Function 构造器生成的函数，在全局作用域中被创建</h4>
+
+<pre><code class="language-javascript">// 1、f()函数返回的function e()是闭包.
+var n = 1;
+function f() {
+  var n = 2;
+  function e() {
+    return n;
+  }
+  return e;
+}
+console.log(f()()); //2
+
+// 2、f()函数返回的function e()是全局作用域函数
+var n = 1;
+function f() {
+  var n = 2;
+  var e = new Function('return n;');
+  return e;
+}
+console.log(f()()); //1
+</code></pre>
+
+<p>这段示例比较特别, 看起来有点迷糊, 不过目前记得尽量不要用构造函数创建函数.</p>
+
+<p>参考: <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function#Example.3A_Specifying_arguments_with_the_Function_constructor">MDN: Function</a></p>
+
+<h2 id="其他">其他</h2>
+
+<p>在查作用域链的相关资料的时候, 偶然发现一片不错的<a href="https://leohxj.gitbooks.io/front-end-database/content/">GitBook - 前端工程师手册</a>, 需要翻墙才能访问貌似~</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jekyll Ruby Rails Linux Weapp on Daily note</title>
+    <link>https://daily.whidy.net/categories/jekyll-ruby-rails-linux-weapp/</link>
+    <description>Recent content in Jekyll Ruby Rails Linux Weapp on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/categories/jekyll-ruby-rails-linux-weapp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CentOS7安装Jekyll和Rails</title>
+      <link>https://daily.whidy.net/posts/2018-03-18-jekyll-ruby-rails-linux-weapp/</link>
+      <pubDate>Sun, 18 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-18-jekyll-ruby-rails-linux-weapp/</guid>
+      <description>2018年3月18日 阴 一般
+ CentOS7安装Jekyll/Rails/Linux用户管理/微信小程序页面加载问题  打算把我的wordpress博客移植到Jekyll上面, 于是试了下, 之前有在国外的VPS搭过一个Jekyll站点http://daily.whidy.net/, 纯静态的感觉很棒, 因此尝试一下移植的效果~
+ CentOS7下安装Jekyll环境搭建 安装Jekyll需要  Ruby RubyGems NodeJS Python 2.7(Whidy比较懒, 貌似CentOS7自带? 还是啥时候装了, 不会的自己搜一下= =.)  安装Ruby2.5.0和RubyGems  目前最新稳定版本是2.5.0, CentOS自带源的版本比较老, 我们需要第三方源rbenv来安装最新稳定版, 安装方法如下:
+  安装rbenv和Ruby依赖的组件
+# sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel  安装rbenv和rub-build(务必在非root用户的home下面操作)
+# cd ~ # git clone git://github.com/sstephenson/rbenv.git .rbenv # echo &#39;export PATH=&amp;quot;$HOME/.</description>
+    </item>
+    
+  </channel>
+</rss>

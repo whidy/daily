@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>null和undefined复习/ES6作用域和babel的探索 &middot; Daily note</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daily note" />
+
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://daily.whidy.net"><h1>Daily note</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://daily.whidy.net">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>null和undefined复习/ES6作用域和babel的探索</h1>
+  <time datetime=2018-01-23T00:00:00Z class="post-date">Tue, Jan 23, 2018</time>
+  
+
+<blockquote>
+<p>2018年1月23日 雾霾 一般</p>
+</blockquote>
+
+<h1 id="null和undefined复习-es6作用域和babel的探索">null和undefined复习 / ES6作用域和babel的探索</h1>
+
+<h2 id="再谈null和undefined">再谈null和undefined</h2>
+
+<h3 id="什么是null">什么是null</h3>
+
+<blockquote>
+<p><code>null</code>具有两大特点</p>
+</blockquote>
+
+<ul>
+<li><code>null</code>是空的或者不存在的值</li>
+<li><code>null</code>需要被赋值</li>
+</ul>
+
+<p>例如下面给a赋值为null</p>
+
+<pre><code class="language-javascript">let a = null;
+console.log(a);
+// null
+</code></pre>
+
+<h3 id="什么是undefined">什么是undefined</h3>
+
+<blockquote>
+<p><code>undefined</code>一般表示一个已声明的变量, 但是没有定义类型</p>
+</blockquote>
+
+<p>仅声明一个变量b</p>
+
+<pre><code class="language-javascript">let b;
+console.log(b);
+// undefined
+</code></pre>
+
+<p>或者直接给c赋值为undefined</p>
+
+<pre><code class="language-javascript">let c = undefined;
+console.log(c);
+// undefined
+</code></pre>
+
+<p>或者读取一个不存在某个属性的对象</p>
+
+<pre><code class="language-javascript">var d = {};
+console.log(d.fake);
+// undefined
+</code></pre>
+
+<h3 id="null和undefined相似之处">null和undefined相似之处</h3>
+
+<p>首先都知道JavaScript中有6种原始数据类型, null和undefined在其中:</p>
+
+<ul>
+<li>Boolean</li>
+<li><strong>Null</strong></li>
+<li><strong>Undefined</strong></li>
+<li>Number</li>
+<li>String</li>
+<li>Symbol</li>
+</ul>
+
+<p>正好也有6个<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Falsy">falsy</a>值, null和undefined也在里面:</p>
+
+<ul>
+<li>false</li>
+<li>0 (zero)</li>
+<li>&rdquo;&rdquo; 或者 &ldquo; (empty string)</li>
+<li><strong>null</strong></li>
+<li><strong>undefined</strong></li>
+<li>NaN (Not A Number)</li>
+</ul>
+
+<blockquote>
+<p>如果对truthy和falsy想有更多的了解, 这里推荐两篇文章 <a href="https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a">JavaScript — Double Equals vs. Triple Equals</a>和<a href="https://www.sitepoint.com/javascript-truthy-falsy/">Truthy and Falsy: When All is Not Equal in JavaScript</a></p>
+</blockquote>
+
+<p>这里有个有趣的现象, 当用<code>typeof</code>测试<code>null</code>, 会返回<code>object</code>(历史原因导致):</p>
+
+<pre><code class="language-javascript">let a = null;
+let b;
+console.log(typeof a);
+// object
+console.log(typeof b);
+// undefined
+</code></pre>
+
+<p>另外你需要知道, 严格比较下和普通比较的情况:</p>
+
+<pre><code class="language-javascript">null !== undefined
+null == undefined
+</code></pre>
+
+<p>这里还有个例子:</p>
+
+<pre><code class="language-javascript">let logHi = (str = 'hi') =&gt; {
+  console.log(str);
+}
+</code></pre>
+
+<p>如果不填写参数, 或者写一个其他的字符串参数的结果:</p>
+
+<pre><code class="language-javascript">logHi();
+// hi
+
+logHi('bye');
+// bye
+</code></pre>
+
+<p><strong>如果你试着把undefined和null作为参数传进去会发生什么现象呢?</strong></p>
+
+<pre><code class="language-javascript">logHi(undefined);
+// hi
+
+logHi(null);
+// null
+</code></pre>
+
+<p>再结合上面对undefined和null的描述就好理解了~</p>
+
+<h3 id="总结">总结</h3>
+
+<ul>
+<li><code>null</code>是被分配的值, 但是<a href="https://stackoverflow.com/a/802371/3089701">什么也不是</a></li>
+<li><code>undefined</code>一般理解为声明却没有定义的变量</li>
+<li><code>null</code>和<code>undefined</code>都是falsy值</li>
+<li><code>null</code>和<code>undefined</code>都是原始类型, 但是记住<code>typeof null</code>返回的是<code>object</code>!</li>
+<li><code>null !== undefined</code>但是<code>null == undefined</code></li>
+</ul>
+
+<blockquote>
+<p>原文: <a href="https://codeburst.io/javascript-null-vs-undefined-20f955215a2">JavaScript — Null vs. Undefined</a></p>
+</blockquote>
+
+<h2 id="es6在babel下的兼容性问题">ES6在babel下的兼容性问题</h2>
+
+<blockquote>
+<p>前几天关于babel配置造成es6代码结果不同的问题(<a href="https://github.com/whidy/daily/blob/master/posts/2018-01-19-es6-babel-markdown.md">ES6学习/Babel配置学习疑问</a>第4点), 困扰了我很多天, 我估计这本身就是个坑? 也就不必纠结了? 因为只是测试性学习, 所以才写了这种奇怪的写法, 我们重新简单回顾一下.</p>
+</blockquote>
+
+<pre><code class="language-javascript">for (let i = 0; i &lt; 3; i++) {
+  let i = 'abc';
+  console.log(i);
+}
+</code></pre>
+
+<p>这段代码输出应该是什么结果呢node环境和支持es6的浏览器是3次abc, 即阮一峰ECMAScript 6入门中示例结果, 以下是<a href="http://es6.ruanyifeng.com/?search=%E8%A7%A3%E6%9E%84&amp;x=10&amp;y=8#docs/let#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">let基本用法</a>末尾处原文说明:</p>
+
+<blockquote>
+<p>另外，for循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域。</p>
+
+<p>上面代码正确运行，输出了 3 次abc。这表明函数内部的变量i与循环变量i不在同一个作用域，有各自单独的作用域。</p>
+</blockquote>
+
+<p>所以目前困惑了几天还是没有结果的我很迷茫😭, 我的问题就是:</p>
+
+<ul>
+<li>可以理解为<strong>为什么es6的写法会会有多种输出结果</strong></li>
+<li>或者说, <strong>为什么babel编译es6代码的时候解释不统一</strong>(无法转换成采用闭包的方式输出3次?)</li>
+</ul>
+
+<p>究竟是babel的问题吗? 之后进行了大量文章的研究思考, 以下是参考资料及相关思考:</p>
+
+<p>MDN对<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/let"><code>let</code></a>的解释如下:</p>
+
+<blockquote>
+<p><code>let</code>语句声明一个块级作用域的本地变量，并且可选的将其初始化为一个值。</p>
+</blockquote>
+
+<p>那么<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/block"><strong>块级作用域</strong></a>(block)严格定义是:</p>
+
+<blockquote>
+<p><strong>块语句</strong>（或其他语言的复合语句）用于组合零个或多个语句。该块由一对大括号界定，可以是labelled：</p>
+</blockquote>
+
+<p>并且以上都没有提到类似阮大佬的for循环示例相关的代码, 真不知道阮大佬哪里看到的, 竟然想到这种写法.</p>
+
+<p>我又问了其他的大佬, 这种情况该如何解释. 也没有得到准确的解释, 不过还是有收获的, 大佬的建议:</p>
+
+<ul>
+<li>可以考虑TypeScript来写代码</li>
+<li>可以尝试eslint工具来避免可能存在解释造成的误差</li>
+</ul>
+
+<p>最后, 我个人觉得, 写es6的话, 遇到这种坑的情况应该还是很少的, 配置一下<code>browserslist</code>覆盖大部分浏览器的话应该就没什么问题了, 即便在极少情况下可能存在结果和想象得有些不同, 但是只要保证babel输出的结果在不同的浏览器一致也是可以的.</p>
+
+<p>另外, 分享一些较为严谨和拓展性的参考资料:</p>
+
+<ul>
+<li><a href="http://2ality.com/2015/02/es6-scoping.html">Variables and scoping in ECMAScript 6</a></li>
+<li><a href="http://exploringjs.com/es6/ch_variables.html">Variables and scoping</a></li>
+<li><a href="http://imweb.io/topic/561f9352883ae3ed25e400f5">Babel下的ES6兼容性与规范</a></li>
+</ul>
+
+<h2 id="其他">其他</h2>
+
+<ul>
+<li>在查询资料的时候发现了一个在线阅读JavaScript相关的免费书籍网站<a href="http://exploringjs.com/">Exploring JS: JavaScript books for programmers</a></li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

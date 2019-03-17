@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Untitled on Daily note</title>
+    <link>https://daily.whidy.net/categories/untitled/</link>
+    <description>Recent content in Untitled on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 28 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/categories/untitled/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>复习</title>
+      <link>https://daily.whidy.net/posts/2018-02-28-javascript/</link>
+      <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-28-javascript/</guid>
+      <description>2018年2月28日 晴 一般
+ 面试题小试  前天晚上发烧, 不舒服, 然后迷迷糊糊上了一天班. 昨天有个群友面试, 主要是ES5, 关于变量提升, 原型继承, 还有两个关于算法的, 一个排序, 一个数组去重, 于是做了一下, 顺便也看了其他的面试题.
+ 题一: 输出6个5;
+题二: chrome下, 依次输出2 4 1 2 3 3, node环境下第3个报错.
+题三: 我思路很清楚, 貌似代码写起来不是很利索, 写完了最常见的, 想起还有个方案, 不过还是第一个次数少一点. (为了示例搞了两个数组)
+var arr1 = [3, 1, 2, 5, 4, 2]; var arr2 = [3, 1, 2, 5, 4, 2]; var arrLen = arr1.length; var counter = 0; var mySort = { way1: function(arr) { counter = 0; var i = (j = 0), temp; while (i &amp;lt; arrLen) { j = i + 1; while (j &amp;lt; arrLen) { counter++; if (arr[i] - arr[j] &amp;gt; 0) { temp = arr[i]; arr[i] = arr[j]; arr[j] = temp; } j++; } i++; } }, way2: function(arr) { counter = 0; var i = (j = 0), temp; while (i &amp;lt; arrLen) { j = 0; while (j &amp;lt; arrLen - 1) { if (arr[j] - arr[j + 1] &amp;gt; 0) { temp = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = temp; } j++; counter++; } i++; } } }; mySort.</description>
+    </item>
+    
+    <item>
+      <title>Untitled</title>
+      <link>https://daily.whidy.net/posts/2018-02-12-untitled/</link>
+      <pubDate>Mon, 12 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-12-untitled/</guid>
+      <description>2018年2月12日 晴 一般
+ 无题 前几天电脑重装WIN10, 由于硬件过旧, 引导兼容性不好, 搞了很久才装好, 然后9号晚上硬盘暴毙, 数据丢失, 折腾几日无效.
+另外最近忙着帮朋友改点琐碎的毫无技术含量的令人厌恶的页面. 也就耽搁了学习.
+马上过年了, 此处更新暂时告一段落, 提前给大家拜年~ 狗年吉祥
+福利</description>
+    </item>
+    
+  </channel>
+</rss>

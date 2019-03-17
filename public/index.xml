@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Daily note</title>
+    <link>https://daily.whidy.net/</link>
+    <description>Recent content on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 05 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nuxt在SPA模式下的鉴权处理(1)</title>
+      <link>https://daily.whidy.net/posts/2018-06-05-nuxt-auth/</link>
+      <pubDate>Tue, 05 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-06-05-nuxt-auth/</guid>
+      <description>2018年6月5日 阴雨 一般
+最近项目使用了Nuxt, 不过由于考虑到项目需要快速上线, 放弃了SSR, 直接采用单页面SPA模式进行开发, 也是本人第一次使用Nuxt来进行项目开发, 以下是我开发中对于鉴权这块的研究和总结, 因为官方给了一个鉴权示例是基于Server端的, 所以我就又写了一篇Client端的鉴权总结~
+文章分为很多篇, 会逐步完善更新, 请耐心等待&amp;hellip;
+ 预备知识  Vue和Vuex Document.cookie HTTP 的基本性质 Window.localStorage和Window.sessionStorage  介绍 Nuxt.js 是一个基于 Vue.js 的通用应用框架。那么既然是基于Vue的, 它自然也就用到的Vuex, 那么会遇到一个问题, 它本是状态管理模式, 不过有时候我们会作为数据共享的一种解决方案, 但是它会在页面刷新时丢失.
+因此在Vue项目开发中, 我们每次刷新获取数据可能只有两种方式:
+ 每次刷新都会向服务器发送请求, 拿到数据后, 对页面重新更新视图 每次操作都会存在本客户端的Cookie或者Storage中  很显然一般情况下, 第一种方法会给服务器资源造成浪费, 除非需要获取的数据是频繁变化的, 那么我们一般会使用第二种. 下面就主要针对第二个方案进行总结.
+需求分析 我们都知道HTTP是无状态的, 那么为了让用户每次访问页面的时候会话能够保持, 则需要用cookie或者storage来记录. 我们后台的session有效期为半小时.
+在这半小时内, 用户处于登录状态, 本地也保存了有效凭证的情况下, 则该用户的有效资源请求可以被执行, 而无需服务器每次进行验证~
+需求方希望本地存储的凭证会在会话关闭后清除, 因此我们首先排除localStorage, 考虑使用Cookie和sessionStorage! 又因为本人比较懒, Cookie操作比较麻烦, 所以决定使用sessionStorage.(虽然最后还使用了插件&amp;hellip;)
+基础实例  用sessionStorage存储Vuex全局data的方式展示
+创建一个Nuxt应用  我们基于Nuxt的Starter的Cli来构建一个简单的Nuxt应用, 命令如下</description>
+    </item>
+    
+    <item>
+      <title>Vue中Axios请求数据渲染研究</title>
+      <link>https://daily.whidy.net/posts/2018-04-16-vue-axios/</link>
+      <pubDate>Mon, 16 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-04-16-vue-axios/</guid>
+      <description>2018年4月16日 雨 一般
+ Vue中Axios请求数据渲染研究  整整半个月没有写东西了, 因为在做小程序和Vue的项目, 边学习边开发. 完全没时间来写比较完整的笔记和日志了, 因此也就停了一段时间~
+ 因为写Vue页面有一些网络请求很慢, 也不记得那里说data里面初始化数据最好用null, 所以造成渲染页面报错, 虽然接口返回后页面会正常显示, 但是面对程序逻辑, 我认为这是不合理的&amp;hellip; 请教了公司同事文君兄, 给出了一个方案, 关于vue的axios
+beforeRouteEnter
+https://router.vuejs.org/zh-cn/advanced/data-fetching.html
+正巧看到一篇文章.
+https://alligator.io/vuejs/implementing-infinite-scroll/
+如果persons是null， v-for遍历就会出错了 有些项目想日后往ssr扩展的话，一般是不写在beforeMount里，因为这钩子在ssr中不调用</description>
+    </item>
+    
+    <item>
+      <title>shadowsocks-manager搭建</title>
+      <link>https://daily.whidy.net/posts/2018-04-01-shadowsocksmanager/</link>
+      <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-04-01-shadowsocksmanager/</guid>
+      <description>2018年4月1日 晴 一般
+ shadowsocks-manager搭建  该文章仅作为日志记录一下, 因为工作原因, 或者个人原因吧, 会习惯使用谷歌去查找技术资料, 所以shadowsocks在工作生活中必不可少, 之前买了个国外的服务器, 一直用着不错, 也有几个比较好的朋友想要买我的这个梯子, 于是就搭建了一个官方的管理平台.
+ 以下内容主要参阅: WebGUI
+安装shadowsocks-libev 我的centos7之前用的网上的一键安装, 虽然那个捆绑式安装过shadowsocks-libev, 也能正常使用shadowsocks, 但是无法使用命令ss-manager, 于是只能重新搞. 大致流程如下:
+删除旧版(好吧,这里暴露了) # wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh # chmod +x shadowsocks-libev.sh # ./shadowsocks-libev.sh uninstall  输入y
+正常安装 # yum install epel-release -y # yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y  此时需要用第三方源(centos7)
+# vi /etc/yum.</description>
+    </item>
+    
+    <item>
+      <title>日志</title>
+      <link>https://daily.whidy.net/posts/2018-03-29-note/</link>
+      <pubDate>Thu, 29 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-29-note/</guid>
+      <description>  2018年3月29日 晴 一般
+ 日志 1px像素在html5上的解决方案 最近vue做项目, 做HTML5的页面, 又陷入1px边框问题, 好气啊!!!
+https://www.w3cplus.com/mobile/vw-layout-in-vue.html
+postcss-write-svg
+这个写法在IOS下面会产生边距, 有BUG气死了.
+http://mp.weixin.qq.com/s/fcqOvzPE0swwsJL1Po4twA
+开发反向代理
+ https://vuejs-templates.github.io/webpack/proxy.html https://github.com/vuejs-templates/webpack/blob/master/docs/proxy.md https://blog.csdn.net/qq_33559304/article/details/72966028 https://www.cnblogs.com/tugenhua0707/p/8052051.html https://github.com/chimurai/http-proxy-middleware  其他方式
+ Axios: https://github.com/axios/axios#request-config http://obkoro1.com/2017/11/05/%E5%9C%A8Vue-cli%E9%87%8C%E5%9F%BA%E4%BA%8Eaxios%E5%B0%81%E8%A3%85%E5%A4%8D%E7%94%A8%E8%AF%B7%E6%B1%82/ https://medium.com/techtrument/handling-ajax-request-in-vue-applications-using-axios-1d26c47fab0 Nginx   server { listen 8088; server_name localhost; index index.html; root /Users/jankingzeng/Desktop/svn/pv/code/51la/trunk/51lawap/dist; location / { try_files $uri $uri/ /index.html =404; } location /mobile { proxy_pass http://127.0.0.1:3010; proxy_redirect off; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; } }  </description>
+    </item>
+    
+    <item>
+      <title>日志</title>
+      <link>https://daily.whidy.net/posts/2018-03-26-note/</link>
+      <pubDate>Mon, 26 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-26-note/</guid>
+      <description>2018年3月26日 阴 一般
+ 日志 搭建移动端网站架子  Vue + mint-ui
+ # 全局安装 vue-cli $ npm install --global vue-cli # 创建一个基于 webpack 模板的新项目 $ vue init webpack 51la-mpa # 安装依赖，走你 $ cd 51la-mpa $ npm install $ npm run dev  其中安装过程中, 根据个人需要, 配置选择如下
+? Target directory exists. Continue? Yes ? Project name 51la-mpa ? Project description A Vue.js project ? Author ShunBai &amp;lt;shunbai@infinite.net.cn&amp;gt; ? Vue build standalone ?</description>
+    </item>
+    
+    <item>
+      <title>Nginx的站点配置/PHP-FPM配置</title>
+      <link>https://daily.whidy.net/posts/2018-03-22-nginx-phpfpm/</link>
+      <pubDate>Thu, 22 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-22-nginx-phpfpm/</guid>
+      <description>2018年3月22日 晴 一般
+ Nginx的站点配置/PHP-FPM配置 22号是艰难的一天. 各种爆炸!
+Nginx的站点配置  昨晚, 回去看了一下百度统计, 一下子就炸了. 在我还不了解Nginx配置的情况下, 我只是让首页正常访问了&amp;hellip; 其他页面全挂. 于是开始了大量英文资料的阅读.
+ 以下内容围绕nginx.conf配置文件展开, 也不知道是不是版本区别, 总跟网上的文章有些不一样, 我也陷入迷茫.
+我要解决的问题:
+ 博客所有页面(包括文章伪静态)访问正常; 其他域名(whidy.net, whidy.cn, www.whidy.cn)均需要301转向到www.whidy.net, 避免分权 针对wordpress的相关优化(可选)  那么, 基于Nginx对服务器的管理的研究, 我发现其主要针对不同的站点进行Server Block配置, 而Server Block如何管理, 我查了大量资料, 比如这里有一篇文章摘要
+ To begin, we will need to set up the directory that our server blocks will be stored in, as well as the directory that tells Nginx that a server block is ready to serve to visitors.</description>
+    </item>
+    
+    <item>
+      <title>Wordpress改用Nginx</title>
+      <link>https://daily.whidy.net/posts/2018-03-21-nginx/</link>
+      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-21-nginx/</guid>
+      <description>2018年3月21日 晴 一般
+ 博客改用Nginx  接昨晚, 从Apache换成Nginx, 本来是很简单的. 但是基于我的有点点特殊, 考虑到操作的正确性, 我完整的做了一份记录.
+ 删除Apache及对应的PHP 之前2018-03-17-php-upgrade-7.x有提到的, 我不确定Nginx跟部分PHP有关联, 因此保险起见, 我将同Apache一并安装的PHP也删了, 因为安装高版本PHP需要用到第三方源IUS, 因此再次执行如下命令
+$ cd ~ $ curl &#39;https://setup.ius.io/&#39; -o setup-ius.sh $ sudo bash setup-ius.sh  删除旧版PHP 这是应用于Apache上的PHP相关组建, 因此需要删了等下装Nginx对应PHP
+$ sudo yum remove php-cli mod_php php-common  删除Apache(可选) 你可以保留Apache, 也可以删除, 我目前是保留的. 如果保留则需要关闭服务(Nginx同端口冲突), 并且停用开机自启动服务
+$ sudo systemctl stop httpd.service $ sudo systemctl remove httpd.service  彻底删除Apache
+$ sudo yum remove httpd  安装Nginx及PHP 我们要开始正是安装Nginx啦</description>
+    </item>
+    
+    <item>
+      <title>MariaDB崩溃分析/Wordpress改用Nginx</title>
+      <link>https://daily.whidy.net/posts/2018-03-20-mariadb/</link>
+      <pubDate>Tue, 20 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-20-mariadb/</guid>
+      <description>2018年3月20日 阴晴 一般
+ MariaDB崩溃分析/博客改用Nginx  最近SB哥们在我服务器上面做hadoop实验, 结果搞得我博客总是崩溃, 之前以为是偶然现象或者是被攻击, 目前看来是服务器配置低了😭, 毕竟是白菜服务器.
+ 博客崩溃修复小结 昨天很忙, 一直在处理微信授权的逻辑合理性和体验, 尽早发现博客又挂了, 初步检测是MariaDB挂了, 原因尚不明确.
+重启MariaDB服务, 恢复数据库的连接 先检查状态, 确认是MariaDB崩溃后重启服务
+[root@VM_0_3_centos ~]# systemctl status mariadb ● mariadb.service - MariaDB database server Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; vendor preset: disabled) Active: inactive (dead) since Tue 2018-03-20 14:03:14 CST; 1h 39min ago Process: 4096 ExecStartPost=/usr/libexec/mariadb-wait-ready $MAINPID (code=exited, status=0/SUCCESS) Process: 4095 ExecStart=/usr/bin/mysqld_safe --basedir=/usr (code=exited, status=0/SUCCESS) Process: 4063 ExecStartPre=/usr/libexec/mariadb-prepare-db-dir %n (code=exited, status=0/SUCCESS) Main PID: 4095 (code=exited, status=0/SUCCESS) Mar 20 08:26:25 VM_0_3_centos systemd[1]: Starting MariaDB database server.</description>
+    </item>
+    
+    <item>
+      <title>CentOS7安装Jekyll和Rails</title>
+      <link>https://daily.whidy.net/posts/2018-03-18-jekyll-ruby-rails-linux-weapp/</link>
+      <pubDate>Sun, 18 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-18-jekyll-ruby-rails-linux-weapp/</guid>
+      <description>2018年3月18日 阴 一般
+ CentOS7安装Jekyll/Rails/Linux用户管理/微信小程序页面加载问题  打算把我的wordpress博客移植到Jekyll上面, 于是试了下, 之前有在国外的VPS搭过一个Jekyll站点http://daily.whidy.net/, 纯静态的感觉很棒, 因此尝试一下移植的效果~
+ CentOS7下安装Jekyll环境搭建 安装Jekyll需要  Ruby RubyGems NodeJS Python 2.7(Whidy比较懒, 貌似CentOS7自带? 还是啥时候装了, 不会的自己搜一下= =.)  安装Ruby2.5.0和RubyGems  目前最新稳定版本是2.5.0, CentOS自带源的版本比较老, 我们需要第三方源rbenv来安装最新稳定版, 安装方法如下:
+  安装rbenv和Ruby依赖的组件
+# sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel  安装rbenv和rub-build(务必在非root用户的home下面操作)
+# cd ~ # git clone git://github.com/sstephenson/rbenv.git .rbenv # echo &#39;export PATH=&amp;quot;$HOME/.</description>
+    </item>
+    
+    <item>
+      <title>日志</title>
+      <link>https://daily.whidy.net/posts/2018-03-17-php-upgrade-7.x/</link>
+      <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-17-php-upgrade-7.x/</guid>
+      <description>2018年3月17日 阴 一般
+ 服务器相关折腾 CentOS7升级PHP7.2 我有个毛病, 就是喜欢没事搞搞优化, 本来好端端的东西, 一听说还能更好, 就止不住的折腾, 这不, 一个朋友说PHP7性能好很多(顺便查了下, PHP的性能演进(从PHP5.0到PHP7.1的性能全评测)), 我才折腾半天装的PHP5.6, 又寻思着安装到7.x, 好在一切都比较容易, 大概方法如下:
+ 在CentOS 7上官方的源是只有php5.4的, 这个大家都知道了, 于是这次又用到第三方源IUS repository.
+ 假设目前最高权限下, 这里仅介绍Apache下的更新, 还有Nginx的, 末尾有参阅文章自行查阅. 步骤如下:
+# cd ~ # curl &#39;https://setup.ius.io/&#39; -o setup-ius.sh # bash setup-ius.sh  然后删除旧版
+# yum remove php-cli mod_php php-common  接着安装php7.2
+# yum install mod_php72u php72u-cli php72u-mysqlnd  重新启动Apache加载新的mod_php
+# apachectl restart  重启服务
+# systemctl status httpd  至此升级完成~</description>
+    </item>
+    
+    <item>
+      <title>日志</title>
+      <link>https://daily.whidy.net/posts/2018-03-16-apache-host/</link>
+      <pubDate>Fri, 16 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-16-apache-host/</guid>
+      <description>2018年3月16日 阴 一般
+ 博客转移/域名解析/其他配置 域名解析, 全部设置为A记录指向服务器IP, 然后还是用原来的301转向, (www.)whidy.cn和whidy.net全部跳转到www.whidy.net.
+Apache服务器优化 Rewrite模块 为了伪静态页面和301重定向, 这边文章讲得很清楚了Install and Configure mod_rewrite for Apache on CentOS 7
+开启Gzip压缩功能 方案一: 修改httpd.conf配置 如上文: 打开这个文件
+# nano /etc/httpd/conf.modules.d/00-base.conf  检查mod_deflate module是否正常开启(默认是开启的)
+LoadModule deflate_module modules/mod_deflate.so  然后修改httpd.conf
+# nano /etc/httpd/conf/httpd.conf  文件末尾增加
+AddOutputFilterByType DEFLATE text/plain AddOutputFilterByType DEFLATE text/html AddOutputFilterByType DEFLATE text/xml AddOutputFilterByType DEFLATE text/css AddOutputFilterByType DEFLATE application/xml AddOutputFilterByType DEFLATE application/xhtml+xml AddOutputFilterByType DEFLATE application/rss+xml AddOutputFilterByType DEFLATE application/javascript AddOutputFilterByType DEFLATE application/x-javascript  重启服务</description>
+    </item>
+    
+    <item>
+      <title>日志</title>
+      <link>https://daily.whidy.net/posts/2018-03-15-note/</link>
+      <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-15-note/</guid>
+      <description>2018年3月15日 阴 一般
+ 日志 前阵子家里有点事情回去了将近一周, 也忙于工作上的各种事情， 做小程序的过程中遇到了很多问题. 然后这几天又急着要一个页面, 在另一个同事帮助下用vue开发, 今天算多日没有写日志的打卡记录吧.
+微信授权 获取openid的方法, 官方文档: https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-login.html
+同时有一个疑问: 授权用户信息是否应该存入storage? 如果写入全局对象, 用户拒绝授权后重新刷新页面如何重新请求授权? 是否有时效性还是需要手动清除缓存?
+同时跟授权有关的一篇文章参考: 微信小程序授权获取用户详细信息openid
+网上也有说用解密的方式: 微信小程序调用微信登陆获取openid及用户信息 java做为服务端
+其他的研究JWT:
+http://blog.leapoahead.com/2015/09/06/understanding-jwt/
+其他 我在做小程序的时候, 思考如何能在不同的电脑上同步小程序代码, 因为之前买的腾讯云主机是centos, 因此顺便再了解了下linux系统目录http://cn.linux.vbird.org/linux_basic/0210filepermission.php</description>
+    </item>
+    
+    <item>
+      <title>微信小程序开发中的问题</title>
+      <link>https://daily.whidy.net/posts/2018-03-06-weapp/</link>
+      <pubDate>Tue, 06 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-03-06-weapp/</guid>
+      <description>2018年3月6日 阴 一般
+ 最近比较忙 转到新部门了，熟悉新业务，最近也就没有什么笔记了。另外最近接了一个新任务，开发一项公司内部的小程序应用，于是这几天主要就是看小程序，接下来的一些笔记应该是主要关于微信小程序的开发笔记。
+开发文档: https://mp.weixin.qq.com/debug/wxadoc/dev/
+模块化https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/module.html  exports 是 module.exports 的一个引用，因此在模块里边随意更改 exports 的指向会造成未知的错误。所以更推荐开发者采用 module.exports 来暴露模块接口，除非你已经清晰知道这两者的关系
+ 那么exports和module.exports的区别是什么呢?(以下内容有误, 请不要阅读)
+根据我的阅读研究和分析, 标准规范上来说, 将一个js文件的对象对外暴露出去, 一般是使用module.exports的, 这样另一个文件require的时候, 就可以直接使用了, 例如
+//b.js var test = (name) =&amp;gt; { console.log(&#39;hi &#39; + name); } module.exports = { foo: test, bar: &#39;bar&#39; }; exports.foo = name =&amp;gt; { console.log(&#39;hi &#39; + name + &#39; by exports&#39;); }; exports.foo(&#39;hello&#39;);  //a.js const test = require(&#39;.</description>
+    </item>
+    
+    <item>
+      <title>复习</title>
+      <link>https://daily.whidy.net/posts/2018-02-28-javascript/</link>
+      <pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-28-javascript/</guid>
+      <description>2018年2月28日 晴 一般
+ 面试题小试  前天晚上发烧, 不舒服, 然后迷迷糊糊上了一天班. 昨天有个群友面试, 主要是ES5, 关于变量提升, 原型继承, 还有两个关于算法的, 一个排序, 一个数组去重, 于是做了一下, 顺便也看了其他的面试题.
+ 题一: 输出6个5;
+题二: chrome下, 依次输出2 4 1 2 3 3, node环境下第3个报错.
+题三: 我思路很清楚, 貌似代码写起来不是很利索, 写完了最常见的, 想起还有个方案, 不过还是第一个次数少一点. (为了示例搞了两个数组)
+var arr1 = [3, 1, 2, 5, 4, 2]; var arr2 = [3, 1, 2, 5, 4, 2]; var arrLen = arr1.length; var counter = 0; var mySort = { way1: function(arr) { counter = 0; var i = (j = 0), temp; while (i &amp;lt; arrLen) { j = i + 1; while (j &amp;lt; arrLen) { counter++; if (arr[i] - arr[j] &amp;gt; 0) { temp = arr[i]; arr[i] = arr[j]; arr[j] = temp; } j++; } i++; } }, way2: function(arr) { counter = 0; var i = (j = 0), temp; while (i &amp;lt; arrLen) { j = 0; while (j &amp;lt; arrLen - 1) { if (arr[j] - arr[j + 1] &amp;gt; 0) { temp = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = temp; } j++; counter++; } i++; } } }; mySort.</description>
+    </item>
+    
+    <item>
+      <title>PostCSS不支持部分SASS研究</title>
+      <link>https://daily.whidy.net/posts/2018-02-24-cssnano/</link>
+      <pubDate>Sat, 24 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-24-cssnano/</guid>
+      <description>2018年2月24日 阴 较差
+ PostCSS不支持部分SASS研究 继续昨天#{$c}如何在PostCSS下得到支持 原环境下, precss插件直接编译报错, 此时&amp;quot;precss&amp;quot;: &amp;quot;^2.0.0&amp;quot;版本较低, 发现官方最新为3.1.0, 更新了, 并不会报错了, 但是编译结果是错误的. 我们回顾一下代码:
+postcss.config.js
+module.exports = { parser: &#39;postcss-scss&#39;, plugins: [ require(&#39;precss&#39;) ] };  css
+.component { $c: &amp;amp;; padding: 2vw; &amp;amp;__card { background-color: #fff; &amp;amp;:hover #{$c}__name { color: #bada55; } } &amp;amp;__name { color: #000; } &amp;amp;__button { background-color: blue; color: #fff; } }  期望结果, 可以通过这个在线编译http://sass.js.org/测试:
+/* 此段为期望的正确结果 */ .component { padding: 2vw; } .</description>
+    </item>
+    
+    <item>
+      <title>Wang Year of the Dog</title>
+      <link>https://daily.whidy.net/posts/2018-02-23-cssnano/</link>
+      <pubDate>Fri, 23 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-23-cssnano/</guid>
+      <description>2018年2月23日 阴 还行
+ 狗年旺旺 开工大吉, 给各位朋友拜年. 新年技术步步高升, 事业蒸蒸日上. (说得好像有人看似的😂)
+ 一早, 领了几个红包后, 带着深深的睡意, 坚持着决定把之前写的那些技术日志粗略复习一遍. 然而, 瞌睡虫挣扎中的我&amp;hellip;
+ 01-16 提到的#{$c}在PostCSS下无法编译 然后, 我开始测试postcss-study的DEMO中, 为什么这个SASS标准语法在此无法被支持, 如果precss不支持, 那还需要额外的什么插件呢, 测试的同时, 我又期望cssnano插件不要压缩css代码, 即不希望postcss-normalize-whitespace被执行, 尝试用Which Optimization Removes Spaces between Selectors and Brackets?写法, 多次测试都没有用. 那么目前我们需要解决的问题就有两个了.
+#{$c}如何在PostCSS下得到支持 看了好多插件测试, 没整出来&amp;hellip;明天继续.
+如何关闭或配置cssnano的某些插件 这个问题对我目前的水平来说是一个巨大的挑战, 我本以为官方的Optimisations这里面的所有插件都可以像官方示例的这段代码来改:
+module.exports = { plugins: [ require(&#39;cssnano&#39;)({ preset: [ &#39;default&#39;, { discardComments: { removeAll: true } } ] }) ] };   如上代码, 我在插件列表中找到postcss-discard-comments, 我以为只需要删掉前缀postcss-, 并把后面部分改成驼峰写法, 然后配置成true或false, 就可以达到禁用某些插件的目的.</description>
+    </item>
+    
+    <item>
+      <title>Untitled</title>
+      <link>https://daily.whidy.net/posts/2018-02-12-untitled/</link>
+      <pubDate>Mon, 12 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-12-untitled/</guid>
+      <description>2018年2月12日 晴 一般
+ 无题 前几天电脑重装WIN10, 由于硬件过旧, 引导兼容性不好, 搞了很久才装好, 然后9号晚上硬盘暴毙, 数据丢失, 折腾几日无效.
+另外最近忙着帮朋友改点琐碎的毫无技术含量的令人厌恶的页面. 也就耽搁了学习.
+马上过年了, 此处更新暂时告一段落, 提前给大家拜年~ 狗年吉祥
+福利</description>
+    </item>
+    
+    <item>
+      <title>postcss插件cssnano</title>
+      <link>https://daily.whidy.net/posts/2018-02-09-postcss-cssnano/</link>
+      <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-09-postcss-cssnano/</guid>
+      <description>  2018年2月9日 阴 一般
+ postcss插件cssnano 早上看到SegmentFault上有个人请教一个关于插件编译错误的回复https://segmentfault.com/a/1190000010947054, 引起了我的好奇, 我便看了下.
+关于postcss-neat插件使用报错的问题. 我自己测试了一下, 是跟其他的插件有冲突. 后来又发现他发了个提问, 我也顺手回答了postcss-salad 在用栅格 布局的时候报错？
+不过由这个引发的我的一些思考:
+ PostCSS插件使用过程中, 如何避免此类问题, 因为对css文件处理顺序产生的冲突编译报错. 在使用cssnano和postcss-salad该类插件包的时候, 如何配置他们仅使用某些插件或者禁用其中的插件.(我今天花了点时间去查文档没有查到, 抽空进一步研究一下!)  </description>
+    </item>
+    
+    <item>
+      <title>call和apply</title>
+      <link>https://daily.whidy.net/posts/2018-02-08-object-call-apply/</link>
+      <pubDate>Thu, 08 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-08-object-call-apply/</guid>
+      <description>2018年2月8日 晴 一般
+ 函数原型和继承学习总结  昨晚回去又看了一下JavaScript权威指南第六章, 其中提到, 1, &amp;quot;test&amp;quot;, true, 这类不是对象, 或者也可以当作临时对象, 书中举例var s = &amp;quot;test&amp;quot;, 此时可以给s一个属性, 比如s.a = 1, 但是你访问不到该属性s.a是undefined. 因为这三种是原始类型什么的- -.
+另外还有个包装对象, 好像目前看不出来有啥用. 先不看了吧- -
+今天接着看昨天没看完的内容和补充昨天的内容.
+ 昨日内容补充 Object.prototype.constructor  早上读昨天没看完的文章Basic Inheritance with JavaScript Constructors
+ 一般的通过new构造函数实现继承就不说了. 这里用call来实现(用面向对象表达)所谓的&amp;rdquo;一个通过SuperHero类创建的marvel实例, 继承SuperHuman的方法&amp;rdquo;的过程. 下面是合并后的代码:
+function SuperHuman(name, superPower) { this.name = name; this.superPower = superPower; } SuperHuman.prototype.usePower = function() { console.log(this.superPower + &#39;!&#39;); }; var banshee = new SuperHuman(&#39;Silver Banshee&#39;, &#39;sonic wail&#39;); function SuperHero(name, superPower) { // Reuse SuperHuman initialization SuperHuman.</description>
+    </item>
+    
+    <item>
+      <title>函数原型和继承学习总结</title>
+      <link>https://daily.whidy.net/posts/2018-02-07-prototype-constructor/</link>
+      <pubDate>Wed, 07 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-07-prototype-constructor/</guid>
+      <description>2018年2月7日 晴 一般
+ 函数原型和继承学习总结 Object.prototype JS一切皆对象, 对象都具有内置属性[[prototype]](也可用__proto__表示). 每个函数创建后拥有名为prototype的属性, 它又有一个constructor, 有个例外: 通过Function.prototype.bind方法构造出来的函数没有prototype属性。
+偷了一张图doris的回答:
+参阅: * 知乎: js中__proto__和prototype的区别和关系？ * MDN: Object.prototype
+Object.prototype.constructor 返回创建实例对象的Object构造函数的引用。 返回值为只读的原始类型.
+这里有个关于改变对象的constructor例子, 比较特别的是, 数字, 布尔, 字符串不被改变.
+ 只有 true, 1 和 &amp;ldquo;test&amp;rdquo; 的不受影响，因为创建他们的是只读的原生构造函数（native constructors）。
+ function Type() { }; Type // ƒ Type() { } var a = []; a.constructor // ƒ Array() { [native code] } a.constructor = Type; a.constructor // ƒ Type() { } &amp;quot;被改变&amp;quot; var b = 666; b.</description>
+    </item>
+    
+    <item>
+      <title>ECMAScript6入门</title>
+      <link>https://daily.whidy.net/posts/2018-02-06-es6-function/</link>
+      <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-06-es6-function/</guid>
+      <description>2018年2月6日 晴 一般
+ ECMAScript6入门 今天肚子不舒服状态不佳, 粗略的把第6.数值的扩展看完了. 感觉就是Math相关方法太多了, 我肯定记不住了.大概留点印象吧.
+函数的扩展 然后接着看7.函数的扩展
+参数默认值的位置  只有函数的尾参数可以省略 javascript function f(x, y = 5, z) { return [x, y, z]; } f() // [undefined, 5, undefined] f(1) // [1, 5, undefined] f(1, ,2) // 报错 f(1, undefined, 2) // [1, 5, 2]  如果传入undefined，将触发该参数等于默认值，null则没有这个效果。 函数也是有length属性的, 但是有个特点, 它依次计算至有参数默认值为止, 加入第一个就有参数, 那长度以然是0. javascript (function (a) {}).length // 1 (function (a = 5) {}).length // 0 (function (a, b, c = 5) {}).</description>
+    </item>
+    
+    <item>
+      <title>replace和exec函数</title>
+      <link>https://daily.whidy.net/posts/2018-02-05-replace-exec/</link>
+      <pubDate>Mon, 05 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-05-replace-exec/</guid>
+      <description>2018年2月5日 晴 一般
+ replace和exec函数  不好意思我还在看正则部分, 才发现replace函数一点也不简单.
+ 语法 str.replace(regexp|substr, newSubStr|function)  使用字符串作为参数  变量名 | 代表的值 $$ | 插入一个 &amp;ldquo;$&amp;ldquo;。 $&amp;amp; | 插入匹配的子串。 $` | 插入当前匹配的子串左边的内容。 $&#39; | 插入当前匹配的子串右边的内容。 $n | 假如第一个参数是 RegExp对象，并且 n 是个小于100的非负整数，那么插入第 n 个括号匹配的字符串。  这个表格除了$n之前用过其他的全部没用过. 也一下没看懂, 写了几段demo, 算是明白了- -, 不过应用场景还不太了解.
+let str = &#39;123abcXYZ&#39;; console.log(str.replace(/ab/, &#39;-$$-&#39;)); //123-$-cXYZ console.log(str.replace(/ab/, &#39;-$&amp;amp;-&#39;)); //123-ab-cXYZ console.log(str.replace(/ab/, &#39;-$`-&#39;)); //123-123-cXYZ console.log(str.replace(/ab/, &#39;-$\&#39;-&#39;)); //123-cXYZ-cXYZ (注意单引号. 转义) console.log(str.replace(/a(b)/, &#39;-$1-&#39;)); //123-b-cXYZ  这样在对着上面的解读, 算是明白一点了- -.</description>
+    </item>
+    
+    <item>
+      <title>PostCSS中让CSS文件支持SCSS语法/postcss-cssnext和precss的区别和选择</title>
+      <link>https://daily.whidy.net/posts/2018-02-02-postcss/</link>
+      <pubDate>Fri, 02 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-02-postcss/</guid>
+      <description>2018年2月2日 晴 一般
+ PostCSS相关研究  昨天下班的时候看到一篇PostCSS — beyond the Autoprefixer跟PostCSS的文章, 提取了我的兴趣, 没来得及看, 粗读了一下, 让我想起之前有个疑惑的问题, PostCSS的众多插件, 很多功能有相似之处, 到底要怎么应用在项目中呢?
+另外, 昨天下班后在SegmentFault上面看到一个提问: vscode使用postcss，如何才能不对css的嵌套等语法报错, 正巧以前也遇到过思考过这个问题. 今天顺便就再次折腾了一下~
+ 项目中使用PostCSS且让CSS文件支持SCSS语法的方案 这个问题我早上试了下, 比较容易, 所以先做一点总结.
+思考 - 如何让CSS文件真的像SCSS一样呢  最早相对系统的学习PostCSS是接近半年前了, 就不太明白PostCSS官方的插件推荐Syntaxes列表里postcss-scss和postcss-sass这些做什么的, 不是有csspre之类的插件可以直接处理吗, 如今假设理解没错的话, 这些插件就是让你的css支持它的语法, 如果有人还不是很清楚SCSS和Sass的区别可以阅读Intro to SCSS for Sass Users
+ 我们通过安装插件postcss-scss使css支持SCSS语法, 当然这个插件能力有限, 官方说明如下:
+ This module does not compile SCSS. It simply parses mixins as custom at-rules &amp;amp; variables as properties, so that PostCSS plugins can then transform SCSS source code alongside CSS.</description>
+    </item>
+    
+    <item>
+      <title>复习正则表达式</title>
+      <link>https://daily.whidy.net/posts/2018-02-01-regexp/</link>
+      <pubDate>Thu, 01 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-01-regexp/</guid>
+      <description>2018年2月1日 晴 无聊
+ 复习正则表达式  昨天感觉不在状态, 边看正则边打酱油, 所以没有什么好写的, 今天总结一下.
+正好ES6也有正则方面的内容, 看看有什么新特性, 顺便又把精通正则表达式拿出来粗看了前面几章节, 于是给自己出了几道题.
+ 题一: 找出符合规则的时间 匹配符合标准格式的时间. 这是内容部分:
+now is 09:4 am test now isx9:4 am test now isx2:54 am test now isA09:04 amwtest now is_12:30 pm adsadadasda now is 21:59 amdsadasdwq now is 22:75 am_dsad21 now is 41:60 pm dsadsad now is 26:23 am dwadwq now is 2a:23 am dwadwq  期望结果(虽然24小时制后面存在[ap]m感觉还是不太合理.)
+09:4 am 9:4 am 2:54 am 09:04 am 12:30 pm 21:59 am  看起来应该不是很复杂.</description>
+    </item>
+    
+    <item>
+      <title>ECMAScript6入门/JS事件</title>
+      <link>https://daily.whidy.net/posts/2018-01-30-es6-javascript-event/</link>
+      <pubDate>Tue, 30 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-30-es6-javascript-event/</guid>
+      <description>2018年1月30日 小雨 无聊
+ ECMAScript6入门 / JS事件 模板字符串(Template literals)中的标签模板  模板字符串非常棒的功能, 减少了HTML拼接的繁琐, 其中标签模板, 这个东西初看起来很奇怪, 多结合实例会好理解一些.
+以下结合MDN和ECMAScript6入门做个笔记
+标签函数的第一个参数包含一个字符串值的数组。其余的参数与表达式相关。
+ 来看看这个例子:
+let a = 5; let b = 10; tag`Hello ${a + b} world ${a * b}`; // 等同于 tag([&#39;Hello &#39;, &#39; world &#39;, &#39;&#39;], 15, 50);  个人理解: 简单的说, `Hello ${a + b} world ${a * b}` 会被表达式(例如: ${a + b})分割一个包含多个字符串的数组(即[&#39;Hello &#39;, &#39; world &#39;, &#39;&#39;]), 需要注意的是${a * b}后面还有个&#39;&#39;(其实似乎也可以认为有n个表达式, 就有n+1个字符串长度的数组), 而表达式部分会按顺序作为参数传入自定义的tag方法.</description>
+    </item>
+    
+    <item>
+      <title>ECMAScript6入门/函数</title>
+      <link>https://daily.whidy.net/posts/2018-01-29-es6-function/</link>
+      <pubDate>Mon, 29 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-29-es6-function/</guid>
+      <description>2018年1月29日 阴有小雨 一般
+ ECMAScript6入门 / 函数 ECMAScript6入门 我再次阅读字符串的扩展这部分, 老实说, 这一节关于charCodeAt, charAt, codePointAt, fromCodePoint, at, normalize这些东西感到枯燥的很, 我还不能理解这些内容在实际应用上的广泛性.
+函数(Function)  关于函数得知识点, 我才发现我欠缺的多得多. 以下是我对函数了解较少或者需要注意的几个点得总结.
+ 作用域和函数堆栈 递归 例如，思考一下如下的函数定义：
+var foo = function bar() { // statements go here };  在这个函数体内，以下的语句是等价的：
+ bar() arguments.callee() foo()  获取树结构中所有的节点时，使用递归实现要容易得多：
+function walkTree(node) { if (node == null) // return; // do something with node for (var i = 0; i &amp;lt; node.childNodes.length; i++) { walkTree(node.</description>
+    </item>
+    
+    <item>
+      <title>styledcomponents/todolist/toreadlist</title>
+      <link>https://daily.whidy.net/posts/2018-01-28-styledcomponents/</link>
+      <pubDate>Sun, 28 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-28-styledcomponents/</guid>
+      <description>2018年1月28日 阴 忧伤
+ styled-components了解 / 创建To Read List和To Do List 周末两天并没有沉下心来搞点技术, 倒是玩游戏玩到头昏= =,
+Styled-components了解  前阵子奕东说, styled-components很好用, 然后今天正好看到@Real_CSS_Tricks提到3.0发布, 然后我就稍微看了下, 似乎主要结合react的开发, 将CSS样式和一点ES6来开发界面. 由于还不会用react, 先star上, 或许不久就会用上~
+ 创建To Read List和To Do List 随便看了一些东西, 想到创建这个To Read List, 每月为一期.
+同样的, 也创建了一个To Do List. 详情见文档.</description>
+    </item>
+    
+    <item>
+      <title>ECMAScript6入门/PWA了解</title>
+      <link>https://daily.whidy.net/posts/2018-01-26-es6-pwa/</link>
+      <pubDate>Fri, 26 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-26-es6-pwa/</guid>
+      <description>2018年1月26日 阴 一般
+ ECMAScript6入门 / PWA了解 ECMAScript 6 入门  复习前几天学习的基础, 并继续学习(话说早就说再看函数了, 结果又绕回前面几章节了😂)
+ 变量提升 这个不是第一次说了, 但是之前看的没那么仔细, 今天小结几个容易忘记和忽略的地方.
+函数体内引入外部变量时, 即便函数体内重复声明外部变量的代码看起来没有执行, 但依旧会被提升. 如下示例, 容易以为false内的代码块不执行, 则输出日期的错误.
+var tmp = new Date(); function f() { console.log(tmp); if (false) { var tmp = &#39;hello world&#39;; } } f(); // undefined  另外一个类似的:
+var is_android = true; if (is_android) { function foo() { console.log(&#39;I am Android&#39;); } } else { function foo() { console.</description>
+    </item>
+    
+    <item>
+      <title>安装Gatsby和Strapi过程中的各种问题</title>
+      <link>https://daily.whidy.net/posts/2018-01-25-gatsby-strapi-mongodb/</link>
+      <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-25-gatsby-strapi-mongodb/</guid>
+      <description>2018年1月24日 阴 一般
+ 安装Gatsby和Strapi VPS上安装Gatsby和Strapi中遇到的各种问题解决方案和相关记录  接着昨天的, 继续解决昨天没有处理好的问题, 下班的时候问了个开发同事, 我说为啥连接总是超时, 但是有时候好像又能连上, 他说查一下具体的日志会比较好, 等下就试试.
+ 解决mongo创建服务器的WARNING提示  大多数情况下我是不愿意理睬WARNING信息的, 只要不是ERROR就好, 但是这次我有点不爽, 折腾了一会发现有的很难处理, 我错了, 我想我还是不死磕了吧😱
+ soft rlimits too low WARNING: soft rlimits too low. rlimits set to 1024 processes, 64000 files. Number of processes should be at least 32000 : 0.5 times number of files.  参考:
+ MongDB 启动警告 WARNING: soft rlimits too low How to set ulimits for mongod?</description>
+    </item>
+    
+    <item>
+      <title>安装Gatsby和Strapi过程中的各种问题</title>
+      <link>https://daily.whidy.net/posts/2018-01-24-gatsby-strapi-mongodb/</link>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-24-gatsby-strapi-mongodb/</guid>
+      <description>2018年1月24日 阴 一般
+ 安装Gatsby和Strapi VPS上安装Gatsby和Strapi中遇到的各种问题解决方案和相关记录  参考Building a static blog using Gatsby and Strapi
+ 安装Gatsby  事情总是不是那么顺利.
+ 根据Gatsby文档Get started, 执行到如下命令时:
+# gatsby new gatsby-site  报错, 需要git. 然而我的服务器没装, 那就装一个吧. 参考Download for Linux and Unix执行:
+# yum install git  再次执行后依旧报错(当前git版本1.7.1)
+error Command failed: git clone git://github.com/gatsbyjs/gatsby-starter-default.git gatsby-site --single-branch  推测是版本问题. 只好手动安装了. 于是又找到这个安装 Git
+# yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel # wget https://www.kernel.org/pub/software/scm/git/git-2.16.1.tar.gz # tar -zxf git-2.</description>
+    </item>
+    
+    <item>
+      <title>null和undefined复习/ES6作用域和babel的探索</title>
+      <link>https://daily.whidy.net/posts/2018-01-23-javascript-es6-babel/</link>
+      <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-23-javascript-es6-babel/</guid>
+      <description>2018年1月23日 雾霾 一般
+ null和undefined复习 / ES6作用域和babel的探索 再谈null和undefined 什么是null  null具有两大特点
+  null是空的或者不存在的值 null需要被赋值  例如下面给a赋值为null
+let a = null; console.log(a); // null  什么是undefined  undefined一般表示一个已声明的变量, 但是没有定义类型
+ 仅声明一个变量b
+let b; console.log(b); // undefined  或者直接给c赋值为undefined
+let c = undefined; console.log(c); // undefined  或者读取一个不存在某个属性的对象
+var d = {}; console.log(d.fake); // undefined  null和undefined相似之处 首先都知道JavaScript中有6种原始数据类型, null和undefined在其中:
+ Boolean Null Undefined Number String Symbol  正好也有6个falsy值, null和undefined也在里面:</description>
+    </item>
+    
+    <item>
+      <title>内网IP调整后引发谷歌浏览器历史记录的修改实现</title>
+      <link>https://daily.whidy.net/posts/2018-01-22-chrome-history-postcss/</link>
+      <pubDate>Mon, 22 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-22-chrome-history-postcss/</guid>
+      <description>2018年1月22日 晴 一般
+ ShadowRoot的认识 / PostCSS移动端ViewPort脚手架 内网IP调整引发的Chrome历史记录修改ShadowRoot的学习 由于IP经常变动, 导致本地项目的那些存在地址栏的历史记录就都失效了, 突然脑洞大开, 有没有办法修改本地历史记录的方法? &amp;gt; 想法是: 假设我原IP是192.168.1.51, 新IP是192.168.1.63, 我历史记录有http://192.168.1.51:8080/test.html, 我通过某种办法强行修改Chrome历史记录将192.168.1.51替换成192.168.1.63, 这样, 下次在地址栏输入test, 他就能自动填充http://192.168.1.63:8080/test.html了.
+现实是残酷的, Chrome软件的历史记录貌似是二进制文件, 也可能是出于安全考虑. 为了快速解决问题, 我就不打算去研究如何修改二进制文件了.
+于是改了host, 映射了一个Ip到本地域名, 为了方便内网其他小白用户快速修改host, 我就搞了个bat文件给他们, 执行后就追加一条来修改host, 参考批处理文件中ECHO命令显示换行.
+echo. &amp;gt;&amp;gt; %WINDIR%\system32\drivers\etc\hosts &amp;amp; echo 192.168.1.63 bs.ybj.com &amp;gt;&amp;gt; %WINDIR%\system32\drivers\etc\hosts  当然这样以后如果再换IP, 就要手动就改一下host文件了~ 如果偷懒改这个bat文件, 有追加一条新的同域名指向不同IP, 可能不会出问题, 也可能会导致每次访问页面卡20s左右出来. 当然这里我们不考虑文件修改权限的系统相关的问题~
+引发的其他思考, 关于修改本地历史记录的想法诞生后, 我顺便在历史记录chrome://history/中搜索了一下192.168.1.51, 发现有两百多条, 我打算将他们导出成文本替换(其实没什么意义), 然而我发现, 在Console面板里, 这个历史记录居然无法通过普通的JS方法将所有的地址遍历输出, 通过观察Elements面板的DOM结构, 发现原因在于这个#shadow-root (open)这个节点内的DOM元素不能被直接获取到. 从来没有研究过ShadowRoot的我懵逼了, MDN上查到, 它与主DOM树分开渲染, 那么此时我是否有办法获取到DOM子树的根节点内的元素呢. 当然可以, 参考How to access elements under `shadow-root` at &amp;lsquo;chrome://downloads&amp;rsquo; using jquery and selenium?</description>
+    </item>
+    
+    <item>
+      <title>ES6学习/Babel配置学习疑问/Markdown代码块高亮支持语法列表</title>
+      <link>https://daily.whidy.net/posts/2018-01-19-es6-babel-markdown/</link>
+      <pubDate>Fri, 19 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-19-es6-babel-markdown/</guid>
+      <description>2018年1月19日 雾霾 一般
+ ES6学习 / Babel配置学习疑问 / Markdown代码块高亮支持语法列表  想起来有个离线API手册查询软件, 叫Zeal, 装上了. 然后发现实际上有写文档的体验并不好- -. 查一下jQuery, Sass之类还是可以的. Stackoverflow上面的问题how to make spaces or url inside a code span with markdown syntax有了两个消息通知, 一个是居然有个人改了我的问题, 帮我修正语法错误, Stackoverflow上居然还有这种操作, 看了下改我问题的人的介绍, 看来是个完美主义者. 另外他回复提到了零宽度空格, 不过对我这个问题似乎没啥帮助. 发现另一个专门用来格式化JavaScript/TypeScript/CSS的插件Prettier - Code formatter, 至少在js格式化方面要比之前我用的Beautify好一些(Beautify插件提供的设置参数我尚未找到可能优化的地方). 例如这段代码, 原始代码如下 javascript function foo({x,y=5}) { console.log(x,y); }  Beautify格式化后: javascript function foo2({ x, y = 5 }) { console.log(x, y); }  Prettier格式化后: javascript function foo2({ x, y = 5 }) { console.</description>
+    </item>
+    
+    <item>
+      <title>提高网站可访问性的十个优化/Markdown语法研究/SSH</title>
+      <link>https://daily.whidy.net/posts/2018-01-18-website-tweaks-markdown-ssh/</link>
+      <pubDate>Thu, 18 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-18-website-tweaks-markdown-ssh/</guid>
+      <description>2018年1月18日 雾霾 一般
+ 高网站可访问性的十个优化 / Markdown语法研究 / SSH / ES6  阅读对网站的可访问性带来巨大影响的几个小优化, 原标题Small Tweaks That Can Make a Huge Impact on Your Website’s Accessibility
+ 文中说明了语义化的重要性, 也推荐了一些HTML5的学习网站 页面只用一个main标签, 并给他一个ID 请尽量使用原生定义的功能标签, 比如按钮就用button, 虽然要重置样式, 比直接使用div或者a看起来麻烦, 但是它可以有更多的原生功能, 例如自带键盘监听事件. 例如你或许可以通过tab键, 焦点在这个按钮上, 并敲打enter的时候, 就能触发事件了, 这个是其他元素做不到的哦~ 当然我个人觉得这个仁者见仁智者见智了 页面中强烈推荐只有一个h1标签, 其他的h*标签请合理的使用对应的级别 这条就跟设计有关了, 请采用合理的色彩对比度 用一些特殊的标签辅助一些会使用特殊功能(屏幕阅读器aria-hidden=&amp;ldquo;true&amp;rdquo;, 那么屏幕阅读器就会忽略这个标签, 后面再增加一个几乎不可见却又没有隐藏的.visually-hidden`元素, 并写入提示信息, 屏幕阅读器就会读出这段内容, 然后他们就能听到这个提示语了, 于是两者都很happy了. 不过就目前我的经验和观察来看, 国内很少会有网站注意到网页辅助功能的运用 这点也是跟设计有关, 主要是说谨慎字体选择, 字体大小等排版, 还有需要高亮突出显示的一些关键元素 增加一些键盘事件绑定, 对某些键盘侠来说更加高效快捷, 并且看起来很酷, 另外有个小tips, 关于如何改变使用键盘当前焦距的元素额外样式, 使其看起来更美观醒目, 比如 css .your-element { background: red; } .</description>
+    </item>
+    
+    <item>
+      <title>CSS动画技巧/JS面试题/速查手册/日常学习</title>
+      <link>https://daily.whidy.net/posts/2018-01-17-ftp-css-js/</link>
+      <pubDate>Wed, 17 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-17-ftp-css-js/</guid>
+      <description>2018年1月17日 晴 一般
+ css动画 / JS面试题研究 / 速查手册  完成博客内容Visual Studio Code几款FTP插件使用总结,并发布在SegmentFault文章
+ 自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&amp;rdquo;quick panel&amp;rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) No, 除非修改sftp配置&amp;quot;confirm_xxx&amp;quot;()例如&amp;rdquo;confirm_overwrite_newer&amp;ldquo;为true, 就会静默yes, 继续执行.
+ 阅读Making CSS Animations Feel More Natural,我觉得应该翻译成,如何让CSS动画看起来更生动 该文通过7个示例, 一点点将一个方块上下跳动的动画进行优化, 让它看起来更加生动. 有几个关键点, @keyframes的分解是否到位, 每个步骤通过transform的scale对其形状进行适当的改变animation-timing-function的选择: linear → ease → cubic-bezier(如果你擅长使用贝赛尔曲线). 对比每个改进, 就会发现这些小小的改动作用非常的大了!
+ 阅读Stop Using CSS Selectors for Non-CSS. 文中提到, 不建议使用类名作为事件代理, 不如加一个data-进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&amp;rsquo;js-&amp;lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.
+ 看到StackOverflow上提出的一个面试题Can (a ==1 &amp;amp;&amp;amp; a== 2 &amp;amp;&amp;amp; a==3) ever evaluate to true?</description>
+    </item>
+    
+    <item>
+      <title>博客插件优化及其他学习总结</title>
+      <link>https://daily.whidy.net/posts/2018-01-16-blog-optimize/</link>
+      <pubDate>Tue, 16 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-01-16-blog-optimize/</guid>
+      <description>2018年1月16日 晴 一般
+ 博客插件优化 / VSCODE的FTP插件探索 / 不常见的JS写法 / SASS父级选择器写法研究 Wordpress相关优化更新  WP的评论提示插件的更新优化,(由于之前方案较旧,全部更新)
+Comment Reply Notifier插件被删除替代
+WP SMTP插件被删除替代
+Delete-Revision插件被删除替代
+还有几个N年没有更新的无效插件删除
+ 其他的几个插件使用测试及介绍
+ Better Notifications for WordPress  功能强大,有很多的类型管理的邮件通知设置,我基本上用不到,而且全英文,有一些学习成本,就放弃使用了,我也就不多做介绍了.
+ Comment Reply Email Notification  轻量级的专门用于评论邮件通知,安装启用后,每个评论下面会出现一个小的选择框,表示接受回复通知.可以自己修改插件换成中文.当然这个插件只提供评论回复有效,并不会通知站长~
+ WP Mail SMTP  用来回复其他人在站点的评论,配置邮件服务器的插件
+  Visual Studio Code的ftp插件探索,结论  ftp-sync勉强能用,但是菜单为啥不全,感觉是一个BUG吧.希望后期能够优化. SFTP/FTP sync总是回莫名其妙的卡住,而且相同文件好像也会再次覆盖,不会跳过.文件比较多的时候不建议使用. ftp-kr跟Simple FTP/SFTP一样没啥暖用,还不如就用ftp软件操作 Simple FTP/SFTP没啥暖用,还不如就用ftp软件操作  其他  完成博客内容怎样找到当前页面发布日期的几种方法,并发布在SegmentFault文章
+ 阅读JS things I never knew existed,并参阅MDN进行简单总结
+ 标签语句(标记语句)</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8E%E8%A1%A8%E5%8D%95/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8E%E8%A1%A8%E5%8D%95/</guid>
+      <description>&amp;lt;!-- before --&amp;gt; &amp;lt;form bindsubmit=&amp;quot;login&amp;quot;&amp;gt; &amp;lt;view class=&amp;quot;form-login&amp;quot;&amp;gt; &amp;lt;view class=&amp;quot;form-login-group&amp;quot;&amp;gt; &amp;lt;input id=&amp;quot;loginName&amp;quot; type=&amp;quot;text&amp;quot; placeholder=&amp;quot;用户名/邮箱&amp;quot; name=&amp;quot;name&amp;quot; value=&amp;quot;{{name}}&amp;quot; bindinput=&amp;quot;inputStatus&amp;quot; bindblur=&amp;quot;inputBlur&amp;quot; bindfocus=&amp;quot;inputFocus&amp;quot;&amp;gt;&amp;lt;/input&amp;gt; &amp;lt;icon hidden=&amp;quot;{{showNameIcon == &#39;&#39;}}&amp;quot; type=&amp;quot;clear&amp;quot; size=&amp;quot;16&amp;quot; color=&amp;quot;#ccc&amp;quot; class=&amp;quot;btn-clear-input&amp;quot; bindtap=&amp;quot;clearInput&amp;quot; data-type=&amp;quot;name&amp;quot; /&amp;gt; &amp;lt;/view&amp;gt; &amp;lt;view class=&amp;quot;form-login-group&amp;quot;&amp;gt; &amp;lt;input id=&amp;quot;loginPass&amp;quot; type=&amp;quot;password&amp;quot; placeholder=&amp;quot;密码&amp;quot; name=&amp;quot;pass&amp;quot; value=&amp;quot;{{pass}}&amp;quot; bindinput=&amp;quot;inputStatus&amp;quot; bindblur=&amp;quot;inputBlur&amp;quot; bindfocus=&amp;quot;inputFocus&amp;quot;&amp;gt;&amp;lt;/input&amp;gt; &amp;lt;icon hidden=&amp;quot;{{showPassIcon == &#39;&#39;}}&amp;quot; type=&amp;quot;clear&amp;quot; size=&amp;quot;16&amp;quot; color=&amp;quot;#ccc&amp;quot; class=&amp;quot;btn-clear-input&amp;quot; bindtap=&amp;quot;clearInput&amp;quot; data-type=&amp;quot;pass&amp;quot; /&amp;gt; &amp;lt;/view&amp;gt; &amp;lt;button class=&amp;quot;btn-login&amp;quot; formType=&amp;quot;submit&amp;quot; size=&amp;quot;default&amp;quot;&amp;gt;登录&amp;lt;/button&amp;gt; &amp;lt;view class=&amp;quot;info&amp;quot;&amp;gt;注册账号请暂时到电脑版进行操作&amp;lt;/view&amp;gt; &amp;lt;/view&amp;gt; &amp;lt;/form&amp;gt; &amp;lt;!-- after --&amp;gt; &amp;lt;form bindsubmit=&amp;quot;login&amp;quot;&amp;gt; &amp;lt;view class=&amp;quot;form-login&amp;quot;&amp;gt; &amp;lt;view class=&amp;quot;form-login-group&amp;quot;&amp;gt; &amp;lt;input id=&amp;quot;loginName&amp;quot; class=&amp;quot;&amp;quot; type=&amp;quot;text&amp;quot; placeholder=&amp;quot;用户名/邮箱&amp;quot; placeholder-class=&amp;quot;input-placeholder&amp;quot; name=&amp;quot;name&amp;quot; value=&amp;quot;{{name}}&amp;quot; bindinput=&amp;quot;inputStatus&amp;quot; bindblur=&amp;quot;inputBlur&amp;quot; bindfocus=&amp;quot;inputFocus&amp;quot;&amp;gt;&amp;lt;/input&amp;gt; &amp;lt;icon hidden=&amp;quot;{{currentFocus !</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/elementui%E7%9A%84table%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84renderheader%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/elementui%E7%9A%84table%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84renderheader%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/</guid>
+      <description>ElementUI的Table组件中的renderHeader方法研究 项目使用ElementUI，挺好用的，页面中有些地方的帮助提示通过使用组件Tooltip和el-icon-question来展示，代码如下：
+&amp;lt;div class=&amp;quot;title&amp;quot;&amp;gt;本月累计收益 &amp;lt;el-tooltip class=&amp;quot;item&amp;quot; content=&amp;quot;截止至昨日本月累计收益&amp;quot; placement=&amp;quot;top&amp;quot;&amp;gt; &amp;lt;span class=&amp;quot;el-icon-question&amp;quot;&amp;gt;&amp;lt;/span&amp;gt; &amp;lt;/el-tooltip&amp;gt; &amp;lt;/div&amp;gt;  截图如下：
+另外也可以看看jsfiddle的demo
+全站很多地方都有都需要这样的帮助提示，其中有些需要在表格的表头上添加，似乎有点难度。效果如下：
+因为ElementUI上面的文档对这块自定义表头没有什么参考的文档，是否能够实现心里没底，去仔细翻了文档，发现有个renderHeader的函数可以实现，一直以为Vue还算比较熟悉的我有点点懵，这是个啥？？？
+renderHeader（函数渲染） 在我不太多的Vue项目开发实践中，很少用到，因此并不熟悉，先看看官方解释：
+ Vue 推荐在绝大多数情况下使用 template 来创建你的 HTML。然而在一些场景中，你真的需要 JavaScript 的完全编程的能力，这就是 render 函数，它比 template 更接近编译器。
+ ElementUI中的renderHeader就是对列标题Label区域渲染使用的Function，通过他实现自定义表头label功能！
+万变不离其宗，这个ElementUI的解释一看就像是这段官方示例：
+// 官方示例部分 render: function (createElement) { return createElement(&#39;h1&#39;, this.blogTitle) }  而回头再看看ElementUI的示例：Function(h, { column, $index })。耐心琢磨，结合createElement看看便粗略写出来了一个勉强能用的：
+renderHeader(h, { column, $index }) { return h( &#39;el-tooltip&#39;, { props: { content: (function() { let label = column.label switch (label) { case &#39;访问数&#39;: return &#39;网站页面上独立访问应用的人数（UV）&#39; break case &#39;提交数&#39;: return &#39;网站页面上访客在应用上完成提交的数量&#39; break case &#39;成交数&#39;: return &#39;网站页面上最终成功在应用上完成提交的数量&#39; break } })(), placement: &#39;top&#39; }, domProps: { innerHTML: column.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/ip%E5%8F%98%E5%8A%A8%E5%BC%95%E5%8F%91%E7%9A%84chrome%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95%E4%BF%AE%E6%94%B9%E5%8F%8Ashadowroot%E4%BA%86%E8%A7%A3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/ip%E5%8F%98%E5%8A%A8%E5%BC%95%E5%8F%91%E7%9A%84chrome%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95%E4%BF%AE%E6%94%B9%E5%8F%8Ashadowroot%E4%BA%86%E8%A7%A3/</guid>
+      <description>内网IP调整引发的Chrome历史记录修改及ShadowRoot的学习 由于IP经常变动, 导致本地项目的那些存在地址栏的历史记录就都失效了, 突然脑洞大开, 有没有办法修改本地历史记录的方法? &amp;gt; 想法是: 假设我原IP是192.168.1.51, 新IP是192.168.1.63, 我历史记录有http://192.168.1.51:8080/test.html, 我通过某种办法强行修改Chrome历史记录将192.168.1.51替换成192.168.1.63, 这样, 下次在地址栏输入test, 他就能自动填充http://192.168.1.63:8080/test.html了.
+现实是残酷的, Chrome软件的历史记录貌似是二进制文件, 也可能是出于安全考虑. 为了快速解决问题, 我就不打算去研究如何修改二进制文件了.
+于是改了host, 映射了一个Ip到本地域名, 为了方便内网其他小白用户快速修改host, 我就搞了个bat文件给他们, 执行后就追加一条来修改host, 参考批处理文件中ECHO命令显示换行.
+echo. &amp;gt;&amp;gt; %WINDIR%\system32\drivers\etc\hosts &amp;amp; echo 192.168.1.63 bs.ybj.com &amp;gt;&amp;gt; %WINDIR%\system32\drivers\etc\hosts  当然这样以后如果再换IP, 就要手动就改一下host文件了~ 如果偷懒改这个bat文件, 有追加一条新的同域名指向不同IP, 可能不会出问题, 也可能会导致每次访问页面卡20s左右出来. 当然这里我们不考虑文件修改权限的系统相关的问题~
+其他思考一: ShadowRoot探索 关于修改本地历史记录的想法诞生后, 我顺便在历史记录chrome://history/中搜索了一下192.168.1.51, 发现有两百多条, 我打算将他们导出成文本替换(其实没什么意义), 然而我发现, 在Console面板里, 这个历史记录居然无法通过普通的JS方法将所有的地址遍历输出, 通过观察Elements面板的DOM结构, 发现原因在于这个#shadow-root (open)这个节点内的DOM元素不能被直接获取到. 从来没有研究过ShadowRoot的我懵逼了, MDN上查到, 它与主DOM树分开渲染, 那么此时我是否有办法获取到DOM子树的根节点内的元素呢. 当然可以, 参考How to access elements under `shadow-root` at &amp;lsquo;chrome://downloads&amp;rsquo; using jquery and selenium?</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%B8%80/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%B8%80/</guid>
+      <description>Javascript事件循环入门到“忘记”（一）  本文主要介绍Javascript事件循环在浏览器上的一些特性和应用介绍。
+ Javascript小知识 JavaScript的并发模型基于&amp;rdquo;事件循环&amp;rdquo;(Event Loop)。这个模型与像C或者Java这种其它语言中的模型截然不同。它永不阻塞，处理I/O通常通过事件和回调来执行，所以当一个应用正等待IndexedDB查询返回或者一个XHR请求返回时，它仍然可以处理其它事情，如用户输入。【参：并发模型与事件循环】
+需要了解的几点：  单线程编程语言(Single Threaded)
+只有一个主线程(one thread)，并且只有一个调用栈(Call Stack)，因此同一时间只能执行同一件事情。【参：Philip Roberts: What the heck is the event loop anyway? | JSConf EU (4:15)】
+ 执行上下文(Execution Context)
+Javascript代码执行时，会进入一个执行上下文。它可以理解为当前代码的运行环境（包括三种：全局环境、函数环境、Eval环境）。【参：Javascript核心技术开发解密 Page-11】
+ 纠正一点分享会可能存在的错误，它和作用域(Scope)不同！作用域是针对变量的一个可访问区域，而执行上下文是属于函数的指向的对象。（Scope pertains to the visibility of variables, and context refers to the object to which a function belongs.）【参：Why Should We Care About Scope and Context ?】
+ 栈（stack）
+函数调用形成了一个栈帧。JavaScript中叫做调用栈(Call Stack)；先进后出，后进先出(LIFO)。
+ 堆（heap）
+对象被分配在一个堆中，即用以表示一个大部分非结构化的内存区域。
+ 队列（queue）
+一个JavaScript运行时包含了一个待处理的消息队列。每一个消息都有一个为了处理这个消息相关联的函数。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%BA%8C/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%BA%8C/</guid>
+      <description>Javascript事件循环入门到“忘记”（二）  本文主要介绍Javascript事件循环在Node.js上的一些特性和应用介绍。
+ 回顾上一期内容 上一期主要针对浏览器上的事件循环进行了简单介绍，也展示了几个开发中可能有帮助的调试及错误分析方法。文章在此：Javascript事件循环入门到“忘记”（一）
+我们还是需要反复尝试记住栈、队列、任务、非阻塞等几个概念。请自行思考片刻，我们进入Node.js的事件循环介绍。
+Node.js特点  2009年发布、作者是Ryan Dahl 历史悠久，再不学就淘汰了（对于Deno表示鸭梨很大。。。） 单线程、基于Chrome的V8的Javascript运行环境 具备高并发，高性能的特点 事件驱动（ libuv ）、异步（libuv、非阻塞I/O模型） 底层C++编写的超快解释器、API几乎全部支持异步回调 非常适合服务器编程。。。Blablabla。。。   当然也是有缺点的，要不然作者也不会搞deno了。缺点：不稳定性、容易挂掉、无法充分发会多核CPU性能等等。
+ 示例思考 我们来看两个小Demo，思考一下结果是什么？
+Demo - 1 setTimeout(() =&amp;gt; { console.log(&#39;timer1&#39;) Promise.resolve().then(() =&amp;gt; { console.log(&#39;promise1&#39;) }) }, 0) setTimeout(() =&amp;gt; { console.log(&#39;timer2&#39;) Promise.resolve().then(function() { console.log(&#39;promise2&#39;) }) }, 0)  &amp;hellip;此处表示思考了很久而产生的分割线&amp;hellip;
+那么结果大家都有了吧，看看实际情况：
+ 情况一、在浏览器执行的结果：
+timer1 promise1 timer2 promise2  情况二、在Node.js环境执行的结果：
+timer1 timer2 promise1 promise2   你是不是看到了区别，以为这就完了吗？作为原文中为提到的补充资料，请注意Node.js环境中也有可能存在情况一的结果（极少情况下，概率约15%发生）！
+至于Node.js环境出现两种不同的结果，我暂时还没有比较完美的答复，期待有大佬指点（据说和机器性能有关，也就是Demo - 2展示的情况一样）</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/vscode%E4%B8%8B%E8%AE%A9css%E6%96%87%E4%BB%B6%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81scss%E6%88%96sass%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/vscode%E4%B8%8B%E8%AE%A9css%E6%96%87%E4%BB%B6%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81scss%E6%88%96sass%E6%96%B9%E6%B3%95/</guid>
+      <description>VSCode下让CSS文件完美支持SCSS或SASS语法方法  习惯Webpack + PostCSS后, 通常PostCSS都是直接对CSS文件进行处理, 但是大部分习惯SCSS/SASS/LESS的朋友也许不适应了. 我专门研究了一下, 在Visual Studio Code编辑器下如果配置相关代码和设置达到CSS文件完美编写SCSS的办法, 其他语法类型原理相似, 这里以SCSS为例.
+ 开始配置 Visual Studio Code编辑器设置的配置 首先, 配置编辑器的设置, 按快捷键&amp;rdquo;CTRL + ,&amp;ldquo;打开用户设置, 添加如下配置片段:
+&amp;quot;files.associations&amp;quot;: { &amp;quot;*.css&amp;quot;: &amp;quot;scss&amp;quot; }  我这里做了全局的用户设置, 因为我个人大部分情况下是写SCSS, 当然如果你仅对该项目配置, 也可以将上面这段放进工作区设置(是放在默认花括号内哦, 千万不要弄错了~).
+这样, VSCode编辑器就会把所有CSS文件当成SCSS格式来解析了, 也就不会出现可怕的红色波浪线了.
+PostCSS的配置 接下来, 对PostCSS进行相关配置. 我们这里需要安装最重要的两个PostCSS插件postcss-scss和precss. 执行命令:
+npm i -D postcss-scss precss  安装好后, 修改项目的postcss.config.js配置如下(我另外有用到autoprefixer和cssnano, 当然你可以根据个人情况选择, 重要部分是parser: &amp;lsquo;postcss-scss&amp;rsquo;和require(&amp;lsquo;precss&amp;rsquo;)):
+module.exports = { parser: &#39;postcss-scss&#39;, plugins: [ require(&#39;precss&#39;), require(&#39;autoprefixer&#39;), require(&#39;cssnano&#39;) ] }  这样问题就解决了. 试着编译一下以下测试代码:</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/vscode%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/vscode%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
+      <description>VSCode格式化代码功能失效的bug解决方法  前不久我装上了黑苹果，那么为了快速转移开发环境，我使用了VSCode(Visual Studio Code下面简称VSCode)的插件Settings Sync来同步个人设置和其他常用插件，如果不熟悉Settings Sync的可以参考之前我写的一篇文章《Visual Studio Code 设置同步到github的插件介绍及使用方法(Settings Sync)》来使用。
+ 现象 当然本文并不是介绍同步，而是要说同步后的编码过程中出现的异常。在Mac下安装好VSCode，用Settings Sync同步成功后，接着git clone正在开发的项目到本地，开发过程中，却发现一个非常奇怪的问题：所有的格式化代码的功能都失效了。Mac下使用快捷键“Alt+Shift+F”（我用的windows键盘），却提示，“当前没有安装“xxx”文件的文档格式化程序。”！我的Vue，SCSS代码都无法正常格式化！这个非常令人不爽，难道Mac下的VSCode会有格式化代码功能的缺失？和Windows版本的VSCode功能不一致？我觉得不太可能。于是重启回到Windows 10，重新拉了项目测试，毫无问题。无论是Windows还是Mac，都是最新版的Visual Studio Code。
+分析 无奈之下去google了一下格式化代码的问题，发现很多人都遇到过，有的人说重装VSCode，但是我才新装的，所以排除了，但是重装这个词让我想起一个东西，就是这些格式化代码工具，例如Vetur，Prettier，他们正常运行的时候都是会在编辑器中产生一个服务或者提示，而失效状态下是看不到的。于是我尝试把Vetur插件停用，重新加载再启用，然而还是无效！
+想来想去，插件也安装了，编辑器也是新装的，为何插件没起到作用，突然记起之前Windows下的输出面板中是有Vue Language Server的，而现在却没有，是不是要重新安装插件呢，或者说通过Settings Sync自动化同步插件安装的功能还存在一些其他的问题呢？
+解决方案 带着疑问我尝试着将Vetur和Prettier卸载，然后再重新安装，启动VSCode，打开项目，切换到一个Vue页面，终于看到了Vetur的服务，比如下面这张图中表现了正常的格式化功能的效果（截图为我解决问题后的图片）
+图中看到这里有个Vue Language Server，才是真正表示Vetur插件正常，右下角还有个Prettier，说明一切正常，再试了一下使用快捷键“Alt+Shift+F”，也终于可以正常格式化代码了！问题完美解决。
+结论 有时候自动化工具安装的插件可能会存在一些问题，虽然不排除我这个问题发生的偶然性。
+另一方面，重装软件有时候能解决问题，不过需要针对问题分析，从最小的改变逐渐排除故障。如果我把VSCode重装，再用Settings Sync同步一次，也许的确可以解决问题，但是也有可能依旧存在问题，而从插件重装下手才是比较省时省力的。
+那么，如果开发中依赖插件的部分功能失效了，你也可以尝试重装插件，或许问题就能快速解决了～</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/</guid>
+      <description>今天要说的是一个困扰我好几个月的问题，Visual Studio Code（下文简称VSCode）在使用中突然增高，风扇开始狂转，温度骤增，影响心情的故障原因。
+其实，无论是Windows还是OSX，很多人可能或多或少都遇到过VSCode突然就不好使了，我就遇到过好多次疑难杂症，折腾很久才弄出来，比如下面三点：
+ tab键突然就不好使了，卡顿很久或者压根无法缩进，并且sidebar的git那块功能彻底失效！ 写Markdown文档的时候，tab键的缩进只能向右，不能收回。。。这真是奇葩。 使用中莫名其妙的风扇就响了起来，看看进程和温度，CPU满载执行，完全不知道怎么回事，这也是本次要专门提到的问题。  系统使用环境及VSCode状态检测 我使用的是黑苹果，当然这个与CPU占用率增高并无关系，通过code --status查看一些基本信息如下：
+P750TM:~ whidy$ code --status Version: Code 1.30.2 (61122f88f0bf01e2ac16bdb9e1bc4571755f5bd8, 2019-01-07T22:48:31.260Z) OS Version: Darwin x64 17.7.0 CPUs: Intel(R) Core(TM) i5-8600K CPU @ 3.60GHz (6 x 3600) Memory (System): 16.00GB (5.22GB free) Load (avg): 2, 2, 2 VM: 0% Screen Reader: no Process Argv: --inspect-extensions=9993 GPU Status: 2d_canvas: enabled checker_imaging: disabled_off flash_3d: enabled flash_stage3d: enabled flash_stage3d_baseline: enabled gpu_compositing: enabled multiple_raster_threads: enabled_on native_gpu_memory_buffers: enabled rasterization: unavailable_software video_decode: enabled video_encode: enabled webgl: enabled webgl2: enabled CPU %	Mem MB	PID	Process 0	98	1775	code main 0	49	1776	gpu-process 0	229	1777	window (settings.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/visual-studio-code%E5%87%A0%E6%AC%BEftp%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/visual-studio-code%E5%87%A0%E6%AC%BEftp%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/</guid>
+      <description>Visual Studio Code几款FTP插件使用总结 平时要维护类似wordpress这样的网站，然后虚拟主机又不支持远程仓的版本管理。总而言之，只能通过下载到本地修改后再通过FTP上传的情况，每次修改后都要开启FTP进行代码提交，相当繁琐。因此就诞生了一些编辑器的FTP插件，其实以前用sublime text的时候还有款插件叫SFTP不错（如果配置好了连接不上可以参考SFTP连接超时），可惜VSCODE上面没有，截至目前（2018年1月17日）可以用的FTP插件如下图：
+为了找出最合适的插件，我全部都一个个试过了(关于如何使用参考插件说明， 十分简单就不多说了)。然后有以下感想：
+ ftp-sync是测试中的唯一一个感觉还可以的，但是菜单为啥不全，感觉是一个BUG吧。希望后期能够优化。  SFTP/FTP sync总是回莫名其妙的卡住(左下角提示transfer就不动了)，而且相同文件好像也会再次覆盖，不会跳过.文件比较多的时候出问题，不建议使用。 ftp-kr跟Simple FTP/SFTP一样没啥暖用，还不如就用ftp软件操作 Simple FTP/SFTP没啥暖用，还不如就用ftp软件操作  写到最后感觉很惨，没有一个真正好用的，而且连ftp传输状态信息也没有。有时候比较惨的误操作了需要中断传输，貌似只能强制关闭编辑器&amp;hellip;
+然后我还是用sublime text 的SFTP来维护需要涉及到FTP文件同步的项目了。当然如果你不怎么用sublime text的话，个人建议使用ftp-sync，毕竟目前来看，它在VSCode上表现还是不错的，有潜力，也期待作者进一步优化~</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/vue%E4%B8%8B%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8%E6%97%A0%E9%99%90%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AEdemo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/vue%E4%B8%8B%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8%E6%97%A0%E9%99%90%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AEdemo/</guid>
+      <description>Vue下滚动到页面底部无限加载数据Demo  看到一篇Implementing an Infinite Scroll with Vue.js, 觉得挺实用的就看了下, 顺便简单翻译了一下给需要的人参考.
+从这个项目中可以加深对Vue的生命周期的理解, 何时开始axios请求, 如何结合Vue使用原生js来写scroll事件等等, 我这里主要是对原文的重点提取和补充
+ 本文技术要点  Vue生命周期 axios简单用法 moment.js格式化日期 图片懒加载 结合原生js来写scroll事件 请求节流  创建项目 首先创建一个简单的vue项目
+# vue init webpack-simple infinite-scroll-vuejs  然后安装项目所需要用的一些插件
+# npm install axios moment  初始化用户数据 项目搭建完后, 跑起来看看
+# npm run dev  打开http://localhost:8080无误后, 我们开始修改代码, 先看看获取用户数据这块,
+&amp;lt;script&amp;gt; import axios from &#39;axios&#39; import moment from &#39;moment&#39; export default { name: &#39;app&#39;, // 创建一个存放用户数据的数组 data() { return { persons: [] } }, methods: { // axios请求接口获取数据 getInitialUsers() { for (var i = 0; i &amp;lt; 5; i++) { axios.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/vue%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/vue%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</guid>
+      <description>vscode下开发
+必备插件 https://vuejs.github.io/vetur/
+比看文档 https://cn.vuejs.org/v2/guide/
+vue-cli https://github.com/vuejs/vue-cli
+axios https://github.com/axios/axios
+vue-router https://router.vuejs.org/zh-cn/
+Vuex https://vuex.vuejs.org/zh-cn/
+Vue.js 服务器端渲染指南 https://ssr.vuejs.org/zh/
+插件
+v-charts https://v-charts.js.org/#/
+有必要学习了解的UI
+https://github.com/museui/muse-ui
+https://www.youzanyun.com/zanui</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/w350etqk590s%E9%BB%91%E8%8B%B9%E6%9E%9C10.13/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/w350etqk590s%E9%BB%91%E8%8B%B9%E6%9E%9C10.13/</guid>
+      <description>Clevo W350ETQ(神舟K590S)安装黑苹果10.13总结  作为一名爱瞎折腾的前端来说, 学会使用MacOSX, 或许是有必要的, 于是想着去买一台MBP, 可是无奈电脑太多, 不想再添置, 于是把我的神级Clevo W350ETQ(也是神舟后来出的K590S)忍痛的挂在了闲鱼上, 自己一直保养很好, 后来怒加4G条子和SSD, 所以卖的比一般的二手贵, 无人识相, 遂继续自用.
+ 我的电脑配置及相关评测曾经也在博客(相关索引)中提到. 在当年来说是非常强悍的一款游戏本, 至今依然能算一台中端性能笔记本, 只是便携性太差, 一直以来都作为办公台式机使用, 我这台配置如下:
+处理器名称: Mobile QuadCore Intel Core i7-3612QM, 3000 MHz (30 x 100) 主板名称: Clevo W35_37ET 主板芯片组: Intel Panther Point HM77, Intel Ivy Bridge 系统内存: 8084 MB (4 GB * 2 DDR3-1600) 显示适配器: Intel(R) HD Graphics 4000 NVIDIA GeForce GTX 660M 显示器: LG Philips LP156WF1-TLC1 [15.6&amp;quot; LCD] 音频适配器: Realtek ALC269 @ Intel Panther Point PCH - High Definition Audio Controller [C-1] IDE 控制器: Intel(R) 7 Series Chipset Family SATA AHCI Controller IDE 控制器: Realtek PCIE CardReader 硬盘驱动器: OCZ-VERTEX4 硬盘驱动器: ST9500423AS 光盘驱动器: TSSTcorp CDDVDW SN-208AB 键盘: PS/2 标准键盘 鼠标: ELAN Input Device 网络适配器: Realtek PCIe GBE Family Controller 网络适配器: Realtek RTL8723AE Wireless LAN 802.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/wordpress%E8%BF%81%E7%A7%BBjekyll%E5%85%A8%E8%BF%87%E7%A8%8B%E5%B0%8F%E8%AE%B0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/wordpress%E8%BF%81%E7%A7%BBjekyll%E5%85%A8%E8%BF%87%E7%A8%8B%E5%B0%8F%E8%AE%B0/</guid>
+      <description>Wordpress博客转换成Jekyll尝试  想来想去还是想试试把我的博客转成Jekyll, 一方面为了git管理, 另一方面实在是感觉请求过多速度太慢, 可改造性太差. 经过迁移后, 默认主题, 速度杠杠的, 显示时间不到500ms哦~
+ 安装Jekyll(CentOS7)  本文在CentOS7环境下才操作
+ 环境需要  Ruby RubyGems NodeJS Python 2.7(Whidy比较懒, 貌似CentOS7自带? 还是啥时候装了, 不会的自己搜一下= =.)  安装Ruby2.5.0和RubyGems  目前最新稳定版本是2.5.0, CentOS自带源的版本比较老, 我们需要第三方源rbenv来安装最新稳定版, 安装方法如下:
+  安装rbenv和Ruby依赖的组件
+# sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel  安装rbenv和rub-build(务必在非root用户的home下面操作)
+# cd ~ # git clone git://github.com/sstephenson/rbenv.git .rbenv # echo &#39;export PATH=&amp;quot;$HOME/.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/</guid>
+      <description>使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决  做Vue项目的时候, 提交数据基本上都是用Axios, 之前做过的表单方面的提交, 并没有过多关注客户端和服务器之间的通信过程. 所以一直对HTTP的head请求头, body内容之类的不明不白, 为了短期(是的估计过半年又忘了😂)解决这个疑惑, 再次复习了一遍. 顺便总结了Vue中使用Axios处理包含上传文件的表单提交
+ 场景说明 项目使用的Vue(Nuxt)框架, 数据请求用的Axios插件, 表单包含了一些基本的用户信息填写, 同时还有身份证上传, 和后端沟通过, 提交数据的时候, 接口全部使用POST请求, 那么有文件上传的一般来说只能用formData格式.
+实践及代码示例 我项目中使用的是ElementUI, 对于上传组件不熟悉的朋友, 需要注意几个事情:
+ action是必填, 那么留空也许是个不错的做法. 获取到上传的文件的办法很多. 官方提供了几种事件来获取, 例如: on-success, on-change(首次上传会触发两次), 我这里使用了on-success 那么拿到上传的回调, 这里特别需要注意的, 我以on-success三个参数来看
+ response是服务器返回的响应 file一个文件 fileList存放多个文件的数组   可能看到有file或者fileList会直接将它的数据提交给后台, 一开始我也是没注意到这点, 始终无法正确提交数据. 那么经过一番研究和排查, 得知: 真正的File对象是fileList数组中某个元素的raw属性!, 那么下面先看一段错误的示范:
+  页面部分结构代码如下:
+&amp;lt;el-form ref=&amp;quot;form&amp;quot; :model=&amp;quot;form&amp;quot; label-width=&amp;quot;120px&amp;quot;&amp;gt; &amp;lt;el-form-item label=&amp;quot;活动名称&amp;quot;&amp;gt; &amp;lt;el-input v-model=&amp;quot;form.name&amp;quot;&amp;gt;&amp;lt;/el-input&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item label=&amp;quot;活动区域&amp;quot;&amp;gt; &amp;lt;el-select v-model=&amp;quot;form.region&amp;quot; placeholder=&amp;quot;请选择活动区域&amp;quot;&amp;gt; &amp;lt;el-option label=&amp;quot;区域一&amp;quot; value=&amp;quot;shanghai&amp;quot;&amp;gt;&amp;lt;/el-option&amp;gt; &amp;lt;el-option label=&amp;quot;区域二&amp;quot; value=&amp;quot;beijing&amp;quot;&amp;gt;&amp;lt;/el-option&amp;gt; &amp;lt;/el-select&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item label=&amp;quot;身份证正面&amp;quot;&amp;gt; &amp;lt;el-upload action=&amp;quot;&amp;quot; :on-success	=&amp;quot;handleSuccess&amp;quot; :multiple=&amp;quot;false&amp;quot; :limit=&amp;quot;1&amp;quot; :on-exceed=&amp;quot;handleExceed&amp;quot; :file-list=&amp;quot;fileList&amp;quot;&amp;gt; &amp;lt;el-button size=&amp;quot;small&amp;quot; type=&amp;quot;primary&amp;quot;&amp;gt;点击上传&amp;lt;/el-button&amp;gt; &amp;lt;div slot=&amp;quot;tip&amp;quot; class=&amp;quot;el-upload__tip&amp;quot;&amp;gt;只能上传jpg/png文件，且不超过500kb&amp;lt;/div&amp;gt; &amp;lt;/el-upload&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item&amp;gt; &amp;lt;el-button type=&amp;quot;primary&amp;quot; @click=&amp;quot;onSubmit&amp;quot;&amp;gt;提交&amp;lt;/el-button&amp;gt; &amp;lt;el-button&amp;gt;取消&amp;lt;/el-button&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;/el-form&amp;gt;  这里我将上传文件数量限制为1个, 接下来是JavaScript部分:</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/%E6%89%BE%E4%B8%AA%E6%9C%8B%E5%8F%8B%E8%81%8A%E7%9D%80%E8%81%8A%E7%9D%80%E5%B0%B1%E7%BB%93%E5%A9%9A%E4%BA%86/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/%E6%89%BE%E4%B8%AA%E6%9C%8B%E5%8F%8B%E8%81%8A%E7%9D%80%E8%81%8A%E7%9D%80%E5%B0%B1%E7%BB%93%E5%A9%9A%E4%BA%86/</guid>
+      <description> 找个朋友聊着聊着就结婚了 其实这是一则征友启事
+ 我大概闷骚但不宅，热衷网上分享交流，期待在网上认识有趣的人；我内向不怎么善于表达，接触的女生也不多了，我希望认识一个活泼可爱开朗的你。
+ 关于我 我今年30岁了，现居广州，是一名程序员，在这工作第四年了，我没有什么恋爱史，不怎么擅长讨好女生，不过相信我，偶尔也能说出惊艳令你感动的话语。
+我兴趣颇广，可惜没有什么特别擅长的，偏文艺风，听音乐，玩游戏，写文章，也会摄影，会运动，打球，爬山，跑步都是我喜欢的，热爱音乐，学过一点点吉他，有时写写钢笔字，练练书法。如果有兴趣了解我的生活，欢迎关注我的微博，或者是豆瓣，还有我的网易云音乐上喜爱的歌曲，希望能和你产生共鸣。
+我湖北洪湖出生，孝感人，但是又不是一个地地道道的孝感人，独生子，父母离异，母亲一人，父亲再婚。
+我和同事朋友基本上都聊的很来，但是不太擅长和女生交往。平时工作也有可爱，幽默一面，熟悉后甚至会有些唠叨。但是，越是喜欢你，却越发羞涩。因此错过了很多很多不错的女生，有时鼓起勇气去和她们聊天，却又担心说错话，担心留下不好的印象，就不了了之了。我不太主动，但是内心的狂热依然存在。我会尽我所能为你做我能做的事情。
+我有轻微的洁癖。动手能力强，会修电脑，修一些比较简单的电器故障等等。我有一个DIY的心，很多事情会尝试自己研究解决，会自己去主动学习。不过我的厨艺不太好，大概就是能做着自己吃，然而我比较喜欢切菜，可能因为我经常切图吧！我也比较注重良好的作息，习惯早睡早起。
+希望你  我希望你比我小，身高差最好20厘米内，最好会打扮有条理。 我希望你面对问题有自己的思考，不会盲目跟风。 我希望你面对这个世界有一颗感恩的心，多包容少抱怨。 我希望你能尽量不绕弯子，除非你有意但不要过分为难我，我不太擅长去过度揣摩女生的心。  我们  我希望我们能互相信任，互相帮助，共同解决困难，分享喜悦。 我希望我们能踏踏实实的过日子，知道自己需要什么，不盲目攀比。 我希望我们能调皮的时候调皮，严肃的时候不要回避。 我希望我们能正视缺点，随着成长而进步，努力创造未来。 我希望我们有共同的喜好，热衷分享。如果你是设计师，也许我们可以一块接单做项目；如果你会乐器，也许我们可以尝试一块作曲演奏；如果你喜欢小动物，也许我们可以养只狗狗~  其他 我身高一米八，体重64公斤，有点瘦。下面有附上我的照片，还有其他近照，可以关注我的Instagram，也可以微博私信，豆邮我之类的，或是微信QQ加我😁
+平时空闲一个人会打游戏或者看书，如果愿意出去逛街游玩更好，不抽烟少喝酒，无不良嗜好，因工作原因与电脑接触较多，职业前端开发工程师，虽然不是什么大牛，不过还是挺热爱这个职业的。我也很喜欢广州，希望能在这里呆下去。
+我平时会在我的博客Whidy Blog写点东西，有兴趣可以读读。
+爱情观：没有绝对的般配，如何我们能走到一起，遇到问题的时候，更多的是保护这份感情不受伤害，而不是过分约束对方，用爱去感染对方，用信任，用陪伴共度一生。
+ 本页仍在修订中，希望我能尽早找到另一半。其他待补充。
+ </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%8C%B9%E9%85%8D%E5%88%86%E6%9E%90%E6%80%9D%E8%B7%AF/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%8C%B9%E9%85%8D%E5%88%86%E6%9E%90%E6%80%9D%E8%B7%AF/</guid>
+      <description>复习正则表达式  最近研究ES6, 正好ES6也有正则方面的内容, 看看有什么新特性, 顺便又把精通正则表达式拿出来粗看了前面几章节, 于是给自己出了几道题. 还做了一点总结.
+ [\b]和\b和\B  一般作为初学者看到这么多这些鬼都会头大了. 下面我将详细讲解一下.
+ [\b] - 退格符 另外其实我一直都搞不清楚[\b]匹配一个退格(U+0008)是什么鬼. 似乎没有人告诉我这个退格符长什么样. 我也不知道那些各种转载各种规则的人他们自己知不知道是啥&amp;hellip; (难道就我不知道- -)
+找了半天, 总算在MSDN: 正则表达式语言 - 快速参考找到了示例. 难道就是匹配\b用的吗😂, 当然很明显的区别是, 它属于字符转义
+\b - 一个词的边界  MSDN: 匹配必须出现在 \w（字母数字）和 \W（非字母数字）字符之间的边界上。
+ 这个就很好理解了, 会写先行断言的我当然是知道了, 他不占用任何位置, 边界一般都是单词或数字两边, 更为具体的通过MDN的正则表达式文档\b介绍内的注意有指引, 查到ecma文档的15.10.2.6 Assertion中IsWordChar处, 不过由于个人能力有限, 对其理解如下:
+通过这段代码(正则表达式案例分析 （一） - (3) 单词边界):
+&amp;quot;I&#39;d prefer p2p O_O&amp;quot;.replace(/\b/g,function(){ console.log(arguments) });  输出结果:
+{ &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 0, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 1, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 2, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 3, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 4, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 10, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 11, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 14, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 15, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; } { &#39;0&#39;: &#39;&#39;, &#39;1&#39;: 18, &#39;2&#39;: &#39;I\&#39;d prefer p2p O_O&#39; }  我们看到被断掉(用|表示)的位置分别是:</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/%E7%94%A8gatsby%E5%92%8Cstrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/%E7%94%A8gatsby%E5%92%8Cstrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</guid>
+      <description>用Gatsby和Strapi创建一个静态博客(翻译和自己探索过程中的经验总结)  原文参阅: Building a static blog using Gatsby and Strapi或https://blog.strapi.io/building-a-static-website-using-gatsby-and-strapi/. 本篇主要是对其精华内容进行翻译, 以及实操过程中遇到的问题解决和探索. 一些具体的操作步骤和细节, 我将忽略, 结合原文一起阅读效果更佳!
+注: 本文操作环境是Linux VPS, CentOS 6 64bit
+ 介绍 这是一个包含很多静态内容页面的站点, 从技术上来说就如同一系列HTML文件, 展示给访问者. 与动态网站不同的是, 他不需要后端开发或者数据库支撑. 发布静态站点之所以容易, 是因为文件只需要上传到服务器或者存储器. 没有额外的渲染页面的请求, 也没有数据库被黑的风险, 所以它既安全也快速.
+为了快速建站, 其实很多开源的静态页面生成框架可用, 比如前阵子我搞的Jekyll, Hugo, 好似国人偏爱的Hexo等等, 他们的工作原理相似, 内容都是通过静态文件(比如Markdown)或者带有内容的API, 通过获取这些内容, 注入到开发者做好的模板, 最后生成一大堆HTML文件.
+Progressive Web Apps (PWA)实际上是网页应用, 几乎基于Javascript, 并且可靠, 快速, 有吸引力的. 这几年比较火的Angular, Vue, React都是类似的前端框架.
+ 静态站点遇见了PWA就产生了Gatsby
+ 将这两点组合起来的最佳选择看起来就是Gatsby了, 但是同样需要一个内容接口, 这就是我将要展示的, 通过Strapi创建一个内容API提供给Gatsby, 然后打包发布出一个静态站点.
+Gatsby是什么 这个并不是型男熟知的杰士派, 虽然我也用过这个发泥, 好像不是很好用. Gatsby是基于React的快速静态网站框架, 有了它, 你就可以感觉飘飘然的开发React网站了.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/%E6%9C%AA%E5%AE%8C%E6%88%90nuxt%E4%B8%8B%E7%9A%84eslint%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/%E6%9C%AA%E5%AE%8C%E6%88%90nuxt%E4%B8%8B%E7%9A%84eslint%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</guid>
+      <description>https://nuxtjs.org/guide/development-tools/
+https://medium.com/@agm1984/how-to-set-up-es-lint-for-airbnb-vue-js-and-vs-code-a5ef5ac671e8
+https://cn.vuejs.org/v2/style-guide/index.html
+.eslintrc.js module.exports = { root: true, env: { browser: true, node: true }, parserOptions: { parser: &amp;lsquo;babel-eslint&amp;rsquo; }, extends: [ &amp;ldquo;eslint:recommended&amp;rdquo;, &amp;lsquo;plugin:vue/recommended&amp;rsquo;, &amp;ldquo;plugin:prettier/recommended&amp;rdquo; ], // required to lint *.vue files plugins: [ &amp;lsquo;vue&amp;rsquo; ], // add your custom rules here rules: { &amp;ldquo;semi&amp;rdquo;: [2, &amp;ldquo;never&amp;rdquo;], &amp;lsquo;vue/html-indent&amp;rsquo;: &amp;ldquo;off&amp;rdquo;, &amp;ldquo;vue/max-attributes-per-line&amp;rdquo;: &amp;ldquo;off&amp;rdquo;, &amp;ldquo;prettier/prettier&amp;rdquo;: [&amp;ldquo;error&amp;rdquo;, { &amp;ldquo;semi&amp;rdquo;: false, &amp;ldquo;singleQuote&amp;rdquo;: true }] } }
+.prettierrc { &amp;ldquo;semi&amp;rdquo;: false, &amp;ldquo;singleQuote&amp;rdquo;: true }
+安装Vetur settings.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/articles/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8Ejavascript%E8%A7%84%E8%8C%83%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/articles/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8Ejavascript%E8%A7%84%E8%8C%83%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86/</guid>
+      <description>关于Javascript规范在项目中应用管理 大家在用各种脚手架的时候，一定对JavaScript规范选择并不陌生，不熟悉JavaScript规范的一般会选常见的Standard或者Airbnb，但是他们究竟有什么区别，如何选择和应用呢，这篇文章将给你一个满意的答案。
+JavaScript Standard Style https://github.com/standard/standard/blob/master/docs/README-zhcn.md
+https://github.com/standard/standard/blob/master/docs/README-zhcn.md#visual-studio-code
+Airbnb JavaScript Style https://github.com/airbnb/javascript
+https://medium.com/@agm1984/how-to-set-up-es-lint-for-airbnb-vue-js-and-vs-code-a5ef5ac671e8</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/posts/2018-to-do-list/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-to-do-list/</guid>
+      <description>2018 Jan. To Do List  这是一个任务列表, 代表我在本月做的技术方面学习的计划, 尽量有序的进行学习.
+目前规则相对简单, 如有调整将陆续补充.
+这是一段示例
+该项为已完成 + 要完成的内容 [创建时间] / [预期完成时间] / [实际完成时间] 该项为已作废 + 要完成的内容 [创建时间] / [无预期完成时间用&amp;rsquo;-&amp;lsquo;表示] / [作废时间] / [作废原因] 完成阅读Javascript入门到放弃 [2018-01-28] / [-] / [2018-01-28] / [我可能已经死了.] 陆续完善这个规则 [2018-01-28]  那么, 也许将来还会有其他调整, 希望这个To Do List能坚持下去, 并带来有效的提高.
+ Mar. 学习KOA相关基础, 例子 [2018-03-01] / [-] 学习微信小程序的开发 [2018-03-05] / [-] 学习WePY的使用  学习Mock的使用  Feb. 分析cssnano的内置插件关闭功能, 详见post-02-23 [2018-02-24] / [-]  Jan.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/posts/2018-to-read-list/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-to-read-list/</guid>
+      <description>2018 To Read List  这是一个任务列表, 代表这个月学习中发现的不错的, 但是目前还尚未能理解的文章, 暂时保存在将要阅读的列表, 便于回读.
+目前规则相对简单, 如有调整将陆续补充.
+这是一段示例
+该项为已完成 + 要完成的内容 [创建时间] / [完成时间] 该项为已作废 + 要完成的内容 [创建时间] / [作废时间] / [原因] 这是一个任务列表, 代表这个月学习中发现的不错的, 但是目前还尚未能理解的文章, 暂时保存在将要阅读的列表, 便于回读. [2018-01-28] / [2018-01-28] 陆续完善这个规则 [2018-01-28] 相关子任务或者相关任务 [2018-01-28] / [2018-01-28]  这个月赚一千万 [2018-01-28] / [2018-01-28] / [白日做梦]  那么, 也许将来还会有其他调整, 这个To Read List 完全是因为, 有时发现不少好文, 但是由于个人技术限制, 无法深入理解, 故作记录.
+ Mar. 给 JavaScript 初心者的 ES2015 实战 [2018-03-05]  Feb. Using Conic Gradients and CSS Variables to Create a Doughnut Chart Output for a Range Input [2018-02-06] In Defense of Utility-First CSS [2018-02-06] CSS Utility Classes and &amp;ldquo;Separation of Concerns&amp;rdquo; [2018-02-06]  10 things I love about Vue [2018-02-28] A Drip of Javascript [2018-02-28]  Jan.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://daily.whidy.net/posts/2019-03-15-how-to-open-80-port-with-eggjs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2019-03-15-how-to-open-80-port-with-eggjs/</guid>
+      <description>如何给Egg.js项目开启80端口访问 为什么要 因某些特殊情况，项目cdn做了防盗链，然后本地开发也收到了限制，在cdn设置了一些本地ip的白名单，居然对端口支持不好，结果有时候可以访问cdn资源，有时候又不行，无奈，和运维、后端商量讲开发地址暂时改成80端口，以便正常开发~
+ Egg.js的项目改端口很简单啦。但是也有一些要注意的，本文面向MacOS，当然Linux系统应该同样适用。
+ 如何做 这里有几个方案，供君参考：
+修改package.json 跑哪个命令就在这个命令后面加--port=80，例如：
+&amp;quot;start&amp;quot;: &amp;quot;egg-scripts start --daemon --title=egg-server-51la-web-egg --workers=2 --port=80&amp;quot;, ...  dev同理。
+配置config.local.js 如果没有这个文件自己创建一个，当然这个对应的是开发模式下使用。
+部分配置如下：
+&#39;use strict&#39;; module.exports = app =&amp;gt; { const exports = {}; exports.cluster = { listen: { port: 80, hostname: &#39;127.0.0.1&#39;, }, }; return exports; };  Nginx大法 比较麻烦，不过看了下官方文档，应该也是可以很好的支持的。有兴趣请阅读该节：
+ 部署  Warning 如果你不看这部分，很遗憾，你肯定跑不起来。你可能会遇到下面这些异常情况：
+ERROR 3810 nodejs.AppWorkerDiedError: [master] app_worker#1:3813 died (code: 0, signal: null, suicide: false, state: dead), current workers: []  原因是Node.</description>
+    </item>
+    
+  </channel>
+</rss>

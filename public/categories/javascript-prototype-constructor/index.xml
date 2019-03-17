@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript Prototype Constructor on Daily note</title>
+    <link>https://daily.whidy.net/categories/javascript-prototype-constructor/</link>
+    <description>Recent content in Javascript Prototype Constructor on Daily note</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 07 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://daily.whidy.net/categories/javascript-prototype-constructor/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>函数原型和继承学习总结</title>
+      <link>https://daily.whidy.net/posts/2018-02-07-prototype-constructor/</link>
+      <pubDate>Wed, 07 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://daily.whidy.net/posts/2018-02-07-prototype-constructor/</guid>
+      <description>2018年2月7日 晴 一般
+ 函数原型和继承学习总结 Object.prototype JS一切皆对象, 对象都具有内置属性[[prototype]](也可用__proto__表示). 每个函数创建后拥有名为prototype的属性, 它又有一个constructor, 有个例外: 通过Function.prototype.bind方法构造出来的函数没有prototype属性。
+偷了一张图doris的回答:
+参阅: * 知乎: js中__proto__和prototype的区别和关系？ * MDN: Object.prototype
+Object.prototype.constructor 返回创建实例对象的Object构造函数的引用。 返回值为只读的原始类型.
+这里有个关于改变对象的constructor例子, 比较特别的是, 数字, 布尔, 字符串不被改变.
+ 只有 true, 1 和 &amp;ldquo;test&amp;rdquo; 的不受影响，因为创建他们的是只读的原生构造函数（native constructors）。
+ function Type() { }; Type // ƒ Type() { } var a = []; a.constructor // ƒ Array() { [native code] } a.constructor = Type; a.constructor // ƒ Type() { } &amp;quot;被改变&amp;quot; var b = 666; b.</description>
+    </item>
+    
+  </channel>
+</rss>

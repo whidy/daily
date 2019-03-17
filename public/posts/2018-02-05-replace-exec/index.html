@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>replace和exec函数 &middot; Daily note</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daily note" />
+
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://daily.whidy.net"><h1>Daily note</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://daily.whidy.net">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>replace和exec函数</h1>
+  <time datetime=2018-02-05T00:00:00Z class="post-date">Mon, Feb 5, 2018</time>
+  
+
+<blockquote>
+<p>2018年2月5日 晴 一般</p>
+</blockquote>
+
+<h1 id="replace和exec函数">replace和exec函数</h1>
+
+<blockquote>
+<p>不好意思我还在看正则部分, 才发现replace函数一点也不简单.</p>
+</blockquote>
+
+<h2 id="语法">语法</h2>
+
+<pre><code class="language-javascript">str.replace(regexp|substr, newSubStr|function)
+</code></pre>
+
+<h2 id="使用字符串作为参数">使用字符串作为参数</h2>
+
+<ul>
+<li>变量名 | 代表的值</li>
+<li><code>$$</code> | 插入一个 &ldquo;$&ldquo;。</li>
+<li><code>$&amp;</code> | 插入匹配的子串。</li>
+<li><code>$`</code> | 插入当前匹配的子串左边的内容。</li>
+<li><code>$'</code> | 插入当前匹配的子串右边的内容。</li>
+<li><code>$n</code> | 假如第一个参数是 RegExp对象，并且 n 是个小于100的非负整数，那么插入第 n 个括号匹配的字符串。</li>
+</ul>
+
+<p>这个表格除了<code>$n</code>之前用过其他的全部没用过. 也一下没看懂, 写了几段demo, 算是明白了- -, 不过应用场景还不太了解.</p>
+
+<pre><code class="language-javascript">let str = '123abcXYZ';
+console.log(str.replace(/ab/, '-$$-')); //123-$-cXYZ
+console.log(str.replace(/ab/, '-$&amp;-')); //123-ab-cXYZ
+console.log(str.replace(/ab/, '-$`-')); //123-123-cXYZ
+console.log(str.replace(/ab/, '-$\'-')); //123-cXYZ-cXYZ (注意单引号. 转义)
+console.log(str.replace(/a(b)/, '-$1-')); //123-b-cXYZ
+</code></pre>
+
+<p>这样在对着上面的解读, 算是明白一点了- -.</p>
+
+<h2 id="指定一个函数作为参数">指定一个函数作为参数</h2>
+
+<p>这个表格有点复杂, 直接看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace#%E6%8C%87%E5%AE%9A%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0">MDN: 指定一个函数作为参数</a>的表格吧. 我也从来没发现原来repalce的函数第二个参数为函数的时候这么高级.</p>
+
+<p>看了几遍文档给的示例算是明白了, 不过<code>offset</code>参数看起来很少用到, 这里也引用它的一个例子.</p>
+
+<pre><code class="language-javascript">function replacer(match, p1, p2, p3, offset, string) {
+  // p1 is nondigits, p2 digits, and p3 non-alphanumerics
+  return [p1, p2, p3].join(' - ');
+}
+var newString = 'abc12345#$*%'.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
+console.log(newString);  // abc - 12345 - #$*%
+</code></pre>
+
+<blockquote>
+<p>replace函数, 在某些情境下, 也可以代替循环, 每次匹配结束后的下一次匹配, 都接着上一次的最后一处开始.</p>
+</blockquote>
+
+<p>突发奇想, 根据已学的知识, 做一个小题目, 列出符合规则的一个字符串中所有结果, 例如有一个字符串<code>&quot;aoffofffob&quot;</code>, 匹配<code>/of*o/g</code>的有几个, 根据目测是有两个, 不过怎么写呢, 嘿嘿嘿. 赶紧试试.</p>
+
+<pre><code class="language-javascript">const REGX = /of*o/g;
+let str = 'aoffofffob';
+let i = j = 0;
+let arr;
+while (i &lt; str.length) {
+  j = i + j;
+  let newStr = str.substr(j)
+  arr = REGX.exec(newStr);
+  if (arr !== null) {
+    j += arr.index;
+    console.log(`The match part begin at ${j} position`);
+  }
+  i++;
+}
+// The match part begin at 1 position
+// The match part begin at 4 position
+</code></pre>
+
+<p>本来是昨天提交上去晚上回去弄的- -结果回去才发现, 没推送&hellip;这会第二天早上又鼓捣了一会, 暂时就先这样吧= =.</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>日志 &middot; Daily note</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daily note" />
+
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://daily.whidy.net"><h1>Daily note</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://daily.whidy.net">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>日志</h1>
+  <time datetime=2018-03-29T00:00:00Z class="post-date">Thu, Mar 29, 2018</time>
+  
+
+<blockquote>
+<p>2018年3月29日 晴 一般</p>
+</blockquote>
+
+<h1 id="日志">日志</h1>
+
+<h2 id="1px像素在html5上的解决方案">1px像素在html5上的解决方案</h2>
+
+<p>最近vue做项目, 做HTML5的页面, 又陷入1px边框问题, 好气啊!!!</p>
+
+<p><a href="https://www.w3cplus.com/mobile/vw-layout-in-vue.html">https://www.w3cplus.com/mobile/vw-layout-in-vue.html</a></p>
+
+<p>postcss-write-svg</p>
+
+<p>这个写法在IOS下面会产生边距, 有BUG气死了.</p>
+
+<p><a href="http://mp.weixin.qq.com/s/fcqOvzPE0swwsJL1Po4twA">http://mp.weixin.qq.com/s/fcqOvzPE0swwsJL1Po4twA</a></p>
+
+<p>开发反向代理</p>
+
+<ul>
+<li><a href="https://vuejs-templates.github.io/webpack/proxy.html">https://vuejs-templates.github.io/webpack/proxy.html</a></li>
+<li><a href="https://github.com/vuejs-templates/webpack/blob/master/docs/proxy.md">https://github.com/vuejs-templates/webpack/blob/master/docs/proxy.md</a></li>
+<li><a href="https://blog.csdn.net/qq_33559304/article/details/72966028">https://blog.csdn.net/qq_33559304/article/details/72966028</a></li>
+<li><a href="https://www.cnblogs.com/tugenhua0707/p/8052051.html">https://www.cnblogs.com/tugenhua0707/p/8052051.html</a></li>
+<li><a href="https://github.com/chimurai/http-proxy-middleware">https://github.com/chimurai/http-proxy-middleware</a></li>
+</ul>
+
+<p>其他方式</p>
+
+<ul>
+<li>Axios: <a href="https://github.com/axios/axios#request-config">https://github.com/axios/axios#request-config</a></li>
+<li><a href="http://obkoro1.com/2017/11/05/%E5%9C%A8Vue-cli%E9%87%8C%E5%9F%BA%E4%BA%8Eaxios%E5%B0%81%E8%A3%85%E5%A4%8D%E7%94%A8%E8%AF%B7%E6%B1%82/">http://obkoro1.com/2017/11/05/%E5%9C%A8Vue-cli%E9%87%8C%E5%9F%BA%E4%BA%8Eaxios%E5%B0%81%E8%A3%85%E5%A4%8D%E7%94%A8%E8%AF%B7%E6%B1%82/</a></li>
+<li><a href="https://medium.com/techtrument/handling-ajax-request-in-vue-applications-using-axios-1d26c47fab0">https://medium.com/techtrument/handling-ajax-request-in-vue-applications-using-axios-1d26c47fab0</a></li>
+<li>Nginx
+<br /></li>
+</ul>
+
+<pre><code class="language-text">    server {
+
+      listen      8088;
+
+      server_name  localhost;
+
+      index index.html;
+
+      root /Users/jankingzeng/Desktop/svn/pv/code/51la/trunk/51lawap/dist;
+
+      location / {
+        try_files $uri $uri/ /index.html =404;
+      }
+
+      location /mobile {
+        proxy_pass  http://127.0.0.1:3010;
+        proxy_redirect     off;
+        proxy_set_header   Host             $host;
+        proxy_set_header   X-Real-IP        $remote_addr;
+        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+      }
+  }
+</code></pre>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

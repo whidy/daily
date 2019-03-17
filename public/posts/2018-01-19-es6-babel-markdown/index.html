@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ES6学习/Babel配置学习疑问/Markdown代码块高亮支持语法列表 &middot; Daily note</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daily note" />
+
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://daily.whidy.net"><h1>Daily note</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://daily.whidy.net">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>ES6学习/Babel配置学习疑问/Markdown代码块高亮支持语法列表</h1>
+  <time datetime=2018-01-19T00:00:00Z class="post-date">Fri, Jan 19, 2018</time>
+  
+
+<blockquote>
+<p>2018年1月19日 雾霾 一般</p>
+</blockquote>
+
+<h1 id="es6学习-babel配置学习疑问-markdown代码块高亮支持语法列表">ES6学习 / Babel配置学习疑问 / Markdown代码块高亮支持语法列表</h1>
+
+<ol>
+<li>想起来有个离线API手册查询软件, 叫<a href="https://zealdocs.org/">Zeal</a>, 装上了. 然后发现实际上有写文档的体验并不好- -. 查一下jQuery, Sass之类还是可以的.</li>
+<li>Stackoverflow上面的问题<a href="https://stackoverflow.com/questions/48313066/how-to-make-spaces-or-url-inside-a-code-span-with-markdown-syntax">how to make spaces or url inside a code span with markdown syntax</a>有了两个消息通知, 一个是居然有个人改了我的问题, 帮我修正语法错误, Stackoverflow上居然还有这种操作, 看了下改我问题的人的介绍, 看来是个完美主义者. 另外他回复提到了<strong>零宽度空格</strong>, 不过对我这个问题似乎没啥帮助.</li>
+<li>发现另一个专门用来格式化JavaScript/TypeScript/CSS的插件<a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode"><strong>Prettier - Code formatter</strong></a>, 至少在js格式化方面要比之前我用的<a href="https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify">Beautify</a>好一些(Beautify插件提供的设置参数我尚未找到可能优化的地方). 例如这段代码, 原始代码如下
+<code>javascript
+function foo({x,y=5}) {
+    console.log(x,y);
+}
+</code>
+Beautify格式化后:
+<code>javascript
+function foo2({
+    x,
+    y = 5
+}) {
+    console.log(x, y);
+}
+</code>
+Prettier格式化后:
+<code>javascript
+function foo2({ x, y = 5 }) {
+    console.log(x, y);
+}
+</code>
+关于SCSS/CSS格式化对比, 经过简单测试基本一致, 当然Prettier不足在于HTML格式化, 不过其实Beautify对HTML格式化效果个人感觉也不是很好, <strong>因此最终决定采用Prettier</strong>.
+Prettier默认会将JavaScript的引号转换为双引号, 如果需要修改为单引号请更改配置
+<code>javascript
+&quot;prettier.singleQuote&quot;: true,
+</code>
+&gt; 其实正是因为学习ES6上面的示例代码, 在Beautify处理后很不合理我才去探索其他插件的.</li>
+
+<li><p>阅读<a href="http://es6.ruanyifeng.com/">ECMAScript 6 入门</a>过程中遇到一个奇怪的编译现象, 按照目前了解的情况, babel的配置文件.babelrc, 可以<a href="https://babeljs.io/docs/plugins/preset-env/#usage">官方简单配置</a>如下:</p>
+
+<pre><code class="language-javascript">//babelrc-1
+{
+    &quot;presets&quot;: [&quot;env&quot;]
+}
+</code></pre>
+
+<p>这样基本满足大部分需求了.</p>
+
+<p>我在进行学习ES6的<a href="http://es6.ruanyifeng.com/#docs/let#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">let命令基本用法末尾处</a>测试过程中发现了一个奇怪的编译结果. 比如这段代码</p>
+
+<pre><code class="language-javascript">//code-1
+for (let k = 0; k &lt; 3; k++) {
+    let k = 'abc';
+    console.log(k);
+}
+</code></pre>
+
+<p>输出:</p>
+
+<pre><code class="language-console">abc
+</code></pre>
+
+<p>仅执行了一次循环, 并非3次, 假设我改成</p>
+
+<pre><code class="language-javascript">//code-2
+for (let i = 0; i &lt; 3; i++) {
+    console.log(i);
+    let i = 'abc';
+    console.log(i);
+}
+</code></pre>
+
+<p>输出:</p>
+
+<pre><code class="language-console">0
+abc
+</code></pre>
+
+<p>显然, 变量<code>i</code>被&rdquo;共享&rdquo;使用了, 并没有如期在不同作用域下互不影响.</p>
+
+<p>再来看一段这样的</p>
+
+<pre><code class="language-javascript">//code-3
+let tmp = 123;
+if (true) {
+    console.log(tmp);
+    tmp = 'temp';
+    // let tmp = 'temp';
+    console.log(tmp);
+}
+console.log(tmp);
+</code></pre>
+
+<p>输出:</p>
+
+<pre><code class="language-console">123
+temp
+temp
+</code></pre>
+
+<p>这个很OK</p>
+
+<p>但如果这样</p>
+
+<pre><code class="language-javascript">//code-3
+let tmp = 123;
+if (true) {
+    console.log(tmp);
+    // tmp = 'temp';
+    let tmp = 'temp';
+    console.log(tmp);
+}
+console.log(tmp);
+</code></pre>
+
+<p>输出:</p>
+
+<pre><code class="language-console">undefined
+temp
+123
+</code></pre>
+
+<p>这个则应该是变量提升造成的吧, 毕竟本来就一个在外面一个在里面, 最后一个输出证明了在外面他还是123.</p>
+
+<p>可是我现在为什么和阮老师的结果不一样呢, 想了半天, 也没想出来, 要不试试node环境下跑一下, 于是开启终端, 进入node, 执行<code>code-1</code>结果是</p>
+
+<pre><code class="language-console">abc
+abc
+abc
+</code></pre>
+
+<p>node环境下达到预期. 但是为什么我babel编译的结果不同, 在痛苦中挣扎的我, 反复修改代码测试, 突然灵光一闪, 莫非是babel配置问题?
+于是修改.babelrc如下</p>
+
+<pre><code class="language-javascript">//babelrc-2
+{
+    &quot;presets&quot;: [
+        [&quot;env&quot;, {
+            &quot;targets&quot;: {
+                &quot;node&quot;: &quot;current&quot;
+            }
+        }]
+    ]
+}
+</code></pre>
+
+<p>再次编译, 终于OK了. 此时又引出来一个问题, 为什么需要这样配置. <code>env</code>默认设置不行吗? 官方是这样说的:
+&gt; Without any configuration options, babel-preset-env behaves exactly the same as babel-preset-latest (or babel-preset-es2015, babel-preset-es2016, and babel-preset-es2017 together).
+&gt;
+&gt; 如果不配置选项的话, <code>env</code>的处理方式正好和latest(或者es2015, es2016, es2017的集合)一样</p>
+
+<p>好吧, 先不管了, 我就把babel配置按照以当前node环境进行编译吧, 但是噩梦诞生了&hellip;</p>
+
+<p>再次以新的配置<code>babelrc-2</code>编译后, <code>Uncaught ReferenceError</code>到处都是. 代码<code>code-2</code>, 输出面板提示错误</p>
+
+<pre><code class="language-console">Error: Uncaught ReferenceError: i is not defined
+</code></pre>
+
+<p>代码<code>code-3</code>, 输出面板提示错误</p>
+
+<pre><code class="language-console">Error: Uncaught ReferenceError: tmp is not defined
+</code></pre>
+
+<p>这个并不属于重复声明, 那么报错是否是因为<code>i</code>不在同一个区块(因为node环境下<code>code-1</code>输出3次abc, 已经证明i互不干扰), 所以需要重新定义才可以使用? 而<code>code-3</code>是暂时性死区导致的?</p>
+
+<p>即便我的想法是正确的, 但是依然有个问题就是我之前说的, 到底这个<code>.babelrc</code>配置怎么写呢? 当然可以根据需求来调整, 但是不同的配置, 不同的浏览器对es6代码解释不同, 可能会造成一些困扰和BUG, 这种问题该怎么处理呢? 不知道是不是我已经陷入误区了. 因此将这个问题暂时性记录下来, 希望在未来的学习中, 得到满意的答案~</p></li>
+
+<li><p>找到了Markdown语法中的code block所支持的syntax highlight语言列表, 太长了本来不想全写出来, 又怕原文<a href="https://support.codebasehq.com/articles/tips-tricks/syntax-highlighting-in-markdown">Syntax highlighting in markdown</a>哪天没了- -, 所以放在本篇末尾, 手动记录一下:</p>
+
+<ul>
+<li>Cucumber (&rsquo;*.feature&rsquo;)</li>
+<li>abap (&rsquo;*.abap&rsquo;)</li>
+<li>ada (&rsquo;*.adb&rsquo;, &lsquo;*.ads&rsquo;, &lsquo;*.ada&rsquo;)</li>
+<li>ahk (&rsquo;*.ahk&rsquo;, &lsquo;*.ahkl&rsquo;)</li>
+<li>apacheconf (&lsquo;.htaccess&rsquo;, &lsquo;apache.conf&rsquo;, &lsquo;apache2.conf&rsquo;)</li>
+<li>applescript (&rsquo;*.applescript&rsquo;)</li>
+<li>as (&rsquo;*.as&rsquo;)</li>
+<li>as3 (&rsquo;*.as&rsquo;)</li>
+<li>asy (&rsquo;*.asy&rsquo;)</li>
+<li>bash (&rsquo;*.sh&rsquo;, &lsquo;*.ksh&rsquo;, &lsquo;*.bash&rsquo;, &lsquo;*.ebuild&rsquo;, &lsquo;*.eclass&rsquo;)</li>
+<li>bat (&rsquo;*.bat&rsquo;, &lsquo;*.cmd&rsquo;)</li>
+<li>befunge (&rsquo;*.befunge&rsquo;)</li>
+<li>blitzmax (&rsquo;*.bmx&rsquo;)</li>
+<li>boo (&rsquo;*.boo&rsquo;)</li>
+<li>brainfuck (&rsquo;*.bf&rsquo;, &lsquo;*.b&rsquo;)</li>
+<li>c (&rsquo;*.c&rsquo;, &lsquo;*.h&rsquo;)</li>
+<li>cfm (&rsquo;*.cfm&rsquo;, &lsquo;*.cfml&rsquo;, &lsquo;*.cfc&rsquo;)</li>
+<li>cheetah (&rsquo;*.tmpl&rsquo;, &lsquo;*.spt&rsquo;)</li>
+<li>cl (&rsquo;*.cl&rsquo;, &lsquo;*.lisp&rsquo;, &lsquo;*.el&rsquo;)</li>
+<li>clojure (&rsquo;*.clj&rsquo;, &lsquo;*.cljs&rsquo;)</li>
+<li>cmake (&rsquo;*.cmake&rsquo;, &lsquo;CMakeLists.txt&rsquo;)</li>
+<li>coffeescript (&rsquo;*.coffee&rsquo;)</li>
+<li>console (&rsquo;*.sh-session&rsquo;)</li>
+<li>control (&lsquo;control&rsquo;)</li>
+<li>cpp (&rsquo;*.cpp&rsquo;, &lsquo;*.hpp&rsquo;, &lsquo;*.c++&lsquo;, &lsquo;*.h++&lsquo;, &lsquo;*.cc&rsquo;, &lsquo;*.hh&rsquo;, &lsquo;*.cxx&rsquo;, &lsquo;*.hxx&rsquo;, &lsquo;*.pde&rsquo;)</li>
+<li>csharp (&rsquo;*.cs&rsquo;)</li>
+<li>css (&rsquo;*.css&rsquo;)</li>
+<li>cython (&rsquo;*.pyx&rsquo;, &lsquo;*.pxd&rsquo;, &lsquo;*.pxi&rsquo;)</li>
+<li>d (&rsquo;*.d&rsquo;, &lsquo;*.di&rsquo;)</li>
+<li>delphi (&rsquo;*.pas&rsquo;)</li>
+<li>diff (&rsquo;*.diff&rsquo;, &lsquo;*.patch&rsquo;)</li>
+<li>dpatch (&rsquo;*.dpatch&rsquo;, &lsquo;*.darcspatch&rsquo;)</li>
+<li>duel (&rsquo;*.duel&rsquo;, &lsquo;*.jbst&rsquo;)</li>
+<li>dylan (&rsquo;*.dylan&rsquo;, &lsquo;*.dyl&rsquo;)</li>
+<li>erb (&rsquo;*.erb&rsquo;)</li>
+<li>erl (&rsquo;*.erl-sh&rsquo;)</li>
+<li>erlang (&rsquo;*.erl&rsquo;, &lsquo;*.hrl&rsquo;)</li>
+<li>evoque (&rsquo;*.evoque&rsquo;)</li>
+<li>factor (&rsquo;*.factor&rsquo;)</li>
+<li>felix (&rsquo;*.flx&rsquo;, &lsquo;*.flxh&rsquo;)</li>
+<li>fortran (&rsquo;*.f&rsquo;, &lsquo;*.f90&rsquo;)</li>
+<li>gas (&rsquo;*.s&rsquo;, &lsquo;*.S&rsquo;)</li>
+<li>genshi (&rsquo;*.kid&rsquo;)</li>
+<li>glsl (&rsquo;*.vert&rsquo;, &lsquo;*.frag&rsquo;, &lsquo;*.geo&rsquo;)</li>
+<li>gnuplot (&rsquo;*.plot&rsquo;, &lsquo;*.plt&rsquo;)</li>
+<li>go (&rsquo;*.go&rsquo;)</li>
+<li>groff (&rsquo;*.(1234567)&lsquo;, &lsquo;*.man&rsquo;)</li>
+<li>haml (&rsquo;*.haml&rsquo;)</li>
+<li>haskell (&rsquo;*.hs&rsquo;)</li>
+<li>html (&rsquo;*.html&rsquo;, &lsquo;*.htm&rsquo;, &lsquo;*.xhtml&rsquo;, &lsquo;*.xslt&rsquo;)</li>
+<li>hx (&rsquo;*.hx&rsquo;)</li>
+<li>hybris (&rsquo;*.hy&rsquo;, &lsquo;*.hyb&rsquo;)</li>
+<li>ini (&rsquo;*.ini&rsquo;, &lsquo;*.cfg&rsquo;)</li>
+<li>io (&rsquo;*.io&rsquo;)</li>
+<li>ioke (&rsquo;*.ik&rsquo;)</li>
+<li>irc (&rsquo;*.weechatlog&rsquo;)</li>
+<li>jade (&rsquo;*.jade&rsquo;)</li>
+<li>java (&rsquo;*.java&rsquo;)</li>
+<li>js (&rsquo;*.js&rsquo;)</li>
+<li>jsp (&rsquo;*.jsp&rsquo;)</li>
+<li>lhs (&rsquo;*.lhs&rsquo;)</li>
+<li>llvm (&rsquo;*.ll&rsquo;)</li>
+<li>logtalk (&rsquo;*.lgt&rsquo;)</li>
+<li>lua (&rsquo;*.lua&rsquo;, &lsquo;*.wlua&rsquo;)</li>
+<li>make (&rsquo;*.mak&rsquo;, &lsquo;Makefile&rsquo;, &lsquo;makefile&rsquo;, &lsquo;Makefile.*&lsquo;, &lsquo;GNUmakefile&rsquo;)</li>
+<li>mako (&rsquo;*.mao&rsquo;)</li>
+<li>maql (&rsquo;*.maql&rsquo;)</li>
+<li>mason (&rsquo;*.mhtml&rsquo;, &lsquo;*.mc&rsquo;, &lsquo;*.mi&rsquo;, &lsquo;autohandler&rsquo;, &lsquo;dhandler&rsquo;)</li>
+<li>markdown (&rsquo;*.md&rsquo;)</li>
+<li>modelica (&rsquo;*.mo&rsquo;)</li>
+<li>modula2 (&rsquo;*.def&rsquo;, &lsquo;*.mod&rsquo;)</li>
+<li>moocode (&rsquo;*.moo&rsquo;)</li>
+<li>mupad (&rsquo;*.mu&rsquo;)</li>
+<li>mxml (&rsquo;*.mxml&rsquo;)</li>
+<li>myghty (&rsquo;*.myt&rsquo;, &lsquo;autodelegate&rsquo;)</li>
+<li>nasm (&rsquo;*.asm&rsquo;, &lsquo;*.ASM&rsquo;)</li>
+<li>newspeak (&rsquo;*.ns2&rsquo;)</li>
+<li>objdump (&rsquo;*.objdump&rsquo;)</li>
+<li>objectivec (&rsquo;*.m&rsquo;)</li>
+<li>objectivej (&rsquo;*.j&rsquo;)</li>
+<li>ocaml (&rsquo;*.ml&rsquo;, &lsquo;*.mli&rsquo;, &lsquo;*.mll&rsquo;, &lsquo;*.mly&rsquo;)</li>
+<li>ooc (&rsquo;*.ooc&rsquo;)</li>
+<li>perl (&rsquo;*.pl&rsquo;, &lsquo;*.pm&rsquo;)</li>
+<li>php (&rsquo;*.php&rsquo;, &lsquo;*.php(345)&lsquo;)</li>
+<li>postscript (&rsquo;*.ps&rsquo;, &lsquo;*.eps&rsquo;)</li>
+<li>pot (&rsquo;*.pot&rsquo;, &lsquo;*.po&rsquo;)</li>
+<li>pov (&rsquo;*.pov&rsquo;, &lsquo;*.inc&rsquo;)</li>
+<li>prolog (&rsquo;*.prolog&rsquo;, &lsquo;*.pro&rsquo;, &lsquo;*.pl&rsquo;)</li>
+<li>properties (&rsquo;*.properties&rsquo;)</li>
+<li>protobuf (&rsquo;*.proto&rsquo;)</li>
+<li>py3tb (&rsquo;*.py3tb&rsquo;)</li>
+<li>pytb (&rsquo;*.pytb&rsquo;)</li>
+<li>python (&rsquo;*.py&rsquo;, &lsquo;*.pyw&rsquo;, &lsquo;*.sc&rsquo;, &lsquo;SConstruct&rsquo;, &lsquo;SConscript&rsquo;, &lsquo;*.tac&rsquo;)</li>
+<li>rb (&rsquo;*.rb&rsquo;, &lsquo;*.rbw&rsquo;, &lsquo;Rakefile&rsquo;, &lsquo;*.rake&rsquo;, &lsquo;*.gemspec&rsquo;, &lsquo;*.rbx&rsquo;, &lsquo;*.duby&rsquo;)</li>
+<li>rconsole (&rsquo;*.Rout&rsquo;)</li>
+<li>rebol (&rsquo;*.r&rsquo;, &lsquo;*.r3&rsquo;)</li>
+<li>redcode (&rsquo;*.cw&rsquo;)</li>
+<li>rhtml (&rsquo;*.rhtml&rsquo;)</li>
+<li>rst (&rsquo;*.rst&rsquo;, &lsquo;*.rest&rsquo;)</li>
+<li>sass (&rsquo;*.sass&rsquo;)</li>
+<li>scala (&rsquo;*.scala&rsquo;)</li>
+<li>scaml (&rsquo;*.scaml&rsquo;)</li>
+<li>scheme (&rsquo;*.scm&rsquo;)</li>
+<li>scss (&rsquo;*.scss&rsquo;)</li>
+<li>smalltalk (&rsquo;*.st&rsquo;)</li>
+<li>smarty (&rsquo;*.tpl&rsquo;)</li>
+<li>sourceslist (&lsquo;sources.list&rsquo;)</li>
+<li>splus (&rsquo;*.S&rsquo;, &lsquo;*.R&rsquo;)</li>
+<li>sql (&rsquo;*.sql&rsquo;)</li>
+<li>sqlite3 (&rsquo;*.sqlite3-console&rsquo;)</li>
+<li>squidconf (&lsquo;squid.conf&rsquo;)</li>
+<li>ssp (&rsquo;*.ssp&rsquo;)</li>
+<li>tcl (&rsquo;*.tcl&rsquo;)</li>
+<li>tcsh (&rsquo;*.tcsh&rsquo;, &lsquo;*.csh&rsquo;)</li>
+<li>tex (&rsquo;*.tex&rsquo;, &lsquo;*.aux&rsquo;, &lsquo;*.toc&rsquo;)</li>
+<li>text (&rsquo;*.txt&rsquo;)</li>
+<li>v (&rsquo;*.v&rsquo;, &lsquo;*.sv&rsquo;)</li>
+<li>vala (&rsquo;*.vala&rsquo;, &lsquo;*.vapi&rsquo;)</li>
+<li>vbnet (&rsquo;*.vb&rsquo;, &lsquo;*.bas&rsquo;)</li>
+<li>velocity (&rsquo;*.vm&rsquo;, &lsquo;*.fhtml&rsquo;)</li>
+<li>vim (&rsquo;*.vim&rsquo;, &lsquo;.vimrc&rsquo;)</li>
+<li>xml (&rsquo;*.xml&rsquo;, &lsquo;*.xsl&rsquo;, &lsquo;*.rss&rsquo;, &lsquo;*.xslt&rsquo;, &lsquo;*.xsd&rsquo;, &lsquo;*.wsdl&rsquo;)</li>
+<li>xquery (&rsquo;*.xqy&rsquo;, &lsquo;*.xquery&rsquo;)</li>
+<li>xslt (&rsquo;*.xsl&rsquo;, &lsquo;*.xslt&rsquo;)</li>
+<li>yaml (&rsquo;*.yaml&rsquo;, &lsquo;*.yml&rsquo;)</li>
+</ul></li>
+</ol>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

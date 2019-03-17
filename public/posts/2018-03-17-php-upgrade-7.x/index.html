@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>日志 &middot; Daily note</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daily note" />
+
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://daily.whidy.net"><h1>Daily note</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://daily.whidy.net">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>日志</h1>
+  <time datetime=2018-03-17T00:00:00Z class="post-date">Sat, Mar 17, 2018</time>
+  
+
+<blockquote>
+<p>2018年3月17日 阴 一般</p>
+</blockquote>
+
+<h1 id="服务器相关折腾">服务器相关折腾</h1>
+
+<h2 id="centos7升级php7-2">CentOS7升级PHP7.2</h2>
+
+<p>我有个毛病, 就是喜欢没事搞搞优化, 本来好端端的东西, 一听说还能更好, 就止不住的折腾, 这不, 一个朋友说PHP7性能好很多(顺便查了下, <a href="http://www.laruence.com/2016/12/18/3137.html">PHP的性能演进(从PHP5.0到PHP7.1的性能全评测)</a>), 我才折腾半天装的PHP5.6, 又寻思着安装到7.x, 好在一切都比较容易, 大概方法如下:</p>
+
+<blockquote>
+<p>在<code>CentOS 7</code>上官方的源是只有<code>php5.4</code>的, 这个大家都知道了, 于是这次又用到第三方源<a href="https://ius.io/">IUS repository</a>.</p>
+</blockquote>
+
+<p>假设目前最高权限下, 这里仅介绍Apache下的更新, 还有Nginx的, 末尾有参阅文章自行查阅. 步骤如下:</p>
+
+<pre><code class="language-bash"># cd ~
+# curl 'https://setup.ius.io/' -o setup-ius.sh
+
+# bash setup-ius.sh
+</code></pre>
+
+<p>然后删除旧版</p>
+
+<pre><code class="language-bash"># yum remove php-cli mod_php php-common
+</code></pre>
+
+<p>接着安装php7.2</p>
+
+<pre><code class="language-bash"># yum install mod_php72u php72u-cli php72u-mysqlnd
+</code></pre>
+
+<p>重新启动Apache加载新的<code>mod_php</code></p>
+
+<pre><code class="language-bash"># apachectl restart
+</code></pre>
+
+<p>重启服务</p>
+
+<pre><code class="language-bash"># systemctl status httpd
+</code></pre>
+
+<p>至此升级完成~</p>
+
+<p>参阅: <a href="https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-php-7-on-centos-7">How To Upgrade to PHP 7 on CentOS 7</a></p>
+
+<h2 id="wordpress转移至服务器后无法安装插件">Wordpress转移至服务器后无法安装插件</h2>
+
+<p>转移后, 真是问题多多啊, 发现安装插件又出问题, 看样子是权限不足, 提示<code>需要访问您网页服务器权限</code>, 然后让我输入什么FTP的连接信息, 试了下不行.</p>
+
+<p>查了些资料, 执行以下命令:</p>
+
+<p>如果单站点主机</p>
+
+<pre><code class="language-bash"># chown -R apache:apache /var/www/html
+</code></pre>
+
+<p>如果多站点主机</p>
+
+<pre><code class="language-bash"># chown -R apache:apache /var/www/
+</code></pre>
+
+<p>虽然还有其他的方法, 不过这个够用就没折腾了哈哈.</p>
+
+<p>参阅: <a href="https://www.digitalocean.com/community/questions/wordpress-asking-for-ftp-credentials">Wordpress asking for FTP Credentials</a></p>
+
+<h2 id="装了个-litespeed缓存-插件">装了个<code>LiteSpeed缓存</code>插件</h2>
+
+<p>本来想做图片的按需加载的优化, 太复杂了, 索性就装了个插件, 这个插件还挺牛逼好多合并功能之类的.</p>
+
+<p>但是最重要的是&hellip;为什么我没有使用插件的时候约<code>1.8s-2.4s</code>, 用了插件就是<code>2.0s-2.8s</code>了&hellip; 虽然的确可以合并文件, 减少请求, 但是&hellip; 结果似乎是负优化啊. 还是先禁用算了.</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

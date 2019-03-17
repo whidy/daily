@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title> &middot; Daily note</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daily note" />
+
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://daily.whidy.net"><h1>Daily note</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://daily.whidy.net">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1></h1>
+  <time datetime=0001-01-01T00:00:00Z class="post-date">Mon, Jan 1, 0001</time>
+  
+
+<h1 id="vue下滚动到页面底部无限加载数据demo">Vue下滚动到页面底部无限加载数据Demo</h1>
+
+<blockquote>
+<p>看到一篇<a href="https://alligator.io/vuejs/implementing-infinite-scroll/">Implementing an Infinite Scroll with Vue.js</a>, 觉得挺实用的就看了下, 顺便简单翻译了一下给需要的人参考.</p>
+
+<p><strong>从这个项目中可以加深对Vue的生命周期的理解, 何时开始axios请求, 如何结合Vue使用原生js来写scroll事件等等</strong>, 我这里主要是对原文的重点提取和补充</p>
+</blockquote>
+
+<h2 id="本文技术要点">本文技术要点</h2>
+
+<ul>
+<li><code>Vue</code>生命周期</li>
+<li><code>axios</code>简单用法</li>
+<li><code>moment.js</code>格式化日期</li>
+<li>图片懒加载</li>
+<li>结合原生js来写<code>scroll</code>事件</li>
+<li>请求节流</li>
+</ul>
+
+<h2 id="创建项目">创建项目</h2>
+
+<p>首先创建一个简单的vue项目</p>
+
+<pre><code class="language-bash"># vue init webpack-simple infinite-scroll-vuejs
+</code></pre>
+
+<p>然后安装项目所需要用的一些插件</p>
+
+<pre><code class="language-bash"># npm install axios moment
+</code></pre>
+
+<h2 id="初始化用户数据">初始化用户数据</h2>
+
+<p>项目搭建完后, 跑起来看看</p>
+
+<pre><code class="language-bash"># npm run dev
+</code></pre>
+
+<p>打开<code>http://localhost:8080</code>无误后, 我们开始修改代码, 先看看获取用户数据这块,</p>
+
+<pre><code class="language-html">&lt;script&gt;
+import axios from 'axios'
+import moment from 'moment'
+export default {
+  name: 'app',
+  // 创建一个存放用户数据的数组
+  data() {
+    return {
+      persons: []
+    }
+  },
+  methods: {
+    // axios请求接口获取数据
+    getInitialUsers() {
+      for (var i = 0; i &lt; 5; i++) {
+        axios.get(`https://randomuser.me/api/`).then(response =&gt; {
+          this.persons.push(response.data.results[0])
+        })
+      }
+    },
+    formatDate(date) {
+      if (date) {
+        return moment(String(date)).format('MM/DD/YYYY')
+      }
+    },
+  beforeMount() {
+    // 在页面挂载前就发起请求
+    this.getInitialUsers()
+  }
+}
+&lt;/script&gt;
+</code></pre>
+
+<blockquote>
+<p>这里原作者也专门提醒, <strong>完全没有必要也不建议在加载页面的时候请求5次, 只是这个接口一次只能返回1条数据, 仅用于测试才这样做的.</strong> 当然我这里也可以通过Mock来模拟数据, 就不详细说了~</p>
+</blockquote>
+
+<p>接下来来写模板结构和样式, 如下:</p>
+
+<pre><code class="language-html">&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Random User&lt;/h1&gt;
+    &lt;div class=&quot;person&quot; v-for=&quot;(person, index) in persons&quot; :key=&quot;index&quot;&gt;
+      &lt;div class=&quot;left&quot;&gt;
+        &lt;img :src=&quot;person.picture.large&quot; alt=&quot;&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;right&quot;&gt;
+        &lt;p&gt;{{ person.name.first}} {{ person.name.last }}&lt;/p&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;strong&gt;Birthday:&lt;/strong&gt; {{ formatDate(person.dob)}}
+          &lt;/li&gt;
+          &lt;div class=&quot;text-capitalize&quot;&gt;
+            &lt;strong&gt;Location:&lt;/strong&gt; {{ person.location.city}}, {{ person.location.state }}
+          &lt;/div&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style lang=&quot;scss&quot;&gt;
+.person {
+  background: #ccc;
+  border-radius: 2px;
+  width: 20%;
+  margin: 0 auto 15px auto;
+  padding: 15px;
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+  }
+
+  p:first-child {
+    text-transform: capitalize;
+    font-size: 2rem;
+    font-weight: 900;
+  }
+
+  .text-capitalize {
+    text-transform: capitalize;
+  }
+}
+&lt;/style&gt;
+</code></pre>
+
+<p>这样页面就能显示5个人的个人信息了.</p>
+
+<h2 id="处理无限滚动加载逻辑">处理无限滚动加载逻辑</h2>
+
+<p>我们接下来需要在<code>methods</code>里面添加<code>scroll()</code>来监听滚动, 并且这个事件是应该在<code>mounted()</code>这个生命周期内的. 代码如下:</p>
+
+<pre><code class="language-html">&lt;script&gt;
+  // ...
+  methods: {
+    // ...
+    scroll(person) {
+      let isLoading = false
+      window.onscroll = () =&gt; {
+        // 距离底部200px时加载一次
+        let bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight &lt;= 200
+        if (bottomOfWindow &amp;&amp; isLoading == false) {
+          isLoading = true
+          axios.get(`https://randomuser.me/api/`).then(response =&gt; {
+            person.push(response.data.results[0])
+            isLoading = false
+          })
+        }
+      }
+    }
+  },
+  mounted() {
+    this.scroll(this.persons)
+  }
+}
+&lt;/script&gt;
+</code></pre>
+
+<blockquote>
+<p>这段代码原文是有一点拼写错误的. 我这里修正了, 另外增加了距离底部即开始加载数据, 并进行截流.</p>
+</blockquote>
+
+<p>保存好, 回到浏览器, 查看效果, 已经没有问题了~</p>
+
+<h2 id="总结">总结</h2>
+
+<p>滚动到页面底部无限加载的功能在Vue上实现其实和普通的页面开发差不多, 每次滚动加载未完成的情况下不会触发请求下一次, 每次请求<code>push</code>到数组内, 通过<code>&lt;img :src=&quot;&quot;&gt;</code>的数据绑定实现了懒加载(其实0 0我不太认可&hellip;), 看完是不是感觉挺简单的.</p>
+
+<p>最后, 我把这个也弄了一份在GitHub上面, 有需要的可以看看<a href="https://github.com/whidy/infinite-scroll-vuejs">infinite-scroll-vuejs-demo</a>~</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

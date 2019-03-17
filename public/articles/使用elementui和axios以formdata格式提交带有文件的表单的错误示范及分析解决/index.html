@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title> &middot; Daily note</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://daily.whidy.netcss/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Daily note" />
+
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://daily.whidy.net"><h1>Daily note</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://daily.whidy.net">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1></h1>
+  <time datetime=0001-01-01T00:00:00Z class="post-date">Mon, Jan 1, 0001</time>
+  
+
+<h1 id="使用elementui和axios以formdata格式提交带有文件的表单的错误示范及分析解决">使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决</h1>
+
+<blockquote>
+<p>做Vue项目的时候, 提交数据基本上都是用Axios, 之前做过的表单方面的提交, 并没有过多关注客户端和服务器之间的通信过程. 所以一直对HTTP的head请求头, body内容之类的不明不白, 为了短期(是的估计过半年又忘了😂)解决这个疑惑, 再次复习了一遍. 顺便总结了<strong>Vue中使用Axios处理包含上传文件的表单提交</strong></p>
+</blockquote>
+
+<h2 id="场景说明">场景说明</h2>
+
+<p>项目使用的Vue(Nuxt)框架, 数据请求用的<a href="https://github.com/axios/axios">Axios</a>插件, 表单包含了一些基本的用户信息填写, 同时还有身份证上传, 和后端沟通过, 提交数据的时候, 接口全部使用<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/POST">POST</a>请求, 那么有文件上传的一般来说只能用formData格式.</p>
+
+<h2 id="实践及代码示例">实践及代码示例</h2>
+
+<p>我项目中使用的是ElementUI, 对于<a href="http://element.eleme.io/#/zh-CN/component/upload#upload-shang-chuan">上传组件</a>不熟悉的朋友, 需要注意几个事情:</p>
+
+<ul>
+<li>action是必填, 那么留空也许是个不错的做法.</li>
+<li>获取到上传的文件的办法很多. 官方提供了几种事件来获取, 例如: <code>on-success</code>, <code>on-change</code>(首次上传会触发两次), 我这里使用了<code>on-success</code></li>
+
+<li><p>那么拿到上传的回调, 这里特别需要注意的, 我以<code>on-success</code>三个参数来看</p>
+
+<ul>
+<li><code>response</code>是服务器返回的响应</li>
+<li><code>file</code>一个文件</li>
+<li><code>fileList</code>存放多个文件的数组</li>
+</ul>
+
+<blockquote>
+<p>可能看到有<code>file</code>或者<code>fileList</code>会直接将它的数据提交给后台, 一开始我也是没注意到这点, 始终无法正确提交数据. 那么经过一番研究和排查, 得知: <strong>真正的File对象是<code>fileList</code>数组中某个元素的<code>raw</code>属性!</strong>, 那么下面先看一段错误的示范:</p>
+</blockquote></li>
+</ul>
+
+<p>页面部分结构代码如下:</p>
+
+<pre><code class="language-html">&lt;el-form ref=&quot;form&quot; :model=&quot;form&quot; label-width=&quot;120px&quot;&gt;
+  &lt;el-form-item label=&quot;活动名称&quot;&gt;
+    &lt;el-input v-model=&quot;form.name&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+  &lt;el-form-item label=&quot;活动区域&quot;&gt;
+    &lt;el-select v-model=&quot;form.region&quot; placeholder=&quot;请选择活动区域&quot;&gt;
+      &lt;el-option label=&quot;区域一&quot; value=&quot;shanghai&quot;&gt;&lt;/el-option&gt;
+      &lt;el-option label=&quot;区域二&quot; value=&quot;beijing&quot;&gt;&lt;/el-option&gt;
+    &lt;/el-select&gt;
+  &lt;/el-form-item&gt;
+  &lt;el-form-item label=&quot;身份证正面&quot;&gt;
+    &lt;el-upload 
+      action=&quot;&quot; 
+      :on-success	=&quot;handleSuccess&quot;
+      :multiple=&quot;false&quot; 
+      :limit=&quot;1&quot; 
+      :on-exceed=&quot;handleExceed&quot; 
+      :file-list=&quot;fileList&quot;&gt;
+      &lt;el-button size=&quot;small&quot; type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt;
+      &lt;div slot=&quot;tip&quot; class=&quot;el-upload__tip&quot;&gt;只能上传jpg/png文件，且不超过500kb&lt;/div&gt;
+    &lt;/el-upload&gt;
+  &lt;/el-form-item&gt;
+  &lt;el-form-item&gt;
+    &lt;el-button type=&quot;primary&quot; @click=&quot;onSubmit&quot;&gt;提交&lt;/el-button&gt;
+    &lt;el-button&gt;取消&lt;/el-button&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+</code></pre>
+
+<p>这里我将上传文件数量限制为<code>1</code>个, 接下来是JavaScript部分:</p>
+
+<pre><code class="language-javascript">import AppLogo from '~/components/AppLogo.vue'
+export default {
+  components: {
+    AppLogo
+  },
+  data() {
+    return {
+      form: {
+        name: '',
+        region: ''
+      },
+      fileList: []
+    }
+  },
+  methods: {
+    handleSuccess(response, file, fileList) {
+      this.fileList = fileList
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(`最多上传 ${files.length} 个文件`)
+    },
+    onSubmit() {
+      this.$axios
+        .$post('/api/active', {
+          name: this.form.name,
+          region: this.form.region,
+          file: this.fileList
+        })
+        .then(response =&gt; {
+          if (response.code === 200) {
+            // 提交成功将要执行的代码
+          }
+        })
+        .catch(function(error) {
+          // console.log(error)
+        })
+    }
+  }
+}
+</code></pre>
+
+<blockquote>
+<p>上面的这段<code>onSubmit</code>能提交成功就是真的见了鬼呢</p>
+</blockquote>
+
+<h3 id="问题分析">问题分析</h3>
+
+<p>问题在哪呢, 前面提到, 后台接受数据的格式是<code>multipart/form-data</code>, 你发个json对象是什么鬼, 没有这方面经验的人肯定就搞不清怎么回事了. 所以一般对这块不熟悉的人容易犯以下的几个错误:</p>
+
+<ul>
+<li>不了解上传文件应该以什么方式提交, 比如后台是<code>multipart/form-data</code>, 而习惯性以json对象发送数据(因为大量插件对数据对象也封装了方法, 所以容易忽略)</li>
+<li>不知道上传文件提交的格式, 以为将<code>this.fileList</code>改成<code>this.fileList[0]</code>就万事大吉</li>
+<li>当多种疑惑无法解决的时候, 可能会尝试很多次都不行, 陷入误区而久久无法解决困难. 开始怀疑是否是Axios插件不支持文件上传.</li>
+<li>其他各种别的问题&hellip;</li>
+</ul>
+
+<h3 id="问题解决">问题解决</h3>
+
+<p>其实, 熟悉的话, 解决这个问题很简单. 前面也说过, elementUI将返回的<code>file</code>对象封装了一下, 首先我们要拿到真正的文件对象, 实际上就是<code>file.raw</code>或者<code>fileList[0].raw</code>!</p>
+
+<p>不要以为这样就可以提交数据了. 我们还要使用<code>form-data</code>特有的提交方式来提交带有文件内容的表单. 废话不多说上一段, 修正后的部分代码:</p>
+
+<pre><code class="language-html">&lt;el-upload 
+  action=&quot;&quot; 
+  :http-request=&quot;handleFile&quot; 
+  :multiple=&quot;false&quot; 
+  :limit=&quot;1&quot; 
+  :on-exceed=&quot;handleExceed&quot; 
+  :file-list=&quot;fileList&quot;&gt;
+  &lt;el-button size=&quot;small&quot; type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt;
+  &lt;div slot=&quot;tip&quot; class=&quot;el-upload__tip&quot;&gt;只能上传jpg/png文件，且不超过500kb&lt;/div&gt;
+&lt;/el-upload&gt;
+</code></pre>
+
+<pre><code class="language-javascript">onSubmit() {
+  let form = this.$refs['form'].$el
+  let formData = new FormData(form)
+  formData.append('name', this.form.name)
+  formData.append('region', this.form.region)
+  formData.append('file', this.fileList[0])
+  this.$axios
+    .$post('/api/active', formData)
+    .then(response =&gt; {
+      if (response.code === 200) {
+        // 提交成功将要执行的代码
+      }
+    })
+    .catch(function(error) {
+      // console.log(error)
+    })
+}
+</code></pre>
+
+<p>简单说明下</p>
+
+<ul>
+<li>其实elementUI中提供了一个<code>http-request</code>事件来覆盖默认的action, 这样很好的避免了一些异常(比如我在测试环境的时候, 用了不太好的的<code>on-success</code>通过了验证, 但是在生产环境中由于action地址空所以默认请求当前地址, 出现了404).</li>
+<li>formData似乎只能一个个对应的append进去, console出来也看不到, 具体用法可以参考文章末尾的MDN~</li>
+<li>axios是可以很好地完成formData表单数据提交的, 这里虽然也是一个对象, 但是不是普通的json对象, 他对这个数据处理很正常, 所以放心使用.</li>
+</ul>
+
+<h2 id="额外补充-axios配置">额外补充: axios配置</h2>
+
+<blockquote>
+<p>Axios可以说在Vue中相当重要, 经常我们对简单的重新封装或者配置, 就这个插件来说完全可以写一篇新文章了, 这里他不是重点我就简单介绍下我用它做的配置</p>
+</blockquote>
+
+<pre><code class="language-javascript">import qs from 'qs'
+import { Message } from 'element-ui'
+export default function({ $axios, redirect }) {
+  let apiUrl = process.env.apiUrl
+  $axios.defaults.baseURL = apiUrl
+  $axios.defaults.timeout = 15000
+  $axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'
+  $axios.onRequest(config =&gt; {
+    // 与后台配合post请求字符串传参
+    let reqParams = qs.stringify(config.data)
+    let url = config.url + (reqParams ? '?' : '') + reqParams
+    config.url = url
+  })
+
+  $axios.onResponse(res =&gt; {
+    if (res.data.code !== 200) {
+      // 后台返回session过期或异常的情况
+      if (res.data.code === 401 || res.config.url === apiUrl + '/logout') {
+        window.sessionStorage.clear()
+        redirect('/platform/login')
+      } else {
+        // 返回到一个错误页面或者提示错误
+        Message.error(res.data.message)
+        // redirect('/')
+      }
+    }
+  })
+
+  $axios.onError(error =&gt; {
+    Message.error('服务器异常，请稍后再试')
+  })
+}
+</code></pre>
+
+<p>上面对发送数据请求的相关参数配置了, 也做了拦截器. <code>qs</code>插件是个亮点, 我为了vue代码书写更清晰, 将<code>json</code>对象传过来处理为<code>name=whidy&amp;age=30</code>类似这样的拼接到url后再发送请求给服务器的.</p>
+
+<h2 id="总结">总结</h2>
+
+<p>好了说了一大堆, 其实最重要的事情是, 理解以下几点</p>
+
+<ul>
+<li>和后端沟通好, 请求格式</li>
+<li>了解上传文件需要的表单数据格式</li>
+<li>尽量多的去熟悉第三方UI插件, 尤其像elementUI这样相对完善的组件, 应该是有较好的处理方法的</li>
+<li>耐心的一步步查找错误</li>
+</ul>
+
+<p>最后献上一些参考资料:</p>
+
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData">MDN的FormData介绍</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/Using_FormData_Objects">MDN的使用FormData数据</a></li>
+<li><a href="https://github.com/axios/axios/issues/318#issuecomment-218948420">对我帮助很大的来自Axios的Issue</a></li>
+</ul>
+
+<p>文中难免也有一些描述不准确的地方, 希望大佬们多多指点~ 本文提到的代码的存放在GitHub上面<strong>nuxt-spa-demo</strong>项目的分支<a href="https://github.com/whidy/nuxt-spa-demo/tree/nuxt-axios-formdata">nuxt-axios-formdata</a>, 有兴趣也可以看看~</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>
