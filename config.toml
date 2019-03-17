@@ -1,5 +1,38 @@
-baseURL = "https://daily.whidy.net"
+baseurl = "/"
 languageCode = "en-us"
-title = "Daily note"
-theme = "ananke"
-description = "Here is Whidy's github note, you will find somethings here."
+theme = "terminal"
+paginate = 5
+
+[params]
+  # dir name of your blog content (default is `content/posts`)
+  contentTypeName = "post"
+  # ["orange", "blue", "red", "green", "pink"]
+  themeColor = "orange"
+  # if you set this to 0, only submenu trigger will be visible
+  showMenuItems = 5
+  # set theme to full screen width
+  fullWidthTheme = false
+  # center theme with default width
+  centerTheme = false
+  # set a custom favicon (default is a `themeColor` square)
+  # favicon = "favicon.ico"
+
+[languages]
+  [languages.en]
+    title = "Whidy Daily"
+    subtitle = "Here is Whidy's github note, you will find somethings here."
+    keywords = "whidy daily blog"
+    copyright = ""
+    menuMore = "Show more"
+    readMore = "更多"
+    readOtherPosts = "查看其他"
+
+    [languages.en.params.logo]
+      logoText = "Daily Note"
+      logoHomeLink = "/"
+
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "note"
+        name = "Daily"
+        url = "/daily"
