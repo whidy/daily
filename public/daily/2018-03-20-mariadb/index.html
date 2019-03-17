@@ -1,97 +1,61 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Whidy Daily  | MariaDB崩溃分析/Wordpress改用Nginx</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
+<html lang="en">
+<head>
+  
+    <title>MariaDB崩溃分析/Wordpress改用Nginx :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="2018年3月20日 阴晴 一般
+ MariaDB崩溃分析/博客改用Nginx  最近SB哥们在我服务器上面做hadoop实验, 结果搞得我博客总是崩溃, 之前以为是偶然现象或者是被攻击, 目前看来是服务器配置低了😭, 毕竟是白菜服务器.
+ 博客崩溃修复小结 昨天很忙, 一直在处理微信授权的逻辑合理性和体验, 尽早发现博客又挂了, 初步检测是MariaDB挂了, 原因尚不明确.
+重启MariaDB服务, 恢复数据库的连接 先检查状态, 确认是MariaDB崩溃后重启服务
+[root@VM_0_3_centos ~]# systemctl status mariadb ● mariadb.service - MariaDB database server Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; vendor preset: disabled) Active: inactive (dead) since Tue 2018-03-20 14:03:14 CST; 1h 39min ago Process: 4096 ExecStartPost=/usr/libexec/mariadb-wait-ready $MAINPID (code=exited, status=0/SUCCESS) Process: 4095 ExecStart=/usr/bin/mysqld_safe --basedir=/usr (code=exited, status=0/SUCCESS) Process: 4063 ExecStartPre=/usr/libexec/mariadb-prepare-db-dir %n (code=exited, status=0/SUCCESS) Main PID: 4095 (code=exited, status=0/SUCCESS) Mar 20 08:26:25 VM_0_3_centos systemd[1]: Starting MariaDB database server."/>
+<meta name="keywords" content="whidy daily blog"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/daily/2018-03-20-mariadb/" />
 
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.54.0" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    
 
-    
-    
-      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
-    
+<link rel="stylesheet" href="/assets/style.css">
 
-    
 
-    
-      
-    
 
-    
+<link rel="stylesheet" href="/style.css">
 
-    <meta property="og:title" content="MariaDB崩溃分析/Wordpress改用Nginx" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="MariaDB崩溃分析/Wordpress改用Nginx :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here." />
+<meta name="twitter:description" content="2018年3月20日 阴晴 一般
+ MariaDB崩溃分析/博客改用Nginx  最近SB哥们在我服务器上面做hadoop实验, 结果搞得我博客总是崩溃, 之前以为是偶然现象或者是被攻击, 目前看来是服务器配置低了😭, 毕竟是白菜服务器.
+ 博客崩溃修复小结 昨天很忙, 一直在处理微信授权的逻辑合理性和体验, 尽早发现博客又挂了, 初步检测是MariaDB挂了, 原因尚不明确.
+重启MariaDB服务, 恢复数据库的连接 先检查状态, 确认是MariaDB崩溃后重启服务
+[root@VM_0_3_centos ~]# systemctl status mariadb ● mariadb.service - MariaDB database server Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; vendor preset: disabled) Active: inactive (dead) since Tue 2018-03-20 14:03:14 CST; 1h 39min ago Process: 4096 ExecStartPost=/usr/libexec/mariadb-wait-ready $MAINPID (code=exited, status=0/SUCCESS) Process: 4095 ExecStart=/usr/bin/mysqld_safe --basedir=/usr (code=exited, status=0/SUCCESS) Process: 4063 ExecStartPre=/usr/libexec/mariadb-prepare-db-dir %n (code=exited, status=0/SUCCESS) Main PID: 4095 (code=exited, status=0/SUCCESS) Mar 20 08:26:25 VM_0_3_centos systemd[1]: Starting MariaDB database server." />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="whidy" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="MariaDB崩溃分析/Wordpress改用Nginx :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.">
 <meta property="og:description" content="2018年3月20日 阴晴 一般
  MariaDB崩溃分析/博客改用Nginx  最近SB哥们在我服务器上面做hadoop实验, 结果搞得我博客总是崩溃, 之前以为是偶然现象或者是被攻击, 目前看来是服务器配置低了😭, 毕竟是白菜服务器.
  博客崩溃修复小结 昨天很忙, 一直在处理微信授权的逻辑合理性和体验, 尽早发现博客又挂了, 初步检测是MariaDB挂了, 原因尚不明确.
 重启MariaDB服务, 恢复数据库的连接 先检查状态, 确认是MariaDB崩溃后重启服务
 [root@VM_0_3_centos ~]# systemctl status mariadb ● mariadb.service - MariaDB database server Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; vendor preset: disabled) Active: inactive (dead) since Tue 2018-03-20 14:03:14 CST; 1h 39min ago Process: 4096 ExecStartPost=/usr/libexec/mariadb-wait-ready $MAINPID (code=exited, status=0/SUCCESS) Process: 4095 ExecStart=/usr/bin/mysqld_safe --basedir=/usr (code=exited, status=0/SUCCESS) Process: 4063 ExecStartPre=/usr/libexec/mariadb-prepare-db-dir %n (code=exited, status=0/SUCCESS) Main PID: 4095 (code=exited, status=0/SUCCESS) Mar 20 08:26:25 VM_0_3_centos systemd[1]: Starting MariaDB database server." />
-<meta property="og:type" content="article" />
 <meta property="og:url" content="/daily/2018-03-20-mariadb/" />
-<meta property="article:published_time" content="2018-03-20T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-03-20T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+<meta property="og:site_name" content="MariaDB崩溃分析/Wordpress改用Nginx" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
 
-<meta itemprop="name" content="MariaDB崩溃分析/Wordpress改用Nginx">
-<meta itemprop="description" content="2018年3月20日 阴晴 一般
- MariaDB崩溃分析/博客改用Nginx  最近SB哥们在我服务器上面做hadoop实验, 结果搞得我博客总是崩溃, 之前以为是偶然现象或者是被攻击, 目前看来是服务器配置低了😭, 毕竟是白菜服务器.
- 博客崩溃修复小结 昨天很忙, 一直在处理微信授权的逻辑合理性和体验, 尽早发现博客又挂了, 初步检测是MariaDB挂了, 原因尚不明确.
-重启MariaDB服务, 恢复数据库的连接 先检查状态, 确认是MariaDB崩溃后重启服务
-[root@VM_0_3_centos ~]# systemctl status mariadb ● mariadb.service - MariaDB database server Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; vendor preset: disabled) Active: inactive (dead) since Tue 2018-03-20 14:03:14 CST; 1h 39min ago Process: 4096 ExecStartPost=/usr/libexec/mariadb-wait-ready $MAINPID (code=exited, status=0/SUCCESS) Process: 4095 ExecStart=/usr/bin/mysqld_safe --basedir=/usr (code=exited, status=0/SUCCESS) Process: 4063 ExecStartPre=/usr/libexec/mariadb-prepare-db-dir %n (code=exited, status=0/SUCCESS) Main PID: 4095 (code=exited, status=0/SUCCESS) Mar 20 08:26:25 VM_0_3_centos systemd[1]: Starting MariaDB database server.">
-
-
-<meta itemprop="datePublished" content="2018-03-20T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-03-20T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="968">
-
-
-
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MariaDB崩溃分析/Wordpress改用Nginx"/>
-<meta name="twitter:description" content="2018年3月20日 阴晴 一般
- MariaDB崩溃分析/博客改用Nginx  最近SB哥们在我服务器上面做hadoop实验, 结果搞得我博客总是崩溃, 之前以为是偶然现象或者是被攻击, 目前看来是服务器配置低了😭, 毕竟是白菜服务器.
- 博客崩溃修复小结 昨天很忙, 一直在处理微信授权的逻辑合理性和体验, 尽早发现博客又挂了, 初步检测是MariaDB挂了, 原因尚不明确.
-重启MariaDB服务, 恢复数据库的连接 先检查状态, 确认是MariaDB崩溃后重启服务
-[root@VM_0_3_centos ~]# systemctl status mariadb ● mariadb.service - MariaDB database server Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; vendor preset: disabled) Active: inactive (dead) since Tue 2018-03-20 14:03:14 CST; 1h 39min ago Process: 4096 ExecStartPost=/usr/libexec/mariadb-wait-ready $MAINPID (code=exited, status=0/SUCCESS) Process: 4095 ExecStart=/usr/bin/mysqld_safe --basedir=/usr (code=exited, status=0/SUCCESS) Process: 4063 ExecStartPre=/usr/libexec/mariadb-prepare-db-dir %n (code=exited, status=0/SUCCESS) Main PID: 4095 (code=exited, status=0/SUCCESS) Mar 20 08:26:25 VM_0_3_centos systemd[1]: Starting MariaDB database server."/>
-
-  </head>
-
-  <body class="ma0 avenir bg-near-white">
-
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Whidy Daily
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-        <ul class="pl0 mr3">
-          
-          <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
-              Daily
-            </a>
-          </li>
-          
-        </ul>
-      
-      
+<meta property="article:published_time" content="2018-03-20 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -100,34 +64,70 @@
 
 
 
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Daily Note
+  </div>
+</a>
 
     </div>
+    <div class="menu-trigger">menu</div>
   </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/daily">Daily</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/daily">Daily</a></li>
+      
+    
+  </ul>
 </nav>
 
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+</header>
 
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        DAILIES
-      </p>
-      <h1 class="f1 athelas mb1">MariaDB崩溃分析/Wordpress改用Nginx</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2018-03-20T00:00:00Z">March 20, 2018</time>      
-      
-      
-    </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+  <div class="content">
+    
+  <div class="post">
+    <h1 class="post-title"><a href="/daily/2018-03-20-mariadb/">MariaDB崩溃分析/Wordpress改用Nginx</a></h1>
+    <div class="post-meta">
+      <span class="post-date">
+        2018-03-20
+      </span>
+      <span class="post-author">:: whidy</span>
+    </div>
+
+    
+
+    
+
+    <div class="post-content">
+      
 
 <blockquote>
 <p>2018年3月20日 阴晴 一般</p>
@@ -311,113 +311,62 @@ whidy.wp_users                                     OK
 <h2 id="博客改用nginx">博客改用Nginx</h2>
 
 <p>晚上回去本来不想开电脑, 又想着太早了, 于是将Apache更换为Nginx, 本来一下就弄完了, 没想到还是弄了很久. 一不小心就到了11点半, 明天再总结下一些替换操作流程吧.</p>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6">
-        
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">查看其他</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="/daily/2018-03-21-nginx/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Wordpress改用Nginx</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="/daily/2018-03-18-jekyll-ruby-rails-linux-weapp/">
+                <span class="button__text">CentOS7安装Jekyll和Rails</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
       </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
-    <p class="f5 b mb3">Related</p>
-    <ul class="pa0 list">
-	   
-	     <li  class="mb2">
-          <a href="/daily/2018-03-18-jekyll-ruby-rails-linux-weapp/">CentOS7安装Jekyll和Rails</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-17-php-upgrade-7.x/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-16-apache-host/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-15-note/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-06-weapp/">微信小程序开发中的问题</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-28-javascript/">复习</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-24-cssnano/">PostCSS不支持部分SASS研究</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-23-cssnano/">Wang Year of the Dog</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/elementui%E7%9A%84table%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84renderheader%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/">ElementUI的Table组件中的renderHeader方法研究</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/">使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%BA%8C/">Javascript事件循环入门到“忘记”（二）</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E6%89%BE%E4%B8%AA%E6%9C%8B%E5%8F%8B%E8%81%8A%E7%9D%80%E8%81%8A%E7%9D%80%E5%B0%B1%E7%BB%93%E5%A9%9A%E4%BA%86/">找个朋友聊着聊着就结婚了</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8E%E8%A1%A8%E5%8D%95/">（未完成）关于表单</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%8C%B9%E9%85%8D%E5%88%86%E6%9E%90%E6%80%9D%E8%B7%AF/">正则表达式中`[反斜杠b]`和`反斜杠b`和`反斜杠B`的区别及匹配分析思路</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E7%94%A8gatsby%E5%92%8Cstrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">用Gatsby和Strapi创建一个静态博客(翻译和自己探索过程中的经验总结)</a>
-        </li>
-	    
-    </ul>
-</div>
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
-    &copy; 2019 Whidy Daily
-  </a>
-    <div>
-
-
-
-
-
-
-
-
-</div>
-  </div>
-</footer>
+    
 
     
 
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
 
 
-  </body>
+
+
+
+  
+</div>
+
+</body>
 </html>

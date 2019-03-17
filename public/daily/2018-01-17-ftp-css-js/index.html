@@ -1,100 +1,64 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Whidy Daily  | CSS动画技巧/JS面试题/速查手册/日常学习</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.54.0" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-
-    <meta property="og:title" content="CSS动画技巧/JS面试题/速查手册/日常学习" />
-<meta property="og:description" content="2018年1月17日 晴 一般
+<html lang="en">
+<head>
+  
+    <title>CSS动画技巧/JS面试题/速查手册/日常学习 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="2018年1月17日 晴 一般
  css动画 / JS面试题研究 / 速查手册  完成博客内容Visual Studio Code几款FTP插件使用总结,并发布在SegmentFault文章
- 自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&rdquo;quick panel&rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) No, 除非修改sftp配置&quot;confirm_xxx&quot;()例如&rdquo;confirm_overwrite_newer&ldquo;为true, 就会静默yes, 继续执行.
+ 自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&amp;rdquo;quick panel&amp;rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) No, 除非修改sftp配置&amp;quot;confirm_xxx&amp;quot;()例如&amp;rdquo;confirm_overwrite_newer&amp;ldquo;为true, 就会静默yes, 继续执行.
  阅读Making CSS Animations Feel More Natural,我觉得应该翻译成,如何让CSS动画看起来更生动 该文通过7个示例, 一点点将一个方块上下跳动的动画进行优化, 让它看起来更加生动. 有几个关键点, @keyframes的分解是否到位, 每个步骤通过transform的scale对其形状进行适当的改变animation-timing-function的选择: linear → ease → cubic-bezier(如果你擅长使用贝赛尔曲线). 对比每个改进, 就会发现这些小小的改动作用非常的大了!
- 阅读Stop Using CSS Selectors for Non-CSS. 文中提到, 不建议使用类名作为事件代理, 不如加一个data-进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&rsquo;js-&lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.
- 看到StackOverflow上提出的一个面试题Can (a ==1 &amp;&amp; a== 2 &amp;&amp; a==3) ever evaluate to true?" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="/daily/2018-01-17-ftp-css-js/" />
-<meta property="article:published_time" content="2018-01-17T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-01-17T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
-
-<meta itemprop="name" content="CSS动画技巧/JS面试题/速查手册/日常学习">
-<meta itemprop="description" content="2018年1月17日 晴 一般
- css动画 / JS面试题研究 / 速查手册  完成博客内容Visual Studio Code几款FTP插件使用总结,并发布在SegmentFault文章
- 自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&rdquo;quick panel&rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) No, 除非修改sftp配置&quot;confirm_xxx&quot;()例如&rdquo;confirm_overwrite_newer&ldquo;为true, 就会静默yes, 继续执行.
- 阅读Making CSS Animations Feel More Natural,我觉得应该翻译成,如何让CSS动画看起来更生动 该文通过7个示例, 一点点将一个方块上下跳动的动画进行优化, 让它看起来更加生动. 有几个关键点, @keyframes的分解是否到位, 每个步骤通过transform的scale对其形状进行适当的改变animation-timing-function的选择: linear → ease → cubic-bezier(如果你擅长使用贝赛尔曲线). 对比每个改进, 就会发现这些小小的改动作用非常的大了!
- 阅读Stop Using CSS Selectors for Non-CSS. 文中提到, 不建议使用类名作为事件代理, 不如加一个data-进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&rsquo;js-&lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.
- 看到StackOverflow上提出的一个面试题Can (a ==1 &amp;&amp; a== 2 &amp;&amp; a==3) ever evaluate to true?">
+ 阅读Stop Using CSS Selectors for Non-CSS. 文中提到, 不建议使用类名作为事件代理, 不如加一个data-进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&amp;rsquo;js-&amp;lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.
+ 看到StackOverflow上提出的一个面试题Can (a ==1 &amp;amp;&amp;amp; a== 2 &amp;amp;&amp;amp; a==3) ever evaluate to true?"/>
+<meta name="keywords" content="whidy daily blog"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/daily/2018-01-17-ftp-css-js/" />
 
 
-<meta itemprop="datePublished" content="2018-01-17T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-01-17T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="173">
+<link rel="stylesheet" href="/assets/style.css">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CSS动画技巧/JS面试题/速查手册/日常学习"/>
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="CSS动画技巧/JS面试题/速查手册/日常学习 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here." />
 <meta name="twitter:description" content="2018年1月17日 晴 一般
  css动画 / JS面试题研究 / 速查手册  完成博客内容Visual Studio Code几款FTP插件使用总结,并发布在SegmentFault文章
- 自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&rdquo;quick panel&rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) No, 除非修改sftp配置&quot;confirm_xxx&quot;()例如&rdquo;confirm_overwrite_newer&ldquo;为true, 就会静默yes, 继续执行.
+ 自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&amp;rdquo;quick panel&amp;rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) No, 除非修改sftp配置&amp;quot;confirm_xxx&amp;quot;()例如&amp;rdquo;confirm_overwrite_newer&amp;ldquo;为true, 就会静默yes, 继续执行.
  阅读Making CSS Animations Feel More Natural,我觉得应该翻译成,如何让CSS动画看起来更生动 该文通过7个示例, 一点点将一个方块上下跳动的动画进行优化, 让它看起来更加生动. 有几个关键点, @keyframes的分解是否到位, 每个步骤通过transform的scale对其形状进行适当的改变animation-timing-function的选择: linear → ease → cubic-bezier(如果你擅长使用贝赛尔曲线). 对比每个改进, 就会发现这些小小的改动作用非常的大了!
- 阅读Stop Using CSS Selectors for Non-CSS. 文中提到, 不建议使用类名作为事件代理, 不如加一个data-进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&rsquo;js-&lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.
- 看到StackOverflow上提出的一个面试题Can (a ==1 &amp;&amp; a== 2 &amp;&amp; a==3) ever evaluate to true?"/>
+ 阅读Stop Using CSS Selectors for Non-CSS. 文中提到, 不建议使用类名作为事件代理, 不如加一个data-进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&amp;rsquo;js-&amp;lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.
+ 看到StackOverflow上提出的一个面试题Can (a ==1 &amp;amp;&amp;amp; a== 2 &amp;amp;&amp;amp; a==3) ever evaluate to true?" />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="whidy" />
+<meta name="twitter:image" content="">
 
-  </head>
 
-  <body class="ma0 avenir bg-near-white">
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="CSS动画技巧/JS面试题/速查手册/日常学习 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.">
+<meta property="og:description" content="2018年1月17日 晴 一般
+ css动画 / JS面试题研究 / 速查手册  完成博客内容Visual Studio Code几款FTP插件使用总结,并发布在SegmentFault文章
+ 自己使用Sublime Text 3的SFTP插件时, 执行了同步命令后, 请耐心等待, 否则执行过程中弹出的&amp;rdquo;quick panel&amp;rdquo;会自动消失, sftp的日志输出面板提示(Select via quick panel) No, 除非修改sftp配置&amp;quot;confirm_xxx&amp;quot;()例如&amp;rdquo;confirm_overwrite_newer&amp;ldquo;为true, 就会静默yes, 继续执行.
+ 阅读Making CSS Animations Feel More Natural,我觉得应该翻译成,如何让CSS动画看起来更生动 该文通过7个示例, 一点点将一个方块上下跳动的动画进行优化, 让它看起来更加生动. 有几个关键点, @keyframes的分解是否到位, 每个步骤通过transform的scale对其形状进行适当的改变animation-timing-function的选择: linear → ease → cubic-bezier(如果你擅长使用贝赛尔曲线). 对比每个改进, 就会发现这些小小的改动作用非常的大了!
+ 阅读Stop Using CSS Selectors for Non-CSS. 文中提到, 不建议使用类名作为事件代理, 不如加一个data-进行DOM扩展, 代理事件. 当然这个操作是否合适, 有相关评论说, 可以采用在类名前面增加前缀&amp;rsquo;js-&amp;lsquo;. 当然作者还是希望. class就是用来负责样式的, 不应该处理其他事情.
+ 看到StackOverflow上提出的一个面试题Can (a ==1 &amp;amp;&amp;amp; a== 2 &amp;amp;&amp;amp; a==3) ever evaluate to true?" />
+<meta property="og:url" content="/daily/2018-01-17-ftp-css-js/" />
+<meta property="og:site_name" content="CSS动画技巧/JS面试题/速查手册/日常学习" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
 
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Whidy Daily
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-        <ul class="pl0 mr3">
-          
-          <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
-              Daily
-            </a>
-          </li>
-          
-        </ul>
-      
-      
+<meta property="article:published_time" content="2018-01-17 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -103,34 +67,70 @@
 
 
 
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Daily Note
+  </div>
+</a>
 
     </div>
+    <div class="menu-trigger">menu</div>
   </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/daily">Daily</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/daily">Daily</a></li>
+      
+    
+  </ul>
 </nav>
 
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+</header>
 
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        DAILIES
-      </p>
-      <h1 class="f1 athelas mb1">CSS动画技巧/JS面试题/速查手册/日常学习</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2018-01-17T00:00:00Z">January 17, 2018</time>      
-      
-      
-    </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+  <div class="content">
+    
+  <div class="post">
+    <h1 class="post-title"><a href="/daily/2018-01-17-ftp-css-js/">CSS动画技巧/JS面试题/速查手册/日常学习</a></h1>
+    <div class="post-meta">
+      <span class="post-date">
+        2018-01-17
+      </span>
+      <span class="post-author">:: whidy</span>
+    </div>
+
+    
+
+    
+
+    <div class="post-content">
+      
 
 <blockquote>
 <p>2018年1月17日 晴 一般</p>
@@ -176,65 +176,62 @@ if(aﾠ==1 &amp;&amp; a== 2 &amp;&amp;ﾠa==3) {
 
 <li><p>原来Jekyll支持很多个博客站点的导入, 今天才发现. 比如<a href="https://import.jekyllrb.com/docs/wordpress/">wordpress导入到Jekyll</a>, 只要一个插件配置好使用就行了, 参考官方<a href="http://import.jekyllrb.com/docs/home/">博客迁移</a></p></li>
 </ol>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6">
-        
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">查看其他</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="/daily/2018-01-18-website-tweaks-markdown-ssh/">
+                <span class="button__icon">←</span>
+                <span class="button__text">提高网站可访问性的十个优化/Markdown语法研究/SSH</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="/daily/2018-01-16-blog-optimize/">
+                <span class="button__text">博客插件优化及其他学习总结</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
       </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
-    <p class="f5 b mb3">Related</p>
-    <ul class="pa0 list">
-	   
-	     <li  class="mb2">
-          <a href="/daily/2018-01-16-blog-optimize/">博客插件优化及其他学习总结</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-to-read-list/"></a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-to-do-list/"></a>
-        </li>
-	    
-    </ul>
-</div>
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
-    &copy; 2019 Whidy Daily
-  </a>
-    <div>
-
-
-
-
-
-
-
-
-</div>
-  </div>
-</footer>
+    
 
     
 
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
 
 
-  </body>
+
+
+
+  
+</div>
+
+</body>
 </html>

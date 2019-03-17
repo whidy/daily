@@ -1,103 +1,67 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Whidy Daily  | 使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.54.0" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-
-    <meta property="og:title" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决" />
-<meta property="og:description" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决  做Vue项目的时候, 提交数据基本上都是用Axios, 之前做过的表单方面的提交, 并没有过多关注客户端和服务器之间的通信过程. 所以一直对HTTP的head请求头, body内容之类的不明不白, 为了短期(是的估计过半年又忘了😂)解决这个疑惑, 再次复习了一遍. 顺便总结了Vue中使用Axios处理包含上传文件的表单提交
+<html lang="en">
+<head>
+  
+    <title>使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决  做Vue项目的时候, 提交数据基本上都是用Axios, 之前做过的表单方面的提交, 并没有过多关注客户端和服务器之间的通信过程. 所以一直对HTTP的head请求头, body内容之类的不明不白, 为了短期(是的估计过半年又忘了😂)解决这个疑惑, 再次复习了一遍. 顺便总结了Vue中使用Axios处理包含上传文件的表单提交
  场景说明 项目使用的Vue(Nuxt)框架, 数据请求用的Axios插件, 表单包含了一些基本的用户信息填写, 同时还有身份证上传, 和后端沟通过, 提交数据的时候, 接口全部使用POST请求, 那么有文件上传的一般来说只能用formData格式.
 实践及代码示例 我项目中使用的是ElementUI, 对于上传组件不熟悉的朋友, 需要注意几个事情:
  action是必填, 那么留空也许是个不错的做法. 获取到上传的文件的办法很多. 官方提供了几种事件来获取, 例如: on-success, on-change(首次上传会触发两次), 我这里使用了on-success 那么拿到上传的回调, 这里特别需要注意的, 我以on-success三个参数来看
  response是服务器返回的响应 file一个文件 fileList存放多个文件的数组   可能看到有file或者fileList会直接将它的数据提交给后台, 一开始我也是没注意到这点, 始终无法正确提交数据. 那么经过一番研究和排查, 得知: 真正的File对象是fileList数组中某个元素的raw属性!, 那么下面先看一段错误的示范:
   页面部分结构代码如下:
-&lt;el-form ref=&quot;form&quot; :model=&quot;form&quot; label-width=&quot;120px&quot;&gt; &lt;el-form-item label=&quot;活动名称&quot;&gt; &lt;el-input v-model=&quot;form.name&quot;&gt;&lt;/el-input&gt; &lt;/el-form-item&gt; &lt;el-form-item label=&quot;活动区域&quot;&gt; &lt;el-select v-model=&quot;form.region&quot; placeholder=&quot;请选择活动区域&quot;&gt; &lt;el-option label=&quot;区域一&quot; value=&quot;shanghai&quot;&gt;&lt;/el-option&gt; &lt;el-option label=&quot;区域二&quot; value=&quot;beijing&quot;&gt;&lt;/el-option&gt; &lt;/el-select&gt; &lt;/el-form-item&gt; &lt;el-form-item label=&quot;身份证正面&quot;&gt; &lt;el-upload action=&quot;&quot; :on-success	=&quot;handleSuccess&quot; :multiple=&quot;false&quot; :limit=&quot;1&quot; :on-exceed=&quot;handleExceed&quot; :file-list=&quot;fileList&quot;&gt; &lt;el-button size=&quot;small&quot; type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt; &lt;div slot=&quot;tip&quot; class=&quot;el-upload__tip&quot;&gt;只能上传jpg/png文件，且不超过500kb&lt;/div&gt; &lt;/el-upload&gt; &lt;/el-form-item&gt; &lt;el-form-item&gt; &lt;el-button type=&quot;primary&quot; @click=&quot;onSubmit&quot;&gt;提交&lt;/el-button&gt; &lt;el-button&gt;取消&lt;/el-button&gt; &lt;/el-form-item&gt; &lt;/el-form&gt;  这里我将上传文件数量限制为1个, 接下来是JavaScript部分:" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="/post/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/" />
-<meta property="article:published_time" content="2018-02-13T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-02-13T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
-
-<meta itemprop="name" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决">
-<meta itemprop="description" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决  做Vue项目的时候, 提交数据基本上都是用Axios, 之前做过的表单方面的提交, 并没有过多关注客户端和服务器之间的通信过程. 所以一直对HTTP的head请求头, body内容之类的不明不白, 为了短期(是的估计过半年又忘了😂)解决这个疑惑, 再次复习了一遍. 顺便总结了Vue中使用Axios处理包含上传文件的表单提交
- 场景说明 项目使用的Vue(Nuxt)框架, 数据请求用的Axios插件, 表单包含了一些基本的用户信息填写, 同时还有身份证上传, 和后端沟通过, 提交数据的时候, 接口全部使用POST请求, 那么有文件上传的一般来说只能用formData格式.
-实践及代码示例 我项目中使用的是ElementUI, 对于上传组件不熟悉的朋友, 需要注意几个事情:
- action是必填, 那么留空也许是个不错的做法. 获取到上传的文件的办法很多. 官方提供了几种事件来获取, 例如: on-success, on-change(首次上传会触发两次), 我这里使用了on-success 那么拿到上传的回调, 这里特别需要注意的, 我以on-success三个参数来看
- response是服务器返回的响应 file一个文件 fileList存放多个文件的数组   可能看到有file或者fileList会直接将它的数据提交给后台, 一开始我也是没注意到这点, 始终无法正确提交数据. 那么经过一番研究和排查, 得知: 真正的File对象是fileList数组中某个元素的raw属性!, 那么下面先看一段错误的示范:
-  页面部分结构代码如下:
-&lt;el-form ref=&quot;form&quot; :model=&quot;form&quot; label-width=&quot;120px&quot;&gt; &lt;el-form-item label=&quot;活动名称&quot;&gt; &lt;el-input v-model=&quot;form.name&quot;&gt;&lt;/el-input&gt; &lt;/el-form-item&gt; &lt;el-form-item label=&quot;活动区域&quot;&gt; &lt;el-select v-model=&quot;form.region&quot; placeholder=&quot;请选择活动区域&quot;&gt; &lt;el-option label=&quot;区域一&quot; value=&quot;shanghai&quot;&gt;&lt;/el-option&gt; &lt;el-option label=&quot;区域二&quot; value=&quot;beijing&quot;&gt;&lt;/el-option&gt; &lt;/el-select&gt; &lt;/el-form-item&gt; &lt;el-form-item label=&quot;身份证正面&quot;&gt; &lt;el-upload action=&quot;&quot; :on-success	=&quot;handleSuccess&quot; :multiple=&quot;false&quot; :limit=&quot;1&quot; :on-exceed=&quot;handleExceed&quot; :file-list=&quot;fileList&quot;&gt; &lt;el-button size=&quot;small&quot; type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt; &lt;div slot=&quot;tip&quot; class=&quot;el-upload__tip&quot;&gt;只能上传jpg/png文件，且不超过500kb&lt;/div&gt; &lt;/el-upload&gt; &lt;/el-form-item&gt; &lt;el-form-item&gt; &lt;el-button type=&quot;primary&quot; @click=&quot;onSubmit&quot;&gt;提交&lt;/el-button&gt; &lt;el-button&gt;取消&lt;/el-button&gt; &lt;/el-form-item&gt; &lt;/el-form&gt;  这里我将上传文件数量限制为1个, 接下来是JavaScript部分:">
+&amp;lt;el-form ref=&amp;quot;form&amp;quot; :model=&amp;quot;form&amp;quot; label-width=&amp;quot;120px&amp;quot;&amp;gt; &amp;lt;el-form-item label=&amp;quot;活动名称&amp;quot;&amp;gt; &amp;lt;el-input v-model=&amp;quot;form.name&amp;quot;&amp;gt;&amp;lt;/el-input&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item label=&amp;quot;活动区域&amp;quot;&amp;gt; &amp;lt;el-select v-model=&amp;quot;form.region&amp;quot; placeholder=&amp;quot;请选择活动区域&amp;quot;&amp;gt; &amp;lt;el-option label=&amp;quot;区域一&amp;quot; value=&amp;quot;shanghai&amp;quot;&amp;gt;&amp;lt;/el-option&amp;gt; &amp;lt;el-option label=&amp;quot;区域二&amp;quot; value=&amp;quot;beijing&amp;quot;&amp;gt;&amp;lt;/el-option&amp;gt; &amp;lt;/el-select&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item label=&amp;quot;身份证正面&amp;quot;&amp;gt; &amp;lt;el-upload action=&amp;quot;&amp;quot; :on-success	=&amp;quot;handleSuccess&amp;quot; :multiple=&amp;quot;false&amp;quot; :limit=&amp;quot;1&amp;quot; :on-exceed=&amp;quot;handleExceed&amp;quot; :file-list=&amp;quot;fileList&amp;quot;&amp;gt; &amp;lt;el-button size=&amp;quot;small&amp;quot; type=&amp;quot;primary&amp;quot;&amp;gt;点击上传&amp;lt;/el-button&amp;gt; &amp;lt;div slot=&amp;quot;tip&amp;quot; class=&amp;quot;el-upload__tip&amp;quot;&amp;gt;只能上传jpg/png文件，且不超过500kb&amp;lt;/div&amp;gt; &amp;lt;/el-upload&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item&amp;gt; &amp;lt;el-button type=&amp;quot;primary&amp;quot; @click=&amp;quot;onSubmit&amp;quot;&amp;gt;提交&amp;lt;/el-button&amp;gt; &amp;lt;el-button&amp;gt;取消&amp;lt;/el-button&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;/el-form&amp;gt;  这里我将上传文件数量限制为1个, 接下来是JavaScript部分:"/>
+<meta name="keywords" content="whidy daily blog"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/post/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/" />
 
 
-<meta itemprop="datePublished" content="2018-02-13T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-02-13T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="391">
+<link rel="stylesheet" href="/assets/style.css">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决"/>
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here." />
 <meta name="twitter:description" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决  做Vue项目的时候, 提交数据基本上都是用Axios, 之前做过的表单方面的提交, 并没有过多关注客户端和服务器之间的通信过程. 所以一直对HTTP的head请求头, body内容之类的不明不白, 为了短期(是的估计过半年又忘了😂)解决这个疑惑, 再次复习了一遍. 顺便总结了Vue中使用Axios处理包含上传文件的表单提交
  场景说明 项目使用的Vue(Nuxt)框架, 数据请求用的Axios插件, 表单包含了一些基本的用户信息填写, 同时还有身份证上传, 和后端沟通过, 提交数据的时候, 接口全部使用POST请求, 那么有文件上传的一般来说只能用formData格式.
 实践及代码示例 我项目中使用的是ElementUI, 对于上传组件不熟悉的朋友, 需要注意几个事情:
  action是必填, 那么留空也许是个不错的做法. 获取到上传的文件的办法很多. 官方提供了几种事件来获取, 例如: on-success, on-change(首次上传会触发两次), 我这里使用了on-success 那么拿到上传的回调, 这里特别需要注意的, 我以on-success三个参数来看
  response是服务器返回的响应 file一个文件 fileList存放多个文件的数组   可能看到有file或者fileList会直接将它的数据提交给后台, 一开始我也是没注意到这点, 始终无法正确提交数据. 那么经过一番研究和排查, 得知: 真正的File对象是fileList数组中某个元素的raw属性!, 那么下面先看一段错误的示范:
   页面部分结构代码如下:
-&lt;el-form ref=&quot;form&quot; :model=&quot;form&quot; label-width=&quot;120px&quot;&gt; &lt;el-form-item label=&quot;活动名称&quot;&gt; &lt;el-input v-model=&quot;form.name&quot;&gt;&lt;/el-input&gt; &lt;/el-form-item&gt; &lt;el-form-item label=&quot;活动区域&quot;&gt; &lt;el-select v-model=&quot;form.region&quot; placeholder=&quot;请选择活动区域&quot;&gt; &lt;el-option label=&quot;区域一&quot; value=&quot;shanghai&quot;&gt;&lt;/el-option&gt; &lt;el-option label=&quot;区域二&quot; value=&quot;beijing&quot;&gt;&lt;/el-option&gt; &lt;/el-select&gt; &lt;/el-form-item&gt; &lt;el-form-item label=&quot;身份证正面&quot;&gt; &lt;el-upload action=&quot;&quot; :on-success	=&quot;handleSuccess&quot; :multiple=&quot;false&quot; :limit=&quot;1&quot; :on-exceed=&quot;handleExceed&quot; :file-list=&quot;fileList&quot;&gt; &lt;el-button size=&quot;small&quot; type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt; &lt;div slot=&quot;tip&quot; class=&quot;el-upload__tip&quot;&gt;只能上传jpg/png文件，且不超过500kb&lt;/div&gt; &lt;/el-upload&gt; &lt;/el-form-item&gt; &lt;el-form-item&gt; &lt;el-button type=&quot;primary&quot; @click=&quot;onSubmit&quot;&gt;提交&lt;/el-button&gt; &lt;el-button&gt;取消&lt;/el-button&gt; &lt;/el-form-item&gt; &lt;/el-form&gt;  这里我将上传文件数量限制为1个, 接下来是JavaScript部分:"/>
+&amp;lt;el-form ref=&amp;quot;form&amp;quot; :model=&amp;quot;form&amp;quot; label-width=&amp;quot;120px&amp;quot;&amp;gt; &amp;lt;el-form-item label=&amp;quot;活动名称&amp;quot;&amp;gt; &amp;lt;el-input v-model=&amp;quot;form.name&amp;quot;&amp;gt;&amp;lt;/el-input&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item label=&amp;quot;活动区域&amp;quot;&amp;gt; &amp;lt;el-select v-model=&amp;quot;form.region&amp;quot; placeholder=&amp;quot;请选择活动区域&amp;quot;&amp;gt; &amp;lt;el-option label=&amp;quot;区域一&amp;quot; value=&amp;quot;shanghai&amp;quot;&amp;gt;&amp;lt;/el-option&amp;gt; &amp;lt;el-option label=&amp;quot;区域二&amp;quot; value=&amp;quot;beijing&amp;quot;&amp;gt;&amp;lt;/el-option&amp;gt; &amp;lt;/el-select&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item label=&amp;quot;身份证正面&amp;quot;&amp;gt; &amp;lt;el-upload action=&amp;quot;&amp;quot; :on-success	=&amp;quot;handleSuccess&amp;quot; :multiple=&amp;quot;false&amp;quot; :limit=&amp;quot;1&amp;quot; :on-exceed=&amp;quot;handleExceed&amp;quot; :file-list=&amp;quot;fileList&amp;quot;&amp;gt; &amp;lt;el-button size=&amp;quot;small&amp;quot; type=&amp;quot;primary&amp;quot;&amp;gt;点击上传&amp;lt;/el-button&amp;gt; &amp;lt;div slot=&amp;quot;tip&amp;quot; class=&amp;quot;el-upload__tip&amp;quot;&amp;gt;只能上传jpg/png文件，且不超过500kb&amp;lt;/div&amp;gt; &amp;lt;/el-upload&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item&amp;gt; &amp;lt;el-button type=&amp;quot;primary&amp;quot; @click=&amp;quot;onSubmit&amp;quot;&amp;gt;提交&amp;lt;/el-button&amp;gt; &amp;lt;el-button&amp;gt;取消&amp;lt;/el-button&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;/el-form&amp;gt;  这里我将上传文件数量限制为1个, 接下来是JavaScript部分:" />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="whidy" />
+<meta name="twitter:image" content="">
 
-  </head>
 
-  <body class="ma0 avenir bg-near-white">
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.">
+<meta property="og:description" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决  做Vue项目的时候, 提交数据基本上都是用Axios, 之前做过的表单方面的提交, 并没有过多关注客户端和服务器之间的通信过程. 所以一直对HTTP的head请求头, body内容之类的不明不白, 为了短期(是的估计过半年又忘了😂)解决这个疑惑, 再次复习了一遍. 顺便总结了Vue中使用Axios处理包含上传文件的表单提交
+ 场景说明 项目使用的Vue(Nuxt)框架, 数据请求用的Axios插件, 表单包含了一些基本的用户信息填写, 同时还有身份证上传, 和后端沟通过, 提交数据的时候, 接口全部使用POST请求, 那么有文件上传的一般来说只能用formData格式.
+实践及代码示例 我项目中使用的是ElementUI, 对于上传组件不熟悉的朋友, 需要注意几个事情:
+ action是必填, 那么留空也许是个不错的做法. 获取到上传的文件的办法很多. 官方提供了几种事件来获取, 例如: on-success, on-change(首次上传会触发两次), 我这里使用了on-success 那么拿到上传的回调, 这里特别需要注意的, 我以on-success三个参数来看
+ response是服务器返回的响应 file一个文件 fileList存放多个文件的数组   可能看到有file或者fileList会直接将它的数据提交给后台, 一开始我也是没注意到这点, 始终无法正确提交数据. 那么经过一番研究和排查, 得知: 真正的File对象是fileList数组中某个元素的raw属性!, 那么下面先看一段错误的示范:
+  页面部分结构代码如下:
+&amp;lt;el-form ref=&amp;quot;form&amp;quot; :model=&amp;quot;form&amp;quot; label-width=&amp;quot;120px&amp;quot;&amp;gt; &amp;lt;el-form-item label=&amp;quot;活动名称&amp;quot;&amp;gt; &amp;lt;el-input v-model=&amp;quot;form.name&amp;quot;&amp;gt;&amp;lt;/el-input&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item label=&amp;quot;活动区域&amp;quot;&amp;gt; &amp;lt;el-select v-model=&amp;quot;form.region&amp;quot; placeholder=&amp;quot;请选择活动区域&amp;quot;&amp;gt; &amp;lt;el-option label=&amp;quot;区域一&amp;quot; value=&amp;quot;shanghai&amp;quot;&amp;gt;&amp;lt;/el-option&amp;gt; &amp;lt;el-option label=&amp;quot;区域二&amp;quot; value=&amp;quot;beijing&amp;quot;&amp;gt;&amp;lt;/el-option&amp;gt; &amp;lt;/el-select&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item label=&amp;quot;身份证正面&amp;quot;&amp;gt; &amp;lt;el-upload action=&amp;quot;&amp;quot; :on-success	=&amp;quot;handleSuccess&amp;quot; :multiple=&amp;quot;false&amp;quot; :limit=&amp;quot;1&amp;quot; :on-exceed=&amp;quot;handleExceed&amp;quot; :file-list=&amp;quot;fileList&amp;quot;&amp;gt; &amp;lt;el-button size=&amp;quot;small&amp;quot; type=&amp;quot;primary&amp;quot;&amp;gt;点击上传&amp;lt;/el-button&amp;gt; &amp;lt;div slot=&amp;quot;tip&amp;quot; class=&amp;quot;el-upload__tip&amp;quot;&amp;gt;只能上传jpg/png文件，且不超过500kb&amp;lt;/div&amp;gt; &amp;lt;/el-upload&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;el-form-item&amp;gt; &amp;lt;el-button type=&amp;quot;primary&amp;quot; @click=&amp;quot;onSubmit&amp;quot;&amp;gt;提交&amp;lt;/el-button&amp;gt; &amp;lt;el-button&amp;gt;取消&amp;lt;/el-button&amp;gt; &amp;lt;/el-form-item&amp;gt; &amp;lt;/el-form&amp;gt;  这里我将上传文件数量限制为1个, 接下来是JavaScript部分:" />
+<meta property="og:url" content="/post/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/" />
+<meta property="og:site_name" content="使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
 
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Whidy Daily
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-        <ul class="pl0 mr3">
-          
-          <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
-              Daily
-            </a>
-          </li>
-          
-        </ul>
-      
-      
+<meta property="article:published_time" content="2018-02-13 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -106,34 +70,70 @@
 
 
 
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Daily Note
+  </div>
+</a>
 
     </div>
+    <div class="menu-trigger">menu</div>
   </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/daily">Daily</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/daily">Daily</a></li>
+      
+    
+  </ul>
 </nav>
 
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+</header>
 
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        POSTS
-      </p>
-      <h1 class="f1 athelas mb1">使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2018-02-13T00:00:00Z">February 13, 2018</time>      
-      
-      
-    </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+  <div class="content">
+    
+  <div class="post">
+    <h1 class="post-title"><a href="/post/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/">使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决</a></h1>
+    <div class="post-meta">
+      <span class="post-date">
+        2018-02-13
+      </span>
+      <span class="post-author">:: whidy</span>
+    </div>
+
+    
+
+    
+
+    <div class="post-content">
+      
 
 <h1 id="使用elementui和axios以formdata格式提交带有文件的表单的错误示范及分析解决">使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决</h1>
 
@@ -362,113 +362,62 @@ export default function({ $axios, redirect }) {
 </ul>
 
 <p>文中难免也有一些描述不准确的地方, 希望大佬们多多指点~ 本文提到的代码的存放在GitHub上面<strong>nuxt-spa-demo</strong>项目的分支<a href="https://github.com/whidy/nuxt-spa-demo/tree/nuxt-axios-formdata">nuxt-axios-formdata</a>, 有兴趣也可以看看~</p>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6">
-        
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">查看其他</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="/post/wordpress%E8%BF%81%E7%A7%BBjekyll%E5%85%A8%E8%BF%87%E7%A8%8B%E5%B0%8F%E8%AE%B0/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Wordpress博客转换成Jekyll尝试</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="/post/ip%E5%8F%98%E5%8A%A8%E5%BC%95%E5%8F%91%E7%9A%84chrome%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95%E4%BF%AE%E6%94%B9%E5%8F%8Ashadowroot%E4%BA%86%E8%A7%A3/">
+                <span class="button__text">内网IP调整引发的Chrome历史记录修改及ShadowRoot的学习</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
       </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
-    <p class="f5 b mb3">Related</p>
-    <ul class="pa0 list">
-	   
-	     <li  class="mb2">
-          <a href="/post/%E6%89%BE%E4%B8%AA%E6%9C%8B%E5%8F%8B%E8%81%8A%E7%9D%80%E8%81%8A%E7%9D%80%E5%B0%B1%E7%BB%93%E5%A9%9A%E4%BA%86/">找个朋友聊着聊着就结婚了</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/">Visual Studio Code使用中CPU占用率异常暴增过高原因</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/vue%E4%B8%8B%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8%E6%97%A0%E9%99%90%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AEdemo/">Vue下滚动到页面底部无限加载数据Demo</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/wordpress%E8%BF%81%E7%A7%BBjekyll%E5%85%A8%E8%BF%87%E7%A8%8B%E5%B0%8F%E8%AE%B0/">Wordpress博客转换成Jekyll尝试</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%BA%8C/">Javascript事件循环入门到“忘记”（二）</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/ip%E5%8F%98%E5%8A%A8%E5%BC%95%E5%8F%91%E7%9A%84chrome%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95%E4%BF%AE%E6%94%B9%E5%8F%8Ashadowroot%E4%BA%86%E8%A7%A3/">内网IP调整引发的Chrome历史记录修改及ShadowRoot的学习</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%8C%B9%E9%85%8D%E5%88%86%E6%9E%90%E6%80%9D%E8%B7%AF/">正则表达式中`[反斜杠b]`和`反斜杠b`和`反斜杠B`的区别及匹配分析思路</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E7%94%A8gatsby%E5%92%8Cstrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">用Gatsby和Strapi创建一个静态博客(翻译和自己探索过程中的经验总结)</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/visual-studio-code%E5%87%A0%E6%AC%BEftp%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">Visual Studio Code几款FTP插件使用总结</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/vscode%E4%B8%8B%E8%AE%A9css%E6%96%87%E4%BB%B6%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81scss%E6%88%96sass%E6%96%B9%E6%B3%95/">VSCode下让CSS文件完美支持SCSS或SASS语法方法</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/vscode%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">VSCode格式化代码功能失效的bug解决方法</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/vue%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/">Vue学习开发总结</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/javascript%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%85%A5%E9%97%A8%E5%88%B0%E5%BF%98%E8%AE%B0%E4%B8%80/">Javascript事件循环入门到“忘记”（一）</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90nuxt%E4%B8%8B%E7%9A%84eslint%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">（未完成）Nuxt下的ESLint最佳实践</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8Ejavascript%E8%A7%84%E8%8C%83%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86/">（未完成）关于Javascript规范在项目中应用管理</a>
-        </li>
-	    
-    </ul>
-</div>
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
-    &copy; 2019 Whidy Daily
-  </a>
-    <div>
-
-
-
-
-
-
-
-
-</div>
-  </div>
-</footer>
+    
 
     
 
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
 
 
-  </body>
+
+
+
+  
+</div>
+
+</body>
 </html>

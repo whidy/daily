@@ -1,34 +1,53 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Whidy Daily  | shadowsocks-manager搭建</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
+<html lang="en">
+<head>
+  
+    <title>shadowsocks-manager搭建 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="2018年4月1日 晴 一般
+ shadowsocks-manager搭建  该文章仅作为日志记录一下, 因为工作原因, 或者个人原因吧, 会习惯使用谷歌去查找技术资料, 所以shadowsocks在工作生活中必不可少, 之前买了个国外的服务器, 一直用着不错, 也有几个比较好的朋友想要买我的这个梯子, 于是就搭建了一个官方的管理平台.
+ 以下内容主要参阅: WebGUI
+安装shadowsocks-libev 我的centos7之前用的网上的一键安装, 虽然那个捆绑式安装过shadowsocks-libev, 也能正常使用shadowsocks, 但是无法使用命令ss-manager, 于是只能重新搞. 大致流程如下:
+删除旧版(好吧,这里暴露了) # wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh # chmod &#43;x shadowsocks-libev.sh # ./shadowsocks-libev.sh uninstall  输入y
+正常安装 # yum install epel-release -y # yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y  此时需要用第三方源(centos7)
+# vi /etc/yum."/>
+<meta name="keywords" content="whidy daily blog"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/daily/2018-04-01-shadowsocksmanager/" />
 
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.54.0" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    
 
-    
-    
-      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
-    
+<link rel="stylesheet" href="/assets/style.css">
 
-    
 
-    
-      
-    
 
-    
+<link rel="stylesheet" href="/style.css">
 
-    <meta property="og:title" content="shadowsocks-manager搭建" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="shadowsocks-manager搭建 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here." />
+<meta name="twitter:description" content="2018年4月1日 晴 一般
+ shadowsocks-manager搭建  该文章仅作为日志记录一下, 因为工作原因, 或者个人原因吧, 会习惯使用谷歌去查找技术资料, 所以shadowsocks在工作生活中必不可少, 之前买了个国外的服务器, 一直用着不错, 也有几个比较好的朋友想要买我的这个梯子, 于是就搭建了一个官方的管理平台.
+ 以下内容主要参阅: WebGUI
+安装shadowsocks-libev 我的centos7之前用的网上的一键安装, 虽然那个捆绑式安装过shadowsocks-libev, 也能正常使用shadowsocks, 但是无法使用命令ss-manager, 于是只能重新搞. 大致流程如下:
+删除旧版(好吧,这里暴露了) # wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh # chmod &#43;x shadowsocks-libev.sh # ./shadowsocks-libev.sh uninstall  输入y
+正常安装 # yum install epel-release -y # yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y  此时需要用第三方源(centos7)
+# vi /etc/yum." />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="whidy" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="shadowsocks-manager搭建 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.">
 <meta property="og:description" content="2018年4月1日 晴 一般
  shadowsocks-manager搭建  该文章仅作为日志记录一下, 因为工作原因, 或者个人原因吧, 会习惯使用谷歌去查找技术资料, 所以shadowsocks在工作生活中必不可少, 之前买了个国外的服务器, 一直用着不错, 也有几个比较好的朋友想要买我的这个梯子, 于是就搭建了一个官方的管理平台.
  以下内容主要参阅: WebGUI
@@ -36,68 +55,13 @@
 删除旧版(好吧,这里暴露了) # wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh # chmod &#43;x shadowsocks-libev.sh # ./shadowsocks-libev.sh uninstall  输入y
 正常安装 # yum install epel-release -y # yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y  此时需要用第三方源(centos7)
 # vi /etc/yum." />
-<meta property="og:type" content="article" />
 <meta property="og:url" content="/daily/2018-04-01-shadowsocksmanager/" />
-<meta property="article:published_time" content="2018-04-01T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-04-01T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
+<meta property="og:site_name" content="shadowsocks-manager搭建" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
 
-<meta itemprop="name" content="shadowsocks-manager搭建">
-<meta itemprop="description" content="2018年4月1日 晴 一般
- shadowsocks-manager搭建  该文章仅作为日志记录一下, 因为工作原因, 或者个人原因吧, 会习惯使用谷歌去查找技术资料, 所以shadowsocks在工作生活中必不可少, 之前买了个国外的服务器, 一直用着不错, 也有几个比较好的朋友想要买我的这个梯子, 于是就搭建了一个官方的管理平台.
- 以下内容主要参阅: WebGUI
-安装shadowsocks-libev 我的centos7之前用的网上的一键安装, 虽然那个捆绑式安装过shadowsocks-libev, 也能正常使用shadowsocks, 但是无法使用命令ss-manager, 于是只能重新搞. 大致流程如下:
-删除旧版(好吧,这里暴露了) # wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh # chmod &#43;x shadowsocks-libev.sh # ./shadowsocks-libev.sh uninstall  输入y
-正常安装 # yum install epel-release -y # yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y  此时需要用第三方源(centos7)
-# vi /etc/yum.">
-
-
-<meta itemprop="datePublished" content="2018-04-01T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-04-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="376">
-
-
-
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="shadowsocks-manager搭建"/>
-<meta name="twitter:description" content="2018年4月1日 晴 一般
- shadowsocks-manager搭建  该文章仅作为日志记录一下, 因为工作原因, 或者个人原因吧, 会习惯使用谷歌去查找技术资料, 所以shadowsocks在工作生活中必不可少, 之前买了个国外的服务器, 一直用着不错, 也有几个比较好的朋友想要买我的这个梯子, 于是就搭建了一个官方的管理平台.
- 以下内容主要参阅: WebGUI
-安装shadowsocks-libev 我的centos7之前用的网上的一键安装, 虽然那个捆绑式安装过shadowsocks-libev, 也能正常使用shadowsocks, 但是无法使用命令ss-manager, 于是只能重新搞. 大致流程如下:
-删除旧版(好吧,这里暴露了) # wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh # chmod &#43;x shadowsocks-libev.sh # ./shadowsocks-libev.sh uninstall  输入y
-正常安装 # yum install epel-release -y # yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y  此时需要用第三方源(centos7)
-# vi /etc/yum."/>
-
-  </head>
-
-  <body class="ma0 avenir bg-near-white">
-
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Whidy Daily
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-        <ul class="pl0 mr3">
-          
-          <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
-              Daily
-            </a>
-          </li>
-          
-        </ul>
-      
-      
+<meta property="article:published_time" content="2018-04-01 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -106,34 +70,70 @@
 
 
 
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Daily Note
+  </div>
+</a>
 
     </div>
+    <div class="menu-trigger">menu</div>
   </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/daily">Daily</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/daily">Daily</a></li>
+      
+    
+  </ul>
 </nav>
 
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+</header>
 
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        DAILIES
-      </p>
-      <h1 class="f1 athelas mb1">shadowsocks-manager搭建</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2018-04-01T00:00:00Z">April 1, 2018</time>      
-      
-      
-    </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+  <div class="content">
+    
+  <div class="post">
+    <h1 class="post-title"><a href="/daily/2018-04-01-shadowsocksmanager/">shadowsocks-manager搭建</a></h1>
+    <div class="post-meta">
+      <span class="post-date">
+        2018-04-01
+      </span>
+      <span class="post-author">:: whidy</span>
+    </div>
+
+    
+
+    
+
+    <div class="post-content">
+      
 
 <blockquote>
 <p>2018年4月1日 晴 一般</p>
@@ -337,113 +337,62 @@ There are screens on:
 <p>又想着给之前虚拟主机送的邮箱来搞, 结果也没搞成, 总是失败, 没查出来, 看样子我要自己搭一个邮箱服务器了.</p>
 
 <p>这几天真是累啊. 又是赶项目学习VUE, 又是搞服务器. 好想休息几天.</p>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6">
-        
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">查看其他</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="/daily/2018-04-16-vue-axios/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Vue中Axios请求数据渲染研究</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="/daily/2018-03-29-note/">
+                <span class="button__text">日志</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
       </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
-    <p class="f5 b mb3">Related</p>
-    <ul class="pa0 list">
-	   
-	     <li  class="mb2">
-          <a href="/daily/2018-03-29-note/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-26-note/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-22-nginx-phpfpm/">Nginx的站点配置/PHP-FPM配置</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-21-nginx/">Wordpress改用Nginx</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-20-mariadb/">MariaDB崩溃分析/Wordpress改用Nginx</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-18-jekyll-ruby-rails-linux-weapp/">CentOS7安装Jekyll和Rails</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-17-php-upgrade-7.x/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-16-apache-host/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-15-note/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-06-weapp/">微信小程序开发中的问题</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-28-javascript/">复习</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-24-cssnano/">PostCSS不支持部分SASS研究</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-23-cssnano/">Wang Year of the Dog</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8Ejavascript%E8%A7%84%E8%8C%83%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86/">（未完成）关于Javascript规范在项目中应用管理</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/">Visual Studio Code使用中CPU占用率异常暴增过高原因</a>
-        </li>
-	    
-    </ul>
-</div>
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
-    &copy; 2019 Whidy Daily
-  </a>
-    <div>
-
-
-
-
-
-
-
-
-</div>
-  </div>
-</footer>
+    
 
     
 
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
 
 
-  </body>
+
+
+
+  
+</div>
+
+</body>
 </html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="generator" content="Hugo 0.54.0" />
+  
+    <title>Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Here is Whidy&#39;s github note, you will find somethings here."/>
+<meta name="keywords" content="whidy daily blog"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/" />
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+
+
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here." />
+<meta name="twitter:description" content="" />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.">
+<meta property="og:description" content="" />
+<meta property="og:url" content="/" />
+<meta property="og:site_name" content="Whidy Daily" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+
+
+
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="Whidy Daily" />
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Daily Note
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/daily">Daily</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/daily">Daily</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+  <div class="posts">
+    
+    
+    
+
+    
+    <div class="post on-list">
+      <h1 class="post-title"><a href="/post/vscode%E4%B8%8B%E8%AE%A9css%E6%96%87%E4%BB%B6%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81scss%E6%88%96sass%E6%96%B9%E6%B3%95/">VSCode下让CSS文件完美支持SCSS或SASS语法方法</a></h1>
+      <div class="post-meta">
+        <span class="post-date">
+          2018-02-13
+        </span>
+        <span class="post-author">:: whidy</span>
+      </div>
+
+      
+
+      
+
+      <div class="post-content">
+        
+          
+            VSCode下让CSS文件完美支持SCSS或SASS语法方法  习惯Webpack + PostCSS后, 通常PostCSS都是直接对CSS文件进行处理, 但是大部分习惯SCSS/SASS/LESS的朋友也许不适应了. 我专门研究了一下, 在Visual Studio Code编辑器下如果配置相关代码和设置达到CSS文件完美编写SCSS的办法, 其他语法类型原理相似, 这里以SCSS为例.
+ 开始配置 Visual Studio Code编辑器设置的配置 首先, 配置编辑器的设置, 按快捷键&rdquo;CTRL + ,&ldquo;打开用户设置, 添加如下配置片段:
+&quot;files.associations&quot;: { &quot;*.css&quot;: &quot;scss&quot; }  我这里做了全局的用户设置, 因为我个人大部分情况下是写SCSS, 当然如果你仅对该项目配置, 也可以将上面这段放进工作区设置(是放在默认花括号内哦, 千万不要弄错了~).
+这样, VSCode编辑器就会把所有CSS文件当成SCSS格式来解析了, 也就不会出现可怕的红色波浪线了.
+PostCSS的配置 接下来, 对PostCSS进行相关配置. 我们这里需要安装最重要的两个PostCSS插件postcss-scss和precss. 执行命令:
+npm i -D postcss-scss precss  安装好后, 修改项目的postcss.config.js配置如下(我另外有用到autoprefixer和cssnano, 当然你可以根据个人情况选择, 重要部分是parser: &lsquo;postcss-scss&rsquo;和require(&lsquo;precss&rsquo;)):
+module.exports = { parser: &lsquo;postcss-scss&rsquo;, plugins: [ require(&lsquo;precss&rsquo;), require(&lsquo;autoprefixer&rsquo;), require(&lsquo;cssnano&rsquo;) ] }  这样问题就解决了. 试着编译一下以下测试代码:
+          
+        
+      </div>
+      <div><a class="read-more button" href="/post/vscode%E4%B8%8B%E8%AE%A9css%E6%96%87%E4%BB%B6%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81scss%E6%88%96sass%E6%96%B9%E6%B3%95/">更多 →</a></div>
+    </div>
+    
+    <div class="post on-list">
+      <h1 class="post-title"><a href="/post/vscode%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">VSCode格式化代码功能失效的bug解决方法</a></h1>
+      <div class="post-meta">
+        <span class="post-date">
+          2018-02-13
+        </span>
+        <span class="post-author">:: whidy</span>
+      </div>
+
+      
+
+      
+
+      <div class="post-content">
+        
+          
+        
+      </div>
+      <div><a class="read-more button" href="/post/vscode%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">更多 →</a></div>
+    </div>
+    
+    <div class="post on-list">
+      <h1 class="post-title"><a href="/post/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/">Visual Studio Code使用中CPU占用率异常暴增过高原因</a></h1>
+      <div class="post-meta">
+        <span class="post-date">
+          2018-02-13
+        </span>
+        <span class="post-author">:: whidy</span>
+      </div>
+
+      
+
+      
+
+      <div class="post-content">
+        
+          
+            今天要说的是一个困扰我好几个月的问题，Visual Studio Code（下文简称VSCode）在使用中突然增高，风扇开始狂转，温度骤增，影响心情的故障原因。
+其实，无论是Windows还是OSX，很多人可能或多或少都遇到过VSCode突然就不好使了，我就遇到过好多次疑难杂症，折腾很久才弄出来，比如下面三点：
+ tab键突然就不好使了，卡顿很久或者压根无法缩进，并且sidebar的git那块功能彻底失效！ 写Markdown文档的时候，tab键的缩进只能向右，不能收回。。。这真是奇葩。 使用中莫名其妙的风扇就响了起来，看看进程和温度，CPU满载执行，完全不知道怎么回事，这也是本次要专门提到的问题。  系统使用环境及VSCode状态检测 我使用的是黑苹果，当然这个与CPU占用率增高并无关系，通过code &ndash;status查看一些基本信息如下：
+P750TM:~ whidy$ code &ndash;status Version: Code 1.30.2 (61122f88f0bf01e2ac16bdb9e1bc4571755f5bd8, 2019-01-07T22:48:31.260Z) OS Version: Darwin x64 17.7.0 CPUs: Intel&reg; Core&trade; i5-8600K CPU @ 3.60GHz (6 x 3600) Memory (System): 16.00GB (5.22GB free) Load (avg): 2, 2, 2 VM: 0% Screen Reader: no Process Argv: &ndash;inspect-extensions=9993 GPU Status: 2d_canvas: enabled checker_imaging: disabled_off flash_3d: enabled flash_stage3d: enabled flash_stage3d_baseline: enabled gpu_compositing: enabled multiple_raster_threads: enabled_on native_gpu_memory_buffers: enabled rasterization: unavailable_software video_decode: enabled video_encode: enabled webgl: enabled webgl2: enabled CPU %  Mem MB  PID Process 0   98  1775    code main 0 49  1776    gpu-process 0   229 1777    window (settings.
+          
+        
+      </div>
+      <div><a class="read-more button" href="/post/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/">更多 →</a></div>
+    </div>
+    
+    <div class="post on-list">
+      <h1 class="post-title"><a href="/post/visual-studio-code%E5%87%A0%E6%AC%BEftp%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">Visual Studio Code几款FTP插件使用总结</a></h1>
+      <div class="post-meta">
+        <span class="post-date">
+          2018-02-13
+        </span>
+        <span class="post-author">:: whidy</span>
+      </div>
+
+      
+
+      
+
+      <div class="post-content">
+        
+          
+        
+      </div>
+      <div><a class="read-more button" href="/post/visual-studio-code%E5%87%A0%E6%AC%BEftp%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">更多 →</a></div>
+    </div>
+    
+    <div class="post on-list">
+      <h1 class="post-title"><a href="/post/vue%E4%B8%8B%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8%E6%97%A0%E9%99%90%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AEdemo/">Vue下滚动到页面底部无限加载数据Demo</a></h1>
+      <div class="post-meta">
+        <span class="post-date">
+          2018-02-13
+        </span>
+        <span class="post-author">:: whidy</span>
+      </div>
+
+      
+
+      
+
+      <div class="post-content">
+        
+          
+            <p>Vue下滚动到页面底部无限加载数据Demo  看到一篇Implementing an Infinite Scroll with Vue.js, 觉得挺实用的就看了下, 顺便简单翻译了一下给需要的人参考.
+从这个项目中可以加深对Vue的生命周期的理解, 何时开始axios请求, 如何结合Vue使用原生js来写scroll事件等等, 我这里主要是对原文的重点提取和补充
+ 本文技术要点  Vue生命周期 axios简单用法 moment.js格式化日期 图片懒加载 结合原生js来写scroll事件 请求节流  创建项目 首先创建一个简单的vue项目</p>
+
+<h1 id="vue-init-webpack-simple-infinite-scroll-vuejs-然后安装项目所需要用的一些插件">vue init webpack-simple infinite-scroll-vuejs  然后安装项目所需要用的一些插件</h1>
+
+<h1 id="npm-install-axios-moment-初始化用户数据-项目搭建完后-跑起来看看">npm install axios moment  初始化用户数据 项目搭建完后, 跑起来看看</h1>
+
+<h1 id="npm-run-dev-打开http-localhost-8080无误后-我们开始修改代码-先看看获取用户数据这块">npm run dev  打开<a href="http://localhost:8080无误后">http://localhost:8080无误后</a>, 我们开始修改代码, 先看看获取用户数据这块,</h1>
+
+<p>&lt;script&gt; import axios from &lsquo;axios&rsquo; import moment from &lsquo;moment&rsquo; export default { name: &lsquo;app&rsquo;, // 创建一个存放用户数据的数组 data() { return { persons: [] } }, methods: { // axios请求接口获取数据 getInitialUsers() { for (var i = 0; i &lt; 5; i++) { axios.</p>
+
+          
+        
+      </div>
+      <div><a class="read-more button" href="/post/vue%E4%B8%8B%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8%E6%97%A0%E9%99%90%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AEdemo/">更多 →</a></div>
+    </div>
+    
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+      <span class="button previous">
+        <a href="/">
+          <span class="button__icon">←</span>
+          <span class="button__text">Newer posts</span>
+        </a>
+      </span>
+    
+    
+      <span class="button next">
+        <a href="/page/3/">
+          <span class="button__text">Older posts</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+    
+  </div>
+</div>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

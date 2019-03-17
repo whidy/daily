@@ -1,139 +1,139 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Whidy Daily  | Nginx的站点配置/PHP-FPM配置</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.54.0" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-
-    <meta property="og:title" content="Nginx的站点配置/PHP-FPM配置" />
-<meta property="og:description" content="2018年3月22日 晴 一般
+<html lang="en">
+<head>
+  
+    <title>Nginx的站点配置/PHP-FPM配置 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="2018年3月22日 晴 一般
  Nginx的站点配置/PHP-FPM配置 22号是艰难的一天. 各种爆炸!
-Nginx的站点配置  昨晚, 回去看了一下百度统计, 一下子就炸了. 在我还不了解Nginx配置的情况下, 我只是让首页正常访问了&hellip; 其他页面全挂. 于是开始了大量英文资料的阅读.
- 以下内容围绕nginx.conf配置文件展开, 也不知道是不是版本区别, 总跟网上的文章有些不一样, 我也陷入迷茫.
-我要解决的问题:
- 博客所有页面(包括文章伪静态)访问正常; 其他域名(whidy.net, whidy.cn, www.whidy.cn)均需要301转向到www.whidy.net, 避免分权 针对wordpress的相关优化(可选)  那么, 基于Nginx对服务器的管理的研究, 我发现其主要针对不同的站点进行Server Block配置, 而Server Block如何管理, 我查了大量资料, 比如这里有一篇文章摘要
- To begin, we will need to set up the directory that our server blocks will be stored in, as well as the directory that tells Nginx that a server block is ready to serve to visitors." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="/daily/2018-03-22-nginx-phpfpm/" />
-<meta property="article:published_time" content="2018-03-22T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-03-22T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
-
-<meta itemprop="name" content="Nginx的站点配置/PHP-FPM配置">
-<meta itemprop="description" content="2018年3月22日 晴 一般
- Nginx的站点配置/PHP-FPM配置 22号是艰难的一天. 各种爆炸!
-Nginx的站点配置  昨晚, 回去看了一下百度统计, 一下子就炸了. 在我还不了解Nginx配置的情况下, 我只是让首页正常访问了&hellip; 其他页面全挂. 于是开始了大量英文资料的阅读.
- 以下内容围绕nginx.conf配置文件展开, 也不知道是不是版本区别, 总跟网上的文章有些不一样, 我也陷入迷茫.
-我要解决的问题:
- 博客所有页面(包括文章伪静态)访问正常; 其他域名(whidy.net, whidy.cn, www.whidy.cn)均需要301转向到www.whidy.net, 避免分权 针对wordpress的相关优化(可选)  那么, 基于Nginx对服务器的管理的研究, 我发现其主要针对不同的站点进行Server Block配置, 而Server Block如何管理, 我查了大量资料, 比如这里有一篇文章摘要
- To begin, we will need to set up the directory that our server blocks will be stored in, as well as the directory that tells Nginx that a server block is ready to serve to visitors.">
-
-
-<meta itemprop="datePublished" content="2018-03-22T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-03-22T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="427">
-
-
-
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Nginx的站点配置/PHP-FPM配置"/>
-<meta name="twitter:description" content="2018年3月22日 晴 一般
- Nginx的站点配置/PHP-FPM配置 22号是艰难的一天. 各种爆炸!
-Nginx的站点配置  昨晚, 回去看了一下百度统计, 一下子就炸了. 在我还不了解Nginx配置的情况下, 我只是让首页正常访问了&hellip; 其他页面全挂. 于是开始了大量英文资料的阅读.
+Nginx的站点配置  昨晚, 回去看了一下百度统计, 一下子就炸了. 在我还不了解Nginx配置的情况下, 我只是让首页正常访问了&amp;hellip; 其他页面全挂. 于是开始了大量英文资料的阅读.
  以下内容围绕nginx.conf配置文件展开, 也不知道是不是版本区别, 总跟网上的文章有些不一样, 我也陷入迷茫.
 我要解决的问题:
  博客所有页面(包括文章伪静态)访问正常; 其他域名(whidy.net, whidy.cn, www.whidy.cn)均需要301转向到www.whidy.net, 避免分权 针对wordpress的相关优化(可选)  那么, 基于Nginx对服务器的管理的研究, 我发现其主要针对不同的站点进行Server Block配置, 而Server Block如何管理, 我查了大量资料, 比如这里有一篇文章摘要
  To begin, we will need to set up the directory that our server blocks will be stored in, as well as the directory that tells Nginx that a server block is ready to serve to visitors."/>
+<meta name="keywords" content="whidy daily blog"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/daily/2018-03-22-nginx-phpfpm/" />
 
-  </head>
 
-  <body class="ma0 avenir bg-near-white">
-
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Whidy Daily
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-        <ul class="pl0 mr3">
-          
-          <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
-              Daily
-            </a>
-          </li>
-          
-        </ul>
-      
-      
+<link rel="stylesheet" href="/assets/style.css">
 
 
 
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Nginx的站点配置/PHP-FPM配置 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here." />
+<meta name="twitter:description" content="2018年3月22日 晴 一般
+ Nginx的站点配置/PHP-FPM配置 22号是艰难的一天. 各种爆炸!
+Nginx的站点配置  昨晚, 回去看了一下百度统计, 一下子就炸了. 在我还不了解Nginx配置的情况下, 我只是让首页正常访问了&amp;hellip; 其他页面全挂. 于是开始了大量英文资料的阅读.
+ 以下内容围绕nginx.conf配置文件展开, 也不知道是不是版本区别, 总跟网上的文章有些不一样, 我也陷入迷茫.
+我要解决的问题:
+ 博客所有页面(包括文章伪静态)访问正常; 其他域名(whidy.net, whidy.cn, www.whidy.cn)均需要301转向到www.whidy.net, 避免分权 针对wordpress的相关优化(可选)  那么, 基于Nginx对服务器的管理的研究, 我发现其主要针对不同的站点进行Server Block配置, 而Server Block如何管理, 我查了大量资料, 比如这里有一篇文章摘要
+ To begin, we will need to set up the directory that our server blocks will be stored in, as well as the directory that tells Nginx that a server block is ready to serve to visitors." />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="whidy" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Nginx的站点配置/PHP-FPM配置 :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.">
+<meta property="og:description" content="2018年3月22日 晴 一般
+ Nginx的站点配置/PHP-FPM配置 22号是艰难的一天. 各种爆炸!
+Nginx的站点配置  昨晚, 回去看了一下百度统计, 一下子就炸了. 在我还不了解Nginx配置的情况下, 我只是让首页正常访问了&amp;hellip; 其他页面全挂. 于是开始了大量英文资料的阅读.
+ 以下内容围绕nginx.conf配置文件展开, 也不知道是不是版本区别, 总跟网上的文章有些不一样, 我也陷入迷茫.
+我要解决的问题:
+ 博客所有页面(包括文章伪静态)访问正常; 其他域名(whidy.net, whidy.cn, www.whidy.cn)均需要301转向到www.whidy.net, 避免分权 针对wordpress的相关优化(可选)  那么, 基于Nginx对服务器的管理的研究, 我发现其主要针对不同的站点进行Server Block配置, 而Server Block如何管理, 我查了大量资料, 比如这里有一篇文章摘要
+ To begin, we will need to set up the directory that our server blocks will be stored in, as well as the directory that tells Nginx that a server block is ready to serve to visitors." />
+<meta property="og:url" content="/daily/2018-03-22-nginx-phpfpm/" />
+<meta property="og:site_name" content="Nginx的站点配置/PHP-FPM配置" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2018-03-22 00:00:00 &#43;0000 UTC" />
 
 
 
 
 
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Daily Note
+  </div>
+</a>
 
     </div>
+    <div class="menu-trigger">menu</div>
   </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/daily">Daily</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/daily">Daily</a></li>
+      
+    
+  </ul>
 </nav>
 
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+</header>
 
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        DAILIES
-      </p>
-      <h1 class="f1 athelas mb1">Nginx的站点配置/PHP-FPM配置</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2018-03-22T00:00:00Z">March 22, 2018</time>      
-      
-      
-    </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+  <div class="content">
+    
+  <div class="post">
+    <h1 class="post-title"><a href="/daily/2018-03-22-nginx-phpfpm/">Nginx的站点配置/PHP-FPM配置</a></h1>
+    <div class="post-meta">
+      <span class="post-date">
+        2018-03-22
+      </span>
+      <span class="post-author">:: whidy</span>
+    </div>
+
+    
+
+    
+
+    <div class="post-content">
+      
 
 <blockquote>
 <p>2018年3月22日 晴 一般</p>
@@ -349,113 +349,62 @@ server_names_hash_bucket_size 64;
 <blockquote>
 <p>完成22号的日志现在已经是 3-23 23:56, 最近实在是太忙了. 昨晚小程序上线出BUG, 搞到快晚上11点才回去, 也有些经验要总结. 今天先到这吧</p>
 </blockquote>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6">
-        
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">查看其他</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="/daily/2018-03-26-note/">
+                <span class="button__icon">←</span>
+                <span class="button__text">日志</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="/daily/2018-03-21-nginx/">
+                <span class="button__text">Wordpress改用Nginx</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
       </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
-    <p class="f5 b mb3">Related</p>
-    <ul class="pa0 list">
-	   
-	     <li  class="mb2">
-          <a href="/daily/2018-03-21-nginx/">Wordpress改用Nginx</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-20-mariadb/">MariaDB崩溃分析/Wordpress改用Nginx</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-18-jekyll-ruby-rails-linux-weapp/">CentOS7安装Jekyll和Rails</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-17-php-upgrade-7.x/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-16-apache-host/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-15-note/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-06-weapp/">微信小程序开发中的问题</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-28-javascript/">复习</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-24-cssnano/">PostCSS不支持部分SASS研究</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-23-cssnano/">Wang Year of the Dog</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90%E5%85%B3%E4%BA%8E%E8%A1%A8%E5%8D%95/">（未完成）关于表单</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/visual-studio-code%E4%BD%BF%E7%94%A8%E4%B8%ADcpu%E5%8D%A0%E7%94%A8%E7%8E%87%E5%BC%82%E5%B8%B8%E6%9A%B4%E5%A2%9E%E8%BF%87%E9%AB%98%E5%8E%9F%E5%9B%A0/">Visual Studio Code使用中CPU占用率异常暴增过高原因</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/visual-studio-code%E5%87%A0%E6%AC%BEftp%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">Visual Studio Code几款FTP插件使用总结</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/">使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/vscode%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">VSCode格式化代码功能失效的bug解决方法</a>
-        </li>
-	    
-    </ul>
-</div>
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
-    &copy; 2019 Whidy Daily
-  </a>
-    <div>
-
-
-
-
-
-
-
-
-</div>
-  </div>
-</footer>
+    
 
     
 
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
 
 
-  </body>
+
+
+
+  
+</div>
+
+</body>
 </html>

@@ -1,100 +1,64 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Whidy Daily  | CentOS7安装Jekyll和Rails</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.54.0" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-
-    <meta property="og:title" content="CentOS7安装Jekyll和Rails" />
-<meta property="og:description" content="2018年3月18日 阴 一般
+<html lang="en">
+<head>
+  
+    <title>CentOS7安装Jekyll和Rails :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="2018年3月18日 阴 一般
  CentOS7安装Jekyll/Rails/Linux用户管理/微信小程序页面加载问题  打算把我的wordpress博客移植到Jekyll上面, 于是试了下, 之前有在国外的VPS搭过一个Jekyll站点http://daily.whidy.net/, 纯静态的感觉很棒, 因此尝试一下移植的效果~
  CentOS7下安装Jekyll环境搭建 安装Jekyll需要  Ruby RubyGems NodeJS Python 2.7(Whidy比较懒, 貌似CentOS7自带? 还是啥时候装了, 不会的自己搜一下= =.)  安装Ruby2.5.0和RubyGems  目前最新稳定版本是2.5.0, CentOS自带源的版本比较老, 我们需要第三方源rbenv来安装最新稳定版, 安装方法如下:
   安装rbenv和Ruby依赖的组件
 # sudo yum install -y git-core zlib zlib-devel gcc-c&#43;&#43; patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel  安装rbenv和rub-build(务必在非root用户的home下面操作)
-# cd ~ # git clone git://github.com/sstephenson/rbenv.git .rbenv # echo &#39;export PATH=&quot;$HOME/." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="/daily/2018-03-18-jekyll-ruby-rails-linux-weapp/" />
-<meta property="article:published_time" content="2018-03-18T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-03-18T00:00:00&#43;00:00"/><meta property="og:site_name" content="Whidy Daily" />
-
-<meta itemprop="name" content="CentOS7安装Jekyll和Rails">
-<meta itemprop="description" content="2018年3月18日 阴 一般
- CentOS7安装Jekyll/Rails/Linux用户管理/微信小程序页面加载问题  打算把我的wordpress博客移植到Jekyll上面, 于是试了下, 之前有在国外的VPS搭过一个Jekyll站点http://daily.whidy.net/, 纯静态的感觉很棒, 因此尝试一下移植的效果~
- CentOS7下安装Jekyll环境搭建 安装Jekyll需要  Ruby RubyGems NodeJS Python 2.7(Whidy比较懒, 貌似CentOS7自带? 还是啥时候装了, 不会的自己搜一下= =.)  安装Ruby2.5.0和RubyGems  目前最新稳定版本是2.5.0, CentOS自带源的版本比较老, 我们需要第三方源rbenv来安装最新稳定版, 安装方法如下:
-  安装rbenv和Ruby依赖的组件
-# sudo yum install -y git-core zlib zlib-devel gcc-c&#43;&#43; patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel  安装rbenv和rub-build(务必在非root用户的home下面操作)
-# cd ~ # git clone git://github.com/sstephenson/rbenv.git .rbenv # echo &#39;export PATH=&quot;$HOME/.">
+# cd ~ # git clone git://github.com/sstephenson/rbenv.git .rbenv # echo &#39;export PATH=&amp;quot;$HOME/."/>
+<meta name="keywords" content="whidy daily blog"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/daily/2018-03-18-jekyll-ruby-rails-linux-weapp/" />
 
 
-<meta itemprop="datePublished" content="2018-03-18T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-03-18T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="305">
+<link rel="stylesheet" href="/assets/style.css">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CentOS7安装Jekyll和Rails"/>
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="CentOS7安装Jekyll和Rails :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here." />
 <meta name="twitter:description" content="2018年3月18日 阴 一般
  CentOS7安装Jekyll/Rails/Linux用户管理/微信小程序页面加载问题  打算把我的wordpress博客移植到Jekyll上面, 于是试了下, 之前有在国外的VPS搭过一个Jekyll站点http://daily.whidy.net/, 纯静态的感觉很棒, 因此尝试一下移植的效果~
  CentOS7下安装Jekyll环境搭建 安装Jekyll需要  Ruby RubyGems NodeJS Python 2.7(Whidy比较懒, 貌似CentOS7自带? 还是啥时候装了, 不会的自己搜一下= =.)  安装Ruby2.5.0和RubyGems  目前最新稳定版本是2.5.0, CentOS自带源的版本比较老, 我们需要第三方源rbenv来安装最新稳定版, 安装方法如下:
   安装rbenv和Ruby依赖的组件
 # sudo yum install -y git-core zlib zlib-devel gcc-c&#43;&#43; patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel  安装rbenv和rub-build(务必在非root用户的home下面操作)
-# cd ~ # git clone git://github.com/sstephenson/rbenv.git .rbenv # echo &#39;export PATH=&quot;$HOME/."/>
+# cd ~ # git clone git://github.com/sstephenson/rbenv.git .rbenv # echo &#39;export PATH=&amp;quot;$HOME/." />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="whidy" />
+<meta name="twitter:image" content="">
 
-  </head>
 
-  <body class="ma0 avenir bg-near-white">
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="CentOS7安装Jekyll和Rails :: Whidy Daily — Here is Whidy&#39;s github note, you will find somethings here.">
+<meta property="og:description" content="2018年3月18日 阴 一般
+ CentOS7安装Jekyll/Rails/Linux用户管理/微信小程序页面加载问题  打算把我的wordpress博客移植到Jekyll上面, 于是试了下, 之前有在国外的VPS搭过一个Jekyll站点http://daily.whidy.net/, 纯静态的感觉很棒, 因此尝试一下移植的效果~
+ CentOS7下安装Jekyll环境搭建 安装Jekyll需要  Ruby RubyGems NodeJS Python 2.7(Whidy比较懒, 貌似CentOS7自带? 还是啥时候装了, 不会的自己搜一下= =.)  安装Ruby2.5.0和RubyGems  目前最新稳定版本是2.5.0, CentOS自带源的版本比较老, 我们需要第三方源rbenv来安装最新稳定版, 安装方法如下:
+  安装rbenv和Ruby依赖的组件
+# sudo yum install -y git-core zlib zlib-devel gcc-c&#43;&#43; patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel  安装rbenv和rub-build(务必在非root用户的home下面操作)
+# cd ~ # git clone git://github.com/sstephenson/rbenv.git .rbenv # echo &#39;export PATH=&amp;quot;$HOME/." />
+<meta property="og:url" content="/daily/2018-03-18-jekyll-ruby-rails-linux-weapp/" />
+<meta property="og:site_name" content="CentOS7安装Jekyll和Rails" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
 
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Whidy Daily
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-        <ul class="pl0 mr3">
-          
-          <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/daily" title="Daily page">
-              Daily
-            </a>
-          </li>
-          
-        </ul>
-      
-      
+<meta property="article:published_time" content="2018-03-18 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -103,34 +67,70 @@
 
 
 
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Daily Note
+  </div>
+</a>
 
     </div>
+    <div class="menu-trigger">menu</div>
   </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/daily">Daily</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/daily">Daily</a></li>
+      
+    
+  </ul>
 </nav>
 
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
   
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+</header>
 
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        DAILIES
-      </p>
-      <h1 class="f1 athelas mb1">CentOS7安装Jekyll和Rails</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2018-03-18T00:00:00Z">March 18, 2018</time>      
-      
-      
-    </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+  <div class="content">
+    
+  <div class="post">
+    <h1 class="post-title"><a href="/daily/2018-03-18-jekyll-ruby-rails-linux-weapp/">CentOS7安装Jekyll和Rails</a></h1>
+    <div class="post-meta">
+      <span class="post-date">
+        2018-03-18
+      </span>
+      <span class="post-author">:: whidy</span>
+    </div>
+
+    
+
+    
+
+    <div class="post-content">
+      
 
 <blockquote>
 <p>2018年3月18日 阴 一般</p>
@@ -325,113 +325,62 @@ rbenv rehash
 <p>由于工作上有个业务需求是, 用户必须授权微信账户信息才可以执行操作, 因此我一开始在App上面<code>onLaunch</code>获取用户信息(<code>getUserInfo</code>), 然后在Page上面<code>onLoad</code>执行检测, 这个过程是异步的, 导致App上面没有获取到, 就执行了Page上面的检测, 这个是不允许的, 为了解决这个问题弄了一下午.</p>
 
 <p>另一方面, 今天算是弄明白<code>Zan-UI</code>的正确使用方法, 以及微信授权失败, 重新请求授权的办法了~</p>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6">
-        
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">查看其他</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="/daily/2018-03-20-mariadb/">
+                <span class="button__icon">←</span>
+                <span class="button__text">MariaDB崩溃分析/Wordpress改用Nginx</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="/daily/2018-03-17-php-upgrade-7.x/">
+                <span class="button__text">日志</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
       </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
-    <p class="f5 b mb3">Related</p>
-    <ul class="pa0 list">
-	   
-	     <li  class="mb2">
-          <a href="/daily/2018-03-17-php-upgrade-7.x/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-16-apache-host/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-15-note/">日志</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-03-06-weapp/">微信小程序开发中的问题</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-28-javascript/">复习</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-24-cssnano/">PostCSS不支持部分SASS研究</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/daily/2018-02-23-cssnano/">Wang Year of the Dog</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/elementui%E7%9A%84table%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84renderheader%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6/">ElementUI的Table组件中的renderHeader方法研究</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/vue%E4%B8%8B%E6%BB%9A%E5%8A%A8%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%BA%95%E9%83%A8%E6%97%A0%E9%99%90%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AEdemo/">Vue下滚动到页面底部无限加载数据Demo</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/vscode%E4%B8%8B%E8%AE%A9css%E6%96%87%E4%BB%B6%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81scss%E6%88%96sass%E6%96%B9%E6%B3%95/">VSCode下让CSS文件完美支持SCSS或SASS语法方法</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90nuxt%E4%B8%8B%E7%9A%84eslint%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">（未完成）Nuxt下的ESLint最佳实践</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E5%92%8C%E5%8F%8D%E6%96%9C%E6%9D%A0b%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%8C%B9%E9%85%8D%E5%88%86%E6%9E%90%E6%80%9D%E8%B7%AF/">正则表达式中`[反斜杠b]`和`反斜杠b`和`反斜杠B`的区别及匹配分析思路</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/vscode%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81%E5%8A%9F%E8%83%BD%E5%A4%B1%E6%95%88%E7%9A%84bug%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">VSCode格式化代码功能失效的bug解决方法</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E7%94%A8gatsby%E5%92%8Cstrapi%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">用Gatsby和Strapi创建一个静态博客(翻译和自己探索过程中的经验总结)</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/post/%E4%BD%BF%E7%94%A8elementui%E5%92%8Caxios%E4%BB%A5formdata%E6%A0%BC%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%B8%A6%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E7%9A%84%E9%94%99%E8%AF%AF%E7%A4%BA%E8%8C%83%E5%8F%8A%E5%88%86%E6%9E%90%E8%A7%A3%E5%86%B3/">使用ElementUI和Axios以formData格式提交带有文件的表单的错误示范及分析解决</a>
-        </li>
-	    
-    </ul>
-</div>
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
-    &copy; 2019 Whidy Daily
-  </a>
-    <div>
-
-
-
-
-
-
-
-
-</div>
-  </div>
-</footer>
+    
 
     
 
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
 
 
-  </body>
+
+
+
+  
+</div>
+
+</body>
 </html>
