@@ -33,6 +33,10 @@ paginate = 5
 
     [languages.en.menu]
       [[languages.en.menu.main]]
-        identifier = "note"
-        name = "Daily"
+        identifier = "post"
+        name = "Post😍"
+        url = "/post"
+      [[languages.en.menu.main]]
+        identifier = "daily"
+        name = "Daily📒"
         url = "/daily"
