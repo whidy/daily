@@ -27,9 +27,7 @@ author = "whidy"
 
 dev同理。
 
-### 配置config.local.js
-
-如果没有这个文件自己创建一个，当然这个对应的是开发模式下使用。
+### 配置config.default.js
 
 部分配置如下：
 
@@ -47,6 +45,14 @@ module.exports = app => {
 };
 ```
 
+以上方法都适用于执行`egg-scripts`时有效（例如`npm start`）。如果需要执行`npm run dev`，开启，请参考上文**修改package.json**的方案。
+
+> 我最初通过设置`config.local.js`来实现，发现竟然不成功，报错！报错信息部分如下：
+>
+> ```
+> [egg-scripts] 2019-03-20 14:30:48,033 ERROR 7988 [app_worker] server got error: bind EADDRINUSE null:7001, code: EADDRINUSE
+> ```
+
 ### Nginx大法
 
 比较麻烦，不过看了下官方文档，应该也是可以很好的支持的。有兴趣请阅读该节：
@@ -61,7 +67,7 @@ module.exports = app => {
 ERROR 3810 nodejs.AppWorkerDiedError: [master] app_worker#1:3813 died (code: 0, signal: null, suicide: false, state: dead), current workers: []
 ```
 
-原因是Node.js的服务器端默认是无法使用1024以下的端口的。咋办呢？使用`sudo`哈哈哈。就是这样：`sudo npm start`或者`sodu npm run dev`。
+原因是Node.js的服务器端默认是无法使用1024以下的端口的。咋办呢？使用`sudo`哈哈哈。就是这样：`sudo npm start`或者`sudo npm run dev`。
 
 也有可能是：
 
