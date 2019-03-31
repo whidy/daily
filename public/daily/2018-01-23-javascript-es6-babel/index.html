@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily  | null和undefined复习/ES6作用域和babel的探索</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+<link rel="shortcut icon" href="/https://www.whidy.net/favicon.ico" type="image/x-icon" />
+
+    
+
+    
+
+    <meta property="og:title" content="null和undefined复习/ES6作用域和babel的探索" />
+<meta property="og:description" content="2018年1月23日 雾霾 一般
+ null和undefined复习 / ES6作用域和babel的探索 再谈null和undefined 什么是null  null具有两大特点
+  null是空的或者不存在的值 null需要被赋值  例如下面给a赋值为null
+let a = null; console.log(a); // null  什么是undefined  undefined一般表示一个已声明的变量, 但是没有定义类型
+ 仅声明一个变量b
+let b; console.log(b); // undefined  或者直接给c赋值为undefined
+let c = undefined; console.log(c); // undefined  或者读取一个不存在某个属性的对象
+var d = {}; console.log(d.fake); // undefined  null和undefined相似之处 首先都知道JavaScript中有6种原始数据类型, null和undefined在其中:
+ Boolean Null Undefined Number String Symbol  正好也有6个falsy值, null和undefined也在里面:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whidy.github.io/daily/2018-01-23-javascript-es6-babel/" />
+<meta property="article:published_time" content="2018-01-23T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-01-23T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="null和undefined复习/ES6作用域和babel的探索">
+<meta itemprop="description" content="2018年1月23日 雾霾 一般
+ null和undefined复习 / ES6作用域和babel的探索 再谈null和undefined 什么是null  null具有两大特点
+  null是空的或者不存在的值 null需要被赋值  例如下面给a赋值为null
+let a = null; console.log(a); // null  什么是undefined  undefined一般表示一个已声明的变量, 但是没有定义类型
+ 仅声明一个变量b
+let b; console.log(b); // undefined  或者直接给c赋值为undefined
+let c = undefined; console.log(c); // undefined  或者读取一个不存在某个属性的对象
+var d = {}; console.log(d.fake); // undefined  null和undefined相似之处 首先都知道JavaScript中有6种原始数据类型, null和undefined在其中:
+ Boolean Null Undefined Number String Symbol  正好也有6个falsy值, null和undefined也在里面:">
+
+
+<meta itemprop="datePublished" content="2018-01-23T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-01-23T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="238">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="null和undefined复习/ES6作用域和babel的探索"/>
+<meta name="twitter:description" content="2018年1月23日 雾霾 一般
+ null和undefined复习 / ES6作用域和babel的探索 再谈null和undefined 什么是null  null具有两大特点
+  null是空的或者不存在的值 null需要被赋值  例如下面给a赋值为null
+let a = null; console.log(a); // null  什么是undefined  undefined一般表示一个已声明的变量, 但是没有定义类型
+ 仅声明一个变量b
+let b; console.log(b); // undefined  或者直接给c赋值为undefined
+let c = undefined; console.log(c); // undefined  或者读取一个不存在某个属性的对象
+var d = {}; console.log(d.fake); // undefined  null和undefined相似之处 首先都知道JavaScript中有6种原始数据类型, null和undefined在其中:
+ Boolean Null Undefined Number String Symbol  正好也有6个falsy值, null和undefined也在里面:"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-gray">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://whidy.github.io" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/archive/" title="Archives page">
+              Archives
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily/" title="Dailies page">
+              Dailies
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/post/" title="Posts page">
+              Posts
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+<a href="https://twitter.com/kingterrors" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://www.instagram.com/vdi.bai/" target="_blank" class="link-transition instagram link dib z-999 pt3 pt0-l mr1" title="Instagram link" rel="noopener" aria-label="follow on Instagram——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M42.271,26.578v-0.006c0.502,0,1.005,0.01,1.508-0.002  c0.646-0.017,1.172-0.57,1.172-1.217c0-0.963,0-1.927,0-2.89c0-0.691-0.547-1.24-1.236-1.241c-0.961,0-1.922-0.001-2.883,0  c-0.688,0.001-1.236,0.552-1.236,1.243c-0.001,0.955-0.004,1.91,0.003,2.865c0.001,0.143,0.028,0.291,0.073,0.426  c0.173,0.508,0.639,0.82,1.209,0.823C41.344,26.579,41.808,26.578,42.271,26.578z M33,27.817c-3.384-0.002-6.135,2.721-6.182,6.089  c-0.049,3.46,2.72,6.201,6.04,6.272c3.454,0.074,6.248-2.686,6.321-6.043C39.254,30.675,36.462,27.815,33,27.817z M21.046,31.116  v0.082c0,4.515-0.001,9.03,0,13.545c0,0.649,0.562,1.208,1.212,1.208c7.16,0.001,14.319,0.001,21.479,0  c0.656,0,1.215-0.557,1.215-1.212c0.001-4.509,0-9.02,0-13.528v-0.094h-2.912c0.411,1.313,0.537,2.651,0.376,4.014  c-0.161,1.363-0.601,2.631-1.316,3.803s-1.644,2.145-2.779,2.918c-2.944,2.006-6.821,2.182-9.946,0.428  c-1.579-0.885-2.819-2.12-3.685-3.713c-1.289-2.373-1.495-4.865-0.739-7.451C22.983,31.116,22.021,31.116,21.046,31.116z   M45.205,49.255c0.159-0.026,0.318-0.049,0.475-0.083c1.246-0.265,2.264-1.304,2.508-2.557c0.025-0.137,0.045-0.273,0.067-0.409  V21.794c-0.021-0.133-0.04-0.268-0.065-0.401c-0.268-1.367-1.396-2.428-2.78-2.618c-0.058-0.007-0.113-0.02-0.17-0.03H20.761  c-0.147,0.027-0.296,0.047-0.441,0.08c-1.352,0.308-2.352,1.396-2.545,2.766c-0.008,0.057-0.02,0.114-0.029,0.171V46.24  c0.028,0.154,0.05,0.311,0.085,0.465c0.299,1.322,1.427,2.347,2.77,2.52c0.064,0.008,0.13,0.021,0.195,0.03H45.205z M33,64  C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+<a href="https://github.com/whidy" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DAILIES
+      </p>
+      <h1 class="f1 athelas mb1">null和undefined复习/ES6作用域和babel的探索</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-01-23T00:00:00Z">January 23, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年1月23日 雾霾 一般</p>
+</blockquote>
+
+<h1 id="null和undefined复习-es6作用域和babel的探索">null和undefined复习 / ES6作用域和babel的探索</h1>
+
+<h2 id="再谈null和undefined">再谈null和undefined</h2>
+
+<h3 id="什么是null">什么是null</h3>
+
+<blockquote>
+<p><code>null</code>具有两大特点</p>
+</blockquote>
+
+<ul>
+<li><code>null</code>是空的或者不存在的值</li>
+<li><code>null</code>需要被赋值</li>
+</ul>
+
+<p>例如下面给a赋值为null</p>
+
+<pre><code class="language-javascript">let a = null;
+console.log(a);
+// null
+</code></pre>
+
+<h3 id="什么是undefined">什么是undefined</h3>
+
+<blockquote>
+<p><code>undefined</code>一般表示一个已声明的变量, 但是没有定义类型</p>
+</blockquote>
+
+<p>仅声明一个变量b</p>
+
+<pre><code class="language-javascript">let b;
+console.log(b);
+// undefined
+</code></pre>
+
+<p>或者直接给c赋值为undefined</p>
+
+<pre><code class="language-javascript">let c = undefined;
+console.log(c);
+// undefined
+</code></pre>
+
+<p>或者读取一个不存在某个属性的对象</p>
+
+<pre><code class="language-javascript">var d = {};
+console.log(d.fake);
+// undefined
+</code></pre>
+
+<h3 id="null和undefined相似之处">null和undefined相似之处</h3>
+
+<p>首先都知道JavaScript中有6种原始数据类型, null和undefined在其中:</p>
+
+<ul>
+<li>Boolean</li>
+<li><strong>Null</strong></li>
+<li><strong>Undefined</strong></li>
+<li>Number</li>
+<li>String</li>
+<li>Symbol</li>
+</ul>
+
+<p>正好也有6个<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Falsy">falsy</a>值, null和undefined也在里面:</p>
+
+<ul>
+<li>false</li>
+<li>0 (zero)</li>
+<li>&rdquo;&rdquo; 或者 &ldquo; (empty string)</li>
+<li><strong>null</strong></li>
+<li><strong>undefined</strong></li>
+<li>NaN (Not A Number)</li>
+</ul>
+
+<blockquote>
+<p>如果对truthy和falsy想有更多的了解, 这里推荐两篇文章 <a href="https://codeburst.io/javascript-double-equals-vs-triple-equals-61d4ce5a121a">JavaScript — Double Equals vs. Triple Equals</a>和<a href="https://www.sitepoint.com/javascript-truthy-falsy/">Truthy and Falsy: When All is Not Equal in JavaScript</a></p>
+</blockquote>
+
+<p>这里有个有趣的现象, 当用<code>typeof</code>测试<code>null</code>, 会返回<code>object</code>(历史原因导致):</p>
+
+<pre><code class="language-javascript">let a = null;
+let b;
+console.log(typeof a);
+// object
+console.log(typeof b);
+// undefined
+</code></pre>
+
+<p>另外你需要知道, 严格比较下和普通比较的情况:</p>
+
+<pre><code class="language-javascript">null !== undefined
+null == undefined
+</code></pre>
+
+<p>这里还有个例子:</p>
+
+<pre><code class="language-javascript">let logHi = (str = 'hi') =&gt; {
+  console.log(str);
+}
+</code></pre>
+
+<p>如果不填写参数, 或者写一个其他的字符串参数的结果:</p>
+
+<pre><code class="language-javascript">logHi();
+// hi
+
+logHi('bye');
+// bye
+</code></pre>
+
+<p><strong>如果你试着把undefined和null作为参数传进去会发生什么现象呢?</strong></p>
+
+<pre><code class="language-javascript">logHi(undefined);
+// hi
+
+logHi(null);
+// null
+</code></pre>
+
+<p>再结合上面对undefined和null的描述就好理解了~</p>
+
+<h3 id="总结">总结</h3>
+
+<ul>
+<li><code>null</code>是被分配的值, 但是<a href="https://stackoverflow.com/a/802371/3089701">什么也不是</a></li>
+<li><code>undefined</code>一般理解为声明却没有定义的变量</li>
+<li><code>null</code>和<code>undefined</code>都是falsy值</li>
+<li><code>null</code>和<code>undefined</code>都是原始类型, 但是记住<code>typeof null</code>返回的是<code>object</code>!</li>
+<li><code>null !== undefined</code>但是<code>null == undefined</code></li>
+</ul>
+
+<blockquote>
+<p>原文: <a href="https://codeburst.io/javascript-null-vs-undefined-20f955215a2">JavaScript — Null vs. Undefined</a></p>
+</blockquote>
+
+<h2 id="es6在babel下的兼容性问题">ES6在babel下的兼容性问题</h2>
+
+<blockquote>
+<p>前几天关于babel配置造成es6代码结果不同的问题(<a href="https://github.com/whidy/daily/blob/master/posts/2018-01-19-es6-babel-markdown.md">ES6学习/Babel配置学习疑问</a>第4点), 困扰了我很多天, 我估计这本身就是个坑? 也就不必纠结了? 因为只是测试性学习, 所以才写了这种奇怪的写法, 我们重新简单回顾一下.</p>
+</blockquote>
+
+<pre><code class="language-javascript">for (let i = 0; i &lt; 3; i++) {
+  let i = 'abc';
+  console.log(i);
+}
+</code></pre>
+
+<p>这段代码输出应该是什么结果呢node环境和支持es6的浏览器是3次abc, 即阮一峰ECMAScript 6入门中示例结果, 以下是<a href="http://es6.ruanyifeng.com/?search=%E8%A7%A3%E6%9E%84&amp;x=10&amp;y=8#docs/let#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">let基本用法</a>末尾处原文说明:</p>
+
+<blockquote>
+<p>另外，for循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域。</p>
+
+<p>上面代码正确运行，输出了 3 次abc。这表明函数内部的变量i与循环变量i不在同一个作用域，有各自单独的作用域。</p>
+</blockquote>
+
+<p>所以目前困惑了几天还是没有结果的我很迷茫😭, 我的问题就是:</p>
+
+<ul>
+<li>可以理解为<strong>为什么es6的写法会会有多种输出结果</strong></li>
+<li>或者说, <strong>为什么babel编译es6代码的时候解释不统一</strong>(无法转换成采用闭包的方式输出3次?)</li>
+</ul>
+
+<p>究竟是babel的问题吗? 之后进行了大量文章的研究思考, 以下是参考资料及相关思考:</p>
+
+<p>MDN对<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/let"><code>let</code></a>的解释如下:</p>
+
+<blockquote>
+<p><code>let</code>语句声明一个块级作用域的本地变量，并且可选的将其初始化为一个值。</p>
+</blockquote>
+
+<p>那么<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/block"><strong>块级作用域</strong></a>(block)严格定义是:</p>
+
+<blockquote>
+<p><strong>块语句</strong>（或其他语言的复合语句）用于组合零个或多个语句。该块由一对大括号界定，可以是labelled：</p>
+</blockquote>
+
+<p>并且以上都没有提到类似阮大佬的for循环示例相关的代码, 真不知道阮大佬哪里看到的, 竟然想到这种写法.</p>
+
+<p>我又问了其他的大佬, 这种情况该如何解释. 也没有得到准确的解释, 不过还是有收获的, 大佬的建议:</p>
+
+<ul>
+<li>可以考虑TypeScript来写代码</li>
+<li>可以尝试eslint工具来避免可能存在解释造成的误差</li>
+</ul>
+
+<p>最后, 我个人觉得, 写es6的话, 遇到这种坑的情况应该还是很少的, 配置一下<code>browserslist</code>覆盖大部分浏览器的话应该就没什么问题了, 即便在极少情况下可能存在结果和想象得有些不同, 但是只要保证babel输出的结果在不同的浏览器一致也是可以的.</p>
+
+<p>另外, 分享一些较为严谨和拓展性的参考资料:</p>
+
+<ul>
+<li><a href="http://2ality.com/2015/02/es6-scoping.html">Variables and scoping in ECMAScript 6</a></li>
+<li><a href="http://exploringjs.com/es6/ch_variables.html">Variables and scoping</a></li>
+<li><a href="http://imweb.io/topic/561f9352883ae3ed25e400f5">Babel下的ES6兼容性与规范</a></li>
+</ul>
+
+<h2 id="其他">其他</h2>
+
+<ul>
+<li>在查询资料的时候发现了一个在线阅读JavaScript相关的免费书籍网站<a href="http://exploringjs.com/">Exploring JS: JavaScript books for programmers</a></li>
+</ul>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-gray bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://whidy.github.io" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+<a href="https://twitter.com/kingterrors" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://www.instagram.com/vdi.bai/" target="_blank" class="link-transition instagram link dib z-999 pt3 pt0-l mr1" title="Instagram link" rel="noopener" aria-label="follow on Instagram——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M42.271,26.578v-0.006c0.502,0,1.005,0.01,1.508-0.002  c0.646-0.017,1.172-0.57,1.172-1.217c0-0.963,0-1.927,0-2.89c0-0.691-0.547-1.24-1.236-1.241c-0.961,0-1.922-0.001-2.883,0  c-0.688,0.001-1.236,0.552-1.236,1.243c-0.001,0.955-0.004,1.91,0.003,2.865c0.001,0.143,0.028,0.291,0.073,0.426  c0.173,0.508,0.639,0.82,1.209,0.823C41.344,26.579,41.808,26.578,42.271,26.578z M33,27.817c-3.384-0.002-6.135,2.721-6.182,6.089  c-0.049,3.46,2.72,6.201,6.04,6.272c3.454,0.074,6.248-2.686,6.321-6.043C39.254,30.675,36.462,27.815,33,27.817z M21.046,31.116  v0.082c0,4.515-0.001,9.03,0,13.545c0,0.649,0.562,1.208,1.212,1.208c7.16,0.001,14.319,0.001,21.479,0  c0.656,0,1.215-0.557,1.215-1.212c0.001-4.509,0-9.02,0-13.528v-0.094h-2.912c0.411,1.313,0.537,2.651,0.376,4.014  c-0.161,1.363-0.601,2.631-1.316,3.803s-1.644,2.145-2.779,2.918c-2.944,2.006-6.821,2.182-9.946,0.428  c-1.579-0.885-2.819-2.12-3.685-3.713c-1.289-2.373-1.495-4.865-0.739-7.451C22.983,31.116,22.021,31.116,21.046,31.116z   M45.205,49.255c0.159-0.026,0.318-0.049,0.475-0.083c1.246-0.265,2.264-1.304,2.508-2.557c0.025-0.137,0.045-0.273,0.067-0.409  V21.794c-0.021-0.133-0.04-0.268-0.065-0.401c-0.268-1.367-1.396-2.428-2.78-2.618c-0.058-0.007-0.113-0.02-0.17-0.03H20.761  c-0.147,0.027-0.296,0.047-0.441,0.08c-1.352,0.308-2.352,1.396-2.545,2.766c-0.008,0.057-0.02,0.114-0.029,0.171V46.24  c0.028,0.154,0.05,0.311,0.085,0.465c0.299,1.322,1.427,2.347,2.77,2.52c0.064,0.008,0.13,0.021,0.195,0.03H45.205z M33,64  C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+<a href="https://github.com/whidy" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

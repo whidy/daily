@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Whidy Daily  | Wordpress改用Nginx</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.955516233bcafa4d2a1c13cea63c7b50.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+<link rel="shortcut icon" href="/https://www.whidy.net/favicon.ico" type="image/x-icon" />
+
+    
+
+    
+
+    <meta property="og:title" content="Wordpress改用Nginx" />
+<meta property="og:description" content="2018年3月21日 晴 一般
+ 博客改用Nginx  接昨晚, 从Apache换成Nginx, 本来是很简单的. 但是基于我的有点点特殊, 考虑到操作的正确性, 我完整的做了一份记录.
+ 删除Apache及对应的PHP 之前2018-03-17-php-upgrade-7.x有提到的, 我不确定Nginx跟部分PHP有关联, 因此保险起见, 我将同Apache一并安装的PHP也删了, 因为安装高版本PHP需要用到第三方源IUS, 因此再次执行如下命令
+$ cd ~ $ curl &#39;https://setup.ius.io/&#39; -o setup-ius.sh $ sudo bash setup-ius.sh  删除旧版PHP 这是应用于Apache上的PHP相关组建, 因此需要删了等下装Nginx对应PHP
+$ sudo yum remove php-cli mod_php php-common  删除Apache(可选) 你可以保留Apache, 也可以删除, 我目前是保留的. 如果保留则需要关闭服务(Nginx同端口冲突), 并且停用开机自启动服务
+$ sudo systemctl stop httpd.service $ sudo systemctl remove httpd.service  彻底删除Apache
+$ sudo yum remove httpd  安装Nginx及PHP 我们要开始正是安装Nginx啦" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whidy.github.io/daily/2018-03-21-nginx/" />
+<meta property="article:published_time" content="2018-03-21T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-03-21T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="Wordpress改用Nginx">
+<meta itemprop="description" content="2018年3月21日 晴 一般
+ 博客改用Nginx  接昨晚, 从Apache换成Nginx, 本来是很简单的. 但是基于我的有点点特殊, 考虑到操作的正确性, 我完整的做了一份记录.
+ 删除Apache及对应的PHP 之前2018-03-17-php-upgrade-7.x有提到的, 我不确定Nginx跟部分PHP有关联, 因此保险起见, 我将同Apache一并安装的PHP也删了, 因为安装高版本PHP需要用到第三方源IUS, 因此再次执行如下命令
+$ cd ~ $ curl &#39;https://setup.ius.io/&#39; -o setup-ius.sh $ sudo bash setup-ius.sh  删除旧版PHP 这是应用于Apache上的PHP相关组建, 因此需要删了等下装Nginx对应PHP
+$ sudo yum remove php-cli mod_php php-common  删除Apache(可选) 你可以保留Apache, 也可以删除, 我目前是保留的. 如果保留则需要关闭服务(Nginx同端口冲突), 并且停用开机自启动服务
+$ sudo systemctl stop httpd.service $ sudo systemctl remove httpd.service  彻底删除Apache
+$ sudo yum remove httpd  安装Nginx及PHP 我们要开始正是安装Nginx啦">
+
+
+<meta itemprop="datePublished" content="2018-03-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-03-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="448">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Wordpress改用Nginx"/>
+<meta name="twitter:description" content="2018年3月21日 晴 一般
+ 博客改用Nginx  接昨晚, 从Apache换成Nginx, 本来是很简单的. 但是基于我的有点点特殊, 考虑到操作的正确性, 我完整的做了一份记录.
+ 删除Apache及对应的PHP 之前2018-03-17-php-upgrade-7.x有提到的, 我不确定Nginx跟部分PHP有关联, 因此保险起见, 我将同Apache一并安装的PHP也删了, 因为安装高版本PHP需要用到第三方源IUS, 因此再次执行如下命令
+$ cd ~ $ curl &#39;https://setup.ius.io/&#39; -o setup-ius.sh $ sudo bash setup-ius.sh  删除旧版PHP 这是应用于Apache上的PHP相关组建, 因此需要删了等下装Nginx对应PHP
+$ sudo yum remove php-cli mod_php php-common  删除Apache(可选) 你可以保留Apache, 也可以删除, 我目前是保留的. 如果保留则需要关闭服务(Nginx同端口冲突), 并且停用开机自启动服务
+$ sudo systemctl stop httpd.service $ sudo systemctl remove httpd.service  彻底删除Apache
+$ sudo yum remove httpd  安装Nginx及PHP 我们要开始正是安装Nginx啦"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-gray">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://whidy.github.io" class="f3 fw2 hover-white no-underline white-90 dib">
+      Whidy Daily
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/archive/" title="Archives page">
+              Archives
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/daily/" title="Dailies page">
+              Dailies
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/post/" title="Posts page">
+              Posts
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+<a href="https://twitter.com/kingterrors" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://www.instagram.com/vdi.bai/" target="_blank" class="link-transition instagram link dib z-999 pt3 pt0-l mr1" title="Instagram link" rel="noopener" aria-label="follow on Instagram——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M42.271,26.578v-0.006c0.502,0,1.005,0.01,1.508-0.002  c0.646-0.017,1.172-0.57,1.172-1.217c0-0.963,0-1.927,0-2.89c0-0.691-0.547-1.24-1.236-1.241c-0.961,0-1.922-0.001-2.883,0  c-0.688,0.001-1.236,0.552-1.236,1.243c-0.001,0.955-0.004,1.91,0.003,2.865c0.001,0.143,0.028,0.291,0.073,0.426  c0.173,0.508,0.639,0.82,1.209,0.823C41.344,26.579,41.808,26.578,42.271,26.578z M33,27.817c-3.384-0.002-6.135,2.721-6.182,6.089  c-0.049,3.46,2.72,6.201,6.04,6.272c3.454,0.074,6.248-2.686,6.321-6.043C39.254,30.675,36.462,27.815,33,27.817z M21.046,31.116  v0.082c0,4.515-0.001,9.03,0,13.545c0,0.649,0.562,1.208,1.212,1.208c7.16,0.001,14.319,0.001,21.479,0  c0.656,0,1.215-0.557,1.215-1.212c0.001-4.509,0-9.02,0-13.528v-0.094h-2.912c0.411,1.313,0.537,2.651,0.376,4.014  c-0.161,1.363-0.601,2.631-1.316,3.803s-1.644,2.145-2.779,2.918c-2.944,2.006-6.821,2.182-9.946,0.428  c-1.579-0.885-2.819-2.12-3.685-3.713c-1.289-2.373-1.495-4.865-0.739-7.451C22.983,31.116,22.021,31.116,21.046,31.116z   M45.205,49.255c0.159-0.026,0.318-0.049,0.475-0.083c1.246-0.265,2.264-1.304,2.508-2.557c0.025-0.137,0.045-0.273,0.067-0.409  V21.794c-0.021-0.133-0.04-0.268-0.065-0.401c-0.268-1.367-1.396-2.428-2.78-2.618c-0.058-0.007-0.113-0.02-0.17-0.03H20.761  c-0.147,0.027-0.296,0.047-0.441,0.08c-1.352,0.308-2.352,1.396-2.545,2.766c-0.008,0.057-0.02,0.114-0.029,0.171V46.24  c0.028,0.154,0.05,0.311,0.085,0.465c0.299,1.322,1.427,2.347,2.77,2.52c0.064,0.008,0.13,0.021,0.195,0.03H45.205z M33,64  C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+<a href="https://github.com/whidy" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        DAILIES
+      </p>
+      <h1 class="f1 athelas mb1">Wordpress改用Nginx</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-03-21T00:00:00Z">March 21, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<blockquote>
+<p>2018年3月21日 晴 一般</p>
+</blockquote>
+
+<h1 id="博客改用nginx">博客改用Nginx</h1>
+
+<blockquote>
+<p>接昨晚, 从Apache换成Nginx, 本来是很简单的. 但是基于我的有点点特殊, 考虑到操作的正确性, 我完整的做了一份记录.</p>
+</blockquote>
+
+<h2 id="删除apache及对应的php">删除Apache及对应的PHP</h2>
+
+<p>之前<a href="https://github.com/whidy/daily/blob/master/posts/2018-03-17-php-upgrade-7.x.md">2018-03-17-php-upgrade-7.x</a>有提到的, 我不确定Nginx跟部分PHP有关联, 因此保险起见, 我将同Apache一并安装的PHP也删了, 因为安装高版本PHP需要用到第三方源<code>IUS</code>, 因此再次执行如下命令</p>
+
+<pre><code class="language-bash">$ cd ~
+$ curl 'https://setup.ius.io/' -o setup-ius.sh
+
+$ sudo bash setup-ius.sh
+</code></pre>
+
+<h3 id="删除旧版php">删除旧版PHP</h3>
+
+<p>这是应用于Apache上的PHP相关组建, 因此需要删了等下装Nginx对应PHP</p>
+
+<pre><code class="language-bash">$ sudo yum remove php-cli mod_php php-common
+</code></pre>
+
+<h3 id="删除apache-可选">删除Apache(可选)</h3>
+
+<p>你可以保留Apache, 也可以删除, 我目前是保留的. 如果保留则需要关闭服务(Nginx同端口冲突), 并且停用开机自启动服务</p>
+
+<pre><code>$ sudo systemctl stop httpd.service
+$ sudo systemctl remove httpd.service
+</code></pre>
+
+<p>彻底删除Apache</p>
+
+<pre><code class="language-bash">$ sudo yum remove httpd
+</code></pre>
+
+<h2 id="安装nginx及php">安装Nginx及PHP</h2>
+
+<p>我们要开始正是安装Nginx啦</p>
+
+<h3 id="删除可能残留的php-可选">删除可能残留的PHP(可选)</h3>
+
+<p>你可以确认下没有残留的PHP, 然后安装, 因此再次执行了一边删除PHP命令, 当然这次和上面的不同, 这次针对可能存在的残留Nginx版本的PHP, 或许主要用于升级Nginx</p>
+
+<pre><code class="language-bash">$ sudo yum remove php-fpm php-cli php-common
+</code></pre>
+
+<h3 id="安装nginx">安装Nginx</h3>
+
+<p>可能需要用到CentOS7的EPEL仓库源, 因此先</p>
+
+<pre><code class="language-bash">$ sudo yum install epel-release
+</code></pre>
+
+<p>再进行Nginx安装</p>
+
+<pre><code class="language-bash">$ sudo yum install nginx
+</code></pre>
+
+<p>这样就装好了, 超简单&hellip;</p>
+
+<p>启动服务并添加自启动</p>
+
+<pre><code class="language-bash">$ sudo systemctl start nginx
+$ sudo systemctl enable nginx
+</code></pre>
+
+<p>访问你的站点试试, 比如我这里, 如下图</p>
+
+<p><img src="/images/2018-03-21-1.png" alt="Nginx首页" /></p>
+
+<p>当然我们不是跑静态的, 我们要跑PHP, 接着看下文<strong>安装PHP</strong>哈哈哈&hellip;</p>
+
+<h3 id="安装新版php">安装新版PHP</h3>
+
+<p>现在安装对应Nginx的PHP, 最新的<code>PHP7.2</code>版</p>
+
+<pre><code class="language-bash">$ sudo yum install php72u-fpm-nginx php72u-cli php72u-mysqlnd
+</code></pre>
+
+<h3 id="配置php-fpm和nginx">配置PHP-FPM和Nginx</h3>
+
+<blockquote>
+<p>接下来我们要配置一下<code>PHP-FPM</code>(FastCGI Process Manager：FastCGI进程管理器)和<code>Nginx</code></p>
+</blockquote>
+
+<p>修改文件<code>/etc/php-fpm.d/www.conf</code>, 找到<code>listen = 127.0.0.1:9000</code>这里</p>
+
+<pre><code class="language-bash">$ sudo nano /etc/php-fpm.d/www.conf
+</code></pre>
+
+<p>注释<code>listen = 127.0.0.1:9000</code>并去掉<code>listen = /run/php-fpm/www.sock</code>的注释, 修改后如下</p>
+
+<pre><code class="language-text">; Note: This value is mandatory.
+;listen = 127.0.0.1:9000
+; WARNING: If you switch to a unix socket, you have to grant your webserver user
+;          access to that socket by setting listen.acl_users to the webserver user.
+listen = /run/php-fpm/www.sock
+</code></pre>
+
+<p>再找到<code>listen.acl_users</code>部分, 去掉<code>listen.acl_users = nginx</code>注释, 修改后如下</p>
+
+<pre><code class="language-text">;listen.acl_users = apache
+listen.acl_users = nginx
+;listen.acl_groups =
+</code></pre>
+
+<p>为了确保nginx使用正确的socket路径处理PHP文件, 打开<code>/etc/nginx/conf.d/php-fpm.conf</code></p>
+
+<pre><code class="language-bash">$ sudo nano /etc/nginx/conf.d/php-fpm.conf
+</code></pre>
+
+<p>注释掉<code>server 127.0.0.1:9000;</code>, 并去除<code>server unix:/run/php-fpm/www.sock;</code>的注释, 修改后如下</p>
+
+<pre><code class="language-text">upstream php-fpm {
+        #server 127.0.0.1:9000;
+        server unix:/run/php-fpm/www.sock;
+}
+</code></pre>
+
+<blockquote>
+<p>以下内容<strong>可选修改</strong>, 我参考的文章可能PHP版本不同, 需要修改<code>/etc/nginx/conf.d/default.conf</code></p>
+
+<p>接下来修改<code>/etc/nginx/conf.d/default.conf</code>, 注释掉原<code>fastcgi_pass</code>那一行, 并追加一行<code>fastcgi_pass php-fpm;</code>, 修改后大致如下:</p>
+
+<pre><code class="language-text">&gt;  location ~ \.php$ {
+&gt;      try_files $uri =404;
+&gt;      fastcgi_split_path_info ^(.+\.php)(/.+)$;
+&gt;      # fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
+&gt;      fastcgi_pass php-fpm;
+&gt;      fastcgi_index index.php;
+&gt;      fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+&gt;      include fastcgi_params;
+&gt;  }
+&gt; ```
+&gt;
+&gt; 可能由于我的**PHP版本**不同, 其配置文件的路径为`/etc/nginx/default.d/php.conf`, 而且默认已经是`fastcgi_index index.php;`, 如果你也是的, 可以忽略该部分内容.
+
+最后不要忘了添加`php-fpm`服务开机自启动
+
+```bash
+$ sudo systemctl enable php-fpm
+</code></pre>
+</blockquote>
+
+<p>至此, 配置完毕, 重启服务</p>
+
+<pre><code class="language-bash">$ sudo systemctl restart php-fpm
+$ sudo systemctl restart nginx
+</code></pre>
+
+<h3 id="测试php访问">测试PHP访问</h3>
+
+<p>在Nginx默认的访问路径<code>/usr/share/nginx/html</code>下, 创建一个PHP探针</p>
+
+<pre><code class="language-bash">$ sudo nano /usr/share/nginx/html/info.php
+</code></pre>
+
+<p>添加如下内容并保存</p>
+
+<pre><code class="language-php">&lt;?php
+phpinfo();
+</code></pre>
+
+<p>接着在浏览器中访问这个文件比如:</p>
+
+<pre><code class="language-text">http://[server_domain_name_or_IP]/info.php
+</code></pre>
+
+<p><img src="/images/2018-03-21-2.png" alt="info" /></p>
+
+<h2 id="访问博客">访问博客</h2>
+
+<p>此时, 之前用Apache来访问博客的路径是<code>/var/www/html</code>, 因此我们需要修改Nginx指向这个目录, 修改文件<code>/etc/nginx/nginx.conf</code></p>
+
+<pre><code class="language-bash">$ sudo nano /etc/nginx/nginx.conf
+</code></pre>
+
+<p>找到<code>http</code>大括号内的<code>server</code>大括号内的<code>root</code>, 修改后的片段如下</p>
+
+<pre><code class="language-text">    server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        server_name  _;
+        root         /var/www/html;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+</code></pre>
+
+<p>再次重启Nginx服务</p>
+
+<pre><code class="language-bash">$ sudo systemctl restart nginx
+</code></pre>
+
+<p>访问<a href="https://www.whidy.net">https://www.whidy.net</a>, BINGO, 这样就完成了!</p>
+
+<p>可是!!! 之前访问速度2s左右下降到<strong>6s</strong>!!! 貌似没有启用<code>gzip</code>, 还是修改<code>/etc/nginx/nginx.conf</code>, 在<code>http</code>大括号内添加以下内容</p>
+
+<pre><code class="language-text">    # gzip compression
+    gzip             on;
+    gzip_comp_level  2;
+    gzip_min_length  1024;
+    gzip_proxied     expired no-cache no-store private auth;
+    gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/json application/xml application/javascript;
+</code></pre>
+
+<p>再次重启Nginx服务</p>
+
+<pre><code class="language-bash">$ sudo systemctl restart nginx
+</code></pre>
+
+<p>强制刷新, 观察网络请求, 效果明显一点了, 但是老实说, 目前配置情况下, 我的网站访问速度相比Apache反而<strong>下降</strong>了1s&hellip; 并且主机内存占用并没有减少多少, 真是哭笑不得. 其他优化项目, 有空再研究下.</p>
+
+<p>那么, 博客转移至Nginx暂时告一段落.</p>
+
+<h2 id="其他">其他</h2>
+
+<p>以上内容大部分参阅: <a href="https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-php-7-on-centos-7">How To Upgrade to PHP 7 on CentOS 7</a></p>
+
+<p>最后附上<strong>CentOS7安装Nginx, MySQL, PHP</strong>(简称配置LEMP)的一篇文章, 文章写得非常详细, 我就不再汉化了哈哈哈~ 参阅: <a href="https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-centos-7">How To Install Linux, Nginx, MySQL, PHP (LEMP) stack On CentOS 7</a></p>
+
+<p>文中提到的查找本地IP和外部IP的方法值得学习笔记, 如下</p>
+
+<pre><code class="language-bash">$ ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+$ curl http://icanhazip.com
+</code></pre>
+
+<p>还有关于<strong>Nginx优化</strong>的相关文章, 以后有空研究下</p>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-optimize-nginx-configuration">How To Optimize Nginx Configuration</a></li>
+<li><a href="https://www.nginx.com/blog/tuning-nginx/">Tuning NGINX for Performance</a></li>
+<li><a href="https://github.com/denji/nginx-tuning">NGINX Tuning For Best Performance</a></li>
+</ul>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-gray bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://whidy.github.io" >
+    &copy; 2019 Whidy Daily
+  </a>
+    <div>
+
+
+
+<a href="https://twitter.com/kingterrors" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://www.instagram.com/vdi.bai/" target="_blank" class="link-transition instagram link dib z-999 pt3 pt0-l mr1" title="Instagram link" rel="noopener" aria-label="follow on Instagram——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M42.271,26.578v-0.006c0.502,0,1.005,0.01,1.508-0.002  c0.646-0.017,1.172-0.57,1.172-1.217c0-0.963,0-1.927,0-2.89c0-0.691-0.547-1.24-1.236-1.241c-0.961,0-1.922-0.001-2.883,0  c-0.688,0.001-1.236,0.552-1.236,1.243c-0.001,0.955-0.004,1.91,0.003,2.865c0.001,0.143,0.028,0.291,0.073,0.426  c0.173,0.508,0.639,0.82,1.209,0.823C41.344,26.579,41.808,26.578,42.271,26.578z M33,27.817c-3.384-0.002-6.135,2.721-6.182,6.089  c-0.049,3.46,2.72,6.201,6.04,6.272c3.454,0.074,6.248-2.686,6.321-6.043C39.254,30.675,36.462,27.815,33,27.817z M21.046,31.116  v0.082c0,4.515-0.001,9.03,0,13.545c0,0.649,0.562,1.208,1.212,1.208c7.16,0.001,14.319,0.001,21.479,0  c0.656,0,1.215-0.557,1.215-1.212c0.001-4.509,0-9.02,0-13.528v-0.094h-2.912c0.411,1.313,0.537,2.651,0.376,4.014  c-0.161,1.363-0.601,2.631-1.316,3.803s-1.644,2.145-2.779,2.918c-2.944,2.006-6.821,2.182-9.946,0.428  c-1.579-0.885-2.819-2.12-3.685-3.713c-1.289-2.373-1.495-4.865-0.739-7.451C22.983,31.116,22.021,31.116,21.046,31.116z   M45.205,49.255c0.159-0.026,0.318-0.049,0.475-0.083c1.246-0.265,2.264-1.304,2.508-2.557c0.025-0.137,0.045-0.273,0.067-0.409  V21.794c-0.021-0.133-0.04-0.268-0.065-0.401c-0.268-1.367-1.396-2.428-2.78-2.618c-0.058-0.007-0.113-0.02-0.17-0.03H20.761  c-0.147,0.027-0.296,0.047-0.441,0.08c-1.352,0.308-2.352,1.396-2.545,2.766c-0.008,0.057-0.02,0.114-0.029,0.171V46.24  c0.028,0.154,0.05,0.311,0.085,0.465c0.299,1.322,1.427,2.347,2.77,2.52c0.064,0.008,0.13,0.021,0.195,0.03H45.205z M33,64  C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+<a href="https://github.com/whidy" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
