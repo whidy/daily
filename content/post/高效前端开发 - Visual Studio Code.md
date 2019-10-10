@@ -85,8 +85,8 @@ author = "whidy"
 
 下面几个插件，我已经很久没用了，一般来说是曾经出现过严重异常但作者没修复，或已经有更好的插件替代了。
 
-[Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)：以前会产生CPU占用过高的异常，现在可能不可用了，我大概去年就没用过了。**而现在很多关于VSCode的文章依然推荐这个插件，作者不负责任！**兴趣阅读：[Visual Studio Code使用中CPU占用率异常暴增过高原因](https://segmentfault.com/a/1190000018041547)
-[Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)：其实也挺好，不过作者两年没维护了，为保证稳定性，使用[Path Autocomplete](https://marketplace.visualstudio.com/items?itemName=ionutvmi.path-autocomplete)取代了。
+* [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)：以前会产生CPU占用过高的异常，现在可能不可用了，我大概去年就没用过了。**而现在很多关于VSCode的文章依然推荐这个插件，作者不负责任！**兴趣阅读：[Visual Studio Code使用中CPU占用率异常暴增过高原因](https://segmentfault.com/a/1190000018041547)
+* [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)：其实也挺好，不过作者两年没维护了，为保证稳定性，使用[Path Autocomplete](https://marketplace.visualstudio.com/items?itemName=ionutvmi.path-autocomplete)取代了。
 
 ## 关于插件的补充说明
 
